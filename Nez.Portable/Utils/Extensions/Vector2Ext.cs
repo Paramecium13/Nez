@@ -296,5 +296,10 @@ namespace Nez
 		{
 			Transform(sourceArray, 0, ref matrix, destinationArray, 0, sourceArray.Length);
 		}
+
+
+		public static System.Numerics.Vector2 ToSimd(Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
+
+		public static Vector2 ToXna(System.Numerics.Vector2 self) => Unsafe.As<System.Numerics.Vector2, Vector2>(ref self);
 	}
 }
