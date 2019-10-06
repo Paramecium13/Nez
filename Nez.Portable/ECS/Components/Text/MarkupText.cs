@@ -131,7 +131,7 @@ namespace Nez
 				return;
 
 			for (var i = 0; i < _compiledMarkup.Count; i++)
-				_compiledMarkup[i].Render(batcher, Transform.Position + _localOffset);
+				_compiledMarkup[i].Render(batcher, Transform.Position.ToXna() + _localOffset);
 		}
 
 

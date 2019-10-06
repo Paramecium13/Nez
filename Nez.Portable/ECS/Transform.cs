@@ -54,7 +54,7 @@ namespace Nez
 		/// position of the transform in world space
 		/// </summary>
 		/// <value>The position.</value>
-		public Vector2 Position
+		public System.Numerics.Vector2 Position
 		{
 			get
 			{
@@ -68,7 +68,7 @@ namespace Nez
 					else
 					{
 						Parent.UpdateTransform();
-						Vector2Ext.Transform(ref _localPosition, ref Parent._worldTransform, out _position);
+						_position = System.Numerics.Vector2.Transform(_localPosition, Parent._worldTransform);
 					}
 
 					_positionDirty = false;
@@ -84,7 +84,7 @@ namespace Nez
 		/// position of the transform relative to the parent transform. If the transform has no parent, it is the same as Transform.position
 		/// </summary>
 		/// <value>The local position.</value>
-		public Vector2 LocalPosition
+		public System.Numerics.Vector2 LocalPosition
 		{
 			get
 			{
@@ -151,7 +151,7 @@ namespace Nez
 		/// global scale of the transform
 		/// </summary>
 		/// <value>The scale.</value>
-		public Vector2 Scale
+		public System.Numerics.Vector2 Scale
 		{
 			get
 			{
@@ -166,7 +166,7 @@ namespace Nez
 		/// the scale of the transform relative to the parent. If the transform has no parent, it is the same as Transform.scale
 		/// </summary>
 		/// <value>The local scale.</value>
-		public Vector2 LocalScale
+		public System.Numerics.Vector2 LocalScale
 		{
 			get
 			{
@@ -177,14 +177,14 @@ namespace Nez
 		}
 
 
-		public Matrix2D WorldInverseTransform
+		public System.Numerics.Matrix3x2 WorldInverseTransform
 		{
 			get
 			{
 				UpdateTransform();
 				if (_worldInverseDirty)
 				{
-					Matrix2D.Invert(ref _worldTransform, out _worldInverseTransform);
+					System.Numerics.Matrix3x2.Invert(_worldTransform, out _worldInverseTransform);
 					_worldInverseDirty = false;
 				}
 
@@ -193,7 +193,7 @@ namespace Nez
 		}
 
 
-		public Matrix2D LocalToWorldTransform
+		public System.Numerics.Matrix3x2 LocalToWorldTransform
 		{
 			get
 			{
@@ -203,7 +203,7 @@ namespace Nez
 		}
 
 
-		public Matrix2D WorldToLocalTransform
+		public System.Numerics.Matrix3x2 WorldToLocalTransform
 		{
 			get
 			{
@@ -211,12 +211,12 @@ namespace Nez
 				{
 					if (Parent == null)
 					{
-						_worldToLocalTransform = Matrix2D.Identity;
+						_worldToLocalTransform = System.Numerics.Matrix3x2.Identity;
 					}
 					else
 					{
 						Parent.UpdateTransform();
-						Matrix2D.Invert(ref Parent._worldTransform, out _worldToLocalTransform);
+						System.Numerics.Matrix3x2.Invert( Parent._worldTransform, out _worldToLocalTransform);
 					}
 
 					_worldToLocalDirty = false;
@@ -239,23 +239,23 @@ namespace Nez
 		bool _worldInverseDirty;
 
 		// value is automatically recomputed from the position, rotation and scale
-		Matrix2D _localTransform;
+		System.Numerics.Matrix3x2 _localTransform;
 
 		// value is automatically recomputed from the local and the parent matrices.
-		Matrix2D _worldTransform = Matrix2D.Identity;
-		Matrix2D _worldToLocalTransform = Matrix2D.Identity;
-		Matrix2D _worldInverseTransform = Matrix2D.Identity;
+		System.Numerics.Matrix3x2 _worldTransform = System.Numerics.Matrix3x2.Identity;
+		System.Numerics.Matrix3x2 _worldToLocalTransform = System.Numerics.Matrix3x2.Identity;
+		System.Numerics.Matrix3x2 _worldInverseTransform = System.Numerics.Matrix3x2.Identity;
 
-		Matrix2D _rotationMatrix;
-		Matrix2D _translationMatrix;
-		Matrix2D _scaleMatrix;
+		System.Numerics.Matrix3x2 _rotationMatrix;
+		System.Numerics.Matrix3x2 _translationMatrix;
+		System.Numerics.Matrix3x2 _scaleMatrix;
 
-		Vector2 _position;
-		Vector2 _scale;
+		System.Numerics.Vector2 _position;
+		System.Numerics.Vector2 _scale;
 		float _rotation;
 
-		Vector2 _localPosition;
-		Vector2 _localScale;
+		System.Numerics.Vector2 _localPosition;
+		System.Numerics.Vector2 _localScale;
 		float _localRotation;
 
 		List<Transform> _children = new List<Transform>();
@@ -266,7 +266,7 @@ namespace Nez
 		public Transform(Entity entity)
 		{
 			Entity = entity;
-			_scale = _localScale = Vector2.One;
+			_scale = _localScale = System.Numerics.Vector2.One;
 		}
 
 
@@ -312,14 +312,14 @@ namespace Nez
 		/// <returns>The position.</returns>
 		/// <param name="position">Position.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Transform SetPosition(Vector2 position)
+		public Transform SetPosition(System.Numerics.Vector2 position)
 		{
 			if (position == _position)
 				return this;
 
 			_position = position;
 			if (Parent != null)
-				LocalPosition = Vector2.Transform(_position, WorldToLocalTransform);
+				LocalPosition = System.Numerics.Vector2.Transform(_position, WorldToLocalTransform);
 			else
 				LocalPosition = position;
 
@@ -332,7 +332,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Transform SetPosition(float x, float y)
 		{
-			return SetPosition(new Vector2(x, y));
+			return SetPosition(new System.Numerics.Vector2(x, y));
 		}
 
 
@@ -343,7 +343,7 @@ namespace Nez
 		/// <returns>The local position.</returns>
 		/// <param name="localPosition">Local position.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Transform SetLocalPosition(Vector2 localPosition)
+		public Transform SetLocalPosition(System.Numerics.Vector2 localPosition)
 		{
 			if (localPosition == _localPosition)
 				return this;
@@ -422,7 +422,7 @@ namespace Nez
 		/// <returns>The scale.</returns>
 		/// <param name="scale">Scale.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Transform SetScale(Vector2 scale)
+		public Transform SetScale(System.Numerics.Vector2 scale)
 		{
 			_scale = scale;
 			if (Parent != null)
@@ -442,7 +442,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Transform SetScale(float scale)
 		{
-			return SetScale(new Vector2(scale));
+			return SetScale(new System.Numerics.Vector2(scale));
 		}
 
 
@@ -452,7 +452,7 @@ namespace Nez
 		/// <returns>The local scale.</returns>
 		/// <param name="scale">Scale.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Transform SetLocalScale(Vector2 scale)
+		public Transform SetLocalScale(System.Numerics.Vector2 scale)
 		{
 			_localScale = scale;
 			_localDirty = _positionDirty = _localScaleDirty = true;
@@ -470,7 +470,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Transform SetLocalScale(float scale)
 		{
-			return SetLocalScale(new Vector2(scale));
+			return SetLocalScale(new System.Numerics.Vector2(scale));
 		}
 
 		#endregion
@@ -497,24 +497,24 @@ namespace Nez
 				{
 					if (_localPositionDirty)
 					{
-						Matrix2D.CreateTranslation(_localPosition.X, _localPosition.Y, out _translationMatrix);
+						_translationMatrix = System.Numerics.Matrix3x2.CreateTranslation(_localPosition);
 						_localPositionDirty = false;
 					}
 
 					if (_localRotationDirty)
 					{
-						Matrix2D.CreateRotation(_localRotation, out _rotationMatrix);
+						_rotationMatrix = System.Numerics.Matrix3x2.CreateRotation(_localRotation);
 						_localRotationDirty = false;
 					}
 
 					if (_localScaleDirty)
 					{
-						Matrix2D.CreateScale(_localScale.X, _localScale.Y, out _scaleMatrix);
+						_scaleMatrix = System.Numerics.Matrix3x2.CreateScale(_localScale);
 						_localScaleDirty = false;
 					}
 
-					Matrix2D.Multiply(ref _scaleMatrix, ref _rotationMatrix, out _localTransform);
-					Matrix2D.Multiply(ref _localTransform, ref _translationMatrix, out _localTransform);
+					_localTransform = _scaleMatrix * _rotationMatrix;
+					_localTransform = _localTransform * _translationMatrix;
 
 					if (Parent == null)
 					{
@@ -529,7 +529,7 @@ namespace Nez
 
 				if (Parent != null)
 				{
-					Matrix2D.Multiply(ref _localTransform, ref Parent._worldTransform, out _worldTransform);
+					_worldTransform = _localTransform * Parent._worldTransform;
 
 					_rotation = _localRotation + Parent._rotation;
 					_scale = Parent._scale * _localScale;

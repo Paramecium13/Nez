@@ -55,7 +55,7 @@ namespace Nez
 		/// <summary>
 		/// velocity of this rigidbody
 		/// </summary>
-		public Vector2 Velocity;
+		public System.Numerics.Vector2 Velocity;
 
 		/// <summary>
 		/// rigidbodies with a mass of 0 are considered immovable. Changing velocity and collisions will have no effect on them.
@@ -136,6 +136,17 @@ namespace Nez
 		/// <param name="velocity">Velocity.</param>
 		public ArcadeRigidbody SetVelocity(Vector2 velocity)
 		{
+			Velocity = velocity.ToSimd();
+			return this;
+		}
+
+		/// <summary>
+		/// velocity of this rigidbody
+		/// </summary>
+		/// <returns>The velocity.</returns>
+		/// <param name="velocity">Velocity.</param>
+		public ArcadeRigidbody SetVelocity(System.Numerics.Vector2 velocity)
+		{
 			Velocity = velocity;
 			return this;
 		}
@@ -148,7 +159,7 @@ namespace Nez
 		/// force is multiplied by 100000 to make the values more reasonable to use.
 		/// </summary>
 		/// <param name="force">Force.</param>
-		public void AddImpulse(Vector2 force)
+		public void AddImpulse(System.Numerics.Vector2 force)
 		{
 			if (!IsImmovable)
 				Velocity += force * 100000 * (_inverseMass * Time.DeltaTime * Time.DeltaTime);
@@ -164,12 +175,12 @@ namespace Nez
 		{
 			if (IsImmovable || _collider == null)
 			{
-				Velocity = Vector2.Zero;
+				Velocity = System.Numerics.Vector2.Zero;
 				return;
 			}
 
 			if (ShouldUseGravity)
-				Velocity += Physics.Gravity * Time.DeltaTime;
+				Velocity += Physics.Gravity.ToSimd() * Time.DeltaTime;
 
 			Entity.Transform.Position += Velocity * Time.DeltaTime;
 
@@ -190,17 +201,18 @@ namespace Nez
 					// if the neighbor has an ArcadeRigidbody we handle full collision response. If not, we calculate things based on the
 					// neighbor being immovable.
 					var neighborRigidbody = neighbor.Entity.GetComponent<ArcadeRigidbody>();
+					var x = collisionResult.MinimumTranslationVector.ToSimd();
 					if (neighborRigidbody != null)
 					{
-						ProcessOverlap(neighborRigidbody, ref collisionResult.MinimumTranslationVector);
-						ProcessCollision(neighborRigidbody, ref collisionResult.MinimumTranslationVector);
+						ProcessOverlap(neighborRigidbody, ref x);
+						ProcessCollision(neighborRigidbody, ref x);
 					}
 					else
 					{
 						// neighbor has no ArcadeRigidbody so we assume its immovable and only move ourself
-						Entity.Transform.Position -= collisionResult.MinimumTranslationVector;
+						Entity.Transform.Position -= collisionResult.MinimumTranslationVector.ToSimd();
 						var relativeVelocity = Velocity;
-						CalculateResponseVelocity(ref relativeVelocity, ref collisionResult.MinimumTranslationVector,
+						CalculateResponseVelocity(ref relativeVelocity, ref x,
 							out relativeVelocity);
 						Velocity += relativeVelocity;
 					}
@@ -213,7 +225,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="other">Other.</param>
 		/// <param name="minimumTranslationVector"></param>
-		void ProcessOverlap(ArcadeRigidbody other, ref Vector2 minimumTranslationVector)
+		void ProcessOverlap(ArcadeRigidbody other, ref System.Numerics.Vector2 minimumTranslationVector)
 		{
 			if (IsImmovable)
 			{
@@ -235,7 +247,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="other">Other.</param>
 		/// <param name="inverseMTV">Inverse MT.</param>
-		void ProcessCollision(ArcadeRigidbody other, ref Vector2 minimumTranslationVector)
+		void ProcessCollision(ArcadeRigidbody other, ref System.Numerics.Vector2 minimumTranslationVector)
 		{
 			// we compute a response for the two colliding objects. The calculations are based on the relative velocity of the objects
 			// which gets reflected along the collided surface normal. Then a part of the response gets added to each object based on mass.
@@ -258,25 +270,23 @@ namespace Nez
 		/// </summary>
 		/// <param name="relativeVelocity">Relative velocity.</param>
 		/// <param name="minimumTranslationVector">Minimum translation vector.</param>
-		void CalculateResponseVelocity(ref Vector2 relativeVelocity, ref Vector2 minimumTranslationVector,
-		                               out Vector2 responseVelocity)
+		void CalculateResponseVelocity(ref System.Numerics.Vector2 relativeVelocity, ref System.Numerics.Vector2 minimumTranslationVector,
+		                               out System.Numerics.Vector2 responseVelocity)
 		{
 			// first, we get the normalized MTV in the opposite direction: the surface normal
 			var inverseMTV = minimumTranslationVector * -1f;
-			Vector2 normal;
-			Vector2.Normalize(ref inverseMTV, out normal);
+			System.Numerics.Vector2 normal = System.Numerics.Vector2.Normalize(inverseMTV);
 
 			// the velocity is decomposed along the normal of the collision and the plane of collision.
 			// The elasticity will affect the response along the normal (normalVelocityComponent) and the friction will affect
 			// the tangential component of the velocity (tangentialVelocityComponent)
-			float n;
-			Vector2.Dot(ref relativeVelocity, ref normal, out n);
+			float n = System.Numerics.Vector2.Dot(relativeVelocity, normal);
 
 			var normalVelocityComponent = normal * n;
 			var tangentialVelocityComponent = relativeVelocity - normalVelocityComponent;
 
 			if (n > 0.0f)
-				normalVelocityComponent = Vector2.Zero;
+				normalVelocityComponent = System.Numerics.Vector2.Zero;
 
 			// if the squared magnitude of the tangential component is less than glue then we bump up the friction to the max
 			var coefficientOfFriction = _friction;

@@ -1010,6 +1010,19 @@ namespace Nez
 		public Entity CreateEntity(string name, Vector2 position)
 		{
 			var entity = new Entity(name);
+			entity.Position = position;
+			return AddEntity(entity);
+		}
+
+		/// <summary>
+		/// add the Entity to this Scene at position, and return it
+		/// </summary>
+		/// <returns>The entity.</returns>
+		/// <param name="name">Name.</param>
+		/// <param name="position">Position.</param>
+		public Entity CreateEntity(string name, System.Numerics.Vector2 position)
+		{
+			var entity = new Entity(name);
 			entity.Transform.Position = position;
 			return AddEntity(entity);
 		}

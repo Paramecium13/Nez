@@ -138,7 +138,7 @@ namespace Nez.DeferredLighting
 		/// <param name="light">Light.</param>
 		public void UpdateForLight(PointLight light)
 		{
-			SetLightPosition(new Vector3(light.Entity.Transform.Position + light.LocalOffset, light.ZPosition));
+			SetLightPosition(new Vector3(light.Entity.Position + light.LocalOffset, light.ZPosition));
 			SetColor(light.Color);
 			SetLightRadius(light.Radius * light.Entity.Transform.Scale.X);
 			SetLightIntensity(light.Intensity);

@@ -23,7 +23,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Entity SetPosition(this Entity self, Vector2 position)
+		public static Entity SetPosition(this Entity self, System.Numerics.Vector2 position)
 		{
 			self.Transform.SetPosition(position);
 			return self;
@@ -39,7 +39,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Entity SetLocalPosition(this Entity self, Vector2 localPosition)
+		public static Entity SetLocalPosition(this Entity self, System.Numerics.Vector2 localPosition)
 		{
 			self.Transform.SetLocalPosition(localPosition);
 			return self;
@@ -79,7 +79,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Entity SetScale(this Entity self, Vector2 scale)
+		public static Entity SetScale(this Entity self, System.Numerics.Vector2 scale)
 		{
 			self.Transform.SetScale(scale);
 			return self;
@@ -95,7 +95,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Entity SetLocalScale(this Entity self, Vector2 scale)
+		public static Entity SetLocalScale(this Entity self, System.Numerics.Vector2 scale)
 		{
 			self.Transform.SetLocalScale(scale);
 			return self;

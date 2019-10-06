@@ -19,8 +19,8 @@ namespace Nez
 				if (_areBoundsDirty)
 				{
 					if (_sprite != null)
-						_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _origin,
-							Entity.Transform.Scale, Entity.Transform.Rotation, Width, Height);
+						_bounds.CalculateBounds(Entity.Position, _localOffset, _origin,
+							Entity.Scale, Entity.Transform.Rotation, Width, Height);
 					_areBoundsDirty = false;
 				}
 
@@ -125,7 +125,7 @@ namespace Nez
 			if (_sprite == null)
 				return;
 
-			var topLeft = Entity.Transform.Position + _localOffset;
+			var topLeft = Entity.Position + _localOffset;
 			var destinationRect = RectangleExt.FromFloats(topLeft.X, topLeft.Y,
 				_sourceRect.Width * Entity.Transform.Scale.X * TextureScale.X,
 				_sourceRect.Height * Entity.Transform.Scale.Y * TextureScale.Y);

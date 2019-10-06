@@ -12,7 +12,7 @@ namespace Nez.Shadows
 		/// <summary>
 		/// Position of the segment
 		/// </summary>
-		internal Vector2 position;
+		internal System.Numerics.Vector2 position;
 
 		/// <summary>
 		/// If this end-point is a begin or end end-point
@@ -33,7 +33,7 @@ namespace Nez.Shadows
 
 		internal EndPoint()
 		{
-			position = Vector2.Zero;
+			position = System.Numerics.Vector2.Zero;
 			begin = false;
 			segment = null;
 			angle = 0;

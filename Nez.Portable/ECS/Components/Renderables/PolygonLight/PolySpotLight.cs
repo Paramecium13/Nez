@@ -17,7 +17,7 @@ namespace Nez.Shadows
 				if (_areBoundsDirty)
 				{
 					_bounds = RectangleF.RectEncompassingPoints(_polygon.Points);
-					_bounds.Location += Entity.Transform.Position;
+					_bounds.Location += Entity.Position;
 					_areBoundsDirty = false;
 				}
 
@@ -148,7 +148,7 @@ namespace Nez.Shadows
 		{
 			CollisionResult result;
 			var totalCollisions = 0;
-			_polygon.position = Entity.Transform.Position + _localOffset;
+			_polygon.position = Entity.Position + _localOffset;
 
 			var neighbors = Physics.BoxcastBroadphase(Bounds, CollidesWithLayers);
 			foreach (var neighbor in neighbors)

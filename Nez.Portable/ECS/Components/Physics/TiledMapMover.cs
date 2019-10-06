@@ -147,7 +147,7 @@ namespace Nez.Tiled
 			TestCollisions(ref motion, boxCollider.Bounds, collisionState);
 
 			boxCollider.UnregisterColliderWithPhysicsSystem();
-			boxCollider.Entity.Transform.Position += motion;
+			boxCollider.Entity.Position += motion;
 			boxCollider.RegisterColliderWithPhysicsSystem();
 		}
 

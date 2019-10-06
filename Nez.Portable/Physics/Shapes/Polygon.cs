@@ -261,7 +261,7 @@ namespace Nez.PhysicsShapes
 				Matrix2D tempMat;
 				var combinedMatrix = Matrix2D.CreateTranslation(-_polygonCenter);
 
-				if (collider.Entity.Transform.Scale != Vector2.One)
+				if (collider.Entity.Scale != Vector2.One)
 				{
 					Matrix2D.CreateScale(collider.Entity.Transform.Scale.X, collider.Entity.Transform.Scale.Y,
 						out tempMat);
@@ -270,7 +270,7 @@ namespace Nez.PhysicsShapes
 					hasUnitScale = false;
 
 					// scale our offset and set it as center. If we have rotation also it will be reset below
-					var scaledOffset = collider.LocalOffset * collider.Entity.Transform.Scale;
+					var scaledOffset = collider.LocalOffset * collider.Entity.Scale;
 					center = scaledOffset;
 				}
 
@@ -284,7 +284,7 @@ namespace Nez.PhysicsShapes
 					var offsetAngle = Mathf.Atan2(collider.LocalOffset.Y, collider.LocalOffset.X) * Mathf.Rad2Deg;
 					var offsetLength = hasUnitScale
 						? collider._localOffsetLength
-						: (collider.LocalOffset * collider.Entity.Transform.Scale).Length();
+						: (collider.LocalOffset * collider.Entity.Scale).Length();
 					center = Mathf.PointOnCircle(Vector2.Zero, offsetLength,
 						collider.Entity.Transform.RotationDegrees + offsetAngle);
 				}
@@ -302,7 +302,7 @@ namespace Nez.PhysicsShapes
 					_areEdgeNormalsDirty = true;
 			}
 
-			position = collider.Entity.Transform.Position + center;
+			position = collider.Entity.Position + center;
 			bounds = RectangleF.RectEncompassingPoints(Points);
 			bounds.Location += position;
 		}

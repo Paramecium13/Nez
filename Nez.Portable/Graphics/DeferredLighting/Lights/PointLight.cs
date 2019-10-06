@@ -17,7 +17,7 @@ namespace Nez.DeferredLighting
 				{
 					// the size of the light only uses the x scale value
 					var size = Radius * Entity.Transform.Scale.X * 2;
-					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _radius * Entity.Transform.Scale,
+					_bounds.CalculateBounds(Entity.Position, _localOffset, _radius * Entity.Scale,
 						Vector2.One, 0, size, size);
 					_areBoundsDirty = false;
 				}
@@ -95,7 +95,7 @@ namespace Nez.DeferredLighting
 		/// <param name="batcher">Batcher.</param>
 		public override void DebugRender(Batcher batcher)
 		{
-			batcher.DrawCircle(Entity.Transform.Position + _localOffset, Radius * Entity.Transform.Scale.X,
+			batcher.DrawCircle(Entity.Position + _localOffset, Radius * Entity.Transform.Scale.X,
 				Color.DarkOrchid, 2);
 		}
 	}

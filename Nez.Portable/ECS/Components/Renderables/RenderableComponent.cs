@@ -35,8 +35,8 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, Vector2.Zero,
-						Entity.Transform.Scale, Entity.Transform.Rotation, Width, Height);
+					_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, Vector2.Zero,
+						Entity.Transform.Scale.ToXna(), Entity.Transform.Rotation, Width, Height);
 					_areBoundsDirty = false;
 				}
 
@@ -146,7 +146,7 @@ namespace Nez
 				batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds);
 
 			// draw a square for our pivot/origin
-			batcher.DrawPixel(Entity.Transform.Position + _localOffset, Debug.Colors.RenderableCenter, 4);
+			batcher.DrawPixel(Entity.Position + _localOffset, Debug.Colors.RenderableCenter, 4);
 		}
 
 		/// <summary>

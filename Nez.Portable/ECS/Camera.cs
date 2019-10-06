@@ -44,8 +44,8 @@ namespace Nez
 		/// <value>The position.</value>
 		public Vector2 Position
 		{
-			get => Entity.Transform.Position;
-			set => Entity.Transform.Position = value;
+			get => Entity.Position;
+			set => Entity.Position = value;
 		}
 
 		/// <summary>
@@ -306,7 +306,7 @@ namespace Nez
 			Origin = new Vector2(newWidth / 2f, newHeight / 2f);
 
 			// offset our position to match the new center
-			Entity.Transform.Position += (_origin - oldOrigin);
+			Entity.Position += (_origin - oldOrigin);
 		}
 
 
@@ -364,7 +364,7 @@ namespace Nez
 		/// shortcut to entity.transform.setPosition
 		/// </summary>
 		/// <param name="position">Position.</param>
-		public Camera SetPosition(Vector2 position)
+		public Camera SetPosition(System.Numerics.Vector2 position)
 		{
 			Entity.Transform.SetPosition(position);
 			return this;

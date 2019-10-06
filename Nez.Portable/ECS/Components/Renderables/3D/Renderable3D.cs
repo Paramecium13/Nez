@@ -36,7 +36,7 @@ namespace Nez
 		/// <value>The position.</value>
 		public Vector3 Position
 		{
-			get => new Vector3(Transform.Position, _positionZ);
+			get => new Vector3(Transform.Position.ToXna(), _positionZ);
 			set
 			{
 				_positionZ = value.Z;

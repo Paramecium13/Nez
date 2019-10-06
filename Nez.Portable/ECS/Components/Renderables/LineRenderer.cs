@@ -814,7 +814,7 @@ namespace Nez
 			if (UseWorldSpace)
 				return;
 
-			_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, Vector2.Zero, Entity.Transform.Scale,
+			_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, Vector2.Zero, Entity.Transform.Scale.ToXna(),
 				Entity.Transform.Rotation, Width, Height);
 		}
 
@@ -836,7 +836,7 @@ namespace Nez
 			_basicEffect.CurrentTechnique.Passes[0].Apply();
 
 			if (!UseWorldSpace)
-				_basicEffect.World = Transform.LocalToWorldTransform;
+				_basicEffect.World = Transform.LocalToWorldTransform.ToXna4x4();
 
 			var primitiveCount = _indices.Length / 3;
 			Core.GraphicsDevice.SamplerStates[0] = Core.DefaultWrappedSamplerState;

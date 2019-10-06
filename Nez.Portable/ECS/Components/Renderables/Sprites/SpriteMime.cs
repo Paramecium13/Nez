@@ -32,8 +32,8 @@
 
 		public override void Render(Batcher batcher, Camera camera)
 		{
-			batcher.Draw(_spriteToMime.Sprite, Entity.Transform.Position + _localOffset, Color,
-				Entity.Transform.Rotation, _spriteToMime.Origin, Entity.Transform.Scale, _spriteToMime.SpriteEffects,
+			batcher.Draw(_spriteToMime.Sprite, Entity.Position + _localOffset, Color,
+				Entity.Transform.Rotation, _spriteToMime.Origin, Entity.Scale, _spriteToMime.SpriteEffects,
 				_layerDepth);
 		}
 	}

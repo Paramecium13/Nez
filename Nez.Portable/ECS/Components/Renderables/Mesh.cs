@@ -23,8 +23,8 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position + _topLeftVertPosition, Vector2.Zero,
-						Vector2.Zero, Entity.Transform.Scale, Entity.Transform.Rotation, _width, _height);
+					_bounds.CalculateBounds(Entity.Position + _topLeftVertPosition, Vector2.Zero,
+						Vector2.Zero, Entity.Scale, Entity.Transform.Rotation, _width, _height);
 					_areBoundsDirty = false;
 				}
 
@@ -237,7 +237,7 @@ namespace Nez
 
 			_basicEffect.Projection = camera.ProjectionMatrix;
 			_basicEffect.View = camera.TransformMatrix;
-			_basicEffect.World = Entity.Transform.LocalToWorldTransform;
+			_basicEffect.World = Entity.Transform.LocalToWorldTransform.ToXna4x4();
 			_basicEffect.CurrentTechnique.Passes[0].Apply();
 
 			if (_primitiveType == PrimitiveType.TriangleList)

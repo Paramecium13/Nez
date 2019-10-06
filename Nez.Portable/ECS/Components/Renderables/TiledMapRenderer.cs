@@ -79,7 +79,7 @@ namespace Nez
 			Insist.IsNotNull(CollisionLayer, "collisionLayer must not be null!");
 
 			// offset the passed in world position to compensate for the entity position
-			worldPos -= Entity.Transform.Position + _localOffset;
+			worldPos -= Entity.Position + _localOffset;
 
 			return CollisionLayer.GetTileAtWorldPosition(worldPos);
 		}
@@ -95,7 +95,7 @@ namespace Nez
 			Insist.IsNotNull(CollisionLayer, "collisionLayer must not be null!");
 
 			// offset the passed in world position to compensate for the entity position
-			bounds.Location -= (Entity.Transform.Position + _localOffset).ToPoint();
+			bounds.Location -= (Entity.Position + _localOffset).ToPoint();
 			return CollisionLayer.GetTilesIntersectingBounds(bounds);
 		}
 
@@ -124,14 +124,14 @@ namespace Nez
 		{
 			if (LayerIndicesToRender == null)
 			{
-				TiledRendering.RenderMap(TiledMap, batcher, Entity.Transform.Position + _localOffset, Transform.Scale, LayerDepth);
+				TiledRendering.RenderMap(TiledMap, batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth);
 			}
 			else
 			{
 				for (var i = 0; i < TiledMap.Layers.Count; i++)
 				{
 					if (TiledMap.Layers[i].Visible && LayerIndicesToRender.Contains(i))
-						TiledRendering.RenderLayer(TiledMap.Layers[i], batcher, Entity.Transform.Position + _localOffset, Transform.Scale, LayerDepth, camera.Bounds);
+						TiledRendering.RenderLayer(TiledMap.Layers[i], batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth, camera.Bounds);
 				}
 			}
 		}
@@ -139,7 +139,7 @@ namespace Nez
 		public override void DebugRender(Batcher batcher)
 		{
 			foreach (var group in TiledMap.ObjectGroups)
-				TiledRendering.RenderObjectGroup(group, batcher, Entity.Transform.Position + _localOffset, Transform.Scale, LayerDepth);
+				TiledRendering.RenderObjectGroup(group, batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth);
 
 			if (_colliders != null)
 			{

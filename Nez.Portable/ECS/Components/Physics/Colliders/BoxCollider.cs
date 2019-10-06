@@ -138,7 +138,7 @@ namespace Nez
 				Debug.Size.LineSizeMultiplier);
 			batcher.DrawPixel(Entity.Transform.Position, Debug.Colors.ColliderPosition,
 				4 * Debug.Size.LineSizeMultiplier);
-			batcher.DrawPixel(Entity.Transform.Position + Shape.center, Debug.Colors.ColliderCenter,
+			batcher.DrawPixel(Entity.Transform.Position + Shape.center.ToSimd(), Debug.Colors.ColliderCenter,
 				2 * Debug.Size.LineSizeMultiplier);
 		}
 

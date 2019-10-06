@@ -22,7 +22,7 @@ namespace Nez.Shadows
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, new Vector2(_radius, _radius),
+					_bounds.CalculateBounds(Entity.Position, _localOffset, new Vector2(_radius, _radius),
 						Vector2.One, 0, _radius * 2f, _radius * 2f);
 					_areBoundsDirty = false;
 				}
@@ -139,7 +139,7 @@ namespace Nez.Shadows
 			RenderImpl(batcher, Entity.Scene.Camera, true);
 
 			// draw a square for our pivot/origin and draw our bounds
-			batcher.DrawPixel(Entity.Transform.Position + _localOffset, Debug.Colors.RenderableCenter, 4);
+			batcher.DrawPixel(Entity.Transform.Position + _localOffset.ToSimd(), Debug.Colors.RenderableCenter, 4);
 			batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds);
 		}
 
@@ -150,7 +150,7 @@ namespace Nez.Shadows
 				var totalOverlaps = GetOverlappedColliders();
 
 				// compute the visibility mesh
-				_visibility.Begin(Entity.Transform.Position + _localOffset, _radius);
+				_visibility.Begin(Entity.Transform.Position + _localOffset.ToSimd(), _radius);
 				LoadVisibilityBoundaries();
 				for (var i = 0; i < totalOverlaps; i++)
 				{
@@ -163,7 +163,7 @@ namespace Nez.Shadows
 				// generate a triangle list from the encounter points
 				var encounters = _visibility.End();
 				GenerateVertsFromEncounters(encounters);
-				ListPool<Vector2>.Free(encounters);
+				ListPool<System.Numerics.Vector2>.Free(encounters);
 
 				var primitiveCount = _vertices.Length / 2;
 				if (primitiveCount == 0)
@@ -182,7 +182,7 @@ namespace Nez.Shadows
 
 				// Apply the effect
 				_lightEffect.Parameters["viewProjectionMatrix"].SetValue(camera.ViewProjectionMatrix);
-				_lightEffect.Parameters["lightSource"].SetValue(Entity.Transform.Position);
+				_lightEffect.Parameters["lightSource"].SetValue(Entity.Transform.Position.ToXna());
 				_lightEffect.Parameters["lightColor"].SetValue(Color.ToVector3() * Power);
 				_lightEffect.Techniques[0].Passes[0].Apply();
 
@@ -200,12 +200,12 @@ namespace Nez.Shadows
 		/// <param name="position">Position.</param>
 		/// <param name="texCoord">Tex coordinate.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void AddVert(Vector2 position)
+		void AddVert(System.Numerics.Vector2 position)
 		{
 			var index = _vertices.Length;
 			_vertices.EnsureCapacity();
-			_vertices.Buffer[index].Position = position.ToVector3();
-			_vertices.Buffer[index].TextureCoordinate = position;
+			_vertices.Buffer[index].Position = position.ToVector3(0);
+			_vertices.Buffer[index].TextureCoordinate = position.ToXna();
 			_vertices.Length++;
 		}
 
@@ -222,7 +222,7 @@ namespace Nez.Shadows
 			}
 		}
 
-		void GenerateVertsFromEncounters(List<Vector2> encounters)
+		void GenerateVertsFromEncounters(List<System.Numerics.Vector2> encounters)
 		{
 			_vertices.Reset();
 

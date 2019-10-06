@@ -251,13 +251,25 @@ namespace Nez
 		public static void DrawPixel(this Batcher batcher, Vector2 position, Color color, int size = 1)
 		{
 			var destRect = new Rectangle((int)position.X, (int)position.Y, size, size);
-            if (size != 1)
+			if (size != 1)
 			{
-                destRect.X -= (int)(size * 0.5f);
-                destRect.Y -= (int)(size * 0.5f);
+				destRect.X -= (int)(size * 0.5f);
+				destRect.Y -= (int)(size * 0.5f);
 			}
 
-            batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
+			batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
+		}
+
+		public static void DrawPixel(this Batcher batcher, System.Numerics.Vector2 position, Color color, int size = 1)
+		{
+			var destRect = new Rectangle((int)position.X, (int)position.Y, size, size);
+			if (size != 1)
+			{
+				destRect.X -= (int)(size * 0.5f);
+				destRect.Y -= (int)(size * 0.5f);
+			}
+
+			batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
 		}
 
 		#endregion

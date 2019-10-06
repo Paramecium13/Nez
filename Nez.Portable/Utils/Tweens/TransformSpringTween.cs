@@ -10,8 +10,8 @@ namespace Nez.Tweens
 
 		Transform _transform;
 		TransformTargetType _targetType;
-		Vector2 _targetValue;
-		Vector2 _velocity;
+		System.Numerics.Vector2 _targetValue;
+		System.Numerics.Vector2 _velocity;
 
 		// configuration of dampingRatio and angularFrequency are public for easier value tweaking at design time
 
@@ -46,8 +46,8 @@ namespace Nez.Tweens
 		/// <param name="targetValue">Target value.</param>
 		public void SetTargetValue(Vector2 targetValue)
 		{
-			_velocity = Vector2.Zero;
-			_targetValue = targetValue;
+			_velocity = System.Numerics.Vector2.Zero;
+			_targetValue = targetValue.ToSimd();
 
 			if (!_isCurrentlyManagedByTweenManager)
 				Start();
@@ -78,7 +78,7 @@ namespace Nez.Tweens
 		#endregion
 
 
-		void SetTweenedValue(Vector2 value)
+		void SetTweenedValue(System.Numerics.Vector2 value)
 		{
 			switch (_targetType)
 			{
@@ -103,7 +103,7 @@ namespace Nez.Tweens
 		}
 
 
-		Vector2 GetCurrentValueOfTweenedTargetType()
+		System.Numerics.Vector2 GetCurrentValueOfTweenedTargetType()
 		{
 			switch (_targetType)
 			{
@@ -114,12 +114,12 @@ namespace Nez.Tweens
 				case TransformTargetType.LocalScale:
 					return _transform.LocalScale;
 				case TransformTargetType.RotationDegrees:
-					return new Vector2(_transform.RotationDegrees, 0);
+					return new System.Numerics.Vector2(_transform.RotationDegrees, 0);
 				case TransformTargetType.LocalRotationDegrees:
-					return new Vector2(_transform.LocalRotationDegrees, 0);
+					return new System.Numerics.Vector2(_transform.LocalRotationDegrees, 0);
 			}
 
-			return Vector2.Zero;
+			return System.Numerics.Vector2.Zero;
 		}
 	}
 }

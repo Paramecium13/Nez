@@ -12,7 +12,7 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _origin, Entity.Transform.Scale,
+					_bounds.CalculateBounds(Entity.Position, _localOffset, _origin, Entity.Scale,
 						Entity.Transform.Rotation, _size.X, _size.Y);
 					_areBoundsDirty = false;
 				}
@@ -143,8 +143,8 @@ namespace Nez
 
 		public override void Render(Batcher batcher, Camera camera)
 		{
-			batcher.DrawString(_font, _text, Entity.Transform.Position + _localOffset, Color,
-				Entity.Transform.Rotation, Origin, Entity.Transform.Scale, SpriteEffects, LayerDepth);
+			batcher.DrawString(_font, _text, Entity.Position + _localOffset, Color,
+				Entity.Transform.Rotation, Origin, Entity.Scale, SpriteEffects, LayerDepth);
 		}
 	}
 }

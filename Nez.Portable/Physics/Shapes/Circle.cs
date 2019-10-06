@@ -52,13 +52,13 @@ namespace Nez.PhysicsShapes
 					var offsetAngle = Mathf.Atan2(collider.LocalOffset.Y, collider.LocalOffset.X) * Mathf.Rad2Deg;
 					var offsetLength = hasUnitScale
 						? collider._localOffsetLength
-						: (collider.LocalOffset * collider.Entity.Transform.Scale).Length();
+						: (collider.LocalOffset * collider.Entity.Scale).Length();
 					center = Mathf.PointOnCircle(Vector2.Zero, offsetLength,
 						collider.Entity.Transform.RotationDegrees + offsetAngle);
 				}
 			}
 
-			position = collider.Entity.Transform.Position + center;
+			position = collider.Entity.Position + center;
 			bounds = new RectangleF(position.X - Radius, position.Y - Radius, Radius * 2f, Radius * 2f);
 		}
 

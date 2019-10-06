@@ -26,7 +26,7 @@ namespace Nez
 		/// </summary>
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
-		public bool Move(Vector2 motion)
+		public bool Move(System.Numerics.Vector2 motion)
 		{
 			if (_collider == null)
 				return false;
@@ -49,6 +49,8 @@ namespace Nez
 
 			return didCollide;
 		}
+
+		public bool Move(Vector2 motion) => Move(motion.ToSimd());
 
 		void NotifyTriggerListeners(Collider self, Collider other)
 		{

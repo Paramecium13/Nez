@@ -234,7 +234,7 @@ namespace Nez
 		public void ApplyDirectedForce(Vector3 force, Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Transform.Position + LocalOffset, 0);
+			position -= new Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
 				if (Vector3.DistanceSquared(position, mass.Position) < radius * radius)
@@ -262,7 +262,7 @@ namespace Nez
 		public void ApplyImplosiveForce(float force, Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Transform.Position + LocalOffset, 0);
+			position -= new Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
 				var dist2 = Vector3.DistanceSquared(position, mass.Position);
@@ -294,7 +294,7 @@ namespace Nez
 		public void ApplyExplosiveForce(float force, Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Transform.Position + LocalOffset, 0);
+			position -= new Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
 				var dist2 = Vector3.DistanceSquared(position, mass.Position);
@@ -425,7 +425,7 @@ namespace Nez
 		{
 			var delta = end - start;
 			var angle = (float) Math.Atan2(delta.Y, delta.X);
-			batcher.Draw(Graphics.Instance.PixelTexture, start + Entity.Transform.Position + LocalOffset,
+			batcher.Draw(Graphics.Instance.PixelTexture, start + Entity.Position + LocalOffset,
 				Graphics.Instance.PixelTexture.SourceRect, color, angle, new Vector2(0, 0.5f),
 				new Vector2(delta.Length(), thickness), SpriteEffects.None, LayerDepth);
 		}

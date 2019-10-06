@@ -15,7 +15,7 @@ namespace Nez.Svg
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.Location = Entity.Transform.Position;
+					_bounds.Location = Entity.Position;
 					_areBoundsDirty = false;
 				}
 

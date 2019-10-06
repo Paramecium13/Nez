@@ -131,17 +131,17 @@ namespace Nez
 		public Vector2 Position
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.Position;
+			get => Transform.Position.ToXna();
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetPosition(value);
+			set => Transform.SetPosition(value.ToSimd());
 		}
 
 		public Vector2 LocalPosition
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.LocalPosition;
+			get => Transform.LocalPosition.ToXna();
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetLocalPosition(value);
+			set => Transform.SetLocalPosition(value.ToSimd());
 		}
 
 		public float Rotation
@@ -179,32 +179,32 @@ namespace Nez
 		public Vector2 Scale
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.Scale;
+			get => Transform.Scale.ToXna();
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetScale(value);
+			set => Transform.SetScale(value.ToSimd());
 		}
 
 		public Vector2 LocalScale
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.LocalScale;
+			get => Transform.LocalScale.ToXna();
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetLocalScale(value);
+			set => Transform.SetLocalScale(value.ToSimd());
 		}
 
-		public Matrix2D WorldInverseTransform
+		public System.Numerics.Matrix3x2 WorldInverseTransform
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Transform.WorldInverseTransform;
 		}
 
-		public Matrix2D LocalToWorldTransform
+		public System.Numerics.Matrix3x2 LocalToWorldTransform
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Transform.LocalToWorldTransform;
 		}
 
-		public Matrix2D WorldToLocalTransform
+		public System.Numerics.Matrix3x2 WorldToLocalTransform
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Transform.WorldToLocalTransform;
@@ -375,7 +375,7 @@ namespace Nez
 			var entity = Activator.CreateInstance(GetType()) as Entity;
 			entity.Name = Name + "(clone)";
 			entity.CopyFrom(this);
-			entity.Transform.Position = position;
+			entity.Transform.Position = position.ToSimd();
 
 			return entity;
 		}

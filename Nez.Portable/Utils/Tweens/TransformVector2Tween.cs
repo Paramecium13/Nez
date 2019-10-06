@@ -31,16 +31,16 @@ namespace Nez.Tweens
 			switch (_targetType)
 			{
 				case TransformTargetType.Position:
-					_transform.Position = value;
+					_transform.Position = value.ToSimd();
 					break;
 				case TransformTargetType.LocalPosition:
-					_transform.LocalPosition = value;
+					_transform.LocalPosition = value.ToSimd();
 					break;
 				case TransformTargetType.Scale:
-					_transform.Scale = value;
+					_transform.Scale = value.ToSimd();
 					break;
 				case TransformTargetType.LocalScale:
-					_transform.LocalScale = value;
+					_transform.LocalScale = value.ToSimd();
 					break;
 				case TransformTargetType.RotationDegrees:
 					_transform.RotationDegrees = value.X;
@@ -59,13 +59,13 @@ namespace Nez.Tweens
 			switch (_targetType)
 			{
 				case TransformTargetType.Position:
-					return _transform.Position;
+					return _transform.Position.ToXna();
 				case TransformTargetType.LocalPosition:
-					return _transform.LocalPosition;
+					return _transform.LocalPosition.ToXna();
 				case TransformTargetType.Scale:
-					return _transform.Scale;
+					return _transform.Scale.ToXna();
 				case TransformTargetType.LocalScale:
-					return _transform.LocalScale;
+					return _transform.LocalScale.ToXna();
 				case TransformTargetType.RotationDegrees:
 					return new Vector2(_transform.RotationDegrees);
 				case TransformTargetType.LocalRotationDegrees:

@@ -119,7 +119,7 @@ namespace Nez.Particles
 				return;
 
 			// prep data for the particle.update method
-			var rootPosition = Entity.Transform.Position + _localOffset;
+			var rootPosition = Entity.Position + _localOffset;
 
 			// if the emitter is active and the emission rate is greater than zero then emit particles
 			if (_active && _emitterConfig.EmissionRate > 0)
@@ -209,7 +209,7 @@ namespace Nez.Particles
 			if (!_active && !_isPaused)
 				return;
 
-			var rootPosition = Entity.Transform.Position + _localOffset;
+			var rootPosition = Entity.Position + _localOffset;
 
 			// loop through all the particles updating their location and color
 			for (var i = 0; i < _particles.Count; i++)
@@ -308,7 +308,7 @@ namespace Nez.Particles
 		/// <param name="count">Count.</param>
 		public void Emit(int count)
 		{
-			var rootPosition = Entity.Transform.Position + _localOffset;
+			var rootPosition = Entity.Position + _localOffset;
 
 			Init();
 			_active = true;

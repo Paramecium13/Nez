@@ -57,14 +57,14 @@ namespace Nez
 			_vertices = new VertexPositionColor[_ribbonLength * 2 + 3];
 
 			// head of ribbon
-			_vertices[0].Position = new Vector3(Entity.Transform.Position, 0f) + radiusVec;
+			_vertices[0].Position = new Vector3(Entity.Position, 0f) + radiusVec;
 			_vertices[0].Color = Color.Red;
-			_vertices[1].Position = new Vector3(Entity.Transform.Position, 0f) + radiusVec;
+			_vertices[1].Position = new Vector3(Entity.Position, 0f) + radiusVec;
 			_vertices[1].Color = Color.Yellow;
-			_vertices[2].Position = new Vector3(Entity.Transform.Position, 0f) + radiusVec;
+			_vertices[2].Position = new Vector3(Entity.Position, 0f) + radiusVec;
 			_vertices[2].Color = Color.Green;
 
-			var pos = Entity.Transform.Position;
+			var pos = Entity.Position;
 			for (var i = 0; i < _ribbonLength; i++)
 			{
 				var distanceRatio = 1 - (1 / (float) _ribbonLength * (i + 1));
@@ -85,7 +85,7 @@ namespace Nez
 			if (!_areVertsDirty)
 				return;
 
-			var center = new Vector3(Entity.Transform.Position, 0f);
+			var center = new Vector3(Entity.Position, 0f);
 			var radVec = new Vector3(0, -RibbonRadius, 0);
 
 			// starting triangle, the head
@@ -166,12 +166,12 @@ namespace Nez
 			// remove last node and put it at the front with new settings
 			var seg = _segments.Last.Value;
 			_segments.RemoveLast();
-			var velocity = Entity.Transform.Position - _segments.First.Value.Position;
+			var velocity = Entity.Position - _segments.First.Value.Position;
 
 			// if the distance between the last segment and the current position is too tiny then just copy over the current head value
 			if (velocity.LengthSquared() > float.Epsilon * float.Epsilon)
 			{
-				seg.Position = Entity.Transform.Position;
+				seg.Position = Entity.Position;
 				seg.Radius = RibbonRadius;
 				seg.RadiusDirection = new Vector2(-velocity.Y, velocity.X);
 				seg.RadiusDirection.Normalize();

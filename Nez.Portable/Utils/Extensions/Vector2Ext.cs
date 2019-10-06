@@ -43,10 +43,14 @@ namespace Nez
 		/// </summary>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Round(this Vector2 vec)
-		{
-			return new Vector2(Mathf.Round(vec.X), Mathf.Round(vec.Y));
-		}
+		public static Vector2 Round(this Vector2 vec) => new Vector2(Mathf.Round(vec.X), Mathf.Round(vec.Y));
+
+		/// <summary>
+		/// rounds the x and y values
+		/// </summary>
+		/// <param name="vec">Vec.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static System.Numerics.Vector2 Round(this System.Numerics.Vector2 vec) => new System.Numerics.Vector2(Mathf.Round(vec.X), Mathf.Round(vec.Y));
 
 
 		/// <summary>
@@ -297,9 +301,14 @@ namespace Nez
 			Transform(sourceArray, 0, ref matrix, destinationArray, 0, sourceArray.Length);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static System.Numerics.Vector2 ToSimd(this Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
 
-		public static System.Numerics.Vector2 ToSimd(Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Vector2 ToXna(this System.Numerics.Vector2 self) => Unsafe.As<System.Numerics.Vector2, Vector2>(ref self);
 
-		public static Vector2 ToXna(System.Numerics.Vector2 self) => Unsafe.As<System.Numerics.Vector2, Vector2>(ref self);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Vector3 ToVector3(this System.Numerics.Vector2 self, float z)
+			=> new Vector3(self.X, self.Y, z);
 	}
 }

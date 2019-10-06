@@ -281,7 +281,7 @@ namespace Nez.Sprites
 			}
 			else
 			{
-				var distanceMoved = Math.Abs(Vector2.Distance(Entity.Transform.Position + _localOffset, _lastPosition));
+				var distanceMoved = Math.Abs(Vector2.Distance(Entity.Position + _localOffset, _lastPosition));
 				if (distanceMoved >= MinDistanceBetweenInstances)
 					SpawnInstance();
 			}
@@ -320,7 +320,7 @@ namespace Nez.Sprites
 		/// </summary>
 		void SpawnInstance()
 		{
-			_lastPosition = _sprite.Entity.Transform.Position + _sprite.LocalOffset;
+			_lastPosition = _sprite.Entity.Position + _sprite.LocalOffset;
 
 			if (_awaitingDisable || _availableSpriteTrailInstances.Count == 0)
 				return;
@@ -328,7 +328,7 @@ namespace Nez.Sprites
 			var instance = _availableSpriteTrailInstances.Pop();
 			instance.Spawn(_lastPosition, _sprite.Sprite, FadeDuration, FadeDelay, InitialColor, FadeToColor);
 			instance.SetSpriteRenderOptions(_sprite.Entity.Transform.Rotation, _sprite.Origin,
-				_sprite.Entity.Transform.Scale, _sprite.SpriteEffects, LayerDepth);
+				_sprite.Entity.Scale, _sprite.SpriteEffects, LayerDepth);
 			_liveSpriteTrailInstances.Add(instance);
 		}
 

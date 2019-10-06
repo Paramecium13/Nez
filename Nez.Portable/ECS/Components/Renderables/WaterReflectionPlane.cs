@@ -50,7 +50,7 @@ namespace Nez
 		public override void Render(Batcher batcher, Camera camera)
 		{
 			// we need to send the top of of the plane to the Effect
-			var screenSpaceTop = Entity.Scene.Camera.WorldToScreenPoint(Entity.Transform.Position);
+			var screenSpaceTop = Entity.Scene.Camera.WorldToScreenPoint(Entity.Position);
 			_waterReflectionMaterial.Effect.ScreenSpaceVerticalOffset =
 				screenSpaceTop.Y / Entity.Scene.SceneRenderTargetSize.Y;
 

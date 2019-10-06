@@ -131,7 +131,7 @@ namespace Nez
         /// applies the movement from calculateMovement to the entity and updates the triggerHelper
         /// </summary>
         /// <param name="motion">Motion.</param>
-        public void ApplyMovement(Vector2 motion)
+        public void ApplyMovement(System.Numerics.Vector2 motion)
 		{
 			// 2. move entity to its new position if we have a collision else move the full amount. motion is updated when a collision occurs
 			Entity.Transform.Position += motion;
@@ -140,6 +140,8 @@ namespace Nez
 			//    Any overlaps result in trigger events.
 			_triggerHelper?.Update();
 		}
+
+		public void ApplyMovement(Vector2 motion) => ApplyMovement(motion.ToSimd());
 
 		/// <summary>
 		/// moves the entity taking collisions into account by calling calculateMovement followed by applyMovement;

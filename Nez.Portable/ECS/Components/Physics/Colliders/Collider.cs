@@ -26,7 +26,7 @@ namespace Nez
 		/// represents the absolute position to this Collider. It is entity.transform.position + localPosition - origin.
 		/// </summary>
 		/// <value>The absolute position.</value>
-		public Vector2 AbsolutePosition => Entity.Transform.Position + _localOffset;
+		public Vector2 AbsolutePosition => Entity.Position + _localOffset;
 
 		/// <summary>
 		/// wraps Transform.rotation and returns 0 if this Collider does not rotate with the Entity else it returns Transform.rotation
@@ -168,7 +168,7 @@ namespace Nez
 						circleCollider.Radius = Math.Max(width, height) * 0.5f;
 
 						// fetch the Renderable's center, transfer it to local coordinates and use that as the localOffset of our collider
-						LocalOffset = renderableBounds.Center - Entity.Transform.Position;
+						LocalOffset = renderableBounds.Center - Entity.Position;
 					}
 					else
 					{
@@ -177,7 +177,7 @@ namespace Nez
 						boxCollider.Height = height;
 
 						// fetch the Renderable's center, transfer it to local coordinates and use that as the localOffset of our collider
-						LocalOffset = renderableBounds.Center - Entity.Transform.Position;
+						LocalOffset = renderableBounds.Center - Entity.Position;
 					}
 				}
 			}

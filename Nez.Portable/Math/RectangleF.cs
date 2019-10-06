@@ -769,6 +769,11 @@ namespace Nez
 			result.Height = Math.Max(Math.Min(value1.Bottom, value2.Bottom) - result.Y, 0);
 		}
 
+		public void CalculateBounds(System.Numerics.Vector2 parentPosition, System.Numerics.Vector2 position, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale,
+									float rotation, float width, float height)
+		{
+			CalculateBounds(parentPosition.ToXna(), position.ToXna(), origin.ToXna(), scale.ToXna(), rotation, width, height);
+		}
 
 		public void CalculateBounds(Vector2 parentPosition, Vector2 position, Vector2 origin, Vector2 scale,
 		                            float rotation, float width, float height)

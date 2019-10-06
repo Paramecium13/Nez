@@ -17,8 +17,8 @@ namespace Nez.Sprites
 				if (_areBoundsDirty)
 				{
 					if (_sprite != null)
-						_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _origin,
-							Entity.Transform.Scale, Entity.Transform.Rotation, _sprite.SourceRect.Width,
+						_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, _origin,
+							Entity.Transform.Scale.ToXna(), Entity.Transform.Rotation, _sprite.SourceRect.Width,
 							_sprite.SourceRect.Height);
 					_areBoundsDirty = false;
 				}
@@ -178,8 +178,8 @@ namespace Nez.Sprites
 
 		public override void Render(Batcher batcher, Camera camera)
 		{
-			batcher.Draw(Sprite, Entity.Transform.Position + LocalOffset, Color,
-				Entity.Transform.Rotation, Origin, Entity.Transform.Scale, SpriteEffects, _layerDepth);
+			batcher.Draw(Sprite, Entity.Position + LocalOffset, Color,
+				Entity.Transform.Rotation, Origin, Entity.Scale, SpriteEffects, _layerDepth);
 		}
 	}
 }

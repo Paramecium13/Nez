@@ -277,10 +277,31 @@ namespace Nez.Tweens
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
 		public static Vector2 FastSpring(Vector2 currentValue, Vector2 targetValue, ref Vector2 velocity,
-		                                 float dampingRatio, float angularFrequency)
+										 float dampingRatio, float angularFrequency)
 		{
 			velocity += -2.0f * Time.DeltaTime * dampingRatio * angularFrequency * velocity +
-			            Time.DeltaTime * angularFrequency * angularFrequency * (targetValue - currentValue);
+						Time.DeltaTime * angularFrequency * angularFrequency * (targetValue - currentValue);
+			currentValue += Time.DeltaTime * velocity;
+
+			return currentValue;
+		}
+		/// <summary>
+		/// uses the semi-implicit euler method. slower, but always stable.
+		/// see http://allenchou.net/2015/04/game-math-more-on-numeric-springing/
+		/// </summary>
+		/// <returns>The spring.</returns>
+		/// <param name="currentValue">Current value.</param>
+		/// <param name="targetValue">Target value.</param>
+		/// <param name="velocity">Velocity by reference. Be sure to reset it to 0 if changing the targetValue between calls</param>
+		/// <param name="dampingRatio">lower values are less damped and higher values are more damped resulting in less springiness.
+		/// should be between 0.01f, 1f to avoid unstable systems.</param>
+		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
+		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
+		public static System.Numerics.Vector2 FastSpring(System.Numerics.Vector2 currentValue, System.Numerics.Vector2 targetValue, ref System.Numerics.Vector2 velocity,
+										 float dampingRatio, float angularFrequency)
+		{
+			velocity += -2.0f * Time.DeltaTime * dampingRatio * angularFrequency * velocity +
+						Time.DeltaTime * angularFrequency * angularFrequency * (targetValue - currentValue);
 			currentValue += Time.DeltaTime * velocity;
 
 			return currentValue;
