@@ -286,13 +286,6 @@ namespace Nez
 				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0);
 		}
 
-		public void Draw(Texture2D texture, System.Numerics.Vector2 position)
-		{
-			CheckBegin();
-			PushSprite(texture, null, position, System.Numerics.Vector2.One, Color.White,
-				System.Numerics.Vector2.Zero, 0f, 0f, 0, false, 0, 0, 0, 0);
-		}
-
 
 		public void Draw(Texture2D texture, Vector2 position, Color color)
 		{
@@ -474,34 +467,6 @@ namespace Nez
 				rotation,
 				layerDepth,
 				(byte) (effects & (SpriteEffects) 0x03),
-				false,
-				0, 0, 0, 0
-			);
-		}
-
-		public void Draw(
-			Texture2D texture,
-			System.Numerics.Vector2 position,
-			Rectangle? sourceRectangle,
-			Color color,
-			float rotation,
-			System.Numerics.Vector2 origin,
-			System.Numerics.Vector2 scale,
-			SpriteEffects effects,
-			float layerDepth
-		)
-		{
-			CheckBegin();
-			PushSprite(
-				texture,
-				sourceRectangle,
-				position,
-				scale,
-				color,
-				origin,
-				rotation,
-				layerDepth,
-				(byte)(effects & (SpriteEffects)0x03),
 				false,
 				0, 0, 0, 0
 			);
@@ -896,124 +861,6 @@ namespace Nez
 			}
 		}
 
-
-
-		/// <summary>
-		/// the meat of the Batcher. This is where it all goes down
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void PushSprite(Texture2D texture, Rectangle? sourceRectangle, System.Numerics.Vector2 destination,
-						System.Numerics.Vector2 scale, Color color, System.Numerics.Vector2 origin,
-						float rotation, float depth, byte effects, bool destSizeInPixels, float skewTopX,
-						float skewBottomX, float skewLeftY, float skewRightY)
-		{
-			// out of space, flush
-			if (_numSprites >= MAX_SPRITES)
-				FlushBatch();
-
-			if (!_shouldIgnoreRoundingDestinations && ShouldRoundDestinations)
-			{
-				destination = destination.Round();
-			}
-
-			// Source/Destination/Origin Calculations
-			System.Numerics.Vector2 source;
-			System.Numerics.Vector2 sourceScale;
-			if (sourceRectangle.HasValue)
-			{
-				var inverseTex = new System.Numerics.Vector2(1.0f / (float)texture.Width, 1.0f / (float)texture.Height);
-
-				var rectPos = sourceRectangle.Value.Location.ToVector2().ToSimd();
-				source = rectPos * inverseTex;
-				var rectSize = sourceRectangle.Value.Size.ToVector2().ToSimd();
-				sourceScale = rectSize * inverseTex;
-
-				origin = (origin / sourceScale) * inverseTex;
-
-				if (!destSizeInPixels)
-				{
-					scale *= rectSize;
-				}
-			}
-			else
-			{
-				source = new System.Numerics.Vector2(0f);
-				sourceScale = new System.Numerics.Vector2(1f);
-
-				origin.X = origin.X * (1.0f / texture.Width);
-				origin.Y = origin.Y * (1.0f / texture.Height);
-
-				if (!destSizeInPixels)
-				{
-					scale.X *= texture.Width;
-					scale.Y *= texture.Height;
-				}
-			}
-
-			// Rotation Calculations
-			System.Numerics.Matrix3x2 rotationMatrix;
-			if (!Mathf.WithinEpsilon(rotation))
-			{
-				rotationMatrix = System.Numerics.Matrix3x2.CreateRotation(rotation);
-			}
-			else
-			{
-				rotationMatrix = System.Numerics.Matrix3x2.Identity;
-			}
-
-			rotationMatrix = rotationMatrix + System.Numerics.Matrix3x2.CreateTranslation(destination);
-			// flip our skew values if we have a flipped sprite
-			if (effects != 0)
-			{
-				skewTopX *= -1;
-				skewBottomX *= -1;
-				skewLeftY *= -1;
-				skewRightY *= -1;
-			}
-
-			// calculate vertices
-			// top-left
-			var corner = (_cornerOffset[0] - origin) * scale + new System.Numerics.Vector2(skewTopX, -skewLeftY);
-			_vertexInfo[_numSprites].Position0 = System.Numerics.Vector2.Transform(corner,rotationMatrix).ToVector3(depth);
-
-			// top-right
-			corner = (_cornerOffset[1] - origin) * scale + new System.Numerics.Vector2(skewTopX, -skewRightY);
-			_vertexInfo[_numSprites].Position1 = System.Numerics.Vector2.Transform(corner, rotationMatrix).ToVector3(depth);
-
-			// bottom-left
-			corner = (_cornerOffset[2] - origin) * scale + new System.Numerics.Vector2(skewBottomX, -skewLeftY);
-			_vertexInfo[_numSprites].Position2 = System.Numerics.Vector2.Transform(corner, rotationMatrix).ToVector3(depth);
-
-			// bottom-right
-			corner = (_cornerOffset[3] - origin) * scale + new System.Numerics.Vector2(skewBottomX, -skewRightY);
-			_vertexInfo[_numSprites].Position2 = System.Numerics.Vector2.Transform(corner, rotationMatrix).ToVector3(depth);
-
-			_vertexInfo[_numSprites].TextureCoordinate0 = ((_cornerOffset[0 ^ effects] * sourceScale) + source).ToXna();
-			_vertexInfo[_numSprites].TextureCoordinate1 = ((_cornerOffset[1 ^ effects] * sourceScale) + source).ToXna();
-			_vertexInfo[_numSprites].TextureCoordinate2 = ((_cornerOffset[2 ^ effects] * sourceScale) + source).ToXna();
-			_vertexInfo[_numSprites].TextureCoordinate3 = ((_cornerOffset[3 ^ effects] * sourceScale) + source).ToXna();
-
-			_vertexInfo[_numSprites].Position0.Z = depth;
-			_vertexInfo[_numSprites].Position1.Z = depth;
-			_vertexInfo[_numSprites].Position2.Z = depth;
-			_vertexInfo[_numSprites].Position3.Z = depth;
-			_vertexInfo[_numSprites].Color0 = color;
-			_vertexInfo[_numSprites].Color1 = color;
-			_vertexInfo[_numSprites].Color2 = color;
-			_vertexInfo[_numSprites].Color3 = color;
-
-			if (_disableBatching)
-			{
-				_vertexBuffer.SetData(0, _vertexInfo, 0, 1, VertexPositionColorTexture4.RealStride,
-					SetDataOptions.None);
-				DrawPrimitives(texture, 0, 1);
-			}
-			else
-			{
-				_textureInfo[_numSprites] = texture;
-				_numSprites += 1;
-			}
-		}
 
 		/// <summary>
 		/// Sprite alternative to the old SpriteBatch pushSprite

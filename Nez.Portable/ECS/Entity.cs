@@ -88,30 +88,6 @@ namespace Nez
 
 		#endregion
 
-		#region Velocity
-		System.Numerics.Vector2 _localVelocity;
-
-		Entity _platform;
-
-		public Entity Platform
-		{
-			get => _platform;
-			set => SetPlatform(value);
-		}
-
-		public System.Numerics.Vector2 Velocity
-		{
-			get
-			{
-				if (_platform == null)
-					return _localVelocity;
-				// I do not anticipate having platforms on top of other platforms.
-				return _platform.Velocity + _localVelocity;
-			}
-			set => SetVelocity(value);
-		}
-		#endregion
-
 		#region Transform passthroughs
 
 		public Transform Parent
@@ -295,26 +271,6 @@ namespace Nez
 				}
 			}
 
-			return this;
-		}
-
-		public Entity SetPlatform(Entity platform)
-		{
-			_platform = platform;
-
-			return this;
-		}
-
-		public Entity SetVelocity(System.Numerics.Vector2 velocity)
-		{
-			if(_platform == null)
-			{
-				_localVelocity = velocity;
-				return this;
-			}
-
-			// velocity = _localVelocity + _platform.Velocity
-			_localVelocity = velocity - _platform.Velocity;
 			return this;
 		}
 		#endregion
