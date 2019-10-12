@@ -534,9 +534,9 @@ namespace Nez.Console
 				commandLineString += "_";
 
 			var commandTextPosition =
-				commandEntryRect.Location.ToVector2() + new Vector2(TEXT_PADDING_X, TEXT_PADDING_Y);
+				commandEntryRect.Location.ToVector2().ToSimd() + new System.Numerics.Vector2(TEXT_PADDING_X, TEXT_PADDING_Y);
 			Graphics.Instance.Batcher.DrawString(Graphics.Instance.BitmapFont, commandLineString, commandTextPosition,
-				Color.White, 0, Vector2.Zero, new Vector2(RenderScale), SpriteEffects.None, 0);
+				Color.White, 0, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(RenderScale), SpriteEffects.None, 0);
 
 			if (_drawCommands.Count > 0)
 			{
@@ -552,11 +552,11 @@ namespace Nez.Console
 				for (var i = 0; i < _drawCommands.Count; i++)
 				{
 					var yPosCurrentLineAddition = (i * LINE_HEIGHT * RenderScale) + (i * TEXT_PADDING_Y);
-					var position = new Vector2(HORIZONTAL_PADDING + TEXT_PADDING_X,
+					var position = new System.Numerics.Vector2(HORIZONTAL_PADDING + TEXT_PADDING_X,
 						yPosFirstLine - yPosCurrentLineAddition);
 					var color = _drawCommands[i].IndexOf(">") == 0 ? Color.Yellow : Color.White;
 					Graphics.Instance.Batcher.DrawString(Graphics.Instance.BitmapFont, _drawCommands[i], position,
-						color, 0, Vector2.Zero, new Vector2(RenderScale), SpriteEffects.None, 0);
+						color, 0, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(RenderScale), SpriteEffects.None, 0);
 				}
 			}
 

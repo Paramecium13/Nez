@@ -8,7 +8,7 @@ namespace Nez.Splines
 	/// </summary>
 	public class BezierSpline
 	{
-		FastList<Vector2> _points = new FastList<Vector2>();
+		FastList<System.Numerics.Vector2> _points = new FastList<System.Numerics.Vector2>();
 		int _curveCount;
 
 
@@ -42,7 +42,7 @@ namespace Nez.Splines
 		/// </summary>
 		/// <param name="index">Index.</param>
 		/// <param name="point">Point.</param>
-		public void SetControlPoint(int index, Vector2 point)
+		public void SetControlPoint(int index, System.Numerics.Vector2 point)
 		{
 			if (index % 3 == 0)
 			{
@@ -63,7 +63,7 @@ namespace Nez.Splines
 		/// </summary>
 		/// <returns>The point at time.</returns>
 		/// <param name="t">T.</param>
-		public Vector2 GetPointAtTime(float t)
+		public System.Numerics.Vector2 GetPointAtTime(float t)
 		{
 			var i = PointIndexAtTime(ref t);
 			return Bezier.GetPoint(_points.Buffer[i], _points.Buffer[i + 1], _points.Buffer[i + 2],
@@ -76,7 +76,7 @@ namespace Nez.Splines
 		/// </summary>
 		/// <returns>The velocity at time.</returns>
 		/// <param name="t">T.</param>
-		public Vector2 GetVelocityAtTime(float t)
+		public System.Numerics.Vector2 GetVelocityAtTime(float t)
 		{
 			var i = PointIndexAtTime(ref t);
 			return Bezier.GetFirstDerivative(_points.Buffer[i], _points.Buffer[i + 1], _points.Buffer[i + 2],
@@ -89,9 +89,9 @@ namespace Nez.Splines
 		/// </summary>
 		/// <returns>The direction at time.</returns>
 		/// <param name="t">T.</param>
-		public Vector2 GetDirectionAtTime(float t)
+		public System.Numerics.Vector2 GetDirectionAtTime(float t)
 		{
-			return Vector2.Normalize(GetVelocityAtTime(t));
+			return System.Numerics.Vector2.Normalize(GetVelocityAtTime(t));
 		}
 
 
@@ -101,7 +101,7 @@ namespace Nez.Splines
 		/// <param name="start">Start.</param>
 		/// <param name="firstControlPoint">First control point.</param>
 		/// <param name="secondControlPoint">Second control point.</param>
-		public void AddCurve(Vector2 start, Vector2 firstControlPoint, Vector2 secondControlPoint, Vector2 end)
+		public void AddCurve(System.Numerics.Vector2 start, System.Numerics.Vector2 firstControlPoint, System.Numerics.Vector2 secondControlPoint, System.Numerics.Vector2 end)
 		{
 			// we only add the start point if this is the first curve. For all other curves the previous end should equal the start of the new curve.
 			if (_points.Length == 0)
@@ -129,9 +129,9 @@ namespace Nez.Splines
 		/// </summary>
 		/// <returns>The drawing points.</returns>
 		/// <param name="totalSegments">Total segments.</param>
-		public Vector2[] GetDrawingPoints(int totalSegments)
+		public System.Numerics.Vector2[] GetDrawingPoints(int totalSegments)
 		{
-			var points = new Vector2[totalSegments];
+			var points = new System.Numerics.Vector2[totalSegments];
 			for (var i = 0; i < totalSegments; i++)
 			{
 				var t = i / (float) totalSegments;

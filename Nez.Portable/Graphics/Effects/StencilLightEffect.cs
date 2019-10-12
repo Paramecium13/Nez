@@ -6,7 +6,7 @@ namespace Nez
 {
 	public class StencilLightEffect : Effect
 	{
-		public Vector2 LightPosition { set { _lightPositionParam.SetValue(value); } }
+		public System.Numerics.Vector2 LightPosition { set { _lightPositionParam.SetValue(value.ToXna()); } }
 		public Color Color { set { _lightColorParam.SetValue(value.ToVector3()); } }
 		public float Radius { set { _lightRadius.SetValue(value); } }
 		public Matrix ViewProjectionMatrix { set { _viewProjectionMatrixParam.SetValue(value); } }

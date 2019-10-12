@@ -29,7 +29,7 @@ namespace FarseerPhysics.Common.ConvexHull
 			//Sort by X-axis
 			pointSet.Sort(_pointComparer);
 
-			Vector2[] h = new Vector2[pointSet.Count];
+			System.Numerics.Vector2[] h = new System.Numerics.Vector2[pointSet.Count];
 			Vertices res;
 
 			int top = -1; // indices for bottom and top of the stack
@@ -135,9 +135,9 @@ namespace FarseerPhysics.Common.ConvexHull
 		}
 
 
-		class PointComparer : Comparer<Vector2>
+		class PointComparer : Comparer<System.Numerics.Vector2>
 		{
-			public override int Compare(Vector2 a, Vector2 b)
+			public override int Compare(System.Numerics.Vector2 a, System.Numerics.Vector2 b)
 			{
 				int f = a.X.CompareTo(b.X);
 				return f != 0 ? f : a.Y.CompareTo(b.Y);

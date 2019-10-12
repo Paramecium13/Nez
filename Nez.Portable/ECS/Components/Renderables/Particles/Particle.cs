@@ -14,9 +14,9 @@ namespace Nez.Particles
 		/// </summary>
 		static Circle _circleCollisionShape = new Circle(0);
 
-		internal Vector2 position;
-		internal Vector2 spawnPosition;
-		Vector2 _direction;
+		internal System.Numerics.Vector2 position;
+		internal System.Numerics.Vector2 spawnPosition;
+		System.Numerics.Vector2 _direction;
 
 		internal Color color;
 
@@ -46,10 +46,10 @@ namespace Nez.Particles
 		/// </summary>
 		bool _collided;
 
-		Vector2 _velocity;
+		System.Numerics.Vector2 _velocity;
 
 
-		public void Initialize(ParticleEmitterConfig emitterConfig, Vector2 spawnPosition)
+		public void Initialize(ParticleEmitterConfig emitterConfig, System.Numerics.Vector2 spawnPosition)
 		{
 			_collided = false;
 
@@ -66,8 +66,8 @@ namespace Nez.Particles
 			var newAngle =
 				MathHelper.ToRadians(emitterConfig.Angle + emitterConfig.AngleVariance * Random.MinusOneToOne());
 
-			// create a new Vector2 using the newAngle
-			var vector = new Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
+			// create a new System.Numerics.Vector2 using the newAngle
+			var vector = new System.Numerics.Vector2(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
 
 			// calculate the vectorSpeed using the speed and speedVariance which has been passed in
 			var vectorSpeed = emitterConfig.Speed + emitterConfig.SpeedVariance * Random.MinusOneToOne();
@@ -141,7 +141,7 @@ namespace Nez.Particles
 		/// </summary>
 		/// <param name="emitterConfig">Emitter config.</param>
 		public bool Update(ParticleEmitterConfig emitterConfig, ref ParticleCollisionConfig collisionConfig,
-		                   Vector2 rootPosition)
+		                   System.Numerics.Vector2 rootPosition)
 		{
 			// PART 1: reduce the life span of the particle
 			_timeToLive -= Time.DeltaTime;
@@ -159,7 +159,7 @@ namespace Nez.Particles
 						_angle += _degreesPerSecond * Time.DeltaTime;
 						_radius += _radiusDelta * Time.DeltaTime;
 
-						Vector2 tmp;
+						System.Numerics.Vector2 tmp;
 						tmp.X = -Mathf.Cos(_angle) * _radius;
 						tmp.Y = -Mathf.Sin(_angle) * _radius;
 
@@ -168,11 +168,11 @@ namespace Nez.Particles
 					}
 					else
 					{
-						Vector2 tmp, radial, tangential;
-						radial = Vector2.Zero;
+						System.Numerics.Vector2 tmp, radial, tangential;
+						radial = System.Numerics.Vector2.Zero;
 
 						if (position.X != 0 || position.Y != 0)
-							Vector2.Normalize(ref position, out radial);
+							radial = System.Numerics.Vector2.Normalize(position);
 
 						tangential = radial;
 						radial = radial * _radialAcceleration;
@@ -258,24 +258,22 @@ namespace Nez.Particles
 		/// </summary>
 		/// <param name="relativeVelocity">Relative velocity.</param>
 		/// <param name="minimumTranslationVector">Minimum translation vector.</param>
-		void CalculateCollisionResponseVelocity(float friction, float elasticity, ref Vector2 minimumTranslationVector)
+		void CalculateCollisionResponseVelocity(float friction, float elasticity, ref System.Numerics.Vector2 minimumTranslationVector)
 		{
 			// first, we get the normalized MTV in the opposite direction: the surface normal
 			var inverseMTV = minimumTranslationVector * -1f;
-			Vector2 normal;
-			Vector2.Normalize(ref inverseMTV, out normal);
+			var normal = System.Numerics.Vector2.Normalize(inverseMTV);
 
 			// the velocity is decomposed along the normal of the collision and the plane of collision.
 			// The elasticity will affect the response along the normal (normalVelocityComponent) and the friction will affect
 			// the tangential component of the velocity (tangentialVelocityComponent)
-			float n;
-			Vector2.Dot(ref _velocity, ref normal, out n);
+			var n = System.Numerics.Vector2.Dot(_velocity, normal);
 
 			var normalVelocityComponent = normal * n;
 			var tangentialVelocityComponent = _velocity - normalVelocityComponent;
 
 			if (n > 0.0f)
-				normalVelocityComponent = Vector2.Zero;
+				normalVelocityComponent = System.Numerics.Vector2.Zero;
 
 			// elasticity affects the normal component of the velocity and friction affects the tangential component
 			var responseVelocity =

@@ -35,7 +35,7 @@ namespace Nez.Tiled
 		public bool Visible;
 		public TmxText Text;
 
-		public Vector2[] Points;
+		public System.Numerics.Vector2[] Points;
 		public Dictionary<string, string> Properties;
 	}
 

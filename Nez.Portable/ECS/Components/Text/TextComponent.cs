@@ -56,14 +56,14 @@ namespace Nez
 		protected VerticalAlign _verticalAlign;
 		protected IFont _font;
 		protected string _text;
-		Vector2 _size;
+		System.Numerics.Vector2 _size;
 
 
-		public TextComponent() : this(Graphics.Instance.BitmapFont, "", Vector2.Zero, Color.White)
+		public TextComponent() : this(Graphics.Instance.BitmapFont, "", System.Numerics.Vector2.Zero, Color.White)
 		{
 		}
 
-		public TextComponent(IFont font, string text, Vector2 localOffset, Color color)
+		public TextComponent(IFont font, string text, System.Numerics.Vector2 localOffset, Color color)
 		{
 			_font = font;
 			_text = text;
@@ -138,7 +138,7 @@ namespace Nez
 			else
 				oldOrigin.Y = _size.Y;
 
-			Origin = new Vector2((int) oldOrigin.X, (int) oldOrigin.Y);
+			Origin = new System.Numerics.Vector2((int) oldOrigin.X, (int) oldOrigin.Y);
 		}
 
 		public override void Render(Batcher batcher, Camera camera)

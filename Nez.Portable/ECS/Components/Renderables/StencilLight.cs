@@ -16,8 +16,8 @@ namespace Nez
 				if (_areBoundsDirty)
 				{
 					var scale = MathHelper.Max(Entity.Transform.Scale.X, Entity.Transform.Scale.Y);
-					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, new Vector2(_radius * scale, _radius * scale),
-						Vector2.One, 0, _radius * scale * 2f, _radius * scale * 2f);
+					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, new System.Numerics.Vector2(_radius * scale, _radius * scale),
+						System.Numerics.Vector2.One, 0, _radius * scale * 2f, _radius * scale * 2f);
 					_areBoundsDirty = false;
 				}
 

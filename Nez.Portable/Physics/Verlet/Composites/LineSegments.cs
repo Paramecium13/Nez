@@ -8,7 +8,7 @@ namespace Nez.Verlet
 	/// </summary>
 	public class LineSegments : Composite
 	{
-		public LineSegments(Vector2[] vertices, float stiffness)
+		public LineSegments(System.Numerics.Vector2[] vertices, float stiffness)
 		{
 			for (var i = 0; i < vertices.Length; i++)
 			{

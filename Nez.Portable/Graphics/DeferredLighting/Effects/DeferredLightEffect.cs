@@ -138,7 +138,7 @@ namespace Nez.DeferredLighting
 		/// <param name="light">Light.</param>
 		public void UpdateForLight(PointLight light)
 		{
-			SetLightPosition(new Vector3(light.Entity.Position + light.LocalOffset, light.ZPosition));
+			SetLightPosition(new Vector3((light.Entity.Position + light.LocalOffset).ToXna(), light.ZPosition));
 			SetColor(light.Color);
 			SetLightRadius(light.Radius * light.Entity.Transform.Scale.X);
 			SetLightIntensity(light.Intensity);
@@ -279,9 +279,9 @@ namespace Nez.DeferredLighting
 		/// directly sets the light direction
 		/// </summary>
 		/// <param name="lightDirection">Light direction.</param>
-		public void SetSpotLightDirection(Vector2 lightDirection)
+		public void SetSpotLightDirection(System.Numerics.Vector2 lightDirection)
 		{
-			_lightDirectionParam.SetValue(lightDirection);
+			_lightDirectionParam.SetValue(lightDirection.ToXna());
 		}
 
 
@@ -292,7 +292,7 @@ namespace Nez.DeferredLighting
 		public void SetSpotLightDirection(float degrees)
 		{
 			var radians = MathHelper.ToRadians(degrees);
-			var dir = new Vector2((float) Math.Cos(radians), (float) Math.Sin(radians));
+			var dir = new System.Numerics.Vector2((float) Math.Cos(radians), (float) Math.Sin(radians));
 			SetSpotLightDirection(dir);
 		}
 

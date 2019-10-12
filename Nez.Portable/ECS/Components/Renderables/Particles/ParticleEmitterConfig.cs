@@ -22,13 +22,13 @@ namespace Nez.Particles
 		/// <summary>
 		/// sourcePosition is read in but internally it is not used. The ParticleEmitter.localPosition is what the emitter will use for positioning
 		/// </summary>
-		public Vector2 SourcePosition;
+		public System.Numerics.Vector2 SourcePosition;
 
-		public Vector2 SourcePositionVariance;
+		public System.Numerics.Vector2 SourcePositionVariance;
 		public float Speed, SpeedVariance;
 		public float ParticleLifespan, ParticleLifespanVariance;
 		public float Angle, AngleVariance;
-		public Vector2 Gravity;
+		public System.Numerics.Vector2 Gravity;
 		public float RadialAcceleration, RadialAccelVariance;
 		public float TangentialAcceleration, TangentialAccelVariance;
 		public Color StartColor = Color.White, StartColorVariance = Color.White;

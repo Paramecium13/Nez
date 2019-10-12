@@ -188,7 +188,7 @@ namespace FarseerPhysics.Collision
 			int proxyId = AllocateNode();
 
 			// Fatten the aabb.
-			var r = new Vector2(Settings.AabbExtension, Settings.AabbExtension);
+			var r = new System.Numerics.Vector2(Settings.AabbExtension, Settings.AabbExtension);
 			_nodes[proxyId].aabb.LowerBound = aabb.LowerBound - r;
 			_nodes[proxyId].aabb.UpperBound = aabb.UpperBound + r;
 			_nodes[proxyId].userData = userData;
@@ -221,7 +221,7 @@ namespace FarseerPhysics.Collision
 		/// <param name="aabb">The aabb.</param>
 		/// <param name="displacement">The displacement.</param>
 		/// <returns>true if the proxy was re-inserted.</returns>
-		public bool MoveProxy(int proxyId, ref AABB aabb, Vector2 displacement)
+		public bool MoveProxy(int proxyId, ref AABB aabb, System.Numerics.Vector2 displacement)
 		{
 			Debug.Assert(0 <= proxyId && proxyId < _nodeCapacity);
 
@@ -236,7 +236,7 @@ namespace FarseerPhysics.Collision
 
 			// Extend AABB.
 			AABB b = aabb;
-			var r = new Vector2(Settings.AabbExtension, Settings.AabbExtension);
+			var r = new System.Numerics.Vector2(Settings.AabbExtension, Settings.AabbExtension);
 			b.LowerBound = b.LowerBound - r;
 			b.UpperBound = b.UpperBound + r;
 
@@ -364,7 +364,7 @@ namespace FarseerPhysics.Collision
 			Nez.Vector2Ext.Normalize(ref r);
 
 			// v is perpendicular to the segment.
-			var absV = MathUtils.Abs(new Vector2(-r.Y, r.X)); //FPE: Inlined the 'v' variable
+			var absV = MathUtils.Abs(new System.Numerics.Vector2(-r.Y, r.X)); //FPE: Inlined the 'v' variable
 
 			// Separating axis for segment (Gino, p80).
 			// |dot(v, p1 - c)| > dot(|v|, h)
@@ -375,8 +375,8 @@ namespace FarseerPhysics.Collision
 			var segmentAABB = new AABB();
 			{
 				var t = p1 + maxFraction * (p2 - p1);
-				Vector2.Min(ref p1, ref t, out segmentAABB.LowerBound);
-				Vector2.Max(ref p1, ref t, out segmentAABB.UpperBound);
+				System.Numerics.Vector2.Min(ref p1, ref t, out segmentAABB.LowerBound);
+				System.Numerics.Vector2.Max(ref p1, ref t, out segmentAABB.UpperBound);
 			}
 
 			_raycastStack.Clear();
@@ -396,7 +396,7 @@ namespace FarseerPhysics.Collision
 				// |dot(v, p1 - c)| > dot(|v|, h)
 				var c = node.aabb.Center;
 				var h = node.aabb.Extents;
-				var separation = Math.Abs(Vector2.Dot(new Vector2(-r.Y, r.X), p1 - c)) - Vector2.Dot(absV, h);
+				var separation = Math.Abs(System.Numerics.Vector2.Dot(new System.Numerics.Vector2(-r.Y, r.X), p1 - c)) - System.Numerics.Vector2.Dot(absV, h);
 				if (separation > 0.0f)
 					continue;
 
@@ -420,8 +420,8 @@ namespace FarseerPhysics.Collision
 						// Update segment bounding box.
 						maxFraction = value;
 						var t = p1 + maxFraction * (p2 - p1);
-						segmentAABB.LowerBound = Vector2.Min(p1, t);
-						segmentAABB.UpperBound = Vector2.Max(p1, t);
+						segmentAABB.LowerBound = System.Numerics.Vector2.Min(p1, t);
+						segmentAABB.UpperBound = System.Numerics.Vector2.Max(p1, t);
 					}
 				}
 				else
@@ -1023,7 +1023,7 @@ namespace FarseerPhysics.Collision
 		/// Shift the origin of the nodes
 		/// </summary>
 		/// <param name="newOrigin">The displacement to use.</param>
-		public void ShiftOrigin(Vector2 newOrigin)
+		public void ShiftOrigin(System.Numerics.Vector2 newOrigin)
 		{
 			// Build array of leaves. Free the rest.
 			for (int i = 0; i < _nodeCapacity; ++i)

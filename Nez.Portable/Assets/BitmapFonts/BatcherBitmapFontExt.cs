@@ -17,11 +17,11 @@ namespace Nez.BitmapFonts
         /// <param name="text">The text which will be drawn.</param>
         /// <param name="position">The drawing location on screen.</param>
         /// <param name="color">A color mask.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, Vector2 position,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, System.Numerics.Vector2 position,
 		                              Color color)
 		{
 			var source = new FontCharacterSource(text);
-			bitmapFont.DrawInto(batcher, ref source, position, color, 0, Vector2.Zero, new Vector2(1),
+			bitmapFont.DrawInto(batcher, ref source, position, color, 0, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(1),
 				SpriteEffects.None, 0f);
 		}
 
@@ -37,12 +37,12 @@ namespace Nez.BitmapFonts
         /// <param name="scale">A scaling of this string.</param>
         /// <param name="effects">Modificators for drawing. Can be combined.</param>
         /// <param name="layerDepth">A depth of the layer of this string.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, Vector2 position,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, System.Numerics.Vector2 position,
 		                              Color color,
-		                              float rotation, Vector2 origin, float scale, SpriteEffects effects,
+		                              float rotation, System.Numerics.Vector2 origin, float scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
-			var scaleVec = new Vector2(scale, scale);
+			var scaleVec = new System.Numerics.Vector2(scale, scale);
 			var source = new FontCharacterSource(text);
 			bitmapFont.DrawInto(batcher, ref source, position, color, rotation, origin, scaleVec, effects, layerDepth);
 		}
@@ -59,9 +59,9 @@ namespace Nez.BitmapFonts
         /// <param name="scale">A scaling of this string.</param>
         /// <param name="effects">Modificators for drawing. Can be combined.</param>
         /// <param name="layerDepth">A depth of the layer of this string.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, Vector2 position,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, string text, System.Numerics.Vector2 position,
 		                              Color color,
-		                              float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects,
+		                              float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
 			var source = new FontCharacterSource(text);
@@ -75,11 +75,11 @@ namespace Nez.BitmapFonts
         /// <param name="text">The text which will be drawn.</param>
         /// <param name="position">The drawing location on screen.</param>
         /// <param name="color">A color mask.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, Vector2 position,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, System.Numerics.Vector2 position,
 		                              Color color)
 		{
 			var source = new FontCharacterSource(text);
-			bitmapFont.DrawInto(batcher, ref source, position, color, 0, Vector2.Zero, new Vector2(1),
+			bitmapFont.DrawInto(batcher, ref source, position, color, 0, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(1),
 				SpriteEffects.None, 0f);
 		}
 
@@ -95,12 +95,12 @@ namespace Nez.BitmapFonts
         /// <param name="scale">A scaling of this string.</param>
         /// <param name="effects">Modificators for drawing. Can be combined.</param>
         /// <param name="layerDepth">A depth of the layer of this string.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, Vector2 position,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, System.Numerics.Vector2 position,
 		                              Color color,
-		                              float rotation, Vector2 origin, float scale, SpriteEffects effects,
+		                              float rotation, System.Numerics.Vector2 origin, float scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
-			var scaleVec = new Vector2(scale, scale);
+			var scaleVec = new System.Numerics.Vector2(scale, scale);
 			var source = new FontCharacterSource(text);
 			bitmapFont.DrawInto(batcher, ref source, position, color, rotation, origin, scaleVec, effects, layerDepth);
 		}
@@ -117,16 +117,16 @@ namespace Nez.BitmapFonts
         /// <param name="scale">A scaling of this string.</param>
         /// <param name="effects">Modificators for drawing. Can be combined.</param>
         /// <param name="layerDepth">A depth of the layer of this string.</param>
-        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, Vector2 position,
-		                              Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects,
+        public static void DrawString(this Batcher batcher, BitmapFont bitmapFont, StringBuilder text, System.Numerics.Vector2 position,
+		                              Color color, float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
 			var source = new FontCharacterSource(text);
 			bitmapFont.DrawInto(batcher, ref source, position, color, rotation, origin, scale, effects, layerDepth);
 		}
 
-		public static void DrawGlyphs(this Batcher batcher, BitmapFontEnumerator glyphs, Vector2 position, Color color,
-		                              float rotation, Vector2 origin, Vector2 scale, float layerDepth)
+		public static void DrawGlyphs(this Batcher batcher, BitmapFontEnumerator glyphs, System.Numerics.Vector2 position, Color color,
+		                              float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			foreach (var glyph in glyphs)
 			{

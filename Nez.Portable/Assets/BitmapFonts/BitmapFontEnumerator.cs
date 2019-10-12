@@ -9,7 +9,7 @@ namespace Nez.BitmapFonts
 {
 	public struct BitmapFontGlyph
 	{
-		public Vector2 Position;
+		public System.Numerics.Vector2 Position;
 		public Character Character;
 		public Texture2D Texture;
 	}
@@ -26,7 +26,7 @@ namespace Nez.BitmapFonts
 		BitmapFontGlyph _currentGlyph;
 		BitmapFontGlyph? _previousGlyph;
 		char? _previousChar;
-		Vector2 _runningPosition;
+		System.Numerics.Vector2 _runningPosition;
 		int _index;
 
 		object IEnumerator.Current => throw new InvalidOperationException();
@@ -40,7 +40,7 @@ namespace Nez.BitmapFonts
 			_currentGlyph = new BitmapFontGlyph();
 			_previousGlyph = null;
 			_previousChar = null;
-			_runningPosition = Vector2.Zero;
+			_runningPosition = System.Numerics.Vector2.Zero;
 			_index = -1;
 		}
 
@@ -48,7 +48,7 @@ namespace Nez.BitmapFonts
 		{
 			_index = -1;
 			_previousGlyph = null;
-			_runningPosition = Vector2.Zero;
+			_runningPosition = System.Numerics.Vector2.Zero;
 		}
 
 		public void Dispose()

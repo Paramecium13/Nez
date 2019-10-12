@@ -80,9 +80,9 @@ namespace Nez.Tweens
 		}
 
 
-		public static ITween<Vector2> Vector2PropertyTo(object self, string memberName, Vector2 to, float duration)
+		public static ITween<System.Numerics.Vector2> Vector2PropertyTo(object self, string memberName, System.Numerics.Vector2 to, float duration)
 		{
-			var tweenTarget = new PropertyTarget<Vector2>(self, memberName);
+			var tweenTarget = new PropertyTarget<System.Numerics.Vector2>(self, memberName);
 			var tween = TweenManager.CacheVector2Tweens ? Pool<Vector2Tween>.Obtain() : new Vector2Tween();
 			tween.Initialize(tweenTarget, to, duration);
 

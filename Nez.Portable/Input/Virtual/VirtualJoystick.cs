@@ -6,21 +6,21 @@ using Microsoft.Xna.Framework.Input;
 namespace Nez
 {
 	/// <summary>
-	/// A virtual input that is represented as a Vector2, with both X and Y as values between -1 and 1
+	/// A virtual input that is represented as a System.Numerics.Vector2, with both X and Y as values between -1 and 1
 	/// </summary>
 	public class VirtualJoystick : VirtualInput
 	{
 		public List<Node> Nodes = new List<Node>();
 		public bool Normalized;
 
-		public Vector2 Value
+		public System.Numerics.Vector2 Value
 		{
 			get
 			{
 				for (int i = 0; i < Nodes.Count; i++)
 				{
 					var val = Nodes[i].Value;
-					if (val != Vector2.Zero)
+					if (val != System.Numerics.Vector2.Zero)
 					{
 						if (Normalized)
 							val.Normalize();
@@ -28,7 +28,7 @@ namespace Nez
 					}
 				}
 
-				return Vector2.Zero;
+				return System.Numerics.Vector2.Zero;
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace Nez
 		#endregion
 
 
-		static public implicit operator Vector2(VirtualJoystick joystick)
+		static public implicit operator System.Numerics.Vector2(VirtualJoystick joystick)
 		{
 			return joystick.Value;
 		}
@@ -123,7 +123,7 @@ namespace Nez
 
 		public abstract class Node : VirtualInputNode
 		{
-			public abstract Vector2 Value { get; }
+			public abstract System.Numerics.Vector2 Value { get; }
 		}
 
 
@@ -140,7 +140,7 @@ namespace Nez
 			}
 
 
-			public override Vector2 Value => Input.GamePads[GamepadIndex].GetLeftStick(Deadzone);
+			public override System.Numerics.Vector2 Value => Input.GamePads[GamepadIndex].GetLeftStick(Deadzone);
 		}
 
 
@@ -156,7 +156,7 @@ namespace Nez
 				Deadzone = deadzone;
 			}
 
-			public override Vector2 Value => Input.GamePads[GamepadIndex].GetRightStick(Deadzone);
+			public override System.Numerics.Vector2 Value => Input.GamePads[GamepadIndex].GetRightStick(Deadzone);
 		}
 
 
@@ -171,11 +171,11 @@ namespace Nez
 			}
 
 
-			public override Vector2 Value
+			public override System.Numerics.Vector2 Value
 			{
 				get
 				{
-					var _value = Vector2.Zero;
+					var _value = System.Numerics.Vector2.Zero;
 
 					if (Input.GamePads[GamepadIndex].DpadRightDown)
 						_value.X = 1f;
@@ -203,7 +203,7 @@ namespace Nez
 
 			private bool _turnedX;
 			private bool _turnedY;
-			private Vector2 _value;
+			private System.Numerics.Vector2 _value;
 
 
 			public KeyboardKeys(OverlapBehavior overlapBehavior, Keys left, Keys right, Keys up, Keys down)
@@ -302,7 +302,7 @@ namespace Nez
 			}
 
 
-			public override Vector2 Value => _value;
+			public override System.Numerics.Vector2 Value => _value;
 		}
 
 		#endregion

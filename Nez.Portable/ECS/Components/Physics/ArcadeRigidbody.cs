@@ -134,17 +134,6 @@ namespace Nez
 		/// </summary>
 		/// <returns>The velocity.</returns>
 		/// <param name="velocity">Velocity.</param>
-		public ArcadeRigidbody SetVelocity(Vector2 velocity)
-		{
-			Velocity = velocity.ToSimd();
-			return this;
-		}
-
-		/// <summary>
-		/// velocity of this rigidbody
-		/// </summary>
-		/// <returns>The velocity.</returns>
-		/// <param name="velocity">Velocity.</param>
 		public ArcadeRigidbody SetVelocity(System.Numerics.Vector2 velocity)
 		{
 			Velocity = velocity;
@@ -156,7 +145,7 @@ namespace Nez
 
 		/// <summary>
 		/// add an instant force impulse to the rigidbody using its mass. force is an acceleration in pixels per second per second. The
-		/// force is multiplied by 100000 to make the values more reasonable to use.
+		/// force is multiplied by 100,000 to make the values more reasonable to use.
 		/// </summary>
 		/// <param name="force">Force.</param>
 		public void AddImpulse(System.Numerics.Vector2 force)
@@ -180,7 +169,7 @@ namespace Nez
 			}
 
 			if (ShouldUseGravity)
-				Velocity += Physics.Gravity.ToSimd() * Time.DeltaTime;
+				Velocity += Physics.Gravity * Time.DeltaTime;
 
 			Entity.Transform.Position += Velocity * Time.DeltaTime;
 
@@ -201,7 +190,7 @@ namespace Nez
 					// if the neighbor has an ArcadeRigidbody we handle full collision response. If not, we calculate things based on the
 					// neighbor being immovable.
 					var neighborRigidbody = neighbor.Entity.GetComponent<ArcadeRigidbody>();
-					var x = collisionResult.MinimumTranslationVector.ToSimd();
+					var x = collisionResult.MinimumTranslationVector;
 					if (neighborRigidbody != null)
 					{
 						ProcessOverlap(neighborRigidbody, ref x);
@@ -210,7 +199,7 @@ namespace Nez
 					else
 					{
 						// neighbor has no ArcadeRigidbody so we assume its immovable and only move ourself
-						Entity.Transform.Position -= collisionResult.MinimumTranslationVector.ToSimd();
+						Entity.Transform.Position -= collisionResult.MinimumTranslationVector;
 						var relativeVelocity = Velocity;
 						CalculateResponseVelocity(ref relativeVelocity, ref x,
 							out relativeVelocity);

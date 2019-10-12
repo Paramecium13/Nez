@@ -11,39 +11,14 @@ namespace Nez
 		/// </summary>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Normalize(ref Vector2 vec)
+		public static void Normalize(ref this System.Numerics.Vector2 vec)
 		{
-			var magnitude = Mathf.Sqrt((vec.X * vec.X) + (vec.Y * vec.Y));
+			var magnitude = vec.Length();
 			if (magnitude > Mathf.Epsilon)
 				vec /= magnitude;
 			else
 				vec.X = vec.Y = 0;
 		}
-
-
-		/// <summary>
-		/// temporary workaround to Vector2.Normalize screwing up the 0,0 vector
-		/// </summary>
-		/// <param name="vec">Vec.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Normalize(Vector2 vec)
-		{
-			var magnitude = Mathf.Sqrt((vec.X * vec.X) + (vec.Y * vec.Y));
-			if (magnitude > Mathf.Epsilon)
-				vec /= magnitude;
-			else
-				vec.X = vec.Y = 0;
-
-			return vec;
-		}
-
-
-		/// <summary>
-		/// rounds the x and y values
-		/// </summary>
-		/// <param name="vec">Vec.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Round(this Vector2 vec) => new Vector2(Mathf.Round(vec.X), Mathf.Round(vec.Y));
 
 		/// <summary>
 		/// rounds the x and y values
@@ -58,7 +33,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Round(ref Vector2 vec)
+		public static void Round(ref System.Numerics.Vector2 vec)
 		{
 			vec.X = Mathf.Round(vec.X);
 			vec.Y = Mathf.Round(vec.Y);
@@ -66,7 +41,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public void Floor(ref Vector2 val)
+		static public void Floor(ref System.Numerics.Vector2 val)
 		{
 			val.X = (int) val.X;
 			val.Y = (int) val.Y;
@@ -74,9 +49,9 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public Vector2 Floor(Vector2 val)
+		static public System.Numerics.Vector2 Floor(System.Numerics.Vector2 val)
 		{
-			return new Vector2((int) val.X, (int) val.Y);
+			return new System.Numerics.Vector2((int) val.X, (int) val.Y);
 		}
 
 
@@ -85,9 +60,9 @@ namespace Nez
 		/// </summary>
 		/// <returns>The vector.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 HalfVector()
+		public static System.Numerics.Vector2 HalfVector()
 		{
-			return new Vector2(0.5f, 0.5f);
+			return new System.Numerics.Vector2(0.5f, 0.5f);
 		}
 
 
@@ -97,7 +72,7 @@ namespace Nez
 		/// <param name="u">U.</param>
 		/// <param name="v">V.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static float Cross(Vector2 u, Vector2 v)
+		public static float Cross(System.Numerics.Vector2 u, System.Numerics.Vector2 v)
 		{
 			return u.Y * v.X - u.X * v.Y;
 		}
@@ -109,9 +84,9 @@ namespace Nez
 		/// <param name="first">First.</param>
 		/// <param name="second">Second.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Perpendicular(ref Vector2 first, ref Vector2 second)
+		public static System.Numerics.Vector2 Perpendicular(ref System.Numerics.Vector2 first, ref System.Numerics.Vector2 second)
 		{
-			return new Vector2(-1f * (second.Y - first.Y), second.X - first.X);
+			return new System.Numerics.Vector2(-1f * (second.Y - first.Y), second.X - first.X);
 		}
 
 
@@ -121,9 +96,9 @@ namespace Nez
 		/// <param name="first">First.</param>
 		/// <param name="second">Second.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Perpendicular(Vector2 first, Vector2 second)
+		public static System.Numerics.Vector2 Perpendicular(System.Numerics.Vector2 first, System.Numerics.Vector2 second)
 		{
-			return new Vector2(-1f * (second.Y - first.Y), second.X - first.X);
+			return new System.Numerics.Vector2(-1f * (second.Y - first.Y), second.X - first.X);
 		}
 
 
@@ -132,9 +107,9 @@ namespace Nez
 		/// </summary>
 		/// <param name="original">Original.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Perpendicular(Vector2 original)
+		public static System.Numerics.Vector2 Perpendicular(System.Numerics.Vector2 original)
 		{
-			return new Vector2(-original.Y, original.X);
+			return new System.Numerics.Vector2(-original.Y, original.X);
 		}
 
 
@@ -144,11 +119,11 @@ namespace Nez
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static float Angle(Vector2 from, Vector2 to)
+		public static float Angle(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
 		{
 			Normalize(ref from);
 			Normalize(ref to);
-			return Mathf.Acos(Mathf.Clamp(Vector2.Dot(from, to), -1f, 1f)) * Mathf.Rad2Deg;
+			return Mathf.Acos(Mathf.Clamp(System.Numerics.Vector2.Dot(from, to), -1f, 1f)) * Mathf.Rad2Deg;
 		}
 
 
@@ -159,7 +134,7 @@ namespace Nez
 		/// <param name="left">V left.</param>
 		/// <param name="right">V right.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static float AngleBetween(this Vector2 self, Vector2 left, Vector2 right)
+		public static float AngleBetween(this System.Numerics.Vector2 self, System.Numerics.Vector2 left, System.Numerics.Vector2 right)
 		{
 			var one = left - self;
 			var two = right - self;
@@ -176,7 +151,7 @@ namespace Nez
 		/// <param name="c">C.</param>
 		/// <param name="d">D.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool GetRayIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d, out Vector2 intersection)
+		public static bool GetRayIntersection(System.Numerics.Vector2 a, System.Numerics.Vector2 b, System.Numerics.Vector2 c, System.Numerics.Vector2 d, out System.Numerics.Vector2 intersection)
 		{
 			var dy1 = b.Y - a.Y;
 			var dx1 = b.X - a.X;
@@ -185,24 +160,24 @@ namespace Nez
 
 			if (dy1 * dx2 == dy2 * dx1)
 			{
-				intersection = new Vector2(float.NaN, float.NaN);
+				intersection = new System.Numerics.Vector2(float.NaN, float.NaN);
 				return false;
 			}
 
 			var x = ((c.Y - a.Y) * dx1 * dx2 + dy1 * dx2 * a.X - dy2 * dx1 * c.X) / (dy1 * dx2 - dy2 * dx1);
 			var y = a.Y + (dy1 / dx1) * (x - a.X);
 
-			intersection = new Vector2(x, y);
+			intersection = new System.Numerics.Vector2(x, y);
 			return true;
 		}
 
 		/// <summary>
-		/// rounds and converts a Vector2 to a Point
+		/// rounds and converts a System.Numerics.Vector2 to a Point
 		/// </summary>
 		/// <returns>The point.</returns>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Point RoundToPoint(this Vector2 vec)
+		public static Point RoundToPoint(this System.Numerics.Vector2 vec)
 		{
 			var roundedVec = vec.Round();
 			return new Point((int) roundedVec.X, (int) roundedVec.Y);
@@ -210,14 +185,14 @@ namespace Nez
 
 
 		/// <summary>
-		/// converts a Vector2 to a Vector3 with a 0 z-position
+		/// converts a System.Numerics.Vector2 to a Vector3 with a 0 z-position
 		/// </summary>
 		/// <returns>The vector3.</returns>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector3 ToVector3(this Vector2 vec)
+		public static Vector3 ToVector3(this System.Numerics.Vector2 vec)
 		{
-			return new Vector3(vec, 0);
+			return new Vector3(vec.ToXna(), 0);
 		}
 
 
@@ -229,34 +204,34 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="c">C.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsTriangleCCW(Vector2 a, Vector2 center, Vector2 c)
+		public static bool IsTriangleCCW(System.Numerics.Vector2 a, System.Numerics.Vector2 center, System.Numerics.Vector2 c)
 		{
 			return Cross(center - a, c - center) < 0;
 		}
 
 
 		/// <summary>
-		/// Creates a new <see cref="Vector2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
+		/// Creates a new <see cref="System.Numerics.Vector2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
 		/// </summary>
-		/// <param name="position">Source <see cref="Vector2"/>.</param>
+		/// <param name="position">Source <see cref="System.Numerics.Vector2"/>.</param>
 		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
-		/// <returns>Transformed <see cref="Vector2"/>.</returns>
+		/// <returns>Transformed <see cref="System.Numerics.Vector2"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Transform(Vector2 position, Matrix2D matrix)
+		public static System.Numerics.Vector2 Transform(System.Numerics.Vector2 position, Matrix2D matrix)
 		{
-			return new Vector2((position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M31,
+			return new System.Numerics.Vector2((position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M31,
 				(position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M32);
 		}
 
 
 		/// <summary>
-		/// Creates a new <see cref="Vector2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
+		/// Creates a new <see cref="System.Numerics.Vector2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
 		/// </summary>
-		/// <param name="position">Source <see cref="Vector2"/>.</param>
+		/// <param name="position">Source <see cref="System.Numerics.Vector2"/>.</param>
 		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
-		/// <param name="result">Transformed <see cref="Vector2"/> as an output parameter.</param>
+		/// <param name="result">Transformed <see cref="System.Numerics.Vector2"/> as an output parameter.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Transform(ref Vector2 position, ref Matrix2D matrix, out Vector2 result)
+		public static void Transform(ref System.Numerics.Vector2 position, ref Matrix2D matrix, out System.Numerics.Vector2 result)
 		{
 			var x = (position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M31;
 			var y = (position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M32;
@@ -266,17 +241,17 @@ namespace Nez
 
 
 		/// <summary>
-		/// Apply transformation on vectors within array of <see cref="Vector2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+		/// Apply transformation on vectors within array of <see cref="System.Numerics.Vector2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
 		/// </summary>
 		/// <param name="sourceArray">Source array.</param>
 		/// <param name="sourceIndex">The starting index of transformation in the source array.</param>
 		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
 		/// <param name="destinationArray">Destination array.</param>
-		/// <param name="destinationIndex">The starting index in the destination array, where the first <see cref="Vector2"/> should be written.</param>
+		/// <param name="destinationIndex">The starting index in the destination array, where the first <see cref="System.Numerics.Vector2"/> should be written.</param>
 		/// <param name="length">The number of vectors to be transformed.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Transform(Vector2[] sourceArray, int sourceIndex, ref Matrix2D matrix,
-		                             Vector2[] destinationArray, int destinationIndex, int length)
+		public static void Transform(System.Numerics.Vector2[] sourceArray, int sourceIndex, ref Matrix2D matrix,
+		                             System.Numerics.Vector2[] destinationArray, int destinationIndex, int length)
 		{
 			for (var i = 0; i < length; i++)
 			{
@@ -290,13 +265,13 @@ namespace Nez
 
 
 		/// <summary>
-		/// Apply transformation on all vectors within array of <see cref="Vector2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+		/// Apply transformation on all vectors within array of <see cref="System.Numerics.Vector2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
 		/// </summary>
 		/// <param name="sourceArray">Source array.</param>
 		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
 		/// <param name="destinationArray">Destination array.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Transform(Vector2[] sourceArray, ref Matrix2D matrix, Vector2[] destinationArray)
+		public static void Transform(System.Numerics.Vector2[] sourceArray, ref Matrix2D matrix, System.Numerics.Vector2[] destinationArray)
 		{
 			Transform(sourceArray, 0, ref matrix, destinationArray, 0, sourceArray.Length);
 		}
@@ -305,7 +280,13 @@ namespace Nez
 		public static System.Numerics.Vector2 ToSimd(this Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static System.Numerics.Vector2 ToSimd(ref Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector2 ToXna(this System.Numerics.Vector2 self) => Unsafe.As<System.Numerics.Vector2, Vector2>(ref self);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Vector2 ToXna(ref System.Numerics.Vector2 self) => Unsafe.As<System.Numerics.Vector2, Vector2>(ref self);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector3 ToVector3(this System.Numerics.Vector2 self, float z)

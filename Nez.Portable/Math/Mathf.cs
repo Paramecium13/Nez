@@ -724,19 +724,19 @@ namespace Nez
 		#endregion
 
 
-		#region Vector2
+		#region System.Numerics.Vector2
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float AngleBetweenVectors(Vector2 from, Vector2 to)
+		static public float AngleBetweenVectors(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
 		{
 			return Atan2(to.Y - from.Y, to.X - from.X);
 		}
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public Vector2 AngleToVector(float angleRadians, float length)
+		static public System.Numerics.Vector2 AngleToVector(float angleRadians, float length)
 		{
-			return new Vector2(Cos(angleRadians) * length, Sin(angleRadians) * length);
+			return new System.Numerics.Vector2(Cos(angleRadians) * length, Sin(angleRadians) * length);
 		}
 
 
@@ -744,14 +744,14 @@ namespace Nez
 		/// helper for moving a value around in a circle.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public Vector2 RotateAround(Vector2 position, float speed)
+		static public System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 position, float speed)
 		{
 			var time = Time.TotalTime * speed;
 
 			var x = Cos(time);
 			var y = Sin(time);
 
-			return new Vector2(position.X + x, position.Y + y);
+			return new System.Numerics.Vector2(position.X + x, position.Y + y);
 		}
 
 
@@ -764,7 +764,7 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="angleInDegrees">Angle in degrees.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 RotateAround(Vector2 point, Vector2 center, float angleInDegrees)
+		public static System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 point, System.Numerics.Vector2 center, float angleInDegrees)
 		{
 			angleInDegrees = MathHelper.ToRadians(angleInDegrees);
 			var cos = Cos(angleInDegrees);
@@ -772,7 +772,7 @@ namespace Nez
 			var rotatedX = cos * (point.X - center.X) - sin * (point.Y - center.Y) + center.X;
 			var rotatedY = sin * (point.X - center.X) + cos * (point.Y - center.Y) + center.Y;
 
-			return new Vector2(rotatedX, rotatedY);
+			return new System.Numerics.Vector2(rotatedX, rotatedY);
 		}
 
 
@@ -785,14 +785,14 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="angleInDegrees">Angle in radians.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 RotateAroundRadians(Vector2 point, Vector2 center, float angleInRadians)
+		public static System.Numerics.Vector2 RotateAroundRadians(System.Numerics.Vector2 point, System.Numerics.Vector2 center, float angleInRadians)
 		{
 			var cos = Cos(angleInRadians);
 			var sin = Sin(angleInRadians);
 			var rotatedX = cos * (point.X - center.X) - sin * (point.Y - center.Y) + center.X;
 			var rotatedY = sin * (point.X - center.X) + cos * (point.Y - center.Y) + center.Y;
 
-			return new Vector2(rotatedX, rotatedY);
+			return new System.Numerics.Vector2(rotatedX, rotatedY);
 		}
 
 
@@ -804,10 +804,10 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		/// <param name="angleInDegrees">Angle in degrees.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 PointOnCircle(Vector2 circleCenter, float radius, float angleInDegrees)
+		public static System.Numerics.Vector2 PointOnCircle(System.Numerics.Vector2 circleCenter, float radius, float angleInDegrees)
 		{
 			var radians = MathHelper.ToRadians(angleInDegrees);
-			return new Vector2
+			return new System.Numerics.Vector2
 			{
 				X = Cos(radians) * radius + circleCenter.X,
 				Y = Sin(radians) * radius + circleCenter.Y
@@ -823,9 +823,9 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		/// <param name="angleInDegrees">Angle in radians.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 PointOnCircleRadians(Vector2 circleCenter, float radius, float angleInRadians)
+		public static System.Numerics.Vector2 PointOnCircleRadians(System.Numerics.Vector2 circleCenter, float radius, float angleInRadians)
 		{
-			return new Vector2
+			return new System.Numerics.Vector2
 			{
 				X = Cos(angleInRadians) * radius + circleCenter.X,
 				Y = Sin(angleInRadians) * radius + circleCenter.Y
@@ -842,13 +842,13 @@ namespace Nez
 		/// <param name="yMagnitude">Y magnitude.</param>
 		/// <param name="phase">Phase.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 Lissajou(float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1,
+		public static System.Numerics.Vector2 Lissajou(float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1,
 									   float yMagnitude = 1, float phase = 0)
 		{
 			var x = Sin(Time.TotalTime * xFrequency + phase) * xMagnitude;
 			var y = Cos(Time.TotalTime * yFrequency) * yMagnitude;
 
-			return new Vector2(x, y);
+			return new System.Numerics.Vector2(x, y);
 		}
 
 
@@ -865,7 +865,7 @@ namespace Nez
 		/// <param name="damping">Damping.</param>
 		/// <param name="oscillationInterval">Oscillation interval.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 LissajouDamped(float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1,
+		public static System.Numerics.Vector2 LissajouDamped(float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1,
 											 float yMagnitude = 1, float phase = 0.5f, float damping = 0f,
 											 float oscillationInterval = 5f)
 		{
@@ -875,7 +875,7 @@ namespace Nez
 			var x = damped * Sin(Time.TotalTime * xFrequency + phase) * xMagnitude;
 			var y = damped * Cos(Time.TotalTime * yFrequency) * yMagnitude;
 
-			return new Vector2(x, y);
+			return new System.Numerics.Vector2(x, y);
 		}
 
 		#endregion

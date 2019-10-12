@@ -7,7 +7,7 @@ namespace Nez.Farseer
 	internal class FSBodyDef
 	{
 		public BodyType BodyType = BodyType.Static;
-		public Vector2 LinearVelocity;
+		public System.Numerics.Vector2 LinearVelocity;
 		public float AngularVelocity;
 		public float LinearDamping;
 		public float AngularDamping;

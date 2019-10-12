@@ -23,8 +23,8 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Position + _topLeftVertPosition, Vector2.Zero,
-						Vector2.Zero, Entity.Scale, Entity.Transform.Rotation, _width, _height);
+					_bounds.CalculateBounds(Entity.Position + _topLeftVertPosition, System.Numerics.Vector2.Zero,
+						System.Numerics.Vector2.Zero, Entity.Scale, Entity.Transform.Rotation, _width, _height);
 					_areBoundsDirty = false;
 				}
 
@@ -37,7 +37,7 @@ namespace Nez
 		BasicEffect _basicEffect;
 
 		int _primitiveCount;
-		Vector2 _topLeftVertPosition;
+		System.Numerics.Vector2 _topLeftVertPosition;
 		float _width;
 		float _height;
 		int[] _triangles;
@@ -53,8 +53,8 @@ namespace Nez
 		/// <param name="recalculateUVs">If set to <c>true</c> recalculate U vs.</param>
 		public Mesh RecalculateBounds(bool recalculateUVs)
 		{
-			_topLeftVertPosition = new Vector2(float.MaxValue, float.MaxValue);
-			var max = new Vector2(float.MinValue, float.MinValue);
+			_topLeftVertPosition = new System.Numerics.Vector2(float.MaxValue, float.MaxValue);
+			var max = new System.Numerics.Vector2(float.MinValue, float.MinValue);
 
 			for (var i = 0; i < _verts.Length; i++)
 			{
@@ -156,7 +156,7 @@ namespace Nez
 		/// sets the vert positions. If the positions array does not match the verts array size the verts array will be recreated.
 		/// </summary>
 		/// <param name="positions">Positions.</param>
-		public Mesh SetVertPositions(Vector2[] positions)
+		public Mesh SetVertPositions(System.Numerics.Vector2[] positions)
 		{
 			var createVerts = _verts == null || _verts.Length != positions.Length;
 			if (createVerts)

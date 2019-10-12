@@ -34,7 +34,7 @@ namespace Nez
 			}
 		}
 
-		public Vector2 Offset
+		public System.Numerics.Vector2 Offset
 		{
 			get => _offset;
 			set
@@ -42,14 +42,14 @@ namespace Nez
 				if (_offset != value)
 				{
 					_offset = value;
-					_offsetParam.SetValue(_offset);
+					_offsetParam.SetValue(_offset.ToXna());
 				}
 			}
 		}
 
 		float _radius = 0.5f;
 		float _angle = 5f;
-		Vector2 _offset = Vector2Ext.HalfVector();
+		System.Numerics.Vector2 _offset = Vector2Ext.HalfVector();
 
 		EffectParameter _radiusParam;
 		EffectParameter _angleParam;
@@ -64,7 +64,7 @@ namespace Nez
 
 			_radiusParam.SetValue(_radius);
 			_angleParam.SetValue(_angle);
-			_offsetParam.SetValue(_offset);
+			_offsetParam.SetValue(_offset.ToXna());
 		}
 	}
 }

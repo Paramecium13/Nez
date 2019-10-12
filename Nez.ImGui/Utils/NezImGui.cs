@@ -16,9 +16,9 @@ namespace Nez.ImGuiTools
 		/// <returns></returns>
 		public static int GetScopeId() => _idScope++;
 
-		public static void SmallVerticalSpace() => ImGui.Dummy(new Num.Vector2(0, 5));
+		public static void SmallVerticalSpace() => ImGui.Dummy(new System.Numerics.Vector2(0, 5));
 
-		public static void MediumVerticalSpace() => ImGui.Dummy(new Num.Vector2(0, 10));
+		public static void MediumVerticalSpace() => ImGui.Dummy(new System.Numerics.Vector2(0, 10));
 
 		/// <summary>
 		/// adds a DrawList command to draw a border around the group
@@ -28,9 +28,9 @@ namespace Nez.ImGuiTools
 			ImGui.BeginGroup();
 		}
 
-		public static void EndBorderedGroup() => EndBorderedGroup(new Num.Vector2(3, 2), new Num.Vector2(0, 3));
+		public static void EndBorderedGroup() => EndBorderedGroup(new System.Numerics.Vector2(3, 2), new System.Numerics.Vector2(0, 3));
 
-		public static void EndBorderedGroup(Num.Vector2 minPadding, Num.Vector2 maxPadding = default(Num.Vector2))
+		public static void EndBorderedGroup(System.Numerics.Vector2 minPadding, System.Numerics.Vector2 maxPadding = default(System.Numerics.Vector2))
 		{
 			ImGui.EndGroup();
 
@@ -77,7 +77,7 @@ namespace Nez.ImGuiTools
 		public static void DisableNextWidget(float widgetCustomHeight = 0)
 		{
 			var origCursorPos = ImGui.GetCursorPos();
-			var widgetSize = new Num.Vector2(ImGui.GetContentRegionAvail().X,
+			var widgetSize = new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X,
                 widgetCustomHeight > 0 ? widgetCustomHeight : GetDefaultWidgetHeight());
 			ImGui.InvisibleButton("##disabled", widgetSize);
 			ImGui.SetCursorPos(origCursorPos);
@@ -131,14 +131,14 @@ namespace Nez.ImGuiTools
 				ImGui.Separator();
 				SmallVerticalSpace();
 
-				if (ImGui.Button(cxlButton, new Num.Vector2(120, 0)))
+				if (ImGui.Button(cxlButton, new System.Numerics.Vector2(120, 0)))
 				{
 					ImGui.CloseCurrentPopup();
 				}
 
 				ImGui.SetItemDefaultFocus();
 				ImGui.SameLine();
-				if (ImGui.Button(okButton, new Num.Vector2(120, 0)))
+				if (ImGui.Button(okButton, new System.Numerics.Vector2(120, 0)))
 				{
 					result = true;
 					ImGui.CloseCurrentPopup();

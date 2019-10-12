@@ -62,7 +62,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			CalculatePositionAndValue(mousePos);
 			_mouseDown = true;
@@ -70,7 +70,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			if (DistanceOutsideBoundsToPoint(mousePos) > SliderBoundaryThreshold)
 			{
@@ -84,7 +84,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 			_mouseDown = false;
 		}
@@ -228,7 +228,7 @@ namespace Nez.UI
 		}
 
 
-		void CalculatePositionAndValue(Vector2 mousePos)
+		void CalculatePositionAndValue(System.Numerics.Vector2 mousePos)
 		{
 			var knob = GetKnobDrawable();
 

@@ -65,8 +65,8 @@ namespace FarseerPhysics.Collision
 
 	public static class SeparationFunction
 	{
-		[ThreadStatic] static Vector2 _axis;
-		[ThreadStatic] static Vector2 _localPoint;
+		[ThreadStatic] static System.Numerics.Vector2 _axis;
+		[ThreadStatic] static System.Numerics.Vector2 _localPoint;
 		[ThreadStatic] static DistanceProxy _proxyA;
 		[ThreadStatic] static DistanceProxy _proxyB;
 		[ThreadStatic] static Sweep _sweepA, _sweepB;
@@ -76,7 +76,7 @@ namespace FarseerPhysics.Collision
 		public static void Set(ref SimplexCache cache, DistanceProxy proxyA, ref Sweep sweepA, DistanceProxy proxyB,
 		                       ref Sweep sweepB, float t1)
 		{
-			_localPoint = Vector2.Zero;
+			_localPoint = System.Numerics.Vector2.Zero;
 			_proxyA = proxyA;
 			_proxyB = proxyB;
 			var count = cache.Count;
@@ -107,7 +107,7 @@ namespace FarseerPhysics.Collision
 				var localPointB2 = proxyB.vertices[cache.IndexB[1]];
 
 				var a = localPointB2 - localPointB1;
-				_axis = new Vector2(a.Y, -a.X);
+				_axis = new System.Numerics.Vector2(a.Y, -a.X);
 				Nez.Vector2Ext.Normalize(ref _axis);
 				var normal = MathUtils.Mul(ref xfB.Q, _axis);
 
@@ -117,7 +117,7 @@ namespace FarseerPhysics.Collision
 				var localPointA = proxyA.vertices[cache.IndexA[0]];
 				var pointA = MathUtils.Mul(ref xfA, localPointA);
 
-				var s = Vector2.Dot(pointA - pointB, normal);
+				var s = System.Numerics.Vector2.Dot(pointA - pointB, normal);
 				if (s < 0.0f)
 					_axis = -_axis;
 			}
@@ -129,7 +129,7 @@ namespace FarseerPhysics.Collision
 				var localPointA2 = _proxyA.vertices[cache.IndexA[1]];
 
 				var a = localPointA2 - localPointA1;
-				_axis = new Vector2(a.Y, -a.X);
+				_axis = new System.Numerics.Vector2(a.Y, -a.X);
 				Nez.Vector2Ext.Normalize(ref _axis);
 				var normal = MathUtils.Mul(ref xfA.Q, _axis);
 
@@ -139,7 +139,7 @@ namespace FarseerPhysics.Collision
 				var localPointB = _proxyB.vertices[cache.IndexB[0]];
 				var pointB = MathUtils.Mul(ref xfB, localPointB);
 
-				var s = Vector2.Dot(pointB - pointA, normal);
+				var s = System.Numerics.Vector2.Dot(pointB - pointA, normal);
 				if (s < 0.0f)
 					_axis = -_axis;
 			}
@@ -169,7 +169,7 @@ namespace FarseerPhysics.Collision
 					var pointA = MathUtils.Mul(ref xfA, localPointA);
 					var pointB = MathUtils.Mul(ref xfB, localPointB);
 
-					var separation = Vector2.Dot(pointB - pointA, _axis);
+					var separation = System.Numerics.Vector2.Dot(pointB - pointA, _axis);
 					return separation;
 				}
 
@@ -186,7 +186,7 @@ namespace FarseerPhysics.Collision
 					var localPointB = _proxyB.vertices[indexB];
 					var pointB = MathUtils.Mul(ref xfB, localPointB);
 
-					var separation = Vector2.Dot(pointB - pointA, normal);
+					var separation = System.Numerics.Vector2.Dot(pointB - pointA, normal);
 					return separation;
 				}
 
@@ -203,7 +203,7 @@ namespace FarseerPhysics.Collision
 					var localPointA = _proxyA.vertices[indexA];
 					var pointA = MathUtils.Mul(ref xfA, localPointA);
 
-					var separation = Vector2.Dot(pointA - pointB, normal);
+					var separation = System.Numerics.Vector2.Dot(pointA - pointB, normal);
 					return separation;
 				}
 
@@ -230,7 +230,7 @@ namespace FarseerPhysics.Collision
 
 					var pointA = MathUtils.Mul(ref xfA, localPointA);
 					var pointB = MathUtils.Mul(ref xfB, localPointB);
-					var separation = Vector2.Dot(pointB - pointA, _axis);
+					var separation = System.Numerics.Vector2.Dot(pointB - pointA, _axis);
 
 					return separation;
 				}
@@ -242,7 +242,7 @@ namespace FarseerPhysics.Collision
 					var localPointB = _proxyB.vertices[indexB];
 					var pointB = MathUtils.Mul(ref xfB, localPointB);
 
-					var separation = Vector2.Dot(pointB - pointA, normal);
+					var separation = System.Numerics.Vector2.Dot(pointB - pointA, normal);
 					return separation;
 				}
 				case SeparationFunctionType.FaceB:
@@ -253,7 +253,7 @@ namespace FarseerPhysics.Collision
 					var localPointA = _proxyA.vertices[indexA];
 					var pointA = MathUtils.Mul(ref xfA, localPointA);
 
-					var separation = Vector2.Dot(pointA - pointB, normal);
+					var separation = System.Numerics.Vector2.Dot(pointA - pointB, normal);
 					return separation;
 				}
 				default:

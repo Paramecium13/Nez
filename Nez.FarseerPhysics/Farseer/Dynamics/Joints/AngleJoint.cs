@@ -12,13 +12,13 @@ namespace FarseerPhysics.Dynamics.Joints
 	{
 		#region Properties/Fields
 
-		public override Vector2 WorldAnchorA
+		public override System.Numerics.Vector2 WorldAnchorA
 		{
 			get => BodyA.Position;
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
 		}
 
-		public override Vector2 WorldAnchorB
+		public override System.Numerics.Vector2 WorldAnchorB
 		{
 			get => BodyB.Position;
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
@@ -81,11 +81,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			JointType = JointType.Angle;
 		}
 
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
 			//TODO
 			//return _inv_dt * _impulse;
-			return Vector2.Zero;
+			return System.Numerics.Vector2.Zero;
 		}
 
 		public override float GetReactionTorque(float invDt)

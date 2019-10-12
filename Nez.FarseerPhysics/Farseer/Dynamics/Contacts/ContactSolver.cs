@@ -31,13 +31,13 @@ namespace FarseerPhysics.Dynamics.Contacts
 {
 	public sealed class ContactPositionConstraint
 	{
-		public Vector2[] LocalPoints = new Vector2[Settings.MaxManifoldPoints];
-		public Vector2 LocalNormal;
-		public Vector2 LocalPoint;
+		public System.Numerics.Vector2[] LocalPoints = new System.Numerics.Vector2[Settings.MaxManifoldPoints];
+		public System.Numerics.Vector2 LocalNormal;
+		public System.Numerics.Vector2 LocalPoint;
 		public int IndexA;
 		public int IndexB;
 		public float InvMassA, InvMassB;
-		public Vector2 LocalCenterA, LocalCenterB;
+		public System.Numerics.Vector2 LocalCenterA, LocalCenterB;
 		public float InvIA, InvIB;
 		public ManifoldType Type;
 		public float RadiusA, RadiusB;
@@ -46,8 +46,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 	public sealed class VelocityConstraintPoint
 	{
-		public Vector2 RA;
-		public Vector2 RB;
+		public System.Numerics.Vector2 RA;
+		public System.Numerics.Vector2 RB;
 		public float NormalImpulse;
 		public float TangentImpulse;
 		public float NormalMass;
@@ -58,7 +58,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 	public sealed class ContactVelocityConstraint
 	{
 		public VelocityConstraintPoint[] Points = new VelocityConstraintPoint[Settings.MaxManifoldPoints];
-		public Vector2 Normal;
+		public System.Numerics.Vector2 Normal;
 		public Mat22 NormalMass;
 		public Mat22 K;
 		public int IndexA;
@@ -180,8 +180,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 						vcp.TangentImpulse = 0.0f;
 					}
 
-					vcp.RA = Vector2.Zero;
-					vcp.RB = Vector2.Zero;
+					vcp.RA = System.Numerics.Vector2.Zero;
+					vcp.RB = System.Numerics.Vector2.Zero;
 					vcp.NormalMass = 0.0f;
 					vcp.TangentMass = 0.0f;
 					vcp.VelocityBias = 0.0f;
@@ -209,17 +209,17 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float mB = vc.InvMassB;
 				float iA = vc.InvIA;
 				float iB = vc.InvIB;
-				Vector2 localCenterA = pc.LocalCenterA;
-				Vector2 localCenterB = pc.LocalCenterB;
+				System.Numerics.Vector2 localCenterA = pc.LocalCenterA;
+				System.Numerics.Vector2 localCenterB = pc.LocalCenterB;
 
-				Vector2 cA = _positions[indexA].C;
+				System.Numerics.Vector2 cA = _positions[indexA].C;
 				float aA = _positions[indexA].A;
-				Vector2 vA = _velocities[indexA].V;
+				System.Numerics.Vector2 vA = _velocities[indexA].V;
 				float wA = _velocities[indexA].W;
 
-				Vector2 cB = _positions[indexB].C;
+				System.Numerics.Vector2 cB = _positions[indexB].C;
 				float aB = _positions[indexB].A;
-				Vector2 vB = _velocities[indexB].V;
+				System.Numerics.Vector2 vB = _velocities[indexB].V;
 				float wB = _velocities[indexB].W;
 
 				Debug.Assert(manifold.PointCount > 0);
@@ -231,8 +231,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 				xfA.P = cA - MathUtils.Mul(xfA.Q, localCenterA);
 				xfB.P = cB - MathUtils.Mul(xfB.Q, localCenterB);
 
-				Vector2 normal;
-				FixedArray2<Vector2> points;
+				System.Numerics.Vector2 normal;
+				FixedArray2<System.Numerics.Vector2> points;
 				WorldManifold.Initialize(ref manifold, ref xfA, radiusA, ref xfB, radiusB, out normal, out points);
 
 				vc.Normal = normal;
@@ -252,7 +252,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 					vcp.NormalMass = kNormal > 0.0f ? 1.0f / kNormal : 0.0f;
 
-					Vector2 tangent = MathUtils.Cross(vc.Normal, 1.0f);
+					System.Numerics.Vector2 tangent = MathUtils.Cross(vc.Normal, 1.0f);
 
 					float rtA = MathUtils.Cross(vcp.RA, tangent);
 					float rtB = MathUtils.Cross(vcp.RB, tangent);
@@ -263,7 +263,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 					// Setup a velocity bias for restitution.
 					vcp.VelocityBias = 0.0f;
-					float vRel = Vector2.Dot(vc.Normal,
+					float vRel = System.Numerics.Vector2.Dot(vc.Normal,
 						vB + MathUtils.Cross(wB, vcp.RB) - vA - MathUtils.Cross(wA, vcp.RA));
 					if (vRel < -Settings.VelocityThreshold)
 					{
@@ -291,8 +291,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					if (k11 * k11 < k_maxConditionNumber * (k11 * k22 - k12 * k12))
 					{
 						// K is safe to invert.
-						vc.K.Ex = new Vector2(k11, k12);
-						vc.K.Ey = new Vector2(k12, k22);
+						vc.K.Ex = new System.Numerics.Vector2(k11, k12);
+						vc.K.Ey = new System.Numerics.Vector2(k12, k22);
 						vc.NormalMass = vc.K.Inverse;
 					}
 					else
@@ -320,18 +320,18 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float iB = vc.InvIB;
 				int pointCount = vc.PointCount;
 
-				Vector2 vA = _velocities[indexA].V;
+				System.Numerics.Vector2 vA = _velocities[indexA].V;
 				float wA = _velocities[indexA].W;
-				Vector2 vB = _velocities[indexB].V;
+				System.Numerics.Vector2 vB = _velocities[indexB].V;
 				float wB = _velocities[indexB].W;
 
-				Vector2 normal = vc.Normal;
-				Vector2 tangent = MathUtils.Cross(normal, 1.0f);
+				System.Numerics.Vector2 normal = vc.Normal;
+				System.Numerics.Vector2 tangent = MathUtils.Cross(normal, 1.0f);
 
 				for (int j = 0; j < pointCount; ++j)
 				{
 					VelocityConstraintPoint vcp = vc.Points[j];
-					Vector2 P = vcp.NormalImpulse * normal + vcp.TangentImpulse * tangent;
+					System.Numerics.Vector2 P = vcp.NormalImpulse * normal + vcp.TangentImpulse * tangent;
 					wA -= iA * MathUtils.Cross(vcp.RA, P);
 					vA -= mA * P;
 					wB += iB * MathUtils.Cross(vcp.RB, P);
@@ -359,13 +359,13 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float iB = vc.InvIB;
 				int pointCount = vc.PointCount;
 
-				Vector2 vA = _velocities[indexA].V;
+				System.Numerics.Vector2 vA = _velocities[indexA].V;
 				float wA = _velocities[indexA].W;
-				Vector2 vB = _velocities[indexB].V;
+				System.Numerics.Vector2 vB = _velocities[indexB].V;
 				float wB = _velocities[indexB].W;
 
-				Vector2 normal = vc.Normal;
-				Vector2 tangent = MathUtils.Cross(normal, 1.0f);
+				System.Numerics.Vector2 normal = vc.Normal;
+				System.Numerics.Vector2 tangent = MathUtils.Cross(normal, 1.0f);
 				float friction = vc.Friction;
 
 				Debug.Assert(pointCount == 1 || pointCount == 2);
@@ -377,10 +377,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint vcp = vc.Points[j];
 
 					// Relative velocity at contact
-					Vector2 dv = vB + MathUtils.Cross(wB, vcp.RB) - vA - MathUtils.Cross(wA, vcp.RA);
+					System.Numerics.Vector2 dv = vB + MathUtils.Cross(wB, vcp.RB) - vA - MathUtils.Cross(wA, vcp.RA);
 
 					// Compute tangent force
-					float vt = Vector2.Dot(dv, tangent) - vc.TangentSpeed;
+					float vt = System.Numerics.Vector2.Dot(dv, tangent) - vc.TangentSpeed;
 					float lambda = vcp.TangentMass * (-vt);
 
 					// b2Clamp the accumulated force
@@ -390,7 +390,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					vcp.TangentImpulse = newImpulse;
 
 					// Apply contact impulse
-					Vector2 P = lambda * tangent;
+					System.Numerics.Vector2 P = lambda * tangent;
 
 					vA -= mA * P;
 					wA -= iA * MathUtils.Cross(vcp.RA, P);
@@ -405,10 +405,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint vcp = vc.Points[0];
 
 					// Relative velocity at contact
-					Vector2 dv = vB + MathUtils.Cross(wB, vcp.RB) - vA - MathUtils.Cross(wA, vcp.RA);
+					System.Numerics.Vector2 dv = vB + MathUtils.Cross(wB, vcp.RB) - vA - MathUtils.Cross(wA, vcp.RA);
 
 					// Compute normal impulse
-					float vn = Vector2.Dot(dv, normal);
+					float vn = System.Numerics.Vector2.Dot(dv, normal);
 					float lambda = -vcp.NormalMass * (vn - vcp.VelocityBias);
 
 					// b2Clamp the accumulated impulse
@@ -417,7 +417,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					vcp.NormalImpulse = newImpulse;
 
 					// Apply contact impulse
-					Vector2 P = lambda * normal;
+					System.Numerics.Vector2 P = lambda * normal;
 					vA -= mA * P;
 					wA -= iA * MathUtils.Cross(vcp.RA, P);
 
@@ -462,18 +462,18 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint cp1 = vc.Points[0];
 					VelocityConstraintPoint cp2 = vc.Points[1];
 
-					Vector2 a = new Vector2(cp1.NormalImpulse, cp2.NormalImpulse);
+					System.Numerics.Vector2 a = new System.Numerics.Vector2(cp1.NormalImpulse, cp2.NormalImpulse);
 					Debug.Assert(a.X >= 0.0f && a.Y >= 0.0f);
 
 					// Relative velocity at contact
-					Vector2 dv1 = vB + MathUtils.Cross(wB, cp1.RB) - vA - MathUtils.Cross(wA, cp1.RA);
-					Vector2 dv2 = vB + MathUtils.Cross(wB, cp2.RB) - vA - MathUtils.Cross(wA, cp2.RA);
+					System.Numerics.Vector2 dv1 = vB + MathUtils.Cross(wB, cp1.RB) - vA - MathUtils.Cross(wA, cp1.RA);
+					System.Numerics.Vector2 dv2 = vB + MathUtils.Cross(wB, cp2.RB) - vA - MathUtils.Cross(wA, cp2.RA);
 
 					// Compute normal velocity
-					float vn1 = Vector2.Dot(dv1, normal);
-					float vn2 = Vector2.Dot(dv2, normal);
+					float vn1 = System.Numerics.Vector2.Dot(dv1, normal);
+					float vn2 = System.Numerics.Vector2.Dot(dv2, normal);
 
-					Vector2 b = new Vector2();
+					System.Numerics.Vector2 b = new System.Numerics.Vector2();
 					b.X = vn1 - cp1.VelocityBias;
 					b.Y = vn2 - cp2.VelocityBias;
 
@@ -496,16 +496,16 @@ namespace FarseerPhysics.Dynamics.Contacts
 						//
 						// x = - inv(A) * b'
 						//
-						Vector2 x = -MathUtils.Mul(ref vc.NormalMass, b);
+						System.Numerics.Vector2 x = -MathUtils.Mul(ref vc.NormalMass, b);
 
 						if (x.X >= 0.0f && x.Y >= 0.0f)
 						{
 							// Get the incremental impulse
-							Vector2 d = x - a;
+							System.Numerics.Vector2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							System.Numerics.Vector2 P1 = d.X * normal;
+							System.Numerics.Vector2 P2 = d.Y * normal;
 							vA -= mA * (P1 + P2);
 							wA -= iA * (MathUtils.Cross(cp1.RA, P1) + MathUtils.Cross(cp2.RA, P2));
 
@@ -522,8 +522,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					dv2 = vB + MathUtils.Cross(wB, cp2.rB) - vA - MathUtils.Cross(wA, cp2.rA);
 
 					// Compute normal velocity
-					vn1 = Vector2.Dot(dv1, normal);
-					vn2 = Vector2.Dot(dv2, normal);
+					vn1 = System.Numerics.Vector2.Dot(dv1, normal);
+					vn2 = System.Numerics.Vector2.Dot(dv2, normal);
 
 					b2Assert(b2Abs(vn1 - cp1.velocityBias) < k_errorTol);
 					b2Assert(b2Abs(vn2 - cp2.velocityBias) < k_errorTol);
@@ -545,11 +545,11 @@ namespace FarseerPhysics.Dynamics.Contacts
 						if (x.X >= 0.0f && vn2 >= 0.0f)
 						{
 							// Get the incremental impulse
-							Vector2 d = x - a;
+							System.Numerics.Vector2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							System.Numerics.Vector2 P1 = d.X * normal;
+							System.Numerics.Vector2 P2 = d.Y * normal;
 							vA -= mA * (P1 + P2);
 							wA -= iA * (MathUtils.Cross(cp1.RA, P1) + MathUtils.Cross(cp2.RA, P2));
 
@@ -565,7 +565,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					dv1 = vB + MathUtils.Cross(wB, cp1.rB) - vA - MathUtils.Cross(wA, cp1.rA);
 
 					// Compute normal velocity
-					vn1 = Vector2.Dot(dv1, normal);
+					vn1 = System.Numerics.Vector2.Dot(dv1, normal);
 
 					b2Assert(b2Abs(vn1 - cp1.velocityBias) < k_errorTol);
 #endif
@@ -587,11 +587,11 @@ namespace FarseerPhysics.Dynamics.Contacts
 						if (x.Y >= 0.0f && vn1 >= 0.0f)
 						{
 							// Resubstitute for the incremental impulse
-							Vector2 d = x - a;
+							System.Numerics.Vector2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							System.Numerics.Vector2 P1 = d.X * normal;
+							System.Numerics.Vector2 P2 = d.Y * normal;
 							vA -= mA * (P1 + P2);
 							wA -= iA * (MathUtils.Cross(cp1.RA, P1) + MathUtils.Cross(cp2.RA, P2));
 
@@ -607,7 +607,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					dv2 = vB + MathUtils.Cross(wB, cp2.rB) - vA - MathUtils.Cross(wA, cp2.rA);
 
 					// Compute normal velocity
-					vn2 = Vector2.Dot(dv2, normal);
+					vn2 = System.Numerics.Vector2.Dot(dv2, normal);
 
 					b2Assert(b2Abs(vn2 - cp2.velocityBias) < k_errorTol);
 #endif
@@ -627,11 +627,11 @@ namespace FarseerPhysics.Dynamics.Contacts
 						if (vn1 >= 0.0f && vn2 >= 0.0f)
 						{
 							// Resubstitute for the incremental impulse
-							Vector2 d = x - a;
+							System.Numerics.Vector2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							System.Numerics.Vector2 P1 = d.X * normal;
+							System.Numerics.Vector2 P2 = d.Y * normal;
 							vA -= mA * (P1 + P2);
 							wA -= iA * (MathUtils.Cross(cp1.RA, P1) + MathUtils.Cross(cp2.RA, P2));
 
@@ -686,18 +686,18 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 				int indexA = pc.IndexA;
 				int indexB = pc.IndexB;
-				Vector2 localCenterA = pc.LocalCenterA;
+				System.Numerics.Vector2 localCenterA = pc.LocalCenterA;
 				float mA = pc.InvMassA;
 				float iA = pc.InvIA;
-				Vector2 localCenterB = pc.LocalCenterB;
+				System.Numerics.Vector2 localCenterB = pc.LocalCenterB;
 				float mB = pc.InvMassB;
 				float iB = pc.InvIB;
 				int pointCount = pc.PointCount;
 
-				Vector2 cA = _positions[indexA].C;
+				System.Numerics.Vector2 cA = _positions[indexA].C;
 				float aA = _positions[indexA].A;
 
-				Vector2 cB = _positions[indexB].C;
+				System.Numerics.Vector2 cB = _positions[indexB].C;
 				float aB = _positions[indexB].A;
 
 				// Solve normal constraints
@@ -710,14 +710,14 @@ namespace FarseerPhysics.Dynamics.Contacts
 					xfA.P = cA - MathUtils.Mul(xfA.Q, localCenterA);
 					xfB.P = cB - MathUtils.Mul(xfB.Q, localCenterB);
 
-					Vector2 normal;
-					Vector2 point;
+					System.Numerics.Vector2 normal;
+					System.Numerics.Vector2 point;
 					float separation;
 
 					PositionSolverManifold.Initialize(pc, xfA, xfB, j, out normal, out point, out separation);
 
-					Vector2 rA = point - cA;
-					Vector2 rB = point - cB;
+					System.Numerics.Vector2 rA = point - cA;
+					System.Numerics.Vector2 rB = point - cB;
 
 					// Track max constraint error.
 					minSeparation = Math.Min(minSeparation, separation);
@@ -734,7 +734,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					// Compute normal impulse
 					float impulse = K > 0.0f ? -C / K : 0.0f;
 
-					Vector2 P = impulse * normal;
+					System.Numerics.Vector2 P = impulse * normal;
 
 					cA -= mA * P;
 					aA -= iA * MathUtils.Cross(rA, P);
@@ -766,8 +766,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 				int indexA = pc.IndexA;
 				int indexB = pc.IndexB;
-				Vector2 localCenterA = pc.LocalCenterA;
-				Vector2 localCenterB = pc.LocalCenterB;
+				System.Numerics.Vector2 localCenterA = pc.LocalCenterA;
+				System.Numerics.Vector2 localCenterB = pc.LocalCenterB;
 				int pointCount = pc.PointCount;
 
 				float mA = 0.0f;
@@ -786,10 +786,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					iB = pc.InvIB;
 				}
 
-				Vector2 cA = _positions[indexA].C;
+				System.Numerics.Vector2 cA = _positions[indexA].C;
 				float aA = _positions[indexA].A;
 
-				Vector2 cB = _positions[indexB].C;
+				System.Numerics.Vector2 cB = _positions[indexB].C;
 				float aB = _positions[indexB].A;
 
 				// Solve normal constraints
@@ -802,14 +802,14 @@ namespace FarseerPhysics.Dynamics.Contacts
 					xfA.P = cA - MathUtils.Mul(xfA.Q, localCenterA);
 					xfB.P = cB - MathUtils.Mul(xfB.Q, localCenterB);
 
-					Vector2 normal;
-					Vector2 point;
+					System.Numerics.Vector2 normal;
+					System.Numerics.Vector2 point;
 					float separation;
 
 					PositionSolverManifold.Initialize(pc, xfA, xfB, j, out normal, out point, out separation);
 
-					Vector2 rA = point - cA;
-					Vector2 rB = point - cB;
+					System.Numerics.Vector2 rA = point - cA;
+					System.Numerics.Vector2 rB = point - cB;
 
 					// Track max constraint error.
 					minSeparation = Math.Min(minSeparation, separation);
@@ -826,7 +826,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					// Compute normal impulse
 					float impulse = K > 0.0f ? -C / K : 0.0f;
 
-					Vector2 P = impulse * normal;
+					System.Numerics.Vector2 P = impulse * normal;
 
 					cA -= mA * P;
 					aA -= iA * MathUtils.Cross(rA, P);
@@ -864,10 +864,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 			/// <param name="normal">World vector pointing from A to B</param>
 			/// <param name="points">Torld contact point (point of intersection).</param>
 			public static void Initialize(ref Manifold manifold, ref Transform xfA, float radiusA, ref Transform xfB,
-			                              float radiusB, out Vector2 normal, out FixedArray2<Vector2> points)
+			                              float radiusB, out System.Numerics.Vector2 normal, out FixedArray2<System.Numerics.Vector2> points)
 			{
-				normal = Vector2.Zero;
-				points = new FixedArray2<Vector2>();
+				normal = System.Numerics.Vector2.Zero;
+				points = new FixedArray2<System.Numerics.Vector2>();
 
 				if (manifold.PointCount == 0)
 					return;
@@ -876,10 +876,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 				{
 					case ManifoldType.Circles:
 					{
-						normal = new Vector2(1.0f, 0.0f);
+						normal = new System.Numerics.Vector2(1.0f, 0.0f);
 						var pointA = MathUtils.Mul(ref xfA, manifold.LocalPoint);
 						var pointB = MathUtils.Mul(ref xfB, manifold.Points[0].LocalPoint);
-						if (Vector2.DistanceSquared(pointA, pointB) > Settings.Epsilon * Settings.Epsilon)
+						if (System.Numerics.Vector2.DistanceSquared(pointA, pointB) > Settings.Epsilon * Settings.Epsilon)
 						{
 							normal = pointB - pointA;
 							Nez.Vector2Ext.Normalize(ref normal);
@@ -900,7 +900,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						for (int i = 0; i < manifold.PointCount; ++i)
 						{
 							var clipPoint = MathUtils.Mul(ref xfB, manifold.Points[i].LocalPoint);
-							var cA = clipPoint + (radiusA - Vector2.Dot(clipPoint - planePoint, normal)) * normal;
+							var cA = clipPoint + (radiusA - System.Numerics.Vector2.Dot(clipPoint - planePoint, normal)) * normal;
 							var cB = clipPoint - radiusB * normal;
 							points[i] = 0.5f * (cA + cB);
 						}
@@ -916,7 +916,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						for (int i = 0; i < manifold.PointCount; ++i)
 						{
 							var clipPoint = MathUtils.Mul(ref xfA, manifold.Points[i].LocalPoint);
-							var cB = clipPoint + (radiusB - Vector2.Dot(clipPoint - planePoint, normal)) * normal;
+							var cB = clipPoint + (radiusB - System.Numerics.Vector2.Dot(clipPoint - planePoint, normal)) * normal;
 							var cA = clipPoint - radiusA * normal;
 							points[i] = 0.5f * (cA + cB);
 						}
@@ -933,7 +933,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 		static class PositionSolverManifold
 		{
 			public static void Initialize(ContactPositionConstraint pc, Transform xfA, Transform xfB, int index,
-			                              out Vector2 normal, out Vector2 point, out float separation)
+			                              out System.Numerics.Vector2 normal, out System.Numerics.Vector2 point, out float separation)
 			{
 				Debug.Assert(pc.PointCount > 0);
 
@@ -946,7 +946,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						normal = pointB - pointA;
 						Nez.Vector2Ext.Normalize(ref normal);
 						point = 0.5f * (pointA + pointB);
-						separation = Vector2.Dot(pointB - pointA, normal) - pc.RadiusA - pc.RadiusB;
+						separation = System.Numerics.Vector2.Dot(pointB - pointA, normal) - pc.RadiusA - pc.RadiusB;
 						break;
 					}
 
@@ -956,7 +956,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						var planePoint = MathUtils.Mul(ref xfA, pc.LocalPoint);
 
 						var clipPoint = MathUtils.Mul(ref xfB, pc.LocalPoints[index]);
-						separation = Vector2.Dot(clipPoint - planePoint, normal) - pc.RadiusA - pc.RadiusB;
+						separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, normal) - pc.RadiusA - pc.RadiusB;
 						point = clipPoint;
 						break;
 					}
@@ -967,7 +967,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						var planePoint = MathUtils.Mul(ref xfB, pc.LocalPoint);
 
 						var clipPoint = MathUtils.Mul(ref xfA, pc.LocalPoints[index]);
-						separation = Vector2.Dot(clipPoint - planePoint, normal) - pc.RadiusA - pc.RadiusB;
+						separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, normal) - pc.RadiusA - pc.RadiusB;
 						point = clipPoint;
 
 						// Ensure normal points from A to B
@@ -976,8 +976,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					}
 
 					default:
-						normal = Vector2.Zero;
-						point = Vector2.Zero;
+						normal = System.Numerics.Vector2.Zero;
+						point = System.Numerics.Vector2.Zero;
 						separation = 0;
 						break;
 				}

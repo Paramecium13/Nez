@@ -17,8 +17,8 @@ namespace Nez.Sprites
 				if (_areBoundsDirty)
 				{
 					if (_sprite != null)
-						_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, _origin,
-							Entity.Transform.Scale.ToXna(), Entity.Transform.Rotation, _sprite.SourceRect.Width,
+						_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _origin,
+							Entity.Transform.Scale, Entity.Transform.Rotation, _sprite.SourceRect.Width,
 							_sprite.SourceRect.Height);
 					_areBoundsDirty = false;
 				}
@@ -31,7 +31,7 @@ namespace Nez.Sprites
 		/// the origin of the Sprite. This is set automatically when setting a Sprite.
 		/// </summary>
 		/// <value>The origin.</value>
-		public Vector2 Origin
+		public System.Numerics.Vector2 Origin
 		{
 			get => _origin;
 			set => SetOrigin(value);
@@ -41,11 +41,11 @@ namespace Nez.Sprites
 		/// helper property for setting the origin in normalized fashion (0-1 for x and y)
 		/// </summary>
 		/// <value>The origin normalized.</value>
-		public Vector2 OriginNormalized
+		public System.Numerics.Vector2 OriginNormalized
 		{
-			get => new Vector2(_origin.X / Width * Entity.Transform.Scale.X,
+			get => new System.Numerics.Vector2(_origin.X / Width * Entity.Transform.Scale.X,
 				_origin.Y / Height * Entity.Transform.Scale.Y);
-			set => SetOrigin(new Vector2(value.X * Width / Entity.Transform.Scale.X,
+			set => SetOrigin(new System.Numerics.Vector2(value.X * Width / Entity.Transform.Scale.X,
 				value.Y * Height / Entity.Transform.Scale.Y));
 		}
 
@@ -88,7 +88,7 @@ namespace Nez.Sprites
 			set => SetSprite(value);
 		}
 
-		protected Vector2 _origin;
+		protected System.Numerics.Vector2 _origin;
 		protected Sprite _sprite;
 
 
@@ -117,7 +117,7 @@ namespace Nez.Sprites
 		/// <summary>
 		/// sets the origin for the Renderable
 		/// </summary>
-		public SpriteRenderer SetOrigin(Vector2 origin)
+		public SpriteRenderer SetOrigin(System.Numerics.Vector2 origin)
 		{
 			if (_origin != origin)
 			{
@@ -131,9 +131,9 @@ namespace Nez.Sprites
 		/// <summary>
 		/// helper for setting the origin in normalized fashion (0-1 for x and y)
 		/// </summary>
-		public SpriteRenderer SetOriginNormalized(Vector2 value)
+		public SpriteRenderer SetOriginNormalized(System.Numerics.Vector2 value)
 		{
-			SetOrigin(new Vector2(value.X * Width / Entity.Transform.Scale.X,
+			SetOrigin(new System.Numerics.Vector2(value.X * Width / Entity.Transform.Scale.X,
 				value.Y * Height / Entity.Transform.Scale.Y));
 			return this;
 		}
@@ -164,7 +164,7 @@ namespace Nez.Sprites
 				{
 					if (i != 0 || j != 0)
 					{
-						_localOffset = originalPosition + new Vector2(i * offset, j * offset);
+						_localOffset = originalPosition + new System.Numerics.Vector2(i * offset, j * offset);
 						Render(batcher, camera);
 					}
 				}

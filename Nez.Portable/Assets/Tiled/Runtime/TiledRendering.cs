@@ -16,7 +16,7 @@ namespace Nez.Tiled
 		/// <param name="batcher"></param>
 		/// <param name="scale"></param>
 		/// <param name="layerDepth"></param>
-		public static void RenderMap(TmxMap map, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth)
+		public static void RenderMap(TmxMap map, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			foreach (var layer in map.Layers)
 			{
@@ -34,7 +34,7 @@ namespace Nez.Tiled
 		/// <summary>
 		/// renders the ITmxLayer by calling through to the concrete type's render method
 		/// </summary>
-		public static void RenderLayer(ITmxLayer layer, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth, RectangleF cameraClipBounds)
+		public static void RenderLayer(ITmxLayer layer, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth, RectangleF cameraClipBounds)
 		{
 			if (layer is TmxLayer tmxLayer && tmxLayer.Visible)
 				RenderLayer(tmxLayer, batcher, position, scale, layerDepth, cameraClipBounds);
@@ -54,7 +54,7 @@ namespace Nez.Tiled
 		/// <param name="position"></param>
 		/// <param name="scale"></param>
 		/// <param name="layerDepth"></param>
-		public static void RenderLayer(TmxLayer layer, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth)
+		public static void RenderLayer(TmxLayer layer, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			if (!layer.Visible)
 				return;
@@ -84,7 +84,7 @@ namespace Nez.Tiled
 		/// <param name="scale"></param>
 		/// <param name="layerDepth"></param>
 		/// <param name="cameraClipBounds"></param>
-		public static void RenderLayer(TmxLayer layer, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth, RectangleF cameraClipBounds)
+		public static void RenderLayer(TmxLayer layer, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth, RectangleF cameraClipBounds)
 		{
 			if (!layer.Visible)
 				return;
@@ -133,7 +133,7 @@ namespace Nez.Tiled
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void RenderTile(TmxLayerTile tile, Batcher batcher, Vector2 position, Vector2 scale, float tileWidth, float tileHeight, Color color, float layerDepth)
+		public static void RenderTile(TmxLayerTile tile, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float tileWidth, float tileHeight, Color color, float layerDepth)
 		{
 			var gid = tile.Gid;
 
@@ -191,15 +191,15 @@ namespace Nez.Tiled
 			if (rotation == 0)
 				ty += (tileHeight - sourceRect.Height * scale.Y);
 
-			var pos = new Vector2(tx, ty) + position;
+			var pos = new System.Numerics.Vector2(tx, ty) + position;
 
 			if (tile.Tileset.Image != null)
-				batcher.Draw(tile.Tileset.Image.Texture, pos, sourceRect, color, rotation, Vector2.Zero, scale, spriteEffects, layerDepth);
+				batcher.Draw(tile.Tileset.Image.Texture, pos, sourceRect, color, rotation, System.Numerics.Vector2.Zero, scale, spriteEffects, layerDepth);
 			else
-				batcher.Draw(tilesetTile.Image.Texture, pos, sourceRect, color, rotation, Vector2.Zero, scale, spriteEffects, layerDepth);
+				batcher.Draw(tilesetTile.Image.Texture, pos, sourceRect, color, rotation, System.Numerics.Vector2.Zero, scale, spriteEffects, layerDepth);
 		}
 
-		public static void RenderObjectGroup(TmxObjectGroup objGroup, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth)
+		public static void RenderObjectGroup(TmxObjectGroup objGroup, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			if (!objGroup.Visible)
 				return;
@@ -209,7 +209,7 @@ namespace Nez.Tiled
 				if (!obj.Visible)
 					continue;
 
-				var pos = position + new Vector2(obj.X, obj.Y) * scale;
+				var pos = position + new System.Numerics.Vector2(obj.X, obj.Y) * scale;
 				switch (obj.ObjectType)
 				{
 					case TmxObjectType.Basic:
@@ -233,31 +233,31 @@ namespace Nez.Tiled
 
 						var tileset = objGroup.Map.GetTilesetForTileGid(obj.Tile.Gid);
 						var sourceRect = tileset.TileRegions[obj.Tile.Gid];
-						batcher.Draw(tileset.Image.Texture, pos, sourceRect, Color.White, 0, Vector2.Zero, scale, spriteEffects, layerDepth);
+						batcher.Draw(tileset.Image.Texture, pos, sourceRect, Color.White, 0, System.Numerics.Vector2.Zero, scale, spriteEffects, layerDepth);
 						goto default;
 					case TmxObjectType.Ellipse:
-						pos = new Vector2(obj.X + obj.Width * 0.5f, obj.Y + obj.Height * 0.5f) * scale;
+						pos = new System.Numerics.Vector2(obj.X + obj.Width * 0.5f, obj.Y + obj.Height * 0.5f) * scale;
 						batcher.DrawCircle(pos, obj.Width * 0.5f, objGroup.Color);
 						goto default;
 					case TmxObjectType.Polygon:
 					case TmxObjectType.Polyline:
-						var points = new Vector2[obj.Points.Length];
+						var points = new System.Numerics.Vector2[obj.Points.Length];
 						for (var i = 0; i < obj.Points.Length; i++)
 							points[i] = obj.Points[i] * scale;
 						batcher.DrawPoints(pos, points, objGroup.Color, obj.ObjectType == TmxObjectType.Polygon);
 						goto default;
 					case TmxObjectType.Text:
 						var fontScale = (float)obj.Text.PixelSize / Graphics.Instance.BitmapFont.LineHeight;
-						batcher.DrawString(Graphics.Instance.BitmapFont, obj.Text.Value, pos, obj.Text.Color, Mathf.Radians(obj.Rotation), Vector2.Zero, fontScale, SpriteEffects.None, layerDepth);
+						batcher.DrawString(Graphics.Instance.BitmapFont, obj.Text.Value, pos, obj.Text.Color, Mathf.Radians(obj.Rotation), System.Numerics.Vector2.Zero, fontScale, SpriteEffects.None, layerDepth);
 						goto default;
 					default:
-						batcher.DrawString(Graphics.Instance.BitmapFont, $"{obj.Name} ({obj.Type})", pos - new Vector2(0, 15), Color.Black);
+						batcher.DrawString(Graphics.Instance.BitmapFont, $"{obj.Name} ({obj.Type})", pos - new System.Numerics.Vector2(0, 15), Color.Black);
 						break;
 				}
 			}
 		}
 
-		public static void RenderImageLayer(TmxImageLayer layer, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth)
+		public static void RenderImageLayer(TmxImageLayer layer, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			if (!layer.Visible)
 				return;
@@ -265,11 +265,11 @@ namespace Nez.Tiled
 			var color = Color.White;
 			color.A = (byte)(layer.Opacity * 255);
 
-			var pos = position + new Vector2(layer.OffsetX, layer.OffsetY) * scale;
-			batcher.Draw(layer.Image.Texture, pos, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
+			var pos = position + new System.Numerics.Vector2(layer.OffsetX, layer.OffsetY) * scale;
+			batcher.Draw(layer.Image.Texture, pos, null, color, 0, System.Numerics.Vector2.Zero, scale, SpriteEffects.None, layerDepth);
 		}
 
-		public static void RenderGroup(TmxGroup group, Batcher batcher, Vector2 position, Vector2 scale, float layerDepth)
+		public static void RenderGroup(TmxGroup group, Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2 scale, float layerDepth)
 		{
 			if (!group.Visible)
 				return;

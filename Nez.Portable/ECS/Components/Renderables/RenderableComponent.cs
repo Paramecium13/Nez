@@ -35,8 +35,8 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, Vector2.Zero,
-						Entity.Transform.Scale.ToXna(), Entity.Transform.Rotation, Width, Height);
+					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, System.Numerics.Vector2.Zero,
+						Entity.Transform.Scale, Entity.Transform.Rotation, Width, Height);
 					_areBoundsDirty = false;
 				}
 
@@ -80,7 +80,7 @@ namespace Nez
 		/// offset from the parent entity. Useful for adding multiple Renderables to an Entity that need specific positioning.
 		/// </summary>
 		/// <value>The local position.</value>
-		public Vector2 LocalOffset
+		public System.Numerics.Vector2 LocalOffset
 		{
 			get => _localOffset;
 			set => SetLocalOffset(value);
@@ -109,7 +109,7 @@ namespace Nez
 
 		public bool DebugRenderEnabled = true;
 
-		protected Vector2 _localOffset;
+		protected System.Numerics.Vector2 _localOffset;
 		protected float _layerDepth;
 		protected int _renderLayer;
 		protected RectangleF _bounds;
@@ -244,7 +244,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The local offset.</returns>
 		/// <param name="offset">Offset.</param>
-		public RenderableComponent SetLocalOffset(Vector2 offset)
+		public RenderableComponent SetLocalOffset(System.Numerics.Vector2 offset)
 		{
 			if (_localOffset != offset)
 			{

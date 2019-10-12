@@ -5,11 +5,11 @@ namespace Nez.PhysicsShapes
 {
 	public static partial class ShapeCollisions
 	{
-		public static bool LineToPoly(Vector2 start, Vector2 end, Polygon polygon, out RaycastHit hit)
+		public static bool LineToPoly(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Polygon polygon, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
-			var normal = Vector2.Zero;
-			var intersectionPoint = Vector2.Zero;
+			var normal = System.Numerics.Vector2.Zero;
+			var intersectionPoint = System.Numerics.Vector2.Zero;
 			var fraction = float.MaxValue;
 			var hasIntersection = false;
 
@@ -17,7 +17,7 @@ namespace Nez.PhysicsShapes
 			{
 				var edge1 = polygon.position + polygon.Points[j];
 				var edge2 = polygon.position + polygon.Points[i];
-				Vector2 intersection;
+				System.Numerics.Vector2 intersection;
 				if (LineToLine(edge1, edge2, start, end, out intersection))
 				{
 					hasIntersection = true;
@@ -31,7 +31,7 @@ namespace Nez.PhysicsShapes
 					if (distanceFraction < fraction)
 					{
 						var edge = edge2 - edge1;
-						normal = new Vector2(edge.Y, -edge.X);
+						normal = new System.Numerics.Vector2(edge.Y, -edge.X);
 						fraction = distanceFraction;
 						intersectionPoint = intersection;
 					}
@@ -41,8 +41,7 @@ namespace Nez.PhysicsShapes
 			if (hasIntersection)
 			{
 				normal.Normalize();
-				float distance;
-				Vector2.Distance(ref start, ref intersectionPoint, out distance);
+				float distance = System.Numerics.Vector2.Distance(start, intersectionPoint);
 				hit.SetValues(fraction, distance, intersectionPoint, normal);
 				return true;
 			}
@@ -51,16 +50,16 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public static bool LineToCircle(Vector2 start, Vector2 end, Circle s, out RaycastHit hit)
+		public static bool LineToCircle(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Circle s, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
 
 			// calculate the length here and normalize d separately since we will need it to get the fraction if we have a hit
-			var lineLength = Vector2.Distance(start, end);
+			var lineLength = System.Numerics.Vector2.Distance(start, end);
 			var d = (end - start) / lineLength;
 			var m = start - s.position;
-			var b = Vector2.Dot(m, d);
-			var c = Vector2.Dot(m, m) - s.Radius * s.Radius;
+			var b = System.Numerics.Vector2.Dot(m, d);
+			var c = System.Numerics.Vector2.Dot(m, m) - s.Radius * s.Radius;
 
 			// exit if r's origin outside of s (c > 0) and r pointing away from s (b > 0)
 			if (c > 0f && b > 0f)
@@ -80,17 +79,17 @@ namespace Nez.PhysicsShapes
 				hit.Fraction = 0;
 
 			hit.Point = start + hit.Fraction * d;
-			Vector2.Distance(ref start, ref hit.Point, out hit.Distance);
-			hit.Normal = Vector2.Normalize(hit.Point - s.position);
+			hit.Distance = System.Numerics.Vector2.Distance(start, hit.Point);
+			hit.Normal = System.Numerics.Vector2.Normalize(hit.Point - s.position);
 			hit.Fraction = hit.Distance / lineLength;
 
 			return true;
 		}
 
 
-		public static bool LineToLine(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 intersection)
+		public static bool LineToLine(System.Numerics.Vector2 a1, System.Numerics.Vector2 a2, System.Numerics.Vector2 b1, System.Numerics.Vector2 b2, out System.Numerics.Vector2 intersection)
 		{
-			intersection = Vector2.Zero;
+			intersection = System.Numerics.Vector2.Zero;
 
 			var b = a2 - a1;
 			var d = b2 - b1;

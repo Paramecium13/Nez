@@ -109,7 +109,7 @@ namespace Nez.UI
 		#endregion
 
 
-		public override Element Hit(Vector2 point)
+		public override Element Hit(System.Numerics.Vector2 point)
 		{
 			// we do some rejiggering here by checking for hits on our target and using that
 			var local = _targetElement.ScreenToLocalCoordinates(point);
@@ -141,10 +141,10 @@ namespace Nez.UI
 
 			_container.Pack();
 			float offsetX = _manager.OffsetX, offsetY = _manager.OffsetY, dist = _manager.EdgeDistance;
-			var point = _targetElement.LocalToStageCoordinates(new Vector2(x + offsetX - _container.GetWidth() / 2,
+			var point = _targetElement.LocalToStageCoordinates(new System.Numerics.Vector2(x + offsetX - _container.GetWidth() / 2,
 				y - offsetY - _container.GetHeight()));
 			if (point.Y < dist)
-				point = _targetElement.LocalToStageCoordinates(new Vector2(x + offsetX, y + offsetY));
+				point = _targetElement.LocalToStageCoordinates(new System.Numerics.Vector2(x + offsetX, y + offsetY));
 			if (point.X < dist)
 				point.X = dist;
 			if (point.X + _container.GetWidth() > stage.GetWidth() - dist)
@@ -153,9 +153,9 @@ namespace Nez.UI
 				point.Y = stage.GetHeight() - dist - _container.GetHeight();
 			_container.SetPosition(point.X, point.Y);
 
-			point = _targetElement.LocalToStageCoordinates(new Vector2(_targetElement.GetWidth() / 2,
+			point = _targetElement.LocalToStageCoordinates(new System.Numerics.Vector2(_targetElement.GetWidth() / 2,
 				_targetElement.GetHeight() / 2));
-			point -= new Vector2(_container.GetX(), _container.GetY());
+			point -= new System.Numerics.Vector2(_container.GetX(), _container.GetY());
 			_container.SetOrigin(point.X, point.Y);
 		}
 	}

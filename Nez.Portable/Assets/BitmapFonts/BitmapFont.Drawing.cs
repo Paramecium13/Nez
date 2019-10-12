@@ -9,24 +9,24 @@ namespace Nez.BitmapFonts
 	{
 		Matrix2D _transformationMatrix = Matrix2D.Identity;
 
-		public void DrawInto(Batcher batcher, string text, Vector2 position, Color color,
-		                     float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth)
+		public void DrawInto(Batcher batcher, string text, System.Numerics.Vector2 position, Color color,
+		                     float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effect, float depth)
 		{
 			var source = new FontCharacterSource(text);
 			DrawInto(batcher, ref source, position, color, rotation, origin, scale, effect, depth);
 		}
 
-		public void DrawInto(Batcher batcher, StringBuilder text, Vector2 position, Color color,
-		                     float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth)
+		public void DrawInto(Batcher batcher, StringBuilder text, System.Numerics.Vector2 position, Color color,
+		                     float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effect, float depth)
 		{
 			var source = new FontCharacterSource(text);
 			DrawInto(batcher, ref source, position, color, rotation, origin, scale, effect, depth);
 		}
 
-		public void DrawInto(Batcher batcher, ref FontCharacterSource text, Vector2 position, Color color,
-		                     float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth)
+		public void DrawInto(Batcher batcher, ref FontCharacterSource text, System.Numerics.Vector2 position, Color color,
+		                     float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effect, float depth)
 		{
-			var flipAdjustment = Vector2.Zero;
+			var flipAdjustment = System.Numerics.Vector2.Zero;
 
 			var flippedVert = (effect & SpriteEffects.FlipVertically) == SpriteEffects.FlipVertically;
 			var flippedHorz = (effect & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally;
@@ -49,7 +49,7 @@ namespace Nez.BitmapFonts
 			}
 
 
-			var requiresTransformation = flippedHorz || flippedVert || rotation != 0f || scale != new Vector2(1);
+			var requiresTransformation = flippedHorz || flippedVert || rotation != 0f || scale != new System.Numerics.Vector2(1);
 			if (requiresTransformation)
 			{
 				Matrix2D temp;
@@ -66,7 +66,7 @@ namespace Nez.BitmapFonts
 
 			var previousCharacter = ' ';
 			Character currentChar = null;
-			var offset = requiresTransformation ? Vector2.Zero : position - origin;
+			var offset = requiresTransformation ? System.Numerics.Vector2.Zero : position - origin;
 
 			for (var i = 0; i < text.Length; ++i)
 			{
@@ -109,7 +109,7 @@ namespace Nez.BitmapFonts
 				);
 
 				batcher.Draw(Textures[currentChar.TexturePage], destRect, currentChar.Bounds, color, rotation,
-					Vector2.Zero, effect, depth);
+					System.Numerics.Vector2.Zero, effect, depth);
 				previousCharacter = c;
 			}
 		}

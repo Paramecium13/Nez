@@ -8,7 +8,7 @@ namespace Nez.Svg
 	/// </summary>
 	public abstract class SvgPathSegment
 	{
-		public Vector2 Start, End;
+		public System.Numerics.Vector2 Start, End;
 
 
 		protected SvgPathSegment()
@@ -16,14 +16,14 @@ namespace Nez.Svg
 		}
 
 
-		protected SvgPathSegment(Vector2 start, Vector2 end)
+		protected SvgPathSegment(System.Numerics.Vector2 start, System.Numerics.Vector2 end)
 		{
 			Start = start;
 			End = end;
 		}
 
 
-		protected string ToSvgString(Vector2 point)
+		protected string ToSvgString(System.Numerics.Vector2 point)
 		{
 			return string.Format("{0} {1}", point.X, point.Y);
 		}
@@ -32,7 +32,7 @@ namespace Nez.Svg
 
 	public sealed class SvgMoveToSegment : SvgPathSegment
 	{
-		public SvgMoveToSegment(Vector2 position)
+		public SvgMoveToSegment(System.Numerics.Vector2 position)
 		{
 			Start = position;
 			End = position;
@@ -48,7 +48,7 @@ namespace Nez.Svg
 
 	public sealed class SvgLineSegment : SvgPathSegment
 	{
-		public SvgLineSegment(Vector2 start, Vector2 end)
+		public SvgLineSegment(System.Numerics.Vector2 start, System.Numerics.Vector2 end)
 		{
 			Start = start;
 			End = end;
@@ -73,31 +73,31 @@ namespace Nez.Svg
 
 	public sealed class SvgQuadraticCurveSegment : SvgPathSegment
 	{
-		public Vector2 ControlPoint;
+		public System.Numerics.Vector2 ControlPoint;
 
-		public Vector2 FirstCtrlPoint
+		public System.Numerics.Vector2 FirstCtrlPoint
 		{
 			get
 			{
 				var x1 = Start.X + (ControlPoint.X - Start.X) * 2 / 3;
 				var y1 = Start.Y + (ControlPoint.Y - Start.Y) * 2 / 3;
 
-				return new Vector2(x1, y1);
+				return new System.Numerics.Vector2(x1, y1);
 			}
 		}
 
-		public Vector2 SecondCtrlPoint
+		public System.Numerics.Vector2 SecondCtrlPoint
 		{
 			get
 			{
 				var x2 = ControlPoint.X + (End.X - ControlPoint.X) / 3;
 				var y2 = ControlPoint.Y + (End.Y - ControlPoint.Y) / 3;
 
-				return new Vector2(x2, y2);
+				return new System.Numerics.Vector2(x2, y2);
 			}
 		}
 
-		public SvgQuadraticCurveSegment(Vector2 start, Vector2 controlPoint, Vector2 end)
+		public SvgQuadraticCurveSegment(System.Numerics.Vector2 start, System.Numerics.Vector2 controlPoint, System.Numerics.Vector2 end)
 		{
 			Start = start;
 			ControlPoint = controlPoint;
@@ -114,11 +114,11 @@ namespace Nez.Svg
 
 	public sealed class SvgCubicCurveSegment : SvgPathSegment
 	{
-		public Vector2 FirstCtrlPoint;
-		public Vector2 SecondCtrlPoint;
+		public System.Numerics.Vector2 FirstCtrlPoint;
+		public System.Numerics.Vector2 SecondCtrlPoint;
 
 
-		public SvgCubicCurveSegment(Vector2 start, Vector2 firstCtrlPoint, Vector2 secondCtrlPoint, Vector2 end)
+		public SvgCubicCurveSegment(System.Numerics.Vector2 start, System.Numerics.Vector2 firstCtrlPoint, System.Numerics.Vector2 secondCtrlPoint, System.Numerics.Vector2 end)
 		{
 			Start = start;
 			End = end;

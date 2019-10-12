@@ -17,8 +17,8 @@ namespace Nez.Farseer
 
 	internal class FSDistanceJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
 		public float Frequency;
 		public float DampingRatio;
 
@@ -36,7 +36,7 @@ namespace Nez.Farseer
 
 	internal class FSFrictionJointDef : FSJointDef
 	{
-		public Vector2 Anchor;
+		public System.Numerics.Vector2 Anchor;
 		public float MaxForce;
 		public float MaxTorque;
 
@@ -53,8 +53,8 @@ namespace Nez.Farseer
 
 	internal class FSWeldJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
 		public float DampingRatio;
 		public float FrequencyHz;
 
@@ -90,8 +90,8 @@ namespace Nez.Farseer
 
 	internal class FSRevoluteJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
 		public bool LimitEnabled;
 		public float LowerLimit;
 		public float UpperLimit;
@@ -119,9 +119,9 @@ namespace Nez.Farseer
 
 	internal class FSPrismaticJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
-		public Vector2 Axis = Vector2.UnitY;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 Axis = System.Numerics.Vector2.UnitY;
 		public bool LimitEnabled;
 		public float LowerLimit;
 		public float UpperLimit;
@@ -150,8 +150,8 @@ namespace Nez.Farseer
 
 	internal class FSRopeJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
 		public float MaxLength;
 
 		public override Joint CreateJoint()
@@ -167,7 +167,7 @@ namespace Nez.Farseer
 
 	internal class FSMotorJointDef : FSJointDef
 	{
-		public Vector2 LinearOffset;
+		public System.Numerics.Vector2 LinearOffset;
 		public float MaxForce = 1;
 		public float MaxTorque = 1;
 		public float AngularOffset;
@@ -187,8 +187,8 @@ namespace Nez.Farseer
 
 	internal class FSWheelJointDef : FSJointDef
 	{
-		public Vector2 Anchor;
-		public Vector2 Axis = Vector2.UnitY;
+		public System.Numerics.Vector2 Anchor;
+		public System.Numerics.Vector2 Axis = System.Numerics.Vector2.UnitY;
 		public bool MotorEnabled;
 		public float MotorSpeed;
 		public float MaxMotorTorque;
@@ -212,10 +212,10 @@ namespace Nez.Farseer
 
 	internal class FSPulleyJointDef : FSJointDef
 	{
-		public Vector2 OwnerBodyAnchor;
-		public Vector2 OtherBodyAnchor;
-		public Vector2 OwnerBodyGroundAnchor;
-		public Vector2 OtherBodyGroundAnchor;
+		public System.Numerics.Vector2 OwnerBodyAnchor;
+		public System.Numerics.Vector2 OtherBodyAnchor;
+		public System.Numerics.Vector2 OwnerBodyGroundAnchor;
+		public System.Numerics.Vector2 OtherBodyGroundAnchor;
 		public float Ratio;
 
 		public override Joint CreateJoint()
@@ -246,7 +246,7 @@ namespace Nez.Farseer
 
 	internal class FSMouseJointDef : FSJointDef
 	{
-		public Vector2 WorldAnchor;
+		public System.Numerics.Vector2 WorldAnchor;
 		public float MaxForce;
 		public float Frequency = 5;
 		public float DampingRatio = 0.7f;

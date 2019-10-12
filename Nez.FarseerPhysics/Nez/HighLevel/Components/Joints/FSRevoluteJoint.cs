@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSRevoluteJoint SetOwnerBodyAnchor(Vector2 ownerBodyAnchor)
+		public FSRevoluteJoint SetOwnerBodyAnchor(System.Numerics.Vector2 ownerBodyAnchor)
 		{
 			_jointDef.OwnerBodyAnchor = ownerBodyAnchor;
 			RecreateJoint();
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSRevoluteJoint SetOtherBodyAnchor(Vector2 otherBodyAnchor)
+		public FSRevoluteJoint SetOtherBodyAnchor(System.Numerics.Vector2 otherBodyAnchor)
 		{
 			_jointDef.OtherBodyAnchor = otherBodyAnchor;
 			RecreateJoint();

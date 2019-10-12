@@ -13,7 +13,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// gravity for the simulation
 		/// </summary>
-		public Vector2 Gravity = new Vector2(0, 980f);
+		public System.Numerics.Vector2 Gravity = new System.Numerics.Vector2(0, 980f);
 
 		/// <summary>
 		/// number of iterations that will be used for Constraint solving
@@ -242,7 +242,7 @@ namespace Nez.Verlet
 		/// <returns>The nearest particle.</returns>
 		/// <param name="position">Position.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Particle GetNearestParticle(Vector2 position)
+		public Particle GetNearestParticle(System.Numerics.Vector2 position)
 		{
 			// less than 64 and we count it
 			var nearestSquaredDistance = SelectionRadiusSquared;
@@ -255,7 +255,7 @@ namespace Nez.Verlet
 				for (var i = 0; i < particles.Length; i++)
 				{
 					var p = particles.Buffer[i];
-					var squaredDistanceToParticle = Vector2.DistanceSquared(p.Position, position);
+					var squaredDistanceToParticle = System.Numerics.Vector2.DistanceSquared(p.Position, position);
 					if (squaredDistanceToParticle <= SelectionRadiusSquared &&
 					    (particle == null || squaredDistanceToParticle < nearestSquaredDistance))
 					{

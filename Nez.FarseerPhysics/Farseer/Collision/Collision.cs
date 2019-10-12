@@ -105,7 +105,7 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Usage depends on manifold type
 		/// </summary>
-		public Vector2 LocalPoint;
+		public System.Numerics.Vector2 LocalPoint;
 
 		/// <summary>
 		/// The non-penetration impulse
@@ -150,12 +150,12 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Not use for Type.SeparationFunction.Points
 		/// </summary>
-		public Vector2 LocalNormal;
+		public System.Numerics.Vector2 LocalNormal;
 
 		/// <summary>
 		/// Usage depends on manifold type
 		/// </summary>
-		public Vector2 LocalPoint;
+		public System.Numerics.Vector2 LocalPoint;
 
 		/// <summary>
 		/// The number of manifold points
@@ -204,7 +204,7 @@ namespace FarseerPhysics.Collision
 	public struct ClipVertex
 	{
 		public ContactID ID;
-		public Vector2 V;
+		public System.Numerics.Vector2 V;
 	}
 
 
@@ -223,12 +223,12 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// The starting point of the ray.
 		/// </summary>
-		public Vector2 Point1;
+		public System.Numerics.Vector2 Point1;
 
 		/// <summary>
 		/// The ending point of the ray.
 		/// </summary>
-		public Vector2 Point2;
+		public System.Numerics.Vector2 Point2;
 	}
 
 
@@ -246,7 +246,7 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// The normal of the face of the shape the ray has hit.
 		/// </summary>
-		public Vector2 Normal;
+		public System.Numerics.Vector2 Normal;
 	}
 
 
@@ -260,12 +260,12 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// The lower vertex
 		/// </summary>
-		public Vector2 LowerBound;
+		public System.Numerics.Vector2 LowerBound;
 
 		/// <summary>
 		/// The upper vertex
 		/// </summary>
-		public Vector2 UpperBound;
+		public System.Numerics.Vector2 UpperBound;
 
 		public float Width => UpperBound.X - LowerBound.X;
 
@@ -274,12 +274,12 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Get the center of the AABB.
 		/// </summary>
-		public Vector2 Center => 0.5f * (LowerBound + UpperBound);
+		public System.Numerics.Vector2 Center => 0.5f * (LowerBound + UpperBound);
 
 		/// <summary>
 		/// Get the extents of the AABB (half-widths).
 		/// </summary>
-		public Vector2 Extents => 0.5f * (UpperBound - LowerBound);
+		public System.Numerics.Vector2 Extents => 0.5f * (UpperBound - LowerBound);
 
 		/// <summary>
 		/// Get the perimeter length
@@ -304,9 +304,9 @@ namespace FarseerPhysics.Collision
 			{
 				var vertices = new Vertices(4);
 				vertices.Add(UpperBound);
-				vertices.Add(new Vector2(UpperBound.X, LowerBound.Y));
+				vertices.Add(new System.Numerics.Vector2(UpperBound.X, LowerBound.Y));
 				vertices.Add(LowerBound);
-				vertices.Add(new Vector2(LowerBound.X, UpperBound.Y));
+				vertices.Add(new System.Numerics.Vector2(LowerBound.X, UpperBound.Y));
 				return vertices;
 			}
 		}
@@ -319,7 +319,7 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Second quadrant
 		/// </summary>
-		public AABB Q2 => new AABB(new Vector2(LowerBound.X, Center.Y), new Vector2(Center.X, UpperBound.Y));
+		public AABB Q2 => new AABB(new System.Numerics.Vector2(LowerBound.X, Center.Y), new System.Numerics.Vector2(Center.X, UpperBound.Y));
 
 		/// <summary>
 		/// Third quadrant
@@ -329,25 +329,25 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Forth quadrant
 		/// </summary>
-		public AABB Q4 => new AABB(new Vector2(Center.X, LowerBound.Y), new Vector2(UpperBound.X, Center.Y));
+		public AABB Q4 => new AABB(new System.Numerics.Vector2(Center.X, LowerBound.Y), new System.Numerics.Vector2(UpperBound.X, Center.Y));
 
 		#endregion
 
 
-		public AABB(Vector2 min, Vector2 max) : this(ref min, ref max)
+		public AABB(System.Numerics.Vector2 min, System.Numerics.Vector2 max) : this(ref min, ref max)
 		{
 		}
 
-		public AABB(ref Vector2 min, ref Vector2 max)
+		public AABB(ref System.Numerics.Vector2 min, ref System.Numerics.Vector2 max)
 		{
 			LowerBound = min;
 			UpperBound = max;
 		}
 
-		public AABB(Vector2 center, float width, float height)
+		public AABB(System.Numerics.Vector2 center, float width, float height)
 		{
-			LowerBound = center - new Vector2(width / 2, height / 2);
-			UpperBound = center + new Vector2(width / 2, height / 2);
+			LowerBound = center - new System.Numerics.Vector2(width / 2, height / 2);
+			UpperBound = center + new System.Numerics.Vector2(width / 2, height / 2);
 		}
 
 		/// <summary>
@@ -358,7 +358,7 @@ namespace FarseerPhysics.Collision
 		/// </returns>
 		public bool IsValid()
 		{
-			Vector2 d = UpperBound - LowerBound;
+			System.Numerics.Vector2 d = UpperBound - LowerBound;
 			bool valid = d.X >= 0.0f && d.Y >= 0.0f;
 			valid = valid && LowerBound.IsValid() && UpperBound.IsValid();
 			return valid;
@@ -370,8 +370,8 @@ namespace FarseerPhysics.Collision
 		/// <param name="aabb">The aabb.</param>
 		public void Combine(ref AABB aabb)
 		{
-			LowerBound = Vector2.Min(LowerBound, aabb.LowerBound);
-			UpperBound = Vector2.Max(UpperBound, aabb.UpperBound);
+			LowerBound = System.Numerics.Vector2.Min(LowerBound, aabb.LowerBound);
+			UpperBound = System.Numerics.Vector2.Max(UpperBound, aabb.UpperBound);
 		}
 
 		/// <summary>
@@ -381,8 +381,8 @@ namespace FarseerPhysics.Collision
 		/// <param name="aabb2">The aabb2.</param>
 		public void Combine(ref AABB aabb1, ref AABB aabb2)
 		{
-			LowerBound = Vector2.Min(aabb1.LowerBound, aabb2.LowerBound);
-			UpperBound = Vector2.Max(aabb1.UpperBound, aabb2.UpperBound);
+			LowerBound = System.Numerics.Vector2.Min(aabb1.LowerBound, aabb2.LowerBound);
+			UpperBound = System.Numerics.Vector2.Max(aabb1.UpperBound, aabb2.UpperBound);
 		}
 
 		/// <summary>
@@ -409,7 +409,7 @@ namespace FarseerPhysics.Collision
 		/// <returns>
 		/// 	<c>true</c> if it contains the specified point; otherwise, <c>false</c>.
 		/// </returns>
-		public bool Contains(ref Vector2 point)
+		public bool Contains(ref System.Numerics.Vector2 point)
 		{
 			//using epsilon to try and gaurd against float rounding errors.
 			return (point.X > (LowerBound.X + Settings.Epsilon) && point.X < (UpperBound.X - Settings.Epsilon) &&
@@ -424,8 +424,8 @@ namespace FarseerPhysics.Collision
 		/// <returns>True if they are overlapping.</returns>
 		public static bool TestOverlap(ref AABB a, ref AABB b)
 		{
-			Vector2 d1 = b.LowerBound - a.UpperBound;
-			Vector2 d2 = a.LowerBound - b.UpperBound;
+			System.Numerics.Vector2 d1 = b.LowerBound - a.UpperBound;
+			System.Numerics.Vector2 d2 = a.LowerBound - b.UpperBound;
 
 			if (d1.X > 0.0f || d1.Y > 0.0f)
 				return false;
@@ -452,11 +452,11 @@ namespace FarseerPhysics.Collision
 			float tmin = -Settings.MaxFloat;
 			float tmax = Settings.MaxFloat;
 
-			Vector2 p = input.Point1;
-			Vector2 d = input.Point2 - input.Point1;
-			Vector2 absD = MathUtils.Abs(d);
+			System.Numerics.Vector2 p = input.Point1;
+			System.Numerics.Vector2 d = input.Point2 - input.Point1;
+			System.Numerics.Vector2 absD = MathUtils.Abs(d);
 
-			Vector2 normal = Vector2.Zero;
+			System.Numerics.Vector2 normal = System.Numerics.Vector2.Zero;
 
 			for (int i = 0; i < 2; ++i)
 			{
@@ -535,8 +535,8 @@ namespace FarseerPhysics.Collision
 	/// </summary>
 	public class TempPolygon
 	{
-		public Vector2[] Vertices = new Vector2[Settings.MaxPolygonVertices];
-		public Vector2[] Normals = new Vector2[Settings.MaxPolygonVertices];
+		public System.Numerics.Vector2[] Vertices = new System.Numerics.Vector2[Settings.MaxPolygonVertices];
+		public System.Numerics.Vector2[] Normals = new System.Numerics.Vector2[Settings.MaxPolygonVertices];
 		public int Count;
 	}
 
@@ -559,14 +559,14 @@ namespace FarseerPhysics.Collision
 	{
 		public int I1, I2;
 
-		public Vector2 V1, V2;
+		public System.Numerics.Vector2 V1, V2;
 
-		public Vector2 Normal;
+		public System.Numerics.Vector2 Normal;
 
-		public Vector2 SideNormal1;
+		public System.Numerics.Vector2 SideNormal1;
 		public float SideOffset1;
 
-		public Vector2 SideNormal2;
+		public System.Numerics.Vector2 SideNormal2;
 		public float SideOffset2;
 	}
 
@@ -666,14 +666,14 @@ namespace FarseerPhysics.Collision
 			var pB = MathUtils.Mul(ref xfB, circleB.Position);
 
 			var d = pB - pA;
-			var distSqr = Vector2.Dot(d, d);
+			var distSqr = System.Numerics.Vector2.Dot(d, d);
 			var radius = circleA.Radius + circleB.Radius;
 			if (distSqr > radius * radius)
 				return;
 
 			manifold.Type = ManifoldType.Circles;
 			manifold.LocalPoint = circleA.Position;
-			manifold.LocalNormal = Vector2.Zero;
+			manifold.LocalNormal = System.Numerics.Vector2.Zero;
 			manifold.PointCount = 1;
 
 			var p0 = manifold.Points[0];
@@ -887,7 +887,7 @@ namespace FarseerPhysics.Collision
 			var localTangent = v12 - v11;
 			Nez.Vector2Ext.Normalize(ref localTangent);
 
-			var localNormal = new Vector2(localTangent.Y, -localTangent.X);
+			var localNormal = new System.Numerics.Vector2(localTangent.Y, -localTangent.X);
 			var planePoint = 0.5f * (v11 + v12);
 
 			var tangent = MathUtils.Mul(xf1.Q, localTangent);
@@ -971,12 +971,12 @@ namespace FarseerPhysics.Collision
 			// Compute circle in frame of edge
 			var Q = MathUtils.MulT(ref transformA, MathUtils.Mul(ref transformB, ref circleB._position));
 
-			Vector2 A = edgeA.Vertex1, B = edgeA.Vertex2;
+			System.Numerics.Vector2 A = edgeA.Vertex1, B = edgeA.Vertex2;
 			var e = B - A;
 
 			// Barycentric coordinates
-			var u = Vector2.Dot(e, B - Q);
-			var v = Vector2.Dot(e, Q - A);
+			var u = System.Numerics.Vector2.Dot(e, B - Q);
+			var v = System.Numerics.Vector2.Dot(e, Q - A);
 
 			var radius = edgeA.Radius + circleB.Radius;
 
@@ -984,7 +984,7 @@ namespace FarseerPhysics.Collision
 			cf.IndexB = 0;
 			cf.TypeB = (byte) ContactFeatureType.Vertex;
 
-			Vector2 P, d;
+			System.Numerics.Vector2 P, d;
 
 			// Region A
 			if (v <= 0.0f)
@@ -992,7 +992,7 @@ namespace FarseerPhysics.Collision
 				P = A;
 				d = Q - P;
 				float dd;
-				Vector2.Dot(ref d, ref d, out dd);
+				System.Numerics.Vector2.Dot(ref d, ref d, out dd);
 				if (dd > radius * radius)
 					return;
 
@@ -1002,7 +1002,7 @@ namespace FarseerPhysics.Collision
 					var A1 = edgeA.Vertex0;
 					var B1 = A;
 					var e1 = B1 - A1;
-					var u1 = Vector2.Dot(e1, B1 - Q);
+					var u1 = System.Numerics.Vector2.Dot(e1, B1 - Q);
 
 					// Is the circle in Region AB of the previous edge?
 					if (u1 > 0.0f)
@@ -1013,7 +1013,7 @@ namespace FarseerPhysics.Collision
 				cf.TypeA = (byte) ContactFeatureType.Vertex;
 				manifold.PointCount = 1;
 				manifold.Type = ManifoldType.Circles;
-				manifold.LocalNormal = Vector2.Zero;
+				manifold.LocalNormal = System.Numerics.Vector2.Zero;
 				manifold.LocalPoint = P;
 
 				var mp = new ManifoldPoint();
@@ -1030,7 +1030,7 @@ namespace FarseerPhysics.Collision
 				P = B;
 				d = Q - P;
 				float dd;
-				Vector2.Dot(ref d, ref d, out dd);
+				System.Numerics.Vector2.Dot(ref d, ref d, out dd);
 				if (dd > radius * radius)
 					return;
 
@@ -1040,7 +1040,7 @@ namespace FarseerPhysics.Collision
 					var B2 = edgeA.Vertex3;
 					var A2 = B;
 					var e2 = B2 - A2;
-					var v2 = Vector2.Dot(e2, Q - A2);
+					var v2 = System.Numerics.Vector2.Dot(e2, Q - A2);
 
 					// Is the circle in Region AB of the next edge?
 					if (v2 > 0.0f)
@@ -1051,7 +1051,7 @@ namespace FarseerPhysics.Collision
 				cf.TypeA = (byte) ContactFeatureType.Vertex;
 				manifold.PointCount = 1;
 				manifold.Type = ManifoldType.Circles;
-				manifold.LocalNormal = Vector2.Zero;
+				manifold.LocalNormal = System.Numerics.Vector2.Zero;
 				manifold.LocalPoint = P;
 
 				var mp = new ManifoldPoint();
@@ -1064,18 +1064,18 @@ namespace FarseerPhysics.Collision
 
 			// Region AB
 			float den;
-			Vector2.Dot(ref e, ref e, out den);
+			System.Numerics.Vector2.Dot(ref e, ref e, out den);
 			Debug.Assert(den > 0.0f);
 			P = (1.0f / den) * (u * A + v * B);
 			d = Q - P;
 			float dd2;
-			Vector2.Dot(ref d, ref d, out dd2);
+			System.Numerics.Vector2.Dot(ref d, ref d, out dd2);
 			if (dd2 > radius * radius)
 				return;
 
-			var n = new Vector2(-e.Y, e.X);
-			if (Vector2.Dot(n, Q - A) < 0.0f)
-				n = new Vector2(-n.X, -n.Y);
+			var n = new System.Numerics.Vector2(-e.Y, e.X);
+			if (System.Numerics.Vector2.Dot(n, Q - A) < 0.0f)
+				n = new System.Numerics.Vector2(-n.X, -n.Y);
 			Nez.Vector2Ext.Normalize(ref n);
 
 			cf.IndexA = 0;
@@ -1112,11 +1112,11 @@ namespace FarseerPhysics.Collision
 			TempPolygon _polygonB = new TempPolygon();
 
 			Transform _xf;
-			Vector2 _centroidB;
-			Vector2 _v0, _v1, _v2, _v3;
-			Vector2 _normal0, _normal1, _normal2;
-			Vector2 _normal;
-			Vector2 _lowerLimit, _upperLimit;
+			System.Numerics.Vector2 _centroidB;
+			System.Numerics.Vector2 _v0, _v1, _v2, _v3;
+			System.Numerics.Vector2 _normal0, _normal1, _normal2;
+			System.Numerics.Vector2 _normal;
+			System.Numerics.Vector2 _lowerLimit, _upperLimit;
 			float _radius;
 			bool _front;
 
@@ -1147,8 +1147,8 @@ namespace FarseerPhysics.Collision
 
 				var edge1 = _v2 - _v1;
 				Nez.Vector2Ext.Normalize(ref edge1);
-				_normal1 = new Vector2(edge1.Y, -edge1.X);
-				var offset1 = Vector2.Dot(_normal1, _centroidB - _v1);
+				_normal1 = new System.Numerics.Vector2(edge1.Y, -edge1.X);
+				var offset1 = System.Numerics.Vector2.Dot(_normal1, _centroidB - _v1);
 				float offset0 = 0.0f, offset2 = 0.0f;
 				bool convex1 = false, convex2 = false;
 
@@ -1157,9 +1157,9 @@ namespace FarseerPhysics.Collision
 				{
 					var edge0 = _v1 - _v0;
 					Nez.Vector2Ext.Normalize(ref edge0);
-					_normal0 = new Vector2(edge0.Y, -edge0.X);
+					_normal0 = new System.Numerics.Vector2(edge0.Y, -edge0.X);
 					convex1 = MathUtils.Cross(edge0, edge1) >= 0.0f;
-					offset0 = Vector2.Dot(_normal0, _centroidB - _v0);
+					offset0 = System.Numerics.Vector2.Dot(_normal0, _centroidB - _v0);
 				}
 
 				// Is there a following edge?
@@ -1167,9 +1167,9 @@ namespace FarseerPhysics.Collision
 				{
 					var edge2 = _v3 - _v2;
 					Nez.Vector2Ext.Normalize(ref edge2);
-					_normal2 = new Vector2(edge2.Y, -edge2.X);
+					_normal2 = new System.Numerics.Vector2(edge2.Y, -edge2.X);
 					convex2 = MathUtils.Cross(edge1, edge2) > 0.0f;
-					offset2 = Vector2.Dot(_normal2, _centroidB - _v2);
+					offset2 = System.Numerics.Vector2.Dot(_normal2, _centroidB - _v2);
 				}
 
 				// Determine front or back collision. Determine collision normal limits.
@@ -1384,10 +1384,10 @@ namespace FarseerPhysics.Collision
 
 					// Search for the polygon normal that is most anti-parallel to the edge normal.
 					int bestIndex = 0;
-					var bestValue = Vector2.Dot(_normal, _polygonB.Normals[0]);
+					var bestValue = System.Numerics.Vector2.Dot(_normal, _polygonB.Normals[0]);
 					for (int i = 1; i < _polygonB.Count; ++i)
 					{
-						var value = Vector2.Dot(_normal, _polygonB.Normals[i]);
+						var value = System.Numerics.Vector2.Dot(_normal, _polygonB.Normals[i]);
 						if (value < bestValue)
 						{
 							bestValue = value;
@@ -1457,10 +1457,10 @@ namespace FarseerPhysics.Collision
 					rf.Normal = _polygonB.Normals[rf.I1];
 				}
 
-				rf.SideNormal1 = new Vector2(rf.Normal.Y, -rf.Normal.X);
+				rf.SideNormal1 = new System.Numerics.Vector2(rf.Normal.Y, -rf.Normal.X);
 				rf.SideNormal2 = -rf.SideNormal1;
-				rf.SideOffset1 = Vector2.Dot(rf.SideNormal1, rf.V1);
-				rf.SideOffset2 = Vector2.Dot(rf.SideNormal2, rf.V2);
+				rf.SideOffset1 = System.Numerics.Vector2.Dot(rf.SideNormal1, rf.V1);
+				rf.SideOffset2 = System.Numerics.Vector2.Dot(rf.SideNormal2, rf.V2);
 
 				// Clip incident edge against extruded edge1 side edges.
 				FixedArray2<ClipVertex> clipPoints1;
@@ -1498,7 +1498,7 @@ namespace FarseerPhysics.Collision
 				int pointCount = 0;
 				for (int i = 0; i < Settings.MaxManifoldPoints; ++i)
 				{
-					float separation = Vector2.Dot(rf.Normal, clipPoints2[i].V - rf.V1);
+					float separation = System.Numerics.Vector2.Dot(rf.Normal, clipPoints2[i].V - rf.V1);
 
 					if (separation <= _radius)
 					{
@@ -1535,7 +1535,7 @@ namespace FarseerPhysics.Collision
 
 				for (int i = 0; i < _polygonB.Count; ++i)
 				{
-					float s = Vector2.Dot(_normal, _polygonB.Vertices[i] - _v1);
+					float s = System.Numerics.Vector2.Dot(_normal, _polygonB.Vertices[i] - _v1);
 					if (s < axis.Separation)
 					{
 						axis.Separation = s;
@@ -1552,14 +1552,14 @@ namespace FarseerPhysics.Collision
 				axis.Index = -1;
 				axis.Separation = -Settings.MaxFloat;
 
-				Vector2 perp = new Vector2(-_normal.Y, _normal.X);
+				System.Numerics.Vector2 perp = new System.Numerics.Vector2(-_normal.Y, _normal.X);
 
 				for (int i = 0; i < _polygonB.Count; ++i)
 				{
-					Vector2 n = -_polygonB.Normals[i];
+					System.Numerics.Vector2 n = -_polygonB.Normals[i];
 
-					float s1 = Vector2.Dot(n, _polygonB.Vertices[i] - _v1);
-					float s2 = Vector2.Dot(n, _polygonB.Vertices[i] - _v2);
+					float s1 = System.Numerics.Vector2.Dot(n, _polygonB.Vertices[i] - _v1);
+					float s2 = System.Numerics.Vector2.Dot(n, _polygonB.Vertices[i] - _v2);
 					float s = Math.Min(s1, s2);
 
 					if (s > _radius)
@@ -1572,16 +1572,16 @@ namespace FarseerPhysics.Collision
 					}
 
 					// Adjacency
-					if (Vector2.Dot(n, perp) >= 0.0f)
+					if (System.Numerics.Vector2.Dot(n, perp) >= 0.0f)
 					{
-						if (Vector2.Dot(n - _upperLimit, _normal) < -Settings.AngularSlop)
+						if (System.Numerics.Vector2.Dot(n - _upperLimit, _normal) < -Settings.AngularSlop)
 						{
 							continue;
 						}
 					}
 					else
 					{
-						if (Vector2.Dot(n - _lowerLimit, _normal) < -Settings.AngularSlop)
+						if (System.Numerics.Vector2.Dot(n - _lowerLimit, _normal) < -Settings.AngularSlop)
 						{
 							continue;
 						}
@@ -1609,7 +1609,7 @@ namespace FarseerPhysics.Collision
 		/// <param name="offset">The offset.</param>
 		/// <param name="vertexIndexA">The vertex index A.</param>
 		/// <returns></returns>
-		static int ClipSegmentToLine(out FixedArray2<ClipVertex> vOut, ref FixedArray2<ClipVertex> vIn, Vector2 normal,
+		static int ClipSegmentToLine(out FixedArray2<ClipVertex> vOut, ref FixedArray2<ClipVertex> vIn, System.Numerics.Vector2 normal,
 		                             float offset, int vertexIndexA)
 		{
 			vOut = new FixedArray2<ClipVertex>();
@@ -1665,17 +1665,17 @@ namespace FarseerPhysics.Collision
 		static float EdgeSeparation(PolygonShape poly1, ref Transform xf1, int edge1, PolygonShape poly2,
 		                            ref Transform xf2)
 		{
-			List<Vector2> vertices1 = poly1.Vertices;
-			List<Vector2> normals1 = poly1.Normals;
+			List<System.Numerics.Vector2> vertices1 = poly1.Vertices;
+			List<System.Numerics.Vector2> normals1 = poly1.Normals;
 
 			int count2 = poly2.Vertices.Count;
-			List<Vector2> vertices2 = poly2.Vertices;
+			List<System.Numerics.Vector2> vertices2 = poly2.Vertices;
 
 			Debug.Assert(0 <= edge1 && edge1 < poly1.Vertices.Count);
 
 			// Convert normal from poly1's frame into poly2's frame.
-			Vector2 normal1World = MathUtils.Mul(xf1.Q, normals1[edge1]);
-			Vector2 normal1 = MathUtils.MulT(xf2.Q, normal1World);
+			System.Numerics.Vector2 normal1World = MathUtils.Mul(xf1.Q, normals1[edge1]);
+			System.Numerics.Vector2 normal1 = MathUtils.MulT(xf2.Q, normal1World);
 
 			// Find support vertex on poly2 for -normal.
 			int index = 0;
@@ -1683,7 +1683,7 @@ namespace FarseerPhysics.Collision
 
 			for (int i = 0; i < count2; ++i)
 			{
-				float dot = Vector2.Dot(vertices2[i], normal1);
+				float dot = System.Numerics.Vector2.Dot(vertices2[i], normal1);
 				if (dot < minDot)
 				{
 					minDot = dot;
@@ -1691,9 +1691,9 @@ namespace FarseerPhysics.Collision
 				}
 			}
 
-			Vector2 v1 = MathUtils.Mul(ref xf1, vertices1[edge1]);
-			Vector2 v2 = MathUtils.Mul(ref xf2, vertices2[index]);
-			float separation = Vector2.Dot(v2 - v1, normal1World);
+			System.Numerics.Vector2 v1 = MathUtils.Mul(ref xf1, vertices1[edge1]);
+			System.Numerics.Vector2 v2 = MathUtils.Mul(ref xf2, vertices2[index]);
+			float separation = System.Numerics.Vector2.Dot(v2 - v1, normal1World);
 			return separation;
 		}
 
@@ -1710,19 +1710,19 @@ namespace FarseerPhysics.Collision
 		                               ref Transform xf2)
 		{
 			int count1 = poly1.Vertices.Count;
-			List<Vector2> normals1 = poly1.Normals;
+			List<System.Numerics.Vector2> normals1 = poly1.Normals;
 
 			// Vector pointing from the centroid of poly1 to the centroid of poly2.
-			Vector2 d = MathUtils.Mul(ref xf2, poly2.MassData.Centroid) -
+			System.Numerics.Vector2 d = MathUtils.Mul(ref xf2, poly2.MassData.Centroid) -
 			            MathUtils.Mul(ref xf1, poly1.MassData.Centroid);
-			Vector2 dLocal1 = MathUtils.MulT(xf1.Q, d);
+			System.Numerics.Vector2 dLocal1 = MathUtils.MulT(xf1.Q, d);
 
 			// Find edge normal on poly1 that has the largest projection onto d.
 			int edge = 0;
 			float maxDot = -Settings.MaxFloat;
 			for (int i = 0; i < count1; ++i)
 			{
-				float dot = Vector2.Dot(normals1[i], dLocal1);
+				float dot = System.Numerics.Vector2.Dot(normals1[i], dLocal1);
 				if (dot > maxDot)
 				{
 					maxDot = dot;
@@ -1801,7 +1801,7 @@ namespace FarseerPhysics.Collision
 			Debug.Assert(0 <= edge1 && edge1 < poly1.Vertices.Count);
 
 			// Get the normal of the reference edge in poly2's frame.
-			Vector2 normal1 = MathUtils.MulT(xf2.Q, MathUtils.Mul(xf1.Q, normals1[edge1]));
+			System.Numerics.Vector2 normal1 = MathUtils.MulT(xf2.Q, MathUtils.Mul(xf1.Q, normals1[edge1]));
 
 
 			// Find the incident edge on poly2.
@@ -1809,7 +1809,7 @@ namespace FarseerPhysics.Collision
 			float minDot = Settings.MaxFloat;
 			for (int i = 0; i < count2; ++i)
 			{
-				float dot = Vector2.Dot(normal1, normals2[i]);
+				float dot = System.Numerics.Vector2.Dot(normal1, normals2[i]);
 				if (dot < minDot)
 				{
 					minDot = dot;

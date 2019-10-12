@@ -48,15 +48,15 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 Lerp(Vector2 from, Vector2 to, float t)
+		public static System.Numerics.Vector2 Lerp(System.Numerics.Vector2 from, System.Numerics.Vector2 to, float t)
 		{
-			return new Vector2(from.X + (to.X - from.X) * t, from.Y + (to.Y - from.Y) * t);
+			return new System.Numerics.Vector2(from.X + (to.X - from.X) * t, from.Y + (to.Y - from.Y) * t);
 		}
 
 
 		// remainingFactorPerSecond is the percentage of the distance it covers every second. should be between 0 and 1.
 		// if it's 0.25 it means it covers 75% of the remaining distance every second independent of the framerate
-		public static Vector2 LerpTowards(Vector2 from, Vector2 to, float remainingFactorPerSecond, float deltaTime)
+		public static System.Numerics.Vector2 LerpTowards(System.Numerics.Vector2 from, System.Numerics.Vector2 to, float remainingFactorPerSecond, float deltaTime)
 		{
 			return Lerp(from, to, 1f - Mathf.Pow(remainingFactorPerSecond, deltaTime));
 		}
@@ -88,11 +88,11 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 AngleLerp(Vector2 from, Vector2 to, float t)
+		public static System.Numerics.Vector2 AngleLerp(System.Numerics.Vector2 from, System.Numerics.Vector2 to, float t)
 		{
 			// we calculate the shortest difference between the angles for this lerp
-			var toMinusFrom = new Vector2(Mathf.DeltaAngle(from.X, to.X), Mathf.DeltaAngle(from.Y, to.Y));
-			return new Vector2(from.X + toMinusFrom.X * t, from.Y + toMinusFrom.Y * t);
+			var toMinusFrom = new System.Numerics.Vector2(Mathf.DeltaAngle(from.X, to.X), Mathf.DeltaAngle(from.Y, to.Y));
+			return new System.Numerics.Vector2(from.X + toMinusFrom.X * t, from.Y + toMinusFrom.Y * t);
 		}
 
 
@@ -153,7 +153,7 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 Ease(EaseType easeType, Vector2 from, Vector2 to, float t, float duration)
+		public static System.Numerics.Vector2 Ease(EaseType easeType, System.Numerics.Vector2 from, System.Numerics.Vector2 to, float t, float duration)
 		{
 			return Lerp(from, to, EaseHelper.Ease(easeType, t, duration));
 		}
@@ -165,7 +165,7 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 EaseAngle(EaseType easeType, Vector2 from, Vector2 to, float t, float duration)
+		public static System.Numerics.Vector2 EaseAngle(EaseType easeType, System.Numerics.Vector2 from, System.Numerics.Vector2 to, float t, float duration)
 		{
 			return AngleLerp(from, to, EaseHelper.Ease(easeType, t, duration));
 		}
@@ -276,27 +276,6 @@ namespace Nez.Tweens
 		/// should be between 0.01f, 1f to avoid unstable systems.</param>
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
-		public static Vector2 FastSpring(Vector2 currentValue, Vector2 targetValue, ref Vector2 velocity,
-										 float dampingRatio, float angularFrequency)
-		{
-			velocity += -2.0f * Time.DeltaTime * dampingRatio * angularFrequency * velocity +
-						Time.DeltaTime * angularFrequency * angularFrequency * (targetValue - currentValue);
-			currentValue += Time.DeltaTime * velocity;
-
-			return currentValue;
-		}
-		/// <summary>
-		/// uses the semi-implicit euler method. slower, but always stable.
-		/// see http://allenchou.net/2015/04/game-math-more-on-numeric-springing/
-		/// </summary>
-		/// <returns>The spring.</returns>
-		/// <param name="currentValue">Current value.</param>
-		/// <param name="targetValue">Target value.</param>
-		/// <param name="velocity">Velocity by reference. Be sure to reset it to 0 if changing the targetValue between calls</param>
-		/// <param name="dampingRatio">lower values are less damped and higher values are more damped resulting in less springiness.
-		/// should be between 0.01f, 1f to avoid unstable systems.</param>
-		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
-		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
 		public static System.Numerics.Vector2 FastSpring(System.Numerics.Vector2 currentValue, System.Numerics.Vector2 targetValue, ref System.Numerics.Vector2 velocity,
 										 float dampingRatio, float angularFrequency)
 		{
@@ -306,7 +285,6 @@ namespace Nez.Tweens
 
 			return currentValue;
 		}
-
 
 		/// <summary>
 		/// uses the implicit euler method. faster, but not always stable.
@@ -320,7 +298,7 @@ namespace Nez.Tweens
 		/// should be between 0.01f, 1f to avoid unstable systems.</param>
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
-		public static Vector2 StableSpring(Vector2 currentValue, Vector2 targetValue, ref Vector2 velocity,
+		public static System.Numerics.Vector2 StableSpring(System.Numerics.Vector2 currentValue, System.Numerics.Vector2 targetValue, ref System.Numerics.Vector2 velocity,
 		                                   float dampingRatio, float angularFrequency)
 		{
 			var f = 1f + 2f * Time.DeltaTime * dampingRatio * angularFrequency;

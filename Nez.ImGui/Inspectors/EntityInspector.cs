@@ -56,8 +56,8 @@ namespace Nez.ImGuiTools
 				}
 			}
 
-			ImGui.SetNextWindowSize(new Num.Vector2(335, 400), ImGuiCond.FirstUseEver);
-			ImGui.SetNextWindowSizeConstraints(new Num.Vector2(335, 200), new Num.Vector2(Screen.Width, Screen.Height));
+			ImGui.SetNextWindowSize(new System.Numerics.Vector2(335, 400), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSizeConstraints(new System.Numerics.Vector2(335, 200), new System.Numerics.Vector2(Screen.Width, Screen.Height));
 
 			var open = true;
 			if (ImGui.Begin($"Entity Inspector: {Entity.Name}###" + _entityWindowId, ref open))

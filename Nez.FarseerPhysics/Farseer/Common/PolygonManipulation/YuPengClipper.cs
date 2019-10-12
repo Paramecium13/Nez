@@ -73,12 +73,12 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
 			// Translate polygons into upper right quadrant
 			// as the algorithm depends on it
-			Vector2 lbSubject = subject.GetAABB().LowerBound;
-			Vector2 lbClip = clip.GetAABB().LowerBound;
-			Vector2 translate;
-			Vector2.Min(ref lbSubject, ref lbClip, out translate);
-			translate = Vector2.One - translate;
-			if (translate != Vector2.Zero)
+			System.Numerics.Vector2 lbSubject = subject.GetAABB().LowerBound;
+			System.Numerics.Vector2 lbClip = clip.GetAABB().LowerBound;
+			System.Numerics.Vector2 translate;
+			System.Numerics.Vector2.Min(ref lbSubject, ref lbClip, out translate);
+			translate = System.Numerics.Vector2.One - translate;
+			if (translate != System.Numerics.Vector2.Zero)
 			{
 				slicedSubject.Translate(ref translate);
 				slicedClip.Translate(ref translate);
@@ -140,16 +140,16 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			for (int i = 0; i < polygon1.Count; i++)
 			{
 				// Get edge vertices
-				Vector2 a = polygon1[i];
-				Vector2 b = polygon1[polygon1.NextIndex(i)];
+				System.Numerics.Vector2 a = polygon1[i];
+				System.Numerics.Vector2 b = polygon1[polygon1.NextIndex(i)];
 
 				// Get intersections between this edge and polygon2
 				for (int j = 0; j < polygon2.Count; j++)
 				{
-					Vector2 c = polygon2[j];
-					Vector2 d = polygon2[polygon2.NextIndex(j)];
+					System.Numerics.Vector2 c = polygon2[j];
+					System.Numerics.Vector2 d = polygon2[polygon2.NextIndex(j)];
 
-					Vector2 intersectionPoint;
+					System.Numerics.Vector2 intersectionPoint;
 
 					// Check if the edges intersect
 					if (LineTools.LineIntersect(a, b, c, d, out intersectionPoint))
@@ -226,7 +226,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			for (int i = 0; i < poly.Count; ++i)
 			{
 				simplicies.Add(new Edge(poly[i], poly[poly.NextIndex(i)]));
-				coeff.Add(CalculateSimplexCoefficient(Vector2.Zero, poly[i], poly[poly.NextIndex(i)]));
+				coeff.Add(CalculateSimplexCoefficient(System.Numerics.Vector2.Zero, poly[i], poly[poly.NextIndex(i)]));
 			}
 		}
 
@@ -404,7 +404,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// Needed to calculate the characteristics function of a simplex.
 		/// </summary>
 		/// <remarks>Used by method <c>CalculateEdgeCharacter()</c>.</remarks>
-		static float CalculateBeta(Vector2 point, Edge e, float coefficient)
+		static float CalculateBeta(System.Numerics.Vector2 point, Edge e, float coefficient)
 		{
 			float result = 0f;
 			if (PointInSimplex(point, e))
@@ -412,8 +412,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				result = coefficient;
 			}
 
-			if (PointOnLineSegment(Vector2.Zero, e.EdgeStart, point) ||
-			    PointOnLineSegment(Vector2.Zero, e.EdgeEnd, point))
+			if (PointOnLineSegment(System.Numerics.Vector2.Zero, e.EdgeStart, point) ||
+			    PointOnLineSegment(System.Numerics.Vector2.Zero, e.EdgeEnd, point))
 			{
 				result = .5f * coefficient;
 			}
@@ -425,7 +425,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// Needed for sorting multiple intersections points on the same edge.
 		/// </summary>
 		/// <remarks>Used by method <c>CalculateIntersections()</c>.</remarks>
-		static float GetAlpha(Vector2 start, Vector2 end, Vector2 point)
+		static float GetAlpha(System.Numerics.Vector2 start, System.Numerics.Vector2 end, System.Numerics.Vector2 point)
 		{
 			return (point - start).LengthSquared() / (end - start).LengthSquared();
 		}
@@ -434,7 +434,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// Returns the coefficient of a simplex.
 		/// </summary>
 		/// <remarks>Used by method <c>CalculateSimplicalChain()</c>.</remarks>
-		static float CalculateSimplexCoefficient(Vector2 a, Vector2 b, Vector2 c)
+		static float CalculateSimplexCoefficient(System.Numerics.Vector2 a, System.Numerics.Vector2 b, System.Numerics.Vector2 c)
 		{
 			float isLeft = MathUtils.Area(ref a, ref b, ref c);
 			if (isLeft < 0f)
@@ -457,10 +457,10 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="edge">The edge that the point is tested against.</param>
 		/// <returns>False if the winding number is even and the point is outside
 		/// the simplex and True otherwise.</returns>
-		static bool PointInSimplex(Vector2 point, Edge edge)
+		static bool PointInSimplex(System.Numerics.Vector2 point, Edge edge)
 		{
 			Vertices polygon = new Vertices();
-			polygon.Add(Vector2.Zero);
+			polygon.Add(System.Numerics.Vector2.Zero);
 			polygon.Add(edge.EdgeStart);
 			polygon.Add(edge.EdgeEnd);
 			return (polygon.PointInPolygon(ref point) == 1);
@@ -470,15 +470,15 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// Tests if a point lies on a line segment.
 		/// </summary>
 		/// <remarks>Used by method <c>CalculateBeta()</c>.</remarks>
-		static bool PointOnLineSegment(Vector2 start, Vector2 end, Vector2 point)
+		static bool PointOnLineSegment(System.Numerics.Vector2 start, System.Numerics.Vector2 end, System.Numerics.Vector2 point)
 		{
-			Vector2 segment = end - start;
+			System.Numerics.Vector2 segment = end - start;
 			return MathUtils.Area(ref start, ref end, ref point) == 0f &&
-			       Vector2.Dot(point - start, segment) >= 0f &&
-			       Vector2.Dot(point - end, segment) <= 0f;
+			       System.Numerics.Vector2.Dot(point - start, segment) >= 0f &&
+			       System.Numerics.Vector2.Dot(point - end, segment) <= 0f;
 		}
 
-		static bool VectorEqual(Vector2 vec1, Vector2 vec2)
+		static bool VectorEqual(System.Numerics.Vector2 vec1, System.Numerics.Vector2 vec2)
 		{
 			return (vec2 - vec1).LengthSquared() <= ClipperEpsilonSquared;
 		}
@@ -489,16 +489,16 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <summary>Specifies an Edge. Edges are used to represent simplicies in simplical chains</summary>
 		sealed class Edge
 		{
-			public Edge(Vector2 edgeStart, Vector2 edgeEnd)
+			public Edge(System.Numerics.Vector2 edgeStart, System.Numerics.Vector2 edgeEnd)
 			{
 				EdgeStart = edgeStart;
 				EdgeEnd = edgeEnd;
 			}
 
-			public Vector2 EdgeStart { get; private set; }
-			public Vector2 EdgeEnd { get; private set; }
+			public System.Numerics.Vector2 EdgeStart { get; private set; }
+			public System.Numerics.Vector2 EdgeEnd { get; private set; }
 
-			public Vector2 GetCenter()
+			public System.Numerics.Vector2 GetCenter()
 			{
 				return (EdgeStart + EdgeEnd) / 2f;
 			}

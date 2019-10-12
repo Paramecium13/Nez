@@ -16,21 +16,21 @@ namespace Nez
 
 		class PointMass
 		{
-			public Vector3 Position;
-			public Vector3 Velocity;
+			public System.Numerics.Vector3 Position;
+			public System.Numerics.Vector3 Velocity;
 			public float InverseMass;
 
-			Vector3 _acceleration;
+			System.Numerics.Vector3 _acceleration;
 			float _damping = 0.98f;
 
-			public PointMass(Vector3 position, float invMass)
+			public PointMass(System.Numerics.Vector3 position, float invMass)
 			{
 				Position = position;
 				InverseMass = invMass;
 			}
 
 
-			public void ApplyForce(Vector3 force)
+			public void ApplyForce(System.Numerics.Vector3 force)
 			{
 				_acceleration += force * InverseMass;
 			}
@@ -46,9 +46,9 @@ namespace Nez
 			{
 				Velocity += _acceleration;
 				Position += Velocity;
-				_acceleration = Vector3.Zero;
+				_acceleration = System.Numerics.Vector3.Zero;
 				if (Velocity.LengthSquared() < 0.001f * 0.001f)
-					Velocity = Vector3.Zero;
+					Velocity = System.Numerics.Vector3.Zero;
 
 				Velocity *= _damping;
 				_damping = 0.98f;
@@ -71,7 +71,7 @@ namespace Nez
 				End2 = end2;
 				Stiffness = stiffness;
 				Damping = damping;
-				TargetLength = Vector3.Distance(end1.Position, end2.Position) * 0.95f;
+				TargetLength = System.Numerics.Vector3.Distance(end1.Position, end2.Position) * 0.95f;
 			}
 
 
@@ -141,13 +141,13 @@ namespace Nez
 		Spring[] _springs;
 		PointMass[,] _points;
 		Rectangle _gridSize;
-		Vector2 _screenSize;
+		System.Numerics.Vector2 _screenSize;
 
 
-		public SpringGrid() : this(new Rectangle(0, 0, Screen.Width, Screen.Height), new Vector2(30))
+		public SpringGrid() : this(new Rectangle(0, 0, Screen.Width, Screen.Height), new System.Numerics.Vector2(30))
 		{ }
 
-		public SpringGrid(Rectangle gridSize, Vector2 spacing)
+		public SpringGrid(Rectangle gridSize, System.Numerics.Vector2 spacing)
 		{
 			SetGridSizeAndSpacing(gridSize, spacing);
 		}
@@ -157,7 +157,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="gridSize"></param>
 		/// <param name="spacing"></param>
-		public void SetGridSizeAndSpacing(Rectangle gridSize, Vector2 spacing)
+		public void SetGridSizeAndSpacing(Rectangle gridSize, System.Numerics.Vector2 spacing)
 		{
 			_gridSize = gridSize;
 			var springList = new List<Spring>();
@@ -180,8 +180,8 @@ namespace Nez
 			{
 				for (float x = gridSize.Left; x <= gridSize.Right; x += spacing.X)
 				{
-					_points[column, row] = new PointMass(new Vector3(x, y, 0), 1);
-					fixedPoints[column, row] = new PointMass(new Vector3(x, y, 0), 0);
+					_points[column, row] = new PointMass(new System.Numerics.Vector3(x, y, 0), 1);
+					fixedPoints[column, row] = new PointMass(new System.Numerics.Vector3(x, y, 0), 0);
 					column++;
 				}
 
@@ -220,9 +220,9 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyDirectedForce(Vector2 force, Vector2 position, float radius)
+		public void ApplyDirectedForce(System.Numerics.Vector2 force, System.Numerics.Vector2 position, float radius)
 		{
-			ApplyDirectedForce(new Vector3(force, 0), new Vector3(position, 0), radius);
+			ApplyDirectedForce(new System.Numerics.Vector3(force, 0), new System.Numerics.Vector3(position, 0), radius);
 		}
 
 		/// <summary>
@@ -231,14 +231,14 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyDirectedForce(Vector3 force, Vector3 position, float radius)
+		public void ApplyDirectedForce(System.Numerics.Vector3 force, System.Numerics.Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Position + LocalOffset, 0);
+			position -= new System.Numerics.Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
-				if (Vector3.DistanceSquared(position, mass.Position) < radius * radius)
-					mass.ApplyForce(10 * force / (10 + Vector3.Distance(position, mass.Position)));
+				if (System.Numerics.Vector3.DistanceSquared(position, mass.Position) < radius * radius)
+					mass.ApplyForce(10 * force / (10 + System.Numerics.Vector3.Distance(position, mass.Position)));
 			}
 		}
 
@@ -248,9 +248,9 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyImplosiveForce(float force, Vector2 position, float radius)
+		public void ApplyImplosiveForce(float force, System.Numerics.Vector2 position, float radius)
 		{
-			ApplyImplosiveForce(force, new Vector3(position, 0), radius);
+			ApplyImplosiveForce(force, new System.Numerics.Vector3(position, 0), radius);
 		}
 
 		/// <summary>
@@ -259,13 +259,13 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyImplosiveForce(float force, Vector3 position, float radius)
+		public void ApplyImplosiveForce(float force, System.Numerics.Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Position + LocalOffset, 0);
+			position -= new System.Numerics.Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
-				var dist2 = Vector3.DistanceSquared(position, mass.Position);
+				var dist2 = System.Numerics.Vector3.DistanceSquared(position, mass.Position);
 				if (dist2 < radius * radius)
 				{
 					mass.ApplyForce(10 * force * (position - mass.Position) / (100 + dist2));
@@ -280,9 +280,9 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyExplosiveForce(float force, Vector2 position, float radius)
+		public void ApplyExplosiveForce(float force, System.Numerics.Vector2 position, float radius)
 		{
-			ApplyExplosiveForce(force, new Vector3(position, 0), radius);
+			ApplyExplosiveForce(force, new System.Numerics.Vector3(position, 0), radius);
 		}
 
 		/// <summary>
@@ -291,13 +291,13 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void ApplyExplosiveForce(float force, Vector3 position, float radius)
+		public void ApplyExplosiveForce(float force, System.Numerics.Vector3 position, float radius)
 		{
 			// translate position into our coordinate space
-			position -= new Vector3(Entity.Position + LocalOffset, 0);
+			position -= new System.Numerics.Vector3(Entity.Position + LocalOffset, 0);
 			foreach (var mass in _points)
 			{
-				var dist2 = Vector3.DistanceSquared(position, mass.Position);
+				var dist2 = System.Numerics.Vector3.DistanceSquared(position, mass.Position);
 				if (dist2 < radius * radius)
 				{
 					mass.ApplyForce(100 * force * (mass.Position - position) / (10000 + dist2));
@@ -331,8 +331,8 @@ namespace Nez
 			{
 				for (var x = 1; x < width; x++)
 				{
-					var left = new Vector2();
-					var up = new Vector2();
+					var left = new System.Numerics.Vector2();
+					var up = new System.Numerics.Vector2();
 					var p = ProjectToVector2(_points[x, y].Position);
 
 					if (x > 1)
@@ -354,11 +354,11 @@ namespace Nez
 						// use Catmull-Rom interpolation to help smooth bends in the grid
 						left = ProjectToVector2(_points[x - 1, y].Position);
 						var clampedX = Math.Min(x + 1, width - 1);
-						var mid = Vector2.CatmullRom(ProjectToVector2(_points[x - 2, y].Position), left, p,
-							ProjectToVector2(_points[clampedX, y].Position), 0.5f);
+						var mid = Vector2.CatmullRom(ProjectToVector2(_points[x - 2, y].Position).ToXna(), left.ToXna(), p.ToXna(),
+							ProjectToVector2(_points[clampedX, y].Position).ToXna(), 0.5f).ToSimd();
 
 						// If the grid is very straight here, draw a single straight line. Otherwise, draw lines to our new interpolated midpoint
-						if (Vector2.DistanceSquared(mid, (left + p) / 2) > 1)
+						if (System.Numerics.Vector2.DistanceSquared(mid, (left + p) / 2) > 1)
 						{
 							DrawLine(batcher, left, mid, gridColor, thickness);
 							DrawLine(batcher, mid, p, gridColor, thickness);
@@ -386,10 +386,10 @@ namespace Nez
 
 						up = ProjectToVector2(_points[x, y - 1].Position);
 						var clampedY = Math.Min(y + 1, height - 1);
-						var mid = Vector2.CatmullRom(ProjectToVector2(_points[x, y - 2].Position), up, p,
-							ProjectToVector2(_points[x, clampedY].Position), 0.5f);
+						var mid = Vector2.CatmullRom(ProjectToVector2(_points[x, y - 2].Position).ToXna(), up.ToXna(), p.ToXna(),
+							ProjectToVector2(_points[x, clampedY].Position).ToXna(), 0.5f).ToSimd();	// ToDo: SIMD
 
-						if (Vector2.DistanceSquared(mid, (up + p) / 2) > 1)
+						if (System.Numerics.Vector2.DistanceSquared(mid, (up + p) / 2) > 1)
 						{
 							DrawLine(batcher, up, mid, gridColor, thickness);
 							DrawLine(batcher, mid, p, gridColor, thickness);
@@ -414,20 +414,20 @@ namespace Nez
 			}
 		}
 
-		Vector2 ProjectToVector2(Vector3 v)
+		System.Numerics.Vector2 ProjectToVector2(System.Numerics.Vector3 v)
 		{
 			// do a perspective projection
 			var factor = (v.Z + 2000) * 0.0005f;
-			return (new Vector2(v.X, v.Y) - _screenSize * 0.5f) * factor + _screenSize * 0.5f;
+			return (new System.Numerics.Vector2(v.X, v.Y) - _screenSize * 0.5f) * factor + _screenSize * 0.5f;
 		}
 
-		void DrawLine(Batcher batcher, Vector2 start, Vector2 end, Color color, float thickness = 2f)
+		void DrawLine(Batcher batcher, System.Numerics.Vector2 start, System.Numerics.Vector2 end, Color color, float thickness = 2f)
 		{
 			var delta = end - start;
 			var angle = (float) Math.Atan2(delta.Y, delta.X);
 			batcher.Draw(Graphics.Instance.PixelTexture, start + Entity.Position + LocalOffset,
-				Graphics.Instance.PixelTexture.SourceRect, color, angle, new Vector2(0, 0.5f),
-				new Vector2(delta.Length(), thickness), SpriteEffects.None, LayerDepth);
+				Graphics.Instance.PixelTexture.SourceRect, color, angle, new System.Numerics.Vector2(0, 0.5f),
+				new System.Numerics.Vector2(delta.Length(), thickness), SpriteEffects.None, LayerDepth);
 		}
 	}
 }

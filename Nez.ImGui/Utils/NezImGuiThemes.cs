@@ -25,12 +25,12 @@ namespace Nez.ImGuiTools
 		{
 			var style = ImGui.GetStyle();
 
-			style.WindowPadding = new Num.Vector2(15, 15);
+			style.WindowPadding = new System.Numerics.Vector2(15, 15);
 			style.WindowRounding = 5.0f;
-			style.FramePadding = new Num.Vector2(5, 5);
+			style.FramePadding = new System.Numerics.Vector2(5, 5);
 			style.FrameRounding = 4.0f;
-			style.ItemSpacing = new Num.Vector2(12, 8);
-			style.ItemInnerSpacing = new Num.Vector2(8, 6);
+			style.ItemSpacing = new System.Numerics.Vector2(12, 8);
+			style.ItemInnerSpacing = new System.Numerics.Vector2(8, 6);
 			style.ScrollbarSize = 15.0f;
 			style.ScrollbarRounding = 9.0f;
 			style.GrabMinSize = 5.0f;
@@ -128,8 +128,8 @@ namespace Nez.ImGuiTools
 			var colors = st.Colors;
 
 			st.FrameBorderSize = 1.0f;
-			st.FramePadding = new Num.Vector2(4.0f, 2.0f);
-			st.ItemSpacing = new Num.Vector2(8.0f, 2.0f);
+			st.FramePadding = new System.Numerics.Vector2(4.0f, 2.0f);
+			st.ItemSpacing = new System.Numerics.Vector2(8.0f, 2.0f);
 			st.WindowBorderSize = 1.0f;
 			st.TabBorderSize = 1.0f;
 			st.WindowRounding = 1.0f;

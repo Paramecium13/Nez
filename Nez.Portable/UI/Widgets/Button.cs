@@ -105,7 +105,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			if (_isDisabled)
 				return false;
@@ -115,7 +115,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			// if we get too far outside the button cancel future events
 			if (DistanceOutsideBoundsToPoint(mousePos) > ButtonBoundaryThreshold)
@@ -126,7 +126,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 			_mouseDown = false;
 

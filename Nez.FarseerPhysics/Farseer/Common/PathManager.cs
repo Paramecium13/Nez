@@ -90,7 +90,7 @@ namespace FarseerPhysics.Common
 
 				// copy the type from original body
 				b.BodyType = type;
-				b.Position = new Vector2(centers[i].X, centers[i].Y);
+				b.Position = new System.Numerics.Vector2(centers[i].X, centers[i].Y);
 				b.Rotation = centers[i].Z;
 				b.UserData = userData;
 
@@ -158,7 +158,7 @@ namespace FarseerPhysics.Common
 		/// <param name="connectFirstAndLast">if set to <c>true</c> [connect first and last].</param>
 		/// <param name="collideConnected">if set to <c>true</c> [collide connected].</param>
 		public static List<RevoluteJoint> AttachBodiesWithRevoluteJoint(World world, List<Body> bodies,
-		                                                                Vector2 localAnchorA, Vector2 localAnchorB,
+		                                                                System.Numerics.Vector2 localAnchorA, System.Numerics.Vector2 localAnchorB,
 		                                                                bool connectFirstAndLast, bool collideConnected)
 		{
 			var joints = new List<RevoluteJoint>(bodies.Count + 1);

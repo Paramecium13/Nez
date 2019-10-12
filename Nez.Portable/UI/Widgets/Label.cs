@@ -55,8 +55,8 @@ namespace Nez.UI
 		string _wrappedString;
 		bool _prefSizeInvalid;
 		float _lastPrefHeight;
-		Vector2 _prefSize;
-		Vector2 _textPosition;
+		System.Numerics.Vector2 _prefSize;
+		System.Numerics.Vector2 _textPosition;
 
 
 		public Label(string text, LabelStyle style)
@@ -134,7 +134,7 @@ namespace Nez.UI
 				_wrappedString = _text;
 			}
 
-			_prefSize = _style.Font.MeasureString(_wrappedString) * new Vector2(_fontScaleX, _fontScaleY);
+			_prefSize = _style.Font.MeasureString(_wrappedString) * new System.Numerics.Vector2(_fontScaleX, _fontScaleY);
 		}
 
 
@@ -358,8 +358,8 @@ namespace Nez.UI
 			var color = new Color(this.color, (int) (this.color.A * parentAlpha));
 			_style.Background?.Draw(batcher, x, y, width == 0 ? _prefSize.X : width, height, color);
 
-			batcher.DrawString(_style.Font, _wrappedString, new Vector2(x, y) + _textPosition,
-				_style.FontColor, 0, Vector2.Zero, new Vector2(_fontScaleX, _fontScaleY), SpriteEffects.None, 0);
+			batcher.DrawString(_style.Font, _wrappedString, new System.Numerics.Vector2(x, y) + _textPosition,
+				_style.FontColor, 0, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(_fontScaleX, _fontScaleY), SpriteEffects.None, 0);
 		}
 	}
 

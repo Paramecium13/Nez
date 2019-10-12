@@ -25,7 +25,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="points">A list of points that defines an enclosing path.</param>
 		/// <param name="count">The number of points in the path.</param>
-		public void Triangulate(Vector2[] points, bool arePointsCCW = true)
+		public void Triangulate(System.Numerics.Vector2[] points, bool arePointsCCW = true)
 		{
 			var count = points.Length;
 
@@ -127,7 +127,7 @@ namespace Nez
 		}
 
 
-		public static bool TestPointTriangle(Vector2 point, Vector2 a, Vector2 b, Vector2 c)
+		public static bool TestPointTriangle(System.Numerics.Vector2 point, System.Numerics.Vector2 a, System.Numerics.Vector2 b, System.Numerics.Vector2 c)
 		{
 			// if point to the right of AB then outside triangle
 			if (Vector2Ext.Cross(point - a, b - a) < 0f)

@@ -31,7 +31,7 @@ namespace Nez.Tweens
 		/// <summary>
 		/// Initializes a new instance of the TransformSpringTween class.
 		/// </summary>
-		public TransformSpringTween(Transform transform, TransformTargetType targetType, Vector2 targetValue)
+		public TransformSpringTween(Transform transform, TransformTargetType targetType, System.Numerics.Vector2 targetValue)
 		{
 			_transform = transform;
 			_targetType = targetType;
@@ -40,14 +40,14 @@ namespace Nez.Tweens
 
 
 		/// <summary>
-		/// you can call setTargetValue at any time to reset the target value to a new Vector2. If you have not called start to add the
+		/// you can call setTargetValue at any time to reset the target value to a new System.Numerics.Vector2. If you have not called start to add the
 		/// spring tween it will be called for you.
 		/// </summary>
 		/// <param name="targetValue">Target value.</param>
-		public void SetTargetValue(Vector2 targetValue)
+		public void SetTargetValue(System.Numerics.Vector2 targetValue)
 		{
 			_velocity = System.Numerics.Vector2.Zero;
-			_targetValue = targetValue.ToSimd();
+			_targetValue = targetValue;
 
 			if (!_isCurrentlyManagedByTweenManager)
 				Start();

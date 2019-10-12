@@ -31,12 +31,12 @@ namespace FarseerPhysics.Controllers
 		/// <summary>
 		/// Acts like waterflow. Defaults to 0,0.
 		/// </summary>
-		public Vector2 Velocity;
+		public System.Numerics.Vector2 Velocity;
 
 		AABB _container;
 
-		Vector2 _gravity;
-		Vector2 _normal;
+		System.Numerics.Vector2 _gravity;
+		System.Numerics.Vector2 _normal;
 		float _offset;
 		Dictionary<int, Body> _uniqueBodies = new Dictionary<int, Body>();
 
@@ -52,11 +52,11 @@ namespace FarseerPhysics.Controllers
 		/// <param name="rotationalDragCoefficient">Rotational drag coefficient of the fluid</param>
 		/// <param name="gravity">The direction gravity acts. Buoyancy force will act in opposite direction of gravity.</param>
 		public BuoyancyController(AABB container, float density, float linearDragCoefficient,
-		                          float rotationalDragCoefficient, Vector2 gravity)
+		                          float rotationalDragCoefficient, System.Numerics.Vector2 gravity)
 			: base(ControllerType.BuoyancyController)
 		{
 			this.Container = container;
-			_normal = new Vector2(0, 1);
+			_normal = new System.Numerics.Vector2(0, 1);
 			this.Density = density;
 			this.LinearDragCoefficient = linearDragCoefficient;
 			AngularDragCoefficient = rotationalDragCoefficient;
@@ -91,8 +91,8 @@ namespace FarseerPhysics.Controllers
 			{
 				Body body = kv.Value;
 
-				Vector2 areac = Vector2.Zero;
-				Vector2 massc = Vector2.Zero;
+				System.Numerics.Vector2 areac = System.Numerics.Vector2.Zero;
+				System.Numerics.Vector2 massc = System.Numerics.Vector2.Zero;
 				float area = 0;
 				float mass = 0;
 
@@ -105,7 +105,7 @@ namespace FarseerPhysics.Controllers
 
 					Shape shape = fixture.Shape;
 
-					Vector2 sc;
+					System.Numerics.Vector2 sc;
 					float sarea = shape.ComputeSubmergedArea(ref _normal, _offset, ref body._xf, out sc);
 					area += sarea;
 					areac.X += sarea * sc.X;

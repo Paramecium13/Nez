@@ -29,19 +29,19 @@ namespace Nez.Textures
 		/// center of the sourceRect if it had a 0,0 origin. This is basically the center in sourceRect-space.
 		/// </summary>
 		/// <value>The center.</value>
-		public readonly Vector2 Center;
+		public readonly System.Numerics.Vector2 Center;
 
 		/// <summary>
 		/// the origin that a RenderableComponent should use when using this Sprite. Defaults to the center.
 		/// </summary>
-		public Vector2 Origin;
+		public System.Numerics.Vector2 Origin;
 
 
-		public Sprite(Texture2D texture, Rectangle sourceRect, Vector2 origin)
+		public Sprite(Texture2D texture, Rectangle sourceRect, System.Numerics.Vector2 origin)
 		{
 			Texture2D = texture;
 			SourceRect = sourceRect;
-			Center = new Vector2(sourceRect.Width * 0.5f, sourceRect.Height * 0.5f);
+			Center = new System.Numerics.Vector2(sourceRect.Width * 0.5f, sourceRect.Height * 0.5f);
 			Origin = origin;
 
 			var inverseTexW = 1.0f / Texture2D.Width;

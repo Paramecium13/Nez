@@ -77,14 +77,14 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			if ((i + 1) == j)
 				return;
 
-			Vector2 a = vertices[i];
-			Vector2 b = vertices[j];
+			System.Numerics.Vector2 a = vertices[i];
+			System.Numerics.Vector2 b = vertices[j];
 
 			double maxDistance = -1.0;
 			int maxIndex = i;
 			for (int k = i + 1; k < j; k++)
 			{
-				Vector2 point = vertices[k];
+				System.Numerics.Vector2 point = vertices[k];
 
 				double distance = LineTools.DistanceBetweenPointAndLineSegment(ref point, ref a, ref b);
 
@@ -191,8 +191,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="vertices">The vertices.</param>
 		public static Vertices MergeIdenticalPoints(Vertices vertices)
 		{
-			var unique = new HashSet<Vector2>();
-			foreach (Vector2 vertex in vertices)
+			var unique = new HashSet<System.Numerics.Vector2>();
+			foreach (System.Numerics.Vector2 vertex in vertices)
 				unique.Add(vertex);
 
 			return new Vertices(unique);
@@ -215,8 +215,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
 			for (int i = 0; i < vertices.Count; i++)
 			{
-				Vector2 current = vertices[i];
-				Vector2 next = vertices.NextVertex(i);
+				System.Numerics.Vector2 current = vertices[i];
+				System.Numerics.Vector2 next = vertices.NextVertex(i);
 
 				//If they are closer than the distance, continue
 				if ((next - current).LengthSquared() <= distance2)
@@ -276,9 +276,9 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				throw new ArgumentOutOfRangeException("areaTolerance", "must be equal to or greater than zero.");
 
 			Vertices simplified = new Vertices(vertices.Count);
-			Vector2 v3;
-			Vector2 v1 = vertices[vertices.Count - 2];
-			Vector2 v2 = vertices[vertices.Count - 1];
+			System.Numerics.Vector2 v3;
+			System.Numerics.Vector2 v1 = vertices[vertices.Count - 2];
+			System.Numerics.Vector2 v2 = vertices[vertices.Count - 1];
 			areaTolerance *= 2;
 
 			for (int i = 0; i < vertices.Count; ++i, v2 = v3)

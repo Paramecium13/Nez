@@ -52,7 +52,7 @@ namespace Nez
 		/// scale of the texture
 		/// </summary>
 		/// <value>The texture scale.</value>
-		public virtual Vector2 TextureScale
+		public virtual System.Numerics.Vector2 TextureScale
 		{
 			get => _textureScale;
 			set
@@ -60,7 +60,7 @@ namespace Nez
 				_textureScale = value;
 
 				// recalulcate our inverseTextureScale and the source rect size
-				_inverseTexScale = new Vector2(1f / _textureScale.X, 1f / _textureScale.Y);
+				_inverseTexScale = new System.Numerics.Vector2(1f / _textureScale.X, 1f / _textureScale.Y);
 				_sourceRect.Width = (int) (_sprite.SourceRect.Width * _inverseTexScale.X);
 				_sourceRect.Height = (int) (_sprite.SourceRect.Height * _inverseTexScale.Y);
 			}
@@ -99,8 +99,8 @@ namespace Nez
 		/// </summary>
 		protected Rectangle _sourceRect;
 
-		protected Vector2 _textureScale = Vector2.One;
-		protected Vector2 _inverseTexScale = Vector2.One;
+		protected System.Numerics.Vector2 _textureScale = System.Numerics.Vector2.One;
+		protected System.Numerics.Vector2 _inverseTexScale = System.Numerics.Vector2.One;
 
 
 		public TiledSprite()

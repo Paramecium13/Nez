@@ -172,7 +172,7 @@ namespace Nez.Svg
 					else
 					{
 						var rect = image.Rect;
-						var origin = new Vector2(0.5f * rect.Width, 0.5f * rect.Height);
+						var origin = new System.Numerics.Vector2(0.5f * rect.Width, 0.5f * rect.Height);
 						rect.Location += origin;
 
 						batcher.Draw(tex, rect, null, Color.White, rotation, origin, SpriteEffects.None, LayerDepth);

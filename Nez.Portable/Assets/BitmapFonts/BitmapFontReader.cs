@@ -26,7 +26,7 @@ namespace Nez.BitmapFonts
             else
             {
                 var totalTextureNames = reader.ReadInt32();
-                Vector2[] atlasOrigins = new Vector2[totalTextureNames];
+                System.Numerics.Vector2[] atlasOrigins = new System.Numerics.Vector2[totalTextureNames];
                 textures = new Texture2D[totalTextureNames];
                 for (var i = 0; i < totalTextureNames; i++)
                 {

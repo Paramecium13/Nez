@@ -8,7 +8,7 @@ namespace Nez.Verlet
 	/// </summary>
 	public class Ball : Composite
 	{
-		public Ball(Vector2 position, float radius = 10)
+		public Ball(System.Numerics.Vector2 position, float radius = 10)
 		{
 			AddParticle(new Particle(position)).Radius = radius;
 		}

@@ -11,7 +11,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 	public class ListInspector : AbstractTypeInspector
 	{
 		public static Type[] KSupportedTypes =
-			{typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(string), typeof(Vector2)};
+			{typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(string), typeof(System.Numerics.Vector2)};
 
 		IList _list;
 		Type _elementType;
@@ -87,8 +87,8 @@ namespace Nez.ImGuiTools.TypeInspectors
 						DrawWidget((float) Convert.ChangeType(_list[i], _elementType), i);
 					else if (_elementType == typeof(string))
 						DrawWidget((string) Convert.ChangeType(_list[i], _elementType), i);
-					else if (_elementType == typeof(Vector2))
-						DrawWidget((Vector2) Convert.ChangeType(_list[i], _elementType), i);
+					else if (_elementType == typeof(System.Numerics.Vector2))
+						DrawWidget((System.Numerics.Vector2) Convert.ChangeType(_list[i], _elementType), i);
 				}
 
 				ImGui.PopItemWidth();
@@ -116,7 +116,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 				_list[index] = value;
 		}
 
-		void DrawWidget(Vector2 value, int index)
+		void DrawWidget(System.Numerics.Vector2 value, int index)
 		{
 			var vec = value.ToNumerics();
 			if (ImGui.DragFloat2($"{index}", ref vec))

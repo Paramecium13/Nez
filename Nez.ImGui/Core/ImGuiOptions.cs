@@ -11,7 +11,7 @@ namespace Nez.ImGuiTools
 		internal bool _includeDefaultFont = true;
 		internal List<Tuple<string, float>> _fonts = new List<Tuple<string, float>>();
 		internal string _gameWindowTitle = "Game Window";
-		internal Num.Vector2 _gameWindowFirstPosition = new Num.Vector2(345f, 25f);
+		internal System.Numerics.Vector2 _gameWindowFirstPosition = new System.Numerics.Vector2(345f, 25f);
 		internal ImGuiWindowFlags _gameWindowFlags = 0;
 
 
@@ -35,7 +35,7 @@ namespace Nez.ImGuiTools
 
 		public ImGuiOptions SetGameWindowFirstPosition(float x, float y)
 		{
-			_gameWindowFirstPosition = new Num.Vector2(x, y);
+			_gameWindowFirstPosition = new System.Numerics.Vector2(x, y);
 			return this;
 		}
 

@@ -14,14 +14,14 @@ namespace Nez.Svg
 
 		[XmlAttribute("y2")] public float Y2;
 
-		public Vector2 Start => new Vector2(X1, Y1);
+		public System.Numerics.Vector2 Start => new System.Numerics.Vector2(X1, Y1);
 
-		public Vector2 End => new Vector2(X2, Y2);
+		public System.Numerics.Vector2 End => new System.Numerics.Vector2(X2, Y2);
 
 
-		public Vector2[] GetTransformedPoints()
+		public System.Numerics.Vector2[] GetTransformedPoints()
 		{
-			var pts = new Vector2[] {Start, End};
+			var pts = new System.Numerics.Vector2[] {Start, End};
 			var mat = GetCombinedMatrix();
 			Vector2Ext.Transform(pts, ref mat, pts);
 

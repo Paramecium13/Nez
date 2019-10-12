@@ -167,7 +167,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The from polygon points.</returns>
 		/// <param name="points">Points.</param>
-		public static Rectangle BoundsFromPolygonPoints(Vector2[] points)
+		public static Rectangle BoundsFromPolygonPoints(System.Numerics.Vector2[] points)
 		{
 			// we need to find the min/max x/y values
 			var minX = float.PositiveInfinity;
@@ -194,8 +194,8 @@ namespace Nez
 		}
 
 
-		public static void CalculateBounds(ref Rectangle rect, Vector2 parentPosition, Vector2 position, Vector2 origin,
-		                                   Vector2 scale, float rotation, float width, float height)
+		public static void CalculateBounds(ref Rectangle rect, System.Numerics.Vector2 parentPosition, System.Numerics.Vector2 position, System.Numerics.Vector2 origin,
+		                                   System.Numerics.Vector2 scale, float rotation, float width, float height)
 		{
 			if (rotation == 0f)
 			{
@@ -223,10 +223,10 @@ namespace Nez
 
 				// TODO: this is a bit silly. we can just leave the worldPos translation in the Matrix and avoid this
 				// get all four corners in world space
-				var topLeft = new Vector2(worldPosX, worldPosY);
-				var topRight = new Vector2(worldPosX + width, worldPosY);
-				var bottomLeft = new Vector2(worldPosX, worldPosY + height);
-				var bottomRight = new Vector2(worldPosX + width, worldPosY + height);
+				var topLeft = new System.Numerics.Vector2(worldPosX, worldPosY);
+				var topRight = new System.Numerics.Vector2(worldPosX + width, worldPosY);
+				var bottomLeft = new System.Numerics.Vector2(worldPosX, worldPosY + height);
+				var bottomRight = new System.Numerics.Vector2(worldPosX + width, worldPosY + height);
 
 				// transform the corners into our work space
 				Vector2Ext.Transform(ref topLeft, ref transformMatrix, out topLeft);
@@ -262,7 +262,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="rect">Rect.</param>
 		/// <param name="scale">Scale.</param>
-		public static void Scale(ref Rectangle rect, Vector2 scale)
+		public static void Scale(ref Rectangle rect, System.Numerics.Vector2 scale)
 		{
 			rect.X = (int) (rect.X * scale.X);
 			rect.Y = (int) (rect.Y * scale.Y);
@@ -271,7 +271,7 @@ namespace Nez
 		}
 
 
-		public static void Translate(ref Rectangle rect, Vector2 vec)
+		public static void Translate(ref Rectangle rect, System.Numerics.Vector2 vec)
 		{
 			rect.Location += vec.ToPoint();
 		}
@@ -477,9 +477,9 @@ namespace Nez
 		/// <returns>
 		/// The amount of overlap between two intersecting rectangles. These depth values can be negative depending on which sides the rectangles
 		/// intersect. This allows callers to determine the correct direction to push objects in order to resolve collisions.
-		/// If the rectangles are not intersecting, Vector2.Zero is returned.
+		/// If the rectangles are not intersecting, System.Numerics.Vector2.Zero is returned.
 		/// </returns>
-		public static Vector2 GetIntersectionDepth(ref Rectangle rectA, ref Rectangle rectB)
+		public static System.Numerics.Vector2 GetIntersectionDepth(ref Rectangle rectA, ref Rectangle rectB)
 		{
 			// calculate half sizes
 			var halfWidthA = rectA.Width / 2.0f;
@@ -488,8 +488,8 @@ namespace Nez
 			var halfHeightB = rectB.Height / 2.0f;
 
 			// calculate centers
-			var centerA = new Vector2(rectA.Left + halfWidthA, rectA.Top + halfHeightA);
-			var centerB = new Vector2(rectB.Left + halfWidthB, rectB.Top + halfHeightB);
+			var centerA = new System.Numerics.Vector2(rectA.Left + halfWidthA, rectA.Top + halfHeightA);
+			var centerB = new System.Numerics.Vector2(rectB.Left + halfWidthB, rectB.Top + halfHeightB);
 
 			// calculate current and minimum-non-intersecting distances between centers
 			var distanceX = centerA.X - centerB.X;
@@ -499,21 +499,21 @@ namespace Nez
 
 			// if we are not intersecting at all, return (0, 0)
 			if (Math.Abs(distanceX) >= minDistanceX || Math.Abs(distanceY) >= minDistanceY)
-				return Vector2.Zero;
+				return System.Numerics.Vector2.Zero;
 
 			// calculate and return intersection depths
 			var depthX = distanceX > 0 ? minDistanceX - distanceX : -minDistanceX - distanceX;
 			var depthY = distanceY > 0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
 
-			return new Vector2(depthX, depthY);
+			return new System.Numerics.Vector2(depthX, depthY);
 		}
 
 
-		public static Vector2 GetClosestPointOnBoundsToOrigin(ref Rectangle rect)
+		public static System.Numerics.Vector2 GetClosestPointOnBoundsToOrigin(ref Rectangle rect)
 		{
 			var max = GetMax(ref rect);
 			var minDist = Math.Abs(rect.Location.X);
-			var boundsPoint = new Vector2(rect.Location.X, 0);
+			var boundsPoint = new System.Numerics.Vector2(rect.Location.X, 0);
 
 			if (Math.Abs(max.X) < minDist)
 			{
@@ -546,10 +546,10 @@ namespace Nez
 		/// <returns>The closest point on rectangle to point.</returns>
 		/// <param name="rect">Rect.</param>
 		/// <param name="point">Point.</param>
-		public static Vector2 GetClosestPointOnRectangleToPoint(ref Rectangle rect, Vector2 point)
+		public static System.Numerics.Vector2 GetClosestPointOnRectangleToPoint(ref Rectangle rect, System.Numerics.Vector2 point)
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
+			var res = new System.Numerics.Vector2();
 			res.X = MathHelper.Clamp(point.X, rect.Left, rect.Right);
 			res.Y = MathHelper.Clamp(point.Y, rect.Top, rect.Bottom);
 
@@ -563,7 +563,7 @@ namespace Nez
 		/// <returns>The closest point on rectangle border to point.</returns>
 		/// <param name="rect">Rect.</param>
 		/// <param name="point">Point.</param>
-		public static Point GetClosestPointOnRectangleBorderToPoint(ref Rectangle rect, Vector2 point)
+		public static Point GetClosestPointOnRectangleBorderToPoint(ref Rectangle rect, System.Numerics.Vector2 point)
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
 			var res = new Point();
@@ -594,24 +594,24 @@ namespace Nez
 
 
 		/// <summary>
-		/// gets the center point of the rectangle as a Vector2
+		/// gets the center point of the rectangle as a System.Numerics.Vector2
 		/// </summary>
 		/// <returns>The center.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetCenter(ref Rectangle rect)
+		public static System.Numerics.Vector2 GetCenter(ref Rectangle rect)
 		{
-			return new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+			return new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
 		}
 
 
 		/// <summary>
-		/// gets the center point of the rectangle as a Vector2
+		/// gets the center point of the rectangle as a System.Numerics.Vector2
 		/// </summary>
 		/// <returns>The center.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetCenter(this Rectangle rect)
+		public static System.Numerics.Vector2 GetCenter(this Rectangle rect)
 		{
-			return new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+			return new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
 		}
 
 
@@ -620,9 +620,9 @@ namespace Nez
 		/// </summary>
 		/// <returns>The half size.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetHalfSize(this Rectangle rect)
+		public static System.Numerics.Vector2 GetHalfSize(this Rectangle rect)
 		{
-			return new Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
+			return new System.Numerics.Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
 		}
 
 		/// <summary>
@@ -637,13 +637,13 @@ namespace Nez
 
 
 		/// <summary>
-		/// gets the position of the rectangle as a Vector2
+		/// gets the position of the rectangle as a System.Numerics.Vector2
 		/// </summary>
 		/// <returns>The position.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Vector2 GetPosition(ref Rectangle rect)
+		public static System.Numerics.Vector2 GetPosition(ref Rectangle rect)
 		{
-			return new Vector2(rect.X, rect.Y);
+			return new System.Numerics.Vector2(rect.X, rect.Y);
 		}
 	}
 }

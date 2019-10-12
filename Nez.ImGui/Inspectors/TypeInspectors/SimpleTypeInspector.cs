@@ -15,7 +15,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 		public static Type[] KSupportedTypes =
 		{
 			typeof(bool), typeof(Color), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float),
-			typeof(string), typeof(Vector2), typeof(Vector3)
+			typeof(string), typeof(System.Numerics.Vector2), typeof(Vector3)
 		};
 
 		RangeAttribute _rangeAttribute;
@@ -144,7 +144,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 
 		void InspectVector2()
 		{
-			var value = GetValue<Vector2>().ToNumerics();
+			var value = GetValue<System.Numerics.Vector2>().ToNumerics();
 			if (ImGui.DragFloat2(_name, ref value))
 				SetValue(value.ToXNA());
 		}

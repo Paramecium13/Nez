@@ -44,7 +44,7 @@ namespace Nez
 		/// offset from dockPosition the FPS counter should be drawn
 		/// </summary>
 		/// <value>The dock offset.</value>
-		public Vector2 DockOffset
+		public System.Numerics.Vector2 DockOffset
 		{
 			get => _dockOffset;
 			set
@@ -55,7 +55,7 @@ namespace Nez
 		}
 
 		FPSDockPosition _dockPosition;
-		Vector2 _dockOffset;
+		System.Numerics.Vector2 _dockOffset;
 		readonly Queue<float> _sampleBuffer = new Queue<float>();
 
 
@@ -64,7 +64,7 @@ namespace Nez
 
 		public FramesPerSecondCounter(BitmapFont font, Color color,
 		                              FPSDockPosition dockPosition = FPSDockPosition.TopRight, int maximumSamples = 100)
-			: base(font, string.Empty, Vector2.Zero, color)
+			: base(font, string.Empty, System.Numerics.Vector2.Zero, color)
 		{
 			MaximumSamples = maximumSamples;
 			DockPosition = dockPosition;
@@ -73,7 +73,7 @@ namespace Nez
 
 		public FramesPerSecondCounter(NezSpriteFont font, Color color,
 		                              FPSDockPosition dockPosition = FPSDockPosition.TopRight, int maximumSamples = 100)
-			: base(font, string.Empty, Vector2.Zero, color)
+			: base(font, string.Empty, System.Numerics.Vector2.Zero, color)
 		{
 			MaximumSamples = maximumSamples;
 			DockPosition = dockPosition;
@@ -97,17 +97,17 @@ namespace Nez
 				case FPSDockPosition.TopRight:
 					_horizontalAlign = HorizontalAlign.Right;
 					_verticalAlign = VerticalAlign.Top;
-					LocalOffset = new Vector2(Core.GraphicsDevice.Viewport.Width - DockOffset.X, DockOffset.Y);
+					LocalOffset = new System.Numerics.Vector2(Core.GraphicsDevice.Viewport.Width - DockOffset.X, DockOffset.Y);
 					break;
 				case FPSDockPosition.BottomLeft:
 					_horizontalAlign = HorizontalAlign.Left;
 					_verticalAlign = VerticalAlign.Bottom;
-					LocalOffset = new Vector2(DockOffset.X, Core.GraphicsDevice.Viewport.Height - DockOffset.Y);
+					LocalOffset = new System.Numerics.Vector2(DockOffset.X, Core.GraphicsDevice.Viewport.Height - DockOffset.Y);
 					break;
 				case FPSDockPosition.BottomRight:
 					_horizontalAlign = HorizontalAlign.Right;
 					_verticalAlign = VerticalAlign.Bottom;
-					LocalOffset = new Vector2(Core.GraphicsDevice.Viewport.Width - DockOffset.X,
+					LocalOffset = new System.Numerics.Vector2(Core.GraphicsDevice.Viewport.Width - DockOffset.X,
 						Core.GraphicsDevice.Viewport.Height - DockOffset.Y);
 					break;
 			}
@@ -165,7 +165,7 @@ namespace Nez
 		/// Sets how far the fps text will appear from the edges of the screen.
 		/// </summary>
 		/// <param name="dockOffset">Offset from screen edges</param>
-		public FramesPerSecondCounter SetDockOffset(Vector2 dockOffset)
+		public FramesPerSecondCounter SetDockOffset(System.Numerics.Vector2 dockOffset)
 		{
 			DockOffset = dockOffset;
 			return this;

@@ -21,12 +21,12 @@ namespace Nez.DeferredLighting
 
 		public static PolygonMesh CreateRectangle()
 		{
-			var points = new Vector2[]
+			var points = new System.Numerics.Vector2[]
 			{
-				new Vector2(1, 1),
-				new Vector2(0, 1),
-				new Vector2(0, 0),
-				new Vector2(1, 0)
+				new System.Numerics.Vector2(1, 1),
+				new System.Numerics.Vector2(0, 1),
+				new System.Numerics.Vector2(0, 0),
+				new System.Numerics.Vector2(1, 0)
 			};
 			return new PolygonMesh(points);
 		}
@@ -56,13 +56,13 @@ namespace Nez.DeferredLighting
 		}
 
 
-		static Vector2[] BuildSymmetricalPolygon(int vertCount, float radius)
+		static System.Numerics.Vector2[] BuildSymmetricalPolygon(int vertCount, float radius)
 		{
-			var points = new Vector2[vertCount];
+			var points = new System.Numerics.Vector2[vertCount];
 			for (var i = 0; i < vertCount; i++)
 			{
 				var a = 2.0f * MathHelper.Pi * (i / (float) vertCount);
-				points[i] = new Vector2((float) Math.Cos(a) * radius, (float) Math.Sin(a) * radius);
+				points[i] = new System.Numerics.Vector2((float) Math.Cos(a) * radius, (float) Math.Sin(a) * radius);
 			}
 
 			return points;
@@ -71,7 +71,7 @@ namespace Nez.DeferredLighting
 		#endregion
 
 
-		public PolygonMesh(Vector2[] points)
+		public PolygonMesh(System.Numerics.Vector2[] points)
 		{
 			var verts = GenerateVerts(points);
 
@@ -94,7 +94,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		VertexPosition[] GenerateVerts(Vector2[] points)
+		VertexPosition[] GenerateVerts(System.Numerics.Vector2[] points)
 		{
 			// we need to make tris from the points. all points will be shared with the center (0,0)
 			var verts = new VertexPosition[points.Length + 1];

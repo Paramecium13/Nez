@@ -32,7 +32,7 @@ namespace Nez
 		public int CollidesWithLayers = Physics.AllLayers;
 
 		const int CIRCLE_APPROXIMATION_VERTS = 12;
-		Vector2[] _vertBuffer = new Vector2[4];
+		System.Numerics.Vector2[] _vertBuffer = new System.Numerics.Vector2[4];
 		PrimitiveBatch _primitiveBatch;
 		DepthStencilState _depthStencilState;
 		BlendState _stencilOnlyBlendState;
@@ -120,17 +120,17 @@ namespace Nez
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void RenderPolygon(Polygon polygon, Vector2 lightPos) => RenderVerts(polygon.position, lightPos, polygon.Points);
+		void RenderPolygon(Polygon polygon, System.Numerics.Vector2 lightPos) => RenderVerts(polygon.position, lightPos, polygon.Points);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void RenderCircle(Circle circle, Vector2 lightPos)
+		void RenderCircle(Circle circle, System.Numerics.Vector2 lightPos)
 		{
 			var points = Polygon.BuildSymmetricalPolygon(CIRCLE_APPROXIMATION_VERTS, circle.Radius);
 			RenderVerts(circle.position, lightPos, points);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void RenderVerts(Vector2 position, Vector2 lightPos, Vector2[] verts)
+		void RenderVerts(System.Numerics.Vector2 position, System.Numerics.Vector2 lightPos, System.Numerics.Vector2[] verts)
 		{
 			// TODO: should we check to see if the light is inside the verts and early out?
 			for (var i = 0; i < verts.Length; i++)
@@ -138,21 +138,21 @@ namespace Nez
 				var vertex = verts[i] + position;
 				var nextVertex = verts[(i + 1) % verts.Length] + position;
 				var startToEnd = nextVertex - vertex;
-				var normal = new Vector2(startToEnd.Y, -startToEnd.X);
-				normal.Normalize();
 				var lightToStart = lightPos - vertex;
+				var normal = new System.Numerics.Vector2(startToEnd.Y, -startToEnd.X);
+				normal.Normalize();
 
-				Vector2.Dot(ref normal, ref lightToStart, out var nDotL);
+				var nDotL = System.Numerics.Vector2.Dot(normal, lightToStart);
 				if (nDotL > 0)
 				{
 					var midpoint = (nextVertex + vertex) * 0.5f;
 					Debug.DrawLine(vertex, nextVertex, Color.Green);
 					Debug.DrawLine(midpoint, midpoint + normal * 20, Color.Green);
 
-					var point1 = nextVertex + (Vector2.Normalize(nextVertex - lightPos) * Screen.Width);
-					var point2 = vertex + (Vector2.Normalize(vertex - lightPos) * Screen.Width);
-
-					var poly = new Vector2[] { nextVertex, point1, point2, vertex };
+					var point1 = nextVertex + (System.Numerics.Vector2.Normalize(nextVertex - lightPos) * Screen.Width);
+					var point2 = vertex +     (System.Numerics.Vector2.Normalize(vertex - lightPos) * Screen.Width);
+					
+					var poly = new System.Numerics.Vector2[] { nextVertex, point1, point2, vertex };
 					_vertBuffer[0] = nextVertex;
 					_vertBuffer[1] = point1;
 					_vertBuffer[2] = point2;

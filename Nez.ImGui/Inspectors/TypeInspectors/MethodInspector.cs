@@ -10,7 +10,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 	public class MethodInspector : AbstractTypeInspector
 	{
 		static Type[] _allowedTypes =
-			{typeof(int), typeof(float), typeof(string), typeof(bool), typeof(Vector2), typeof(Vector3)};
+			{typeof(int), typeof(float), typeof(string), typeof(bool), typeof(System.Numerics.Vector2), typeof(Vector3)};
 
 		Type _parameterType;
 		string _parameterName;
@@ -19,7 +19,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 		float _floatParam;
 		string _stringParam = string.Empty;
 		bool _boolParam;
-		Num.Vector2 _vec2Param;
+		System.Numerics.Vector2 _vec2Param;
 		Num.Vector3 _vec3Param;
 
 
@@ -78,7 +78,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 				ImGui.Checkbox($"{_parameterName}##", ref _boolParam);
 			else if (_parameterType == typeof(string))
 				ImGui.InputText($"{_parameterName}##", ref _stringParam, 100);
-			else if (_parameterType == typeof(Vector2))
+			else if (_parameterType == typeof(System.Numerics.Vector2))
 				ImGui.DragFloat2($"{_parameterName}##", ref _vec2Param);
 			else if (_parameterType == typeof(Vector3))
 				ImGui.DragFloat3($"{_parameterName}##", ref _vec3Param);
@@ -108,7 +108,7 @@ namespace Nez.ImGuiTools.TypeInspectors
 						parameters[0] = _boolParam;
 					else if (_parameterType == typeof(string))
 						parameters[0] = _stringParam;
-					else if (_parameterType == typeof(Vector2))
+					else if (_parameterType == typeof(System.Numerics.Vector2))
 						parameters[0] = _vec2Param.ToXNA();
 					else if (_parameterType == typeof(Vector3))
 						parameters[0] = _vec3Param.ToXNA();

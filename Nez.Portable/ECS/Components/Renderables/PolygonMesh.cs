@@ -8,7 +8,7 @@ namespace Nez
 	/// </summary>
 	public class PolygonMesh : Mesh
 	{
-		public PolygonMesh(Vector2[] points, bool arePointsCCW = true)
+		public PolygonMesh(System.Numerics.Vector2[] points, bool arePointsCCW = true)
 		{
 			var triangulator = new Triangulator();
 			triangulator.Triangulate(points, arePointsCCW);

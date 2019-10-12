@@ -36,7 +36,7 @@ namespace Nez.UI
 		bool debugAll, debugUnderMouse, debugParentUnderMouse;
 		Table.TableDebug debugTableUnderMouse = Table.TableDebug.None;
 
-		Vector2 _lastMousePosition;
+		System.Numerics.Vector2 _lastMousePosition;
 		Element _mouseOverElement;
 		private Dictionary<int, Element> _touchOverElement = new Dictionary<int, Element>();
 		List<Element> _inputFocusListeners = new List<Element>();
@@ -88,7 +88,7 @@ namespace Nez.UI
 		{
 			if (debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.TableDebug.None)
 			{
-				var mousePos = ScreenToStageCoordinates(Input.RawMousePosition.ToVector2());
+				var mousePos = ScreenToStageCoordinates(Input.RawMousePosition.ToVector2().ToSimd());
 				var element = Hit(mousePos);
 				if (element == null)
 				{
@@ -159,9 +159,9 @@ namespace Nez.UI
 		/// gets the appropriate mouse position (scaled vs raw) based on if this isFullScreen and if we have an entity
 		/// </summary>
 		/// <returns>The mouse position.</returns>
-		public Vector2 GetMousePosition()
+		public System.Numerics.Vector2 GetMousePosition()
 		{
-			return Entity != null && !IsFullScreen ? Input.ScaledMousePosition : Input.RawMousePosition.ToVector2();
+			return Entity != null && !IsFullScreen ? Input.ScaledMousePosition : Input.RawMousePosition.ToVector2().ToSimd();
 		}
 
 
@@ -208,7 +208,7 @@ namespace Nez.UI
 		{
 			foreach (var touch in Input.Touch.CurrentTouches)
 			{
-				var inputPos = ScreenToStageCoordinates(touch.Position);
+				var inputPos = ScreenToStageCoordinates(touch.Position.ToSimd());
 				var inputPressed = touch.State == Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Pressed;
 				var inputReleased = touch.State == Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Released ||
 				                    touch.State == Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Invalid;
@@ -216,7 +216,7 @@ namespace Nez.UI
 				Microsoft.Xna.Framework.Input.Touch.TouchLocation prevTouch;
 				if (touch.TryGetPreviousLocation(out prevTouch))
 				{
-					if (Vector2.Distance(touch.Position, prevTouch.Position) >= float.Epsilon)
+					if (System.Numerics.Vector2.Distance(touch.Position.ToSimd(), prevTouch.Position.ToSimd()) >= float.Epsilon)
 						inputMoved = true;
 				}
 
@@ -244,7 +244,7 @@ namespace Nez.UI
 		/// <param name="inputReleased">up this frame</param>
 		/// <param name="inputMoved">cursor in a different location</param>
 		/// <param name="lastOver">last element that the cursor was over, ref is saved here for next update</param>
-		void UpdateInputPoint(Vector2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved,
+		void UpdateInputPoint(System.Numerics.Vector2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved,
 		                      ref Element lastOver)
 		{
 			var over = Hit(inputPos);
@@ -275,7 +275,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
-		void UpdateInputDown(Vector2 inputPos, Element over)
+		void UpdateInputDown(System.Numerics.Vector2 inputPos, Element over)
 		{
 			// lose keyboard focus if we click outside of the keyboardFocusElement
 			if (_keyboardFocusElement != null && over != _keyboardFocusElement)
@@ -300,7 +300,7 @@ namespace Nez.UI
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
 		/// <param name="lastOver">element that was previously under the cursor</param>
-		void UpdateInputMoved(Vector2 inputPos, Element over, Element lastOver)
+		void UpdateInputMoved(System.Numerics.Vector2 inputPos, Element over, Element lastOver)
 		{
 			for (var i = _inputFocusListeners.Count - 1; i >= 0; i--)
 				((IInputListener) _inputFocusListeners[i]).OnMouseMoved(_inputFocusListeners[i]
@@ -318,7 +318,7 @@ namespace Nez.UI
 		/// Mouse or touch is being released this frame.
 		/// </summary>
 		/// <param name="inputPos">location under cursor</param>
-		void UpdateInputReleased(Vector2 inputPos)
+		void UpdateInputReleased(System.Numerics.Vector2 inputPos)
 		{
 			for (var i = _inputFocusListeners.Count - 1; i >= 0; i--)
 				((IInputListener) _inputFocusListeners[i]).OnMouseUp(_inputFocusListeners[i]
@@ -683,7 +683,7 @@ namespace Nez.UI
 		#endregion
 
 
-		public Element Hit(Vector2 point)
+		public Element Hit(System.Numerics.Vector2 point)
 		{
 			point = root.ParentToLocalCoordinates(point);
 			return root.Hit(point);
@@ -695,7 +695,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to stage coordinates.</returns>
 		/// <param name="screenCoords">Screen coords.</param>
-		public Vector2 ScreenToStageCoordinates(Vector2 screenCoords)
+		public System.Numerics.Vector2 ScreenToStageCoordinates(System.Numerics.Vector2 screenCoords)
 		{
 			if (Camera == null)
 				return screenCoords;
@@ -709,7 +709,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to screen coordinates.</returns>
 		/// <param name="stageCoords">Stage coords.</param>
-		public Vector2 StageToScreenCoordinates(Vector2 stageCoords)
+		public System.Numerics.Vector2 StageToScreenCoordinates(System.Numerics.Vector2 stageCoords)
 		{
 			if (Camera == null)
 				return stageCoords;
@@ -741,7 +741,7 @@ namespace Nez.UI
 
 			var focusableEle = relativeToFocusable as Element;
 			var currentCoords = focusableEle.GetParent()
-				.LocalToStageCoordinates(new Vector2(focusableEle.GetX(), focusableEle.GetY()));
+				.LocalToStageCoordinates(new System.Numerics.Vector2(focusableEle.GetX(), focusableEle.GetY()));
 			var buttons = FindAllElementsOfType<IGamepadFocusable>();
 			for (var i = 0; i < buttons.Count; i++)
 			{
@@ -751,7 +751,7 @@ namespace Nez.UI
 				// filter out buttons that are not in the disired direction
 				var element = buttons[i] as Element;
 				var buttonCoords = element.GetParent()
-					.LocalToStageCoordinates(new Vector2(element.GetX(), element.GetY()));
+					.LocalToStageCoordinates(new System.Numerics.Vector2(element.GetX(), element.GetY()));
 				var isDirectionMatch = false;
 				switch (direction)
 				{
@@ -779,11 +779,11 @@ namespace Nez.UI
 					if (nextFocusable == null)
 					{
 						nextFocusable = buttons[i];
-						distanceToNextButton = Vector2.DistanceSquared(currentCoords, buttonCoords);
+						distanceToNextButton = System.Numerics.Vector2.DistanceSquared(currentCoords, buttonCoords);
 					}
 					else
 					{
-						var distance = Vector2.DistanceSquared(currentCoords, buttonCoords);
+						var distance = System.Numerics.Vector2.DistanceSquared(currentCoords, buttonCoords);
 						if (distance < distanceToNextButton)
 						{
 							nextFocusable = buttons[i];

@@ -122,9 +122,9 @@ namespace FarseerPhysics.Common.Decomposition
 					{
 						var lower = Remainder(i - 1, vNum);
 						var upper = Remainder(i + 1, vNum);
-						var d1 = new Vector2(xrem[upper] - xrem[i], yrem[upper] - yrem[i]);
-						var d2 = new Vector2(xrem[i] - xrem[lower], yrem[i] - yrem[lower]);
-						var d3 = new Vector2(xrem[lower] - xrem[upper], yrem[lower] - yrem[upper]);
+						var d1 = new System.Numerics.Vector2(xrem[upper] - xrem[i], yrem[upper] - yrem[i]);
+						var d2 = new System.Numerics.Vector2(xrem[i] - xrem[lower], yrem[i] - yrem[lower]);
+						var d3 = new System.Numerics.Vector2(xrem[lower] - xrem[upper], yrem[lower] - yrem[upper]);
 
 						Nez.Vector2Ext.Normalize(ref d1);
 						Nez.Vector2Ext.Normalize(ref d2);
@@ -361,23 +361,23 @@ namespace FarseerPhysics.Common.Decomposition
 				float cross = (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1);
 				if (cross > 0)
 				{
-					Add(new Vector2(x1, y1));
-					Add(new Vector2(x2, y2));
-					Add(new Vector2(x3, y3));
+					Add(new System.Numerics.Vector2(x1, y1));
+					Add(new System.Numerics.Vector2(x2, y2));
+					Add(new System.Numerics.Vector2(x3, y3));
 				}
 				else
 				{
-					Add(new Vector2(x1, y1));
-					Add(new Vector2(x3, y3));
-					Add(new Vector2(x2, y2));
+					Add(new System.Numerics.Vector2(x1, y1));
+					Add(new System.Numerics.Vector2(x3, y3));
+					Add(new System.Numerics.Vector2(x2, y2));
 				}
 			}
 
 			public bool IsInside(float x, float y)
 			{
-				Vector2 a = this[0];
-				Vector2 b = this[1];
-				Vector2 c = this[2];
+				System.Numerics.Vector2 a = this[0];
+				System.Numerics.Vector2 b = this[1];
+				System.Numerics.Vector2 c = this[2];
 
 				if (x < a.X && x < b.X && x < c.X) return false;
 				if (x > a.X && x > b.X && x > c.X) return false;

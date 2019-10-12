@@ -58,7 +58,7 @@ namespace Nez
 		{
 			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, null);
 			batcher.Begin(BlendState.NonPremultiplied, Core.DefaultSamplerState, DepthStencilState.None, null);
-			batcher.Draw(PreviousSceneRender, Vector2.Zero, _color);
+			batcher.Draw(PreviousSceneRender, System.Numerics.Vector2.Zero, _color);
 			batcher.End();
 		}
 	}

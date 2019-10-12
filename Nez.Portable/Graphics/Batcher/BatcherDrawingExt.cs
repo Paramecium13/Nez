@@ -15,22 +15,22 @@ namespace Nez
 
 		#region Line
 
-		public static void DrawLine(this Batcher batcher, Vector2 start, Vector2 end, Color color)
+		public static void DrawLine(this Batcher batcher, System.Numerics.Vector2 start, System.Numerics.Vector2 end, Color color)
 		{
-			DrawLineAngle(batcher, start, Mathf.AngleBetweenVectors(start, end), Vector2.Distance(start, end), color);
+			DrawLineAngle(batcher, start, Mathf.AngleBetweenVectors(start, end), System.Numerics.Vector2.Distance(start, end), color);
 		}
 
 
-		public static void DrawLine(this Batcher batcher, Vector2 start, Vector2 end, Color color, float thickness)
+		public static void DrawLine(this Batcher batcher, System.Numerics.Vector2 start, System.Numerics.Vector2 end, Color color, float thickness)
 		{
-			DrawLineAngle(batcher, start, Mathf.AngleBetweenVectors(start, end), Vector2.Distance(start, end), color,
+			DrawLineAngle(batcher, start, Mathf.AngleBetweenVectors(start, end), System.Numerics.Vector2.Distance(start, end), color,
 				thickness);
 		}
 
 
 		public static void DrawLine(this Batcher batcher, float x1, float y1, float x2, float y2, Color color)
 		{
-			DrawLine(batcher, new Vector2(x1, y1), new Vector2(x2, y2), color);
+			DrawLine(batcher, new System.Numerics.Vector2(x1, y1), new System.Numerics.Vector2(x2, y2), color);
 		}
 
 
@@ -40,7 +40,7 @@ namespace Nez
 		/// <param name="points">The points to connect with lines</param>
 		/// <param name="color">The color to use</param>
 		/// <param name="thickness">The thickness of the lines</param>
-		public static void DrawPoints(this Batcher batcher, List<Vector2> points, Color color, float thickness = 1)
+		public static void DrawPoints(this Batcher batcher, List<System.Numerics.Vector2> points, Color color, float thickness = 1)
 		{
 			if (points.Count < 2)
 				return;
@@ -58,7 +58,7 @@ namespace Nez
 		/// <param name="points">The points to connect with lines</param>
 		/// <param name="color">The color to use</param>
 		/// <param name="thickness">The thickness of the lines</param>
-		public static void DrawPoints(this Batcher batcher, Vector2[] points, Color color, float thickness = 1)
+		public static void DrawPoints(this Batcher batcher, System.Numerics.Vector2[] points, Color color, float thickness = 1)
 		{
 			if (points.Length < 2)
 				return;
@@ -77,7 +77,7 @@ namespace Nez
 		/// <param name="color">The color to use</param>
 		/// <param name="thickness">The thickness of the lines</param>
 		/// <param name="closePoly">If set to <c>true</c> the first and last points will be connected.</param>
-		public static void DrawPoints(this Batcher batcher, Vector2 position, Vector2[] points, Color color,
+		public static void DrawPoints(this Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2[] points, Color color,
 		                              bool closePoly = true, float thickness = 1)
 		{
 			if (points.Length < 2)
@@ -93,7 +93,7 @@ namespace Nez
 		}
 
 
-		public static void DrawPolygon(this Batcher batcher, Vector2 position, Vector2[] points, Color color,
+		public static void DrawPolygon(this Batcher batcher, System.Numerics.Vector2 position, System.Numerics.Vector2[] points, Color color,
 		                               bool closePoly = true, float thickness = 1)
 		{
 			if (points.Length < 2)
@@ -114,25 +114,25 @@ namespace Nez
 
 		#region Line Angle
 
-		public static void DrawLineAngle(this Batcher batcher, Vector2 start, float radians, float length, Color color)
+		public static void DrawLineAngle(this Batcher batcher, System.Numerics.Vector2 start, float radians, float length, Color color)
 		{
 			batcher.Draw(Graphics.Instance.PixelTexture, start, Graphics.Instance.PixelTexture.SourceRect, color,
-				radians, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, 0);
+				radians, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(length, 1), SpriteEffects.None, 0);
 		}
 
 
-		public static void DrawLineAngle(this Batcher batcher, Vector2 start, float radians, float length, Color color,
+		public static void DrawLineAngle(this Batcher batcher, System.Numerics.Vector2 start, float radians, float length, Color color,
 		                                 float thickness)
 		{
 			batcher.Draw(Graphics.Instance.PixelTexture, start, Graphics.Instance.PixelTexture.SourceRect, color,
-				radians, new Vector2(0f, 0.5f), new Vector2(length, thickness), SpriteEffects.None, 0);
+				radians, new System.Numerics.Vector2(0f, 0.5f), new System.Numerics.Vector2(length, thickness), SpriteEffects.None, 0);
 		}
 
 
 		public static void DrawLineAngle(this Batcher batcher, float startX, float startY, float radians, float length,
 		                                 Color color)
 		{
-			DrawLineAngle(batcher, new Vector2(startX, startY), radians, length, color);
+			DrawLineAngle(batcher, new System.Numerics.Vector2(startX, startY), radians, length, color);
 		}
 
 		#endregion
@@ -140,10 +140,10 @@ namespace Nez
 
 		#region Circle
 
-		public static void DrawCircle(this Batcher batcher, Vector2 position, float radius, Color color,
+		public static void DrawCircle(this Batcher batcher, System.Numerics.Vector2 position, float radius, Color color,
 		                              float thickness = 1f, int resolution = 12)
 		{
-			var last = Vector2.UnitX * radius;
+			var last = System.Numerics.Vector2.UnitX * radius;
 			var lastP = Vector2Ext.Perpendicular(last);
 
 			batcher.SetIgnoreRoundingDestinations(true);
@@ -168,7 +168,7 @@ namespace Nez
 		public static void DrawCircle(this Batcher batcher, float x, float y, float radius, Color color,
 		                              int thickness = 1, int resolution = 12)
 		{
-			DrawCircle(batcher, new Vector2(x, y), radius, color, thickness, resolution);
+			DrawCircle(batcher, new System.Numerics.Vector2(x, y), radius, color, thickness, resolution);
 		}
 
 		#endregion
@@ -186,7 +186,7 @@ namespace Nez
 		}
 
 
-		public static void DrawRect(this Batcher batcher, Vector2 position, float width, float height, Color color)
+		public static void DrawRect(this Batcher batcher, System.Numerics.Vector2 position, float width, float height, Color color)
 		{
 			DrawRect(batcher, position.X, position.Y, width, height, color);
 		}
@@ -205,10 +205,10 @@ namespace Nez
 		public static void DrawHollowRect(this Batcher batcher, float x, float y, float width, float height,
 		                                  Color color, float thickness = 1)
 		{
-			var tl = new Vector2(x, y).Round();
-			var tr = new Vector2(x + width, y).Round();
-			var br = new Vector2(x + width, y + height).Round();
-			var bl = new Vector2(x, y + height).Round();
+			var tl = new System.Numerics.Vector2(x, y).Round();
+			var tr = new System.Numerics.Vector2(x + width, y).Round();
+			var br = new System.Numerics.Vector2(x + width, y + height).Round();
+			var bl = new System.Numerics.Vector2(x, y + height).Round();
 
 			batcher.SetIgnoreRoundingDestinations(true);
 			batcher.DrawLine(tl, tr, color, thickness);
@@ -219,7 +219,7 @@ namespace Nez
 		}
 
 
-		public static void DrawHollowRect(this Batcher batcher, Vector2 position, float width, float height,
+		public static void DrawHollowRect(this Batcher batcher, System.Numerics.Vector2 position, float width, float height,
 		                                  Color color, float thickness = 1)
 		{
 			DrawHollowRect(batcher, position.X, position.Y, width, height, color, thickness);
@@ -244,21 +244,9 @@ namespace Nez
 
 		public static void DrawPixel(this Batcher batcher, float x, float y, Color color, int size = 1)
 		{
-			DrawPixel(batcher, new Vector2(x, y), color, size);
+			DrawPixel(batcher, new System.Numerics.Vector2(x, y), color, size);
 		}
 
-
-		public static void DrawPixel(this Batcher batcher, Vector2 position, Color color, int size = 1)
-		{
-			var destRect = new Rectangle((int)position.X, (int)position.Y, size, size);
-			if (size != 1)
-			{
-				destRect.X -= (int)(size * 0.5f);
-				destRect.Y -= (int)(size * 0.5f);
-			}
-
-			batcher.Draw(Graphics.Instance.PixelTexture, destRect, Graphics.Instance.PixelTexture.SourceRect, color);
-		}
 
 		public static void DrawPixel(this Batcher batcher, System.Numerics.Vector2 position, Color color, int size = 1)
 		{

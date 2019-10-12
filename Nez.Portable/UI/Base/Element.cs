@@ -520,7 +520,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="screenCoords">Screen coords.</param>
-		public Vector2 ScreenToLocalCoordinates(Vector2 screenCoords)
+		public System.Numerics.Vector2 ScreenToLocalCoordinates(System.Numerics.Vector2 screenCoords)
 		{
 			if (_stage == null)
 				return screenCoords;
@@ -533,7 +533,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="stageCoords">Stage coords.</param>
-		public Vector2 StageToLocalCoordinates(Vector2 stageCoords)
+		public System.Numerics.Vector2 StageToLocalCoordinates(System.Numerics.Vector2 stageCoords)
 		{
 			if (parent != null)
 				stageCoords = parent.StageToLocalCoordinates(stageCoords);
@@ -547,7 +547,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to stage coordinates.</returns>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 LocalToStageCoordinates(Vector2 localCoords) => LocalToAscendantCoordinates(null, localCoords);
+		public System.Numerics.Vector2 LocalToStageCoordinates(System.Numerics.Vector2 localCoords) => LocalToAscendantCoordinates(null, localCoords);
 
 		/// <summary>
 		/// Converts coordinates for this element to those of a parent element. The ascendant does not need to be a direct parent
@@ -555,7 +555,7 @@ namespace Nez.UI
 		/// <returns>The to ascendant coordinates.</returns>
 		/// <param name="ascendant">Ascendant.</param>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 LocalToAscendantCoordinates(Element ascendant, Vector2 localCoords)
+		public System.Numerics.Vector2 LocalToAscendantCoordinates(Element ascendant, System.Numerics.Vector2 localCoords)
 		{
 			Element element = this;
 			while (element != null)
@@ -574,7 +574,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="parentCoords">Parent coords.</param>
-		public Vector2 ParentToLocalCoordinates(Vector2 parentCoords)
+		public System.Numerics.Vector2 ParentToLocalCoordinates(System.Numerics.Vector2 parentCoords)
 		{
 			if (rotation == 0)
 			{
@@ -607,7 +607,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to parent coordinates.</returns>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 LocalToParentCoordinates(Vector2 localCoords)
+		public System.Numerics.Vector2 LocalToParentCoordinates(System.Numerics.Vector2 localCoords)
 		{
 			var rotation = -this.rotation;
 
@@ -647,7 +647,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The outside bounds to point.</returns>
 		/// <param name="Point">Point.</param>
-		protected float DistanceOutsideBoundsToPoint(Vector2 point)
+		protected float DistanceOutsideBoundsToPoint(System.Numerics.Vector2 point)
 		{
 			var offsetX = Math.Max(-point.X, point.X - width);
 			var offsetY = Math.Max(-point.Y, point.Y - height);
@@ -680,7 +680,7 @@ namespace Nez.UI
 			return _visible;
 		}
 
-		public virtual Element Hit(Vector2 point)
+		public virtual Element Hit(System.Numerics.Vector2 point)
 		{
 			// if we are not Touchable or us or any parent is not visible bail out
 			if (touchable != Touchable.Enabled || !AreParentsVisible())

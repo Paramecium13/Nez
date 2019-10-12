@@ -14,7 +14,7 @@ namespace Nez
 		public static GamePadData[] GamePads;
 		public const float DEFAULT_DEADZONE = 0.1f;
 
-		internal static Vector2 _resolutionScale;
+		internal static System.Numerics.Vector2 _resolutionScale;
 		internal static Point _resolutionOffset;
 		static KeyboardState _previousKbState;
 		static KeyboardState _currentKbState;
@@ -33,7 +33,7 @@ namespace Nez
 		/// than the backbuffer. This situation basically results in mouse coordinates in screen space instead of
 		/// in the render target coordinate system;
 		/// </summary>
-		public static Vector2 ResolutionScale => _resolutionScale;
+		public static System.Numerics.Vector2 ResolutionScale => _resolutionScale;
 
 		/// <summary>
 		/// set by the Scene and used to get mouse input from raw screen coordinates to render target coordinates. Any
@@ -41,7 +41,7 @@ namespace Nez
 		/// letterbox portion of the render).
 		/// </summary>
 		/// <returns></returns>
-		public static Vector2 ResolutionOffset => _resolutionOffset.ToVector2();
+		public static System.Numerics.Vector2 ResolutionOffset => _resolutionOffset.ToVector2().ToSimd();
 
 		/// <summary>
 		/// gets/sets the maximum supported gamepads
@@ -101,9 +101,9 @@ namespace Nez
 		/// </summary>
 		/// <value>The scaled position.</value>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Vector2 ScaledPosition(Vector2 position)
+		public static System.Numerics.Vector2 ScaledPosition(System.Numerics.Vector2 position)
 		{
-			var scaledPos = new Vector2(position.X - _resolutionOffset.X, position.Y - _resolutionOffset.Y);
+			var scaledPos = new System.Numerics.Vector2(position.X - _resolutionOffset.X, position.Y - _resolutionOffset.Y);
 			return scaledPos * _resolutionScale;
 		}
 
@@ -337,23 +337,23 @@ namespace Nez
 		/// alias for scaledMousePosition
 		/// </summary>
 		/// <value>The mouse position.</value>
-		public static Vector2 MousePosition => ScaledMousePosition;
+		public static System.Numerics.Vector2 MousePosition => ScaledMousePosition;
 
 		/// <summary>
 		/// this takes into account the SceneResolutionPolicy and returns the value scaled to the RenderTargets coordinates
 		/// </summary>
 		/// <value>The scaled mouse position.</value>
-		public static Vector2 ScaledMousePosition => ScaledPosition(new Vector2(_currentMouseState.X, _currentMouseState.Y));
+		public static System.Numerics.Vector2 ScaledMousePosition => ScaledPosition(new System.Numerics.Vector2(_currentMouseState.X, _currentMouseState.Y));
 
 		public static Point MousePositionDelta =>
 			new Point(_currentMouseState.X, _currentMouseState.Y) -
 			new Point(_previousMouseState.X, _previousMouseState.Y);
 
-		public static Vector2 ScaledMousePositionDelta
+		public static System.Numerics.Vector2 ScaledMousePositionDelta
 		{
 			get
 			{
-				var pastPos = new Vector2(_previousMouseState.X - _resolutionOffset.X,
+				var pastPos = new System.Numerics.Vector2(_previousMouseState.X - _resolutionOffset.X,
 					_previousMouseState.Y - _resolutionOffset.Y);
 				pastPos *= _resolutionScale;
 				return ScaledMousePosition - pastPos;

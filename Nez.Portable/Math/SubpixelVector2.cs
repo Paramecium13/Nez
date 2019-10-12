@@ -12,7 +12,7 @@ namespace Nez
 		/// increments s/y remainders by amount, truncates the values to an int, stores off the new remainders and sets amount to the current value.
 		/// </summary>
 		/// <param name="amount">Amount.</param>
-		public void Update(ref Vector2 amount)
+		public void Update(ref System.Numerics.Vector2 amount)
 		{
 			_x.Update(ref amount.X);
 			_y.Update(ref amount.Y);

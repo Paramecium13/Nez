@@ -12,11 +12,11 @@ namespace Nez.Svg
 	public class SvgReflectionPathBuilder : ISvgPathBuilder
 	{
 		/// <summary>
-		/// helper to convert a Vector2 into a Point
+		/// helper to convert a System.Numerics.Vector2 into a Point
 		/// </summary>
 		/// <returns>The draw point.</returns>
 		/// <param name="vec">Vec.</param>
-		static object ToDrawPoint(Vector2 vec)
+		static object ToDrawPoint(System.Numerics.Vector2 vec)
 		{
 			var args = new object[] {(int) vec.X, (int) vec.Y};
 			return System.Activator.CreateInstance(System.Type.GetType("System.Drawing.Point, System.Drawing"), args);
@@ -28,7 +28,7 @@ namespace Nez.Svg
 		/// </summary>
 		/// <returns>The drawing points.</returns>
 		/// <param name="segments">Segments.</param>
-		public Vector2[] GetDrawingPoints(List<SvgPathSegment> segments, float flatness = 3)
+		public System.Numerics.Vector2[] GetDrawingPoints(List<SvgPathSegment> segments, float flatness = 3)
 		{
 			var path = new FauxGraphicsPath();
 			for (var j = 0; j < segments.Count; j++)

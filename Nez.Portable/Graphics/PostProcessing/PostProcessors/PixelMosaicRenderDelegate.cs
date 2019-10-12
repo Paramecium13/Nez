@@ -80,7 +80,7 @@ namespace Nez
 			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, _mosaicRenderTex);
 			Graphics.Instance.Batcher.Begin(BlendState.Opaque, SamplerState.PointWrap, DepthStencilState.None,
 				RasterizerState.CullNone);
-			Graphics.Instance.Batcher.Draw(_mosaicTexture, Vector2.Zero,
+			Graphics.Instance.Batcher.Draw(_mosaicTexture, System.Numerics.Vector2.Zero,
 				new Rectangle(0, 0, _mosaicRenderTex.Width, _mosaicRenderTex.Height), Color.White);
 			Graphics.Instance.Batcher.End();
 

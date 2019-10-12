@@ -23,17 +23,17 @@ namespace Nez
 
 		#region Line
 
-		static public bool LineToLine(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
+		static public bool LineToLine(System.Numerics.Vector2 a1, System.Numerics.Vector2 a2, System.Numerics.Vector2 b1, System.Numerics.Vector2 b2)
 		{
-			Vector2 b = a2 - a1;
-			Vector2 d = b2 - b1;
+			System.Numerics.Vector2 b = a2 - a1;
+			System.Numerics.Vector2 d = b2 - b1;
 			float bDotDPerp = b.X * d.Y - b.Y * d.X;
 
 			// if b dot d == 0, it means the lines are parallel so have infinite intersection points
 			if (bDotDPerp == 0)
 				return false;
 
-			Vector2 c = b1 - a1;
+			System.Numerics.Vector2 c = b1 - a1;
 			float t = (c.X * d.Y - c.Y * d.X) / bDotDPerp;
 			if (t < 0 || t > 1)
 				return false;
@@ -46,9 +46,9 @@ namespace Nez
 		}
 
 
-		static public bool LineToLine(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 intersection)
+		static public bool LineToLine(System.Numerics.Vector2 a1, System.Numerics.Vector2 a2, System.Numerics.Vector2 b1, System.Numerics.Vector2 b2, out System.Numerics.Vector2 intersection)
 		{
-			intersection = Vector2.Zero;
+			intersection = System.Numerics.Vector2.Zero;
 
 			var b = a2 - a1;
 			var d = b2 - b1;
@@ -73,11 +73,11 @@ namespace Nez
 		}
 
 
-		static public Vector2 ClosestPointOnLine(Vector2 lineA, Vector2 lineB, Vector2 closestTo)
+		static public System.Numerics.Vector2 ClosestPointOnLine(System.Numerics.Vector2 lineA, System.Numerics.Vector2 lineB, System.Numerics.Vector2 closestTo)
 		{
 			var v = lineB - lineA;
 			var w = closestTo - lineA;
-			var t = Vector2.Dot(w, v) / Vector2.Dot(v, v);
+			var t = System.Numerics.Vector2.Dot(w, v) / System.Numerics.Vector2.Dot(v, v);
 			t = MathHelper.Clamp(t, 0, 1);
 
 			return lineA + v * t;
@@ -88,24 +88,24 @@ namespace Nez
 
 		#region Circle
 
-		static public bool CircleToCircle(Vector2 circleCenter1, float circleRadius1, Vector2 circleCenter2,
+		static public bool CircleToCircle(System.Numerics.Vector2 circleCenter1, float circleRadius1, System.Numerics.Vector2 circleCenter2,
 		                                  float circleRadius2)
 		{
-			return Vector2.DistanceSquared(circleCenter1, circleCenter2) <
+			return System.Numerics.Vector2.DistanceSquared(circleCenter1, circleCenter2) <
 			       (circleRadius1 + circleRadius2) * (circleRadius1 + circleRadius2);
 		}
 
 
-		static public bool CircleToLine(Vector2 circleCenter, float radius, Vector2 lineFrom, Vector2 lineTo)
+		static public bool CircleToLine(System.Numerics.Vector2 circleCenter, float radius, System.Numerics.Vector2 lineFrom, System.Numerics.Vector2 lineTo)
 		{
-			return Vector2.DistanceSquared(circleCenter, ClosestPointOnLine(lineFrom, lineTo, circleCenter)) <
+			return System.Numerics.Vector2.DistanceSquared(circleCenter, ClosestPointOnLine(lineFrom, lineTo, circleCenter)) <
 			       radius * radius;
 		}
 
 
-		static public bool CircleToPoint(Vector2 circleCenter, float radius, Vector2 point)
+		static public bool CircleToPoint(System.Numerics.Vector2 circleCenter, float radius, System.Numerics.Vector2 point)
 		{
-			return Vector2.DistanceSquared(circleCenter, point) < radius * radius;
+			return System.Numerics.Vector2.DistanceSquared(circleCenter, point) < radius * radius;
 		}
 
 		#endregion
@@ -113,58 +113,58 @@ namespace Nez
 
 		#region Bounds/Rect
 
-		static public bool RectToCircle(RectangleF rect, Vector2 cPosition, float cRadius)
+		static public bool RectToCircle(RectangleF rect, System.Numerics.Vector2 cPosition, float cRadius)
 		{
 			return RectToCircle(rect.X, rect.Y, rect.Width, rect.Height, cPosition, cRadius);
 		}
 
 
-		static public bool RectToCircle(ref RectangleF rect, Vector2 cPosition, float cRadius)
+		static public bool RectToCircle(ref RectangleF rect, System.Numerics.Vector2 cPosition, float cRadius)
 		{
 			return RectToCircle(rect.X, rect.Y, rect.Width, rect.Height, cPosition, cRadius);
 		}
 
 
 		static public bool RectToCircle(float rectX, float rectY, float rectWidth, float rectHeight,
-		                                Vector2 circleCenter, float radius)
+		                                System.Numerics.Vector2 circleCenter, float radius)
 		{
 			//Check if the rectangle contains the circle's center-point
 			if (RectToPoint(rectX, rectY, rectWidth, rectHeight, circleCenter))
 				return true;
 
 			// Check the circle against the relevant edges
-			Vector2 edgeFrom;
-			Vector2 edgeTo;
+			System.Numerics.Vector2 edgeFrom;
+			System.Numerics.Vector2 edgeTo;
 			var sector = GetSector(rectX, rectY, rectWidth, rectHeight, circleCenter);
 
 			if ((sector & PointSectors.Top) != 0)
 			{
-				edgeFrom = new Vector2(rectX, rectY);
-				edgeTo = new Vector2(rectX + rectWidth, rectY);
+				edgeFrom = new System.Numerics.Vector2(rectX, rectY);
+				edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY);
 				if (CircleToLine(circleCenter, radius, edgeFrom, edgeTo))
 					return true;
 			}
 
 			if ((sector & PointSectors.Bottom) != 0)
 			{
-				edgeFrom = new Vector2(rectX, rectY + rectHeight);
-				edgeTo = new Vector2(rectX + rectWidth, rectY + rectHeight);
+				edgeFrom = new System.Numerics.Vector2(rectX, rectY + rectHeight);
+				edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY + rectHeight);
 				if (CircleToLine(circleCenter, radius, edgeFrom, edgeTo))
 					return true;
 			}
 
 			if ((sector & PointSectors.Left) != 0)
 			{
-				edgeFrom = new Vector2(rectX, rectY);
-				edgeTo = new Vector2(rectX, rectY + rectHeight);
+				edgeFrom = new System.Numerics.Vector2(rectX, rectY);
+				edgeTo = new System.Numerics.Vector2(rectX, rectY + rectHeight);
 				if (CircleToLine(circleCenter, radius, edgeFrom, edgeTo))
 					return true;
 			}
 
 			if ((sector & PointSectors.Right) != 0)
 			{
-				edgeFrom = new Vector2(rectX + rectWidth, rectY);
-				edgeTo = new Vector2(rectX + rectWidth, rectY + rectHeight);
+				edgeFrom = new System.Numerics.Vector2(rectX + rectWidth, rectY);
+				edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY + rectHeight);
 				if (CircleToLine(circleCenter, radius, edgeFrom, edgeTo))
 					return true;
 			}
@@ -173,20 +173,20 @@ namespace Nez
 		}
 
 
-		static public bool RectToLine(ref RectangleF rect, Vector2 lineFrom, Vector2 lineTo)
+		static public bool RectToLine(ref RectangleF rect, System.Numerics.Vector2 lineFrom, System.Numerics.Vector2 lineTo)
 		{
 			return RectToLine(rect.X, rect.Y, rect.Width, rect.Height, lineFrom, lineTo);
 		}
 
 
-		static public bool RectToLine(RectangleF rect, Vector2 lineFrom, Vector2 lineTo)
+		static public bool RectToLine(RectangleF rect, System.Numerics.Vector2 lineFrom, System.Numerics.Vector2 lineTo)
 		{
 			return RectToLine(rect.X, rect.Y, rect.Width, rect.Height, lineFrom, lineTo);
 		}
 
 
-		static public bool RectToLine(float rectX, float rectY, float rectWidth, float rectHeight, Vector2 lineFrom,
-		                              Vector2 lineTo)
+		static public bool RectToLine(float rectX, float rectY, float rectWidth, float rectHeight, System.Numerics.Vector2 lineFrom,
+		                              System.Numerics.Vector2 lineTo)
 		{
 			var fromSector = GetSector(rectX, rectY, rectWidth, rectHeight, lineFrom);
 			var toSector = GetSector(rectX, rectY, rectWidth, rectHeight, lineTo);
@@ -200,37 +200,37 @@ namespace Nez
 				var both = fromSector | toSector;
 
 				// Do line checks against the edges
-				Vector2 edgeFrom;
-				Vector2 edgeTo;
+				System.Numerics.Vector2 edgeFrom;
+				System.Numerics.Vector2 edgeTo;
 
 				if ((both & PointSectors.Top) != 0)
 				{
-					edgeFrom = new Vector2(rectX, rectY);
-					edgeTo = new Vector2(rectX + rectWidth, rectY);
+					edgeFrom = new System.Numerics.Vector2(rectX, rectY);
+					edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY);
 					if (LineToLine(edgeFrom, edgeTo, lineFrom, lineTo))
 						return true;
 				}
 
 				if ((both & PointSectors.Bottom) != 0)
 				{
-					edgeFrom = new Vector2(rectX, rectY + rectHeight);
-					edgeTo = new Vector2(rectX + rectWidth, rectY + rectHeight);
+					edgeFrom = new System.Numerics.Vector2(rectX, rectY + rectHeight);
+					edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY + rectHeight);
 					if (LineToLine(edgeFrom, edgeTo, lineFrom, lineTo))
 						return true;
 				}
 
 				if ((both & PointSectors.Left) != 0)
 				{
-					edgeFrom = new Vector2(rectX, rectY);
-					edgeTo = new Vector2(rectX, rectY + rectHeight);
+					edgeFrom = new System.Numerics.Vector2(rectX, rectY);
+					edgeTo = new System.Numerics.Vector2(rectX, rectY + rectHeight);
 					if (LineToLine(edgeFrom, edgeTo, lineFrom, lineTo))
 						return true;
 				}
 
 				if ((both & PointSectors.Right) != 0)
 				{
-					edgeFrom = new Vector2(rectX + rectWidth, rectY);
-					edgeTo = new Vector2(rectX + rectWidth, rectY + rectHeight);
+					edgeFrom = new System.Numerics.Vector2(rectX + rectWidth, rectY);
+					edgeTo = new System.Numerics.Vector2(rectX + rectWidth, rectY + rectHeight);
 					if (LineToLine(edgeFrom, edgeTo, lineFrom, lineTo))
 						return true;
 				}
@@ -240,13 +240,13 @@ namespace Nez
 		}
 
 
-		static public bool RectToPoint(float rX, float rY, float rW, float rH, Vector2 point)
+		static public bool RectToPoint(float rX, float rY, float rW, float rH, System.Numerics.Vector2 point)
 		{
 			return point.X >= rX && point.Y >= rY && point.X < rX + rW && point.Y < rY + rH;
 		}
 
 
-		static public bool RectToPoint(RectangleF rect, Vector2 point)
+		static public bool RectToPoint(RectangleF rect, System.Numerics.Vector2 point)
 		{
 			return RectToPoint(rect.X, rect.Y, rect.Width, rect.Height, point);
 		}
@@ -266,7 +266,7 @@ namespace Nez
          *      0101  0100  0110
          */
 
-		static public PointSectors GetSector(RectangleF rect, Vector2 point)
+		static public PointSectors GetSector(RectangleF rect, System.Numerics.Vector2 point)
 		{
 			PointSectors sector = PointSectors.Center;
 
@@ -284,7 +284,7 @@ namespace Nez
 		}
 
 
-		static public PointSectors GetSector(float rX, float rY, float rW, float rH, Vector2 point)
+		static public PointSectors GetSector(float rX, float rY, float rW, float rH, System.Numerics.Vector2 point)
 		{
 			PointSectors sector = PointSectors.Center;
 

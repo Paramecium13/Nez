@@ -287,16 +287,16 @@ namespace Nez.BitmapFonts
 			return text;
 		}
 
-		public Vector2 MeasureString(string text)
+		public System.Numerics.Vector2 MeasureString(string text)
 		{
 			var result = MeasureString(text, kNoMaxWidth);
-			return new Vector2(result.X, result.Y);
+			return new System.Numerics.Vector2(result.X, result.Y);
 		}
 
-		public Vector2 MeasureString(StringBuilder text)
+		public System.Numerics.Vector2 MeasureString(StringBuilder text)
 		{
 			var result = MeasureString(text, kNoMaxWidth);
-			return new Vector2(result.X, result.Y);
+			return new System.Numerics.Vector2(result.X, result.Y);
 		}
 
 		public Point MeasureString(string text, float maxWidth = kNoMaxWidth)

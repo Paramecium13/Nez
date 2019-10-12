@@ -19,15 +19,15 @@ namespace Nez
 		}
 
 		// used for Line items
-		public Vector2 Start;
-		public Vector2 End;
+		public System.Numerics.Vector2 Start;
+		public System.Numerics.Vector2 End;
 		public Rectangle Rectangle;
 
 		// used for Text items
 		public string Text;
 		public BitmapFont BitmapFont;
 		public NezSpriteFont SpriteFont;
-		public Vector2 Position;
+		public System.Numerics.Vector2 Position;
 		public float Scale;
 
 		// used for Pixel items
@@ -41,7 +41,7 @@ namespace Nez
 		internal DebugDrawType drawType;
 
 
-		public DebugDrawItem(Vector2 start, Vector2 end, Color color, float duration)
+		public DebugDrawItem(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Color color, float duration)
 		{
 			Start = start;
 			End = end;
@@ -71,7 +71,7 @@ namespace Nez
 		}
 
 
-		public DebugDrawItem(BitmapFont bitmapFont, String text, Vector2 position, Color color, float duration,
+		public DebugDrawItem(BitmapFont bitmapFont, String text, System.Numerics.Vector2 position, Color color, float duration,
 		                     float scale)
 		{
 			BitmapFont = bitmapFont;
@@ -84,7 +84,7 @@ namespace Nez
 		}
 
 
-		public DebugDrawItem(NezSpriteFont spriteFont, String text, Vector2 position, Color color, float duration,
+		public DebugDrawItem(NezSpriteFont spriteFont, String text, System.Numerics.Vector2 position, Color color, float duration,
 		                     float scale)
 		{
 			SpriteFont = spriteFont;
@@ -125,15 +125,15 @@ namespace Nez
 					batcher.DrawPixel(X, Y, Color, Size);
 					break;
 				case DebugDrawType.BitmapFontText:
-					batcher.DrawString(BitmapFont, Text, Position, Color, 0f, Vector2.Zero, Scale,
+					batcher.DrawString(BitmapFont, Text, Position, Color, 0f, System.Numerics.Vector2.Zero, Scale,
 						SpriteEffects.None, 0f);
 					break;
 				case DebugDrawType.SpriteFontText:
-					batcher.DrawString(SpriteFont, Text, Position, Color, 0f, Vector2.Zero, new Vector2(Scale),
+					batcher.DrawString(SpriteFont, Text, Position, Color, 0f, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(Scale),
 						SpriteEffects.None, 0f);
 					break;
 				case DebugDrawType.ConsoleText:
-					batcher.DrawString(BitmapFont, Text, Position, Color, 0f, Vector2.Zero, Scale,
+					batcher.DrawString(BitmapFont, Text, Position, Color, 0f, System.Numerics.Vector2.Zero, Scale,
 						SpriteEffects.None, 0f);
 					break;
 			}

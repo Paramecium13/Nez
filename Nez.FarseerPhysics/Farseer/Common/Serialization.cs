@@ -63,7 +63,7 @@ namespace FarseerPhysics.Common
 					var poly = (PolygonShape) shape;
 
 					_writer.WriteStartElement("Vertices");
-					foreach (Vector2 v in poly.Vertices)
+					foreach (System.Numerics.Vector2 v in poly.Vertices)
 						WriteElement("Vertex", v);
 					_writer.WriteEndElement();
 
@@ -82,7 +82,7 @@ namespace FarseerPhysics.Common
 					var chain = (ChainShape) shape;
 
 					_writer.WriteStartElement("Vertices");
-					foreach (Vector2 v in chain.Vertices)
+					foreach (System.Numerics.Vector2 v in chain.Vertices)
 						WriteElement("Vertex", v);
 					_writer.WriteEndElement();
 
@@ -316,7 +316,7 @@ namespace FarseerPhysics.Common
 			_writer.WriteEndElement();
 		}
 
-		static void WriteElement(string name, Vector2 vec)
+		static void WriteElement(string name, System.Numerics.Vector2 vec)
 		{
 			_writer.WriteElementString(name, vec.X + " " + vec.Y);
 		}
@@ -473,7 +473,7 @@ namespace FarseerPhysics.Common
 	{
 		internal static World Deserialize(Stream stream)
 		{
-			var world = new World(Vector2.Zero);
+			var world = new World(System.Numerics.Vector2.Zero);
 			Deserialize(world, stream);
 			return world;
 		}
@@ -549,7 +549,7 @@ namespace FarseerPhysics.Common
 									{
 										case "vertices":
 										{
-											var verts = new List<Vector2>(sn.Elements.Count);
+											var verts = new List<System.Numerics.Vector2>(sn.Elements.Count);
 
 											foreach (XMLFragmentElement vert in sn.Elements)
 												verts.Add(ReadVector(vert));
@@ -612,7 +612,7 @@ namespace FarseerPhysics.Common
 									{
 										case "vertices":
 										{
-											var verts = new List<Vector2>(sn.Elements.Count);
+											var verts = new List<System.Numerics.Vector2>(sn.Elements.Count);
 
 											foreach (XMLFragmentElement vert in sn.Elements)
 												verts.Add(ReadVector(vert));
@@ -730,7 +730,7 @@ namespace FarseerPhysics.Common
 									break;
 								case "angle":
 								{
-									Vector2 position = body.Position;
+									System.Numerics.Vector2 position = body.Position;
 									body.SetTransformIgnoreContacts(ref position, float.Parse(sn.Value));
 								}
 									break;
@@ -758,7 +758,7 @@ namespace FarseerPhysics.Common
 								case "position":
 								{
 									float rotation = body.Rotation;
-									Vector2 position = ReadVector(sn);
+									System.Numerics.Vector2 position = ReadVector(sn);
 									body.SetTransformIgnoreContacts(ref position, rotation);
 								}
 									break;
@@ -1128,10 +1128,10 @@ namespace FarseerPhysics.Common
 			world.ProcessChanges();
 		}
 
-		static Vector2 ReadVector(XMLFragmentElement node)
+		static System.Numerics.Vector2 ReadVector(XMLFragmentElement node)
 		{
 			string[] values = node.Value.Split(' ');
-			return new Vector2(float.Parse(values[0]), float.Parse(values[1]));
+			return new System.Numerics.Vector2(float.Parse(values[0]), float.Parse(values[1]));
 		}
 
 		static object ReadSimpleType(XMLFragmentElement node, Type type, bool outer)

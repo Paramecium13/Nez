@@ -116,11 +116,11 @@ namespace FarseerPhysics.Common.PhysicsLogic
 		/// <param name="radius">The explosion radius </param>
 		/// <param name="maxForce">The explosion force at the explosion point (then is inversely proportional to the square of the distance)</param>
 		/// <returns>A list of bodies and the amount of force that was applied to them.</returns>
-		public Dictionary<Fixture, Vector2> Activate(Vector2 pos, float radius, float maxForce)
+		public Dictionary<Fixture, System.Numerics.Vector2> Activate(System.Numerics.Vector2 pos, float radius, float maxForce)
 		{
 			AABB aabb;
-			aabb.LowerBound = pos + new Vector2(-radius, -radius);
-			aabb.UpperBound = pos + new Vector2(radius, radius);
+			aabb.LowerBound = pos + new System.Numerics.Vector2(-radius, -radius);
+			aabb.UpperBound = pos + new System.Numerics.Vector2(radius, radius);
 			var shapes = new Fixture[MaxShapes];
 
 			// More than 5 shapes in an explosion could be possible, but still strange.
@@ -154,9 +154,9 @@ namespace FarseerPhysics.Common.PhysicsLogic
 				}, ref aabb);
 
 			if (exit)
-				return new Dictionary<Fixture, Vector2>();
+				return new Dictionary<Fixture, System.Numerics.Vector2>();
 
-			var exploded = new Dictionary<Fixture, Vector2>(shapeCount + containedShapeCount);
+			var exploded = new Dictionary<Fixture, System.Numerics.Vector2>(shapeCount + containedShapeCount);
 
 			// Per shape max/min angles for now.
 			var vals = new float[shapeCount * 2];
@@ -169,13 +169,13 @@ namespace FarseerPhysics.Common.PhysicsLogic
 				{
 					// We create a "diamond" approximation of the circle
 					var v = new Vertices();
-					var vec = Vector2.Zero + new Vector2(cs.Radius, 0);
+					var vec = System.Numerics.Vector2.Zero + new System.Numerics.Vector2(cs.Radius, 0);
 					v.Add(vec);
-					vec = Vector2.Zero + new Vector2(0, cs.Radius);
+					vec = System.Numerics.Vector2.Zero + new System.Numerics.Vector2(0, cs.Radius);
 					v.Add(vec);
-					vec = Vector2.Zero + new Vector2(-cs.Radius, cs.Radius);
+					vec = System.Numerics.Vector2.Zero + new System.Numerics.Vector2(-cs.Radius, cs.Radius);
 					v.Add(vec);
-					vec = Vector2.Zero + new Vector2(0, -cs.Radius);
+					vec = System.Numerics.Vector2.Zero + new System.Numerics.Vector2(0, -cs.Radius);
 					v.Add(vec);
 					ps = new PolygonShape(v, 0);
 				}
@@ -257,7 +257,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
 				midpt = midpt / 2;
 
 				var p1 = pos;
-				var p2 = radius * new Vector2((float) Math.Cos(midpt), (float) Math.Sin(midpt)) + pos;
+				var p2 = radius * new System.Numerics.Vector2((float) Math.Cos(midpt), (float) Math.Sin(midpt)) + pos;
 
 				// RaycastOne
 				bool hitClosest = false;
@@ -348,8 +348,8 @@ namespace FarseerPhysics.Common.PhysicsLogic
 					j += offset)
 				{
 					var p1 = pos;
-					var p2 = pos + radius * new Vector2((float) Math.Cos(j), (float) Math.Sin(j));
-					var hitpoint = Vector2.Zero;
+					var p2 = pos + radius * new System.Numerics.Vector2((float) Math.Cos(j), (float) Math.Sin(j));
+					var hitpoint = System.Numerics.Vector2.Zero;
 					var minlambda = float.MaxValue;
 
 					var fl = _data[i].Body.FixtureList;
@@ -378,8 +378,8 @@ namespace FarseerPhysics.Common.PhysicsLogic
 
 						// We Apply the impulse!!!
 						var vectImp =
-							Vector2.Dot(impulse * new Vector2((float) Math.Cos(j), (float) Math.Sin(j)), -ro.Normal) *
-							new Vector2((float) Math.Cos(j), (float) Math.Sin(j));
+							System.Numerics.Vector2.Dot(impulse * new System.Numerics.Vector2((float) Math.Cos(j), (float) Math.Sin(j)), -ro.Normal) *
+							new System.Numerics.Vector2((float) Math.Cos(j), (float) Math.Sin(j));
 						_data[i].Body.ApplyLinearImpulse(ref vectImp, ref hitpoint);
 
 						// We gather the fixtures for returning them
@@ -403,7 +403,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
 					continue;
 
 				var impulse = MinRays * maxForce * 180.0f / MathHelper.Pi;
-				Vector2 hitPoint;
+				System.Numerics.Vector2 hitPoint;
 
 				var circShape = fix.Shape as CircleShape;
 				if (circShape != null)

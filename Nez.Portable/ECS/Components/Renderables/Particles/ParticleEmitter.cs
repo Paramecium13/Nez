@@ -159,8 +159,8 @@ namespace Nez.Particles
 				}
 			}
 
-			var min = new Vector2(float.MaxValue, float.MaxValue);
-			var max = new Vector2(float.MinValue, float.MinValue);
+			var min = new System.Numerics.Vector2(float.MaxValue, float.MaxValue);
+			var max = new System.Numerics.Vector2(float.MinValue, float.MinValue);
 			var maxParticleSize = float.MinValue;
 
 			// loop through all the particles updating their location and color
@@ -180,8 +180,8 @@ namespace Nez.Particles
 					// particle is good. collect min/max positions for the bounds
 					var pos = _emitterConfig.SimulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 					pos += currentParticle.position;
-					Vector2.Min(ref min, ref pos, out min);
-					Vector2.Max(ref max, ref pos, out max);
+					min = System.Numerics.Vector2.Min(min, pos);
+					max = System.Numerics.Vector2.Max(max, pos);
 					maxParticleSize = Math.Max(maxParticleSize, currentParticle.particleSize);
 				}
 			}
@@ -219,7 +219,7 @@ namespace Nez.Particles
 
 				if (_emitterConfig.Sprite == null)
 					batcher.Draw(Graphics.Instance.PixelTexture, pos + currentParticle.position, currentParticle.color,
-						currentParticle.rotation, Vector2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None,
+						currentParticle.rotation, System.Numerics.Vector2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None,
 						LayerDepth);
 				else
 					batcher.Draw(_emitterConfig.Sprite, pos + currentParticle.position,
@@ -319,7 +319,7 @@ namespace Nez.Particles
 		/// <summary>
 		/// adds a Particle to the emitter
 		/// </summary>
-		void AddParticle(Vector2 position)
+		void AddParticle(System.Numerics.Vector2 position)
 		{
 			// take the next particle out of the particle pool we have created and initialize it
 			var particle = Pool<Particle>.Obtain();

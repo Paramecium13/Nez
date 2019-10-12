@@ -17,7 +17,7 @@ namespace Nez.Splines
 		/// <param name="p1">P1.</param>
 		/// <param name="p2">P2.</param>
 		/// <param name="t">T.</param>
-		public static Vector2 GetPoint(Vector2 p0, Vector2 p1, Vector2 p2, float t)
+		public static System.Numerics.Vector2 GetPoint(System.Numerics.Vector2 p0, System.Numerics.Vector2 p1, System.Numerics.Vector2 p2, float t)
 		{
 			t = Mathf.Clamp01(t);
 			var oneMinusT = 1f - t;
@@ -35,7 +35,7 @@ namespace Nez.Splines
 		/// <param name="p1">P1.</param>
 		/// <param name="p2">P2.</param>
 		/// <param name="t">T.</param>
-		public static Vector2 GetFirstDerivative(Vector2 p0, Vector2 p1, Vector2 p2, float t)
+		public static System.Numerics.Vector2 GetFirstDerivative(System.Numerics.Vector2 p0, System.Numerics.Vector2 p1, System.Numerics.Vector2 p2, float t)
 		{
 			return 2f * (1f - t) * (p1 - p0) +
 			       2f * t * (p2 - p1);
@@ -51,8 +51,8 @@ namespace Nez.Splines
 		/// <param name="secondControlPoint">P2.</param>
 		/// <param name="end">P3.</param>
 		/// <param name="t">T.</param>
-		public static Vector2 GetPoint(Vector2 start, Vector2 firstControlPoint, Vector2 secondControlPoint,
-		                               Vector2 end, float t)
+		public static System.Numerics.Vector2 GetPoint(System.Numerics.Vector2 start, System.Numerics.Vector2 firstControlPoint, System.Numerics.Vector2 secondControlPoint,
+		                               System.Numerics.Vector2 end, float t)
 		{
 			t = Mathf.Clamp01(t);
 			var oneMinusT = 1f - t;
@@ -72,8 +72,8 @@ namespace Nez.Splines
 		/// <param name="secondControlPoint">P2.</param>
 		/// <param name="end">P3.</param>
 		/// <param name="t">T.</param>
-		public static Vector2 GetFirstDerivative(Vector2 start, Vector2 firstControlPoint, Vector2 secondControlPoint,
-		                                         Vector2 end, float t)
+		public static System.Numerics.Vector2 GetFirstDerivative(System.Numerics.Vector2 start, System.Numerics.Vector2 firstControlPoint, System.Numerics.Vector2 secondControlPoint,
+		                                         System.Numerics.Vector2 end, float t)
 		{
 			t = Mathf.Clamp01(t);
 			var oneMinusT = 1f - t;
@@ -97,8 +97,8 @@ namespace Nez.Splines
 		/// <param name="end">End.</param>
 		/// <param name="points">Points.</param>
 		/// <param name="distanceTolerance">Distance tolerance.</param>
-		static void RecursiveGetOptimizedDrawingPoints(Vector2 start, Vector2 firstCtrlPoint, Vector2 secondCtrlPoint,
-		                                               Vector2 end, List<Vector2> points, float distanceTolerance)
+		static void RecursiveGetOptimizedDrawingPoints(System.Numerics.Vector2 start, System.Numerics.Vector2 firstCtrlPoint, System.Numerics.Vector2 secondCtrlPoint,
+		                                               System.Numerics.Vector2 end, List<System.Numerics.Vector2> points, float distanceTolerance)
 		{
 			// calculate all the mid-points of the line segments
 			var pt12 = (start + firstCtrlPoint) / 2;
@@ -141,11 +141,11 @@ namespace Nez.Splines
 		/// <param name="secondCtrlPoint">Second ctrl point.</param>
 		/// <param name="end">End.</param>
 		/// <param name="distanceTolerance">Distance tolerance.</param>
-		public static List<Vector2> GetOptimizedDrawingPoints(Vector2 start, Vector2 firstCtrlPoint,
-		                                                      Vector2 secondCtrlPoint, Vector2 end,
+		public static List<System.Numerics.Vector2> GetOptimizedDrawingPoints(System.Numerics.Vector2 start, System.Numerics.Vector2 firstCtrlPoint,
+		                                                      System.Numerics.Vector2 secondCtrlPoint, System.Numerics.Vector2 end,
 		                                                      float distanceTolerance = 1f)
 		{
-			var points = ListPool<Vector2>.Obtain();
+			var points = ListPool<System.Numerics.Vector2>.Obtain();
 			points.Add(start);
 			RecursiveGetOptimizedDrawingPoints(start, firstCtrlPoint, secondCtrlPoint, end, points, distanceTolerance);
 			points.Add(end);

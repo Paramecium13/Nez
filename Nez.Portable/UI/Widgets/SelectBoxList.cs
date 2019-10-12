@@ -12,7 +12,7 @@ namespace Nez.UI
 
 		SelectBox<T> _selectBox;
 		Element _previousScrollFocus;
-		Vector2 _screenPosition;
+		System.Numerics.Vector2 _screenPosition;
 		bool _isListBelowSelectBox;
 
 
@@ -45,7 +45,7 @@ namespace Nez.UI
 
 			stage.AddElement(this);
 
-			_screenPosition = _selectBox.LocalToStageCoordinates(Vector2.Zero);
+			_screenPosition = _selectBox.LocalToStageCoordinates(System.Numerics.Vector2.Zero);
 
 			// show the list above or below the select box, limited to a number of items and the available height in the stage.
 			float itemHeight = ListBox.GetItemHeight();
@@ -121,7 +121,7 @@ namespace Nez.UI
 
 		public override void Draw(Batcher batcher, float parentAlpha)
 		{
-			var temp = _selectBox.LocalToStageCoordinates(Vector2.Zero);
+			var temp = _selectBox.LocalToStageCoordinates(System.Numerics.Vector2.Zero);
 			if (temp != _screenPosition)
 				Core.Schedule(0f, false, this, t => ((SelectBoxList<T>)t.Context).Hide());
 

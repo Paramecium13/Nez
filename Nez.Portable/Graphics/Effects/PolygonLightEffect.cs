@@ -7,7 +7,7 @@ namespace Nez
 	public class PolygonLightEffect : Effect
 	{
 		public Matrix ViewProjectionMatrix { set { _viewProjectionMatrixParam.SetValue(value); } }
-		public Vector2 LightSource { set { _lightSourceParam.SetValue(value); } }
+		public System.Numerics.Vector2 LightSource { set { _lightSourceParam.SetValue(value.ToXna()); } }
 		public Vector3 LightColor { set { _lightColorParam.SetValue(value); } }
 		public float LightRadius { set { _lightRadius.SetValue(value); } }
 

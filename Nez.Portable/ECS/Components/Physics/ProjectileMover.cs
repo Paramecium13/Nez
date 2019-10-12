@@ -50,8 +50,6 @@ namespace Nez
 			return didCollide;
 		}
 
-		public bool Move(Vector2 motion) => Move(motion.ToSimd());
-
 		void NotifyTriggerListeners(Collider self, Collider other)
 		{
 			// notify any listeners on the Entity of the Collider that we overlapped

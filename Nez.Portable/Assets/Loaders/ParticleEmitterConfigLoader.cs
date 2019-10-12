@@ -130,10 +130,10 @@ namespace Nez.ParticleDesigner
 		/// </summary>
 		static int GetIntElement(XElement root, string name) => Mathf.RoundToInt(GetFloatElement(root, name));
 
-		static Vector2 GetVectorElement(XElement root, string name)
+		static System.Numerics.Vector2 GetVectorElement(XElement root, string name)
 		{
 			var ele = root.Element(name);
-			return new Vector2((float)ele.Attribute("x"), (float)ele.Attribute("y"));
+			return new System.Numerics.Vector2((float)ele.Attribute("x"), (float)ele.Attribute("y"));
 		}
 
 		static Color GetColorElement(XElement root, string name)

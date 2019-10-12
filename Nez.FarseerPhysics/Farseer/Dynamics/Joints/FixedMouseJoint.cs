@@ -51,15 +51,15 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 LocalAnchorA;
+		public System.Numerics.Vector2 LocalAnchorA;
 
-		public override Vector2 WorldAnchorA
+		public override System.Numerics.Vector2 WorldAnchorA
 		{
 			get => BodyA.GetWorldPoint(LocalAnchorA);
 			set => LocalAnchorA = BodyA.GetLocalPoint(value);
 		}
 
-		public override Vector2 WorldAnchorB
+		public override System.Numerics.Vector2 WorldAnchorB
 		{
 			get => _worldAnchor;
 			set
@@ -109,24 +109,24 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 		}
 
-		Vector2 _worldAnchor;
+		System.Numerics.Vector2 _worldAnchor;
 		float _frequency;
 		float _dampingRatio;
 		float _beta;
 
 		// Solver shared
-		Vector2 _impulse;
+		System.Numerics.Vector2 _impulse;
 		float _maxForce;
 		float _gamma;
 
 		// Solver temp
 		int _indexA;
-		Vector2 _rA;
-		Vector2 _localCenterA;
+		System.Numerics.Vector2 _rA;
+		System.Numerics.Vector2 _localCenterA;
 		float _invMassA;
 		float _invIA;
 		Mat22 _mass;
-		Vector2 _C;
+		System.Numerics.Vector2 _C;
 
 		#endregion
 
@@ -137,7 +137,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// </summary>
 		/// <param name="body">The body.</param>
 		/// <param name="worldAnchor">The target.</param>
-		public FixedMouseJoint(Body body, Vector2 worldAnchor) : base(body)
+		public FixedMouseJoint(Body body, System.Numerics.Vector2 worldAnchor) : base(body)
 		{
 			JointType = JointType.FixedMouse;
 			Frequency = 5.0f;
@@ -150,7 +150,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			LocalAnchorA = MathUtils.MulT(BodyA._xf, worldAnchor);
 		}
 
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
 			return invDt * _impulse;
 		}
@@ -226,7 +226,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_impulse = Vector2.Zero;
+				_impulse = System.Numerics.Vector2.Zero;
 			}
 
 			data.Velocities[_indexA].V = vA;

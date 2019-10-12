@@ -24,7 +24,7 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <param name="radius">Radius.</param>
 		/// <param name="position">Position.</param>
-		internal void RecalculateBounds(float radius, Vector2 position)
+		internal void RecalculateBounds(float radius, System.Numerics.Vector2 position)
 		{
 			_originalRadius = radius;
 			Radius = radius;
@@ -53,7 +53,7 @@ namespace Nez.PhysicsShapes
 					var offsetLength = hasUnitScale
 						? collider._localOffsetLength
 						: (collider.LocalOffset * collider.Entity.Scale).Length();
-					center = Mathf.PointOnCircle(Vector2.Zero, offsetLength,
+					center = Mathf.PointOnCircle(System.Numerics.Vector2.Zero, offsetLength,
 						collider.Entity.Transform.RotationDegrees + offsetAngle);
 				}
 			}
@@ -96,7 +96,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool CollidesWithLine(Vector2 start, Vector2 end, out RaycastHit hit)
+		public override bool CollidesWithLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
 			return ShapeCollisions.LineToCircle(start, end, this, out hit);
@@ -108,7 +108,7 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <param name="point">the point</param>
 		/// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Circle"/>; <c>false</c> otherwise.</returns>
-		public override bool ContainsPoint(Vector2 point)
+		public override bool ContainsPoint(System.Numerics.Vector2 point)
 		{
 			return ((point - position).LengthSquared() <= Radius * Radius);
 		}
@@ -120,10 +120,10 @@ namespace Nez.PhysicsShapes
 		/// Gets the point at the edge of this <see cref="Circle"/> from the provided angle
 		/// </summary>
 		/// <param name="angle">an angle in radians</param>
-		/// <returns><see cref="Vector2"/> representing the point on this <see cref="Circle"/>'s surface at the specified angle</returns>
-		public Vector2 GetPointAlongEdge(float angle)
+		/// <returns><see cref="System.Numerics.Vector2"/> representing the point on this <see cref="Circle"/>'s surface at the specified angle</returns>
+		public System.Numerics.Vector2 GetPointAlongEdge(float angle)
 		{
-			return new Vector2(position.X + (Radius * Mathf.Cos(angle)), position.Y + (Radius * Mathf.Sin(angle)));
+			return new System.Numerics.Vector2(position.X + (Radius * Mathf.Cos(angle)), position.Y + (Radius * Mathf.Sin(angle)));
 		}
 
 
@@ -135,21 +135,21 @@ namespace Nez.PhysicsShapes
 		/// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Circle"/>; <c>false</c> otherwise.</returns>
 		public bool ContainsPoint(float x, float y)
 		{
-			return ContainsPoint(new Vector2(x, y));
+			return ContainsPoint(new System.Numerics.Vector2(x, y));
 		}
 
 
 		/// <summary>
-		/// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="Circle"/>.
+		/// Gets whether or not the provided <see cref="System.Numerics.Vector2"/> lies within the bounds of this <see cref="Circle"/>.
 		/// </summary>
 		/// <param name="point">Point.</param>
-		public bool ContainsPoint(ref Vector2 point)
+		public bool ContainsPoint(ref System.Numerics.Vector2 point)
 		{
 			return (point - position).LengthSquared() <= Radius * Radius;
 		}
 
 
-		public override bool PointCollidesWithShape(Vector2 point, out CollisionResult result)
+		public override bool PointCollidesWithShape(System.Numerics.Vector2 point, out CollisionResult result)
 		{
 			return ShapeCollisions.PointToCircle(point, this, out result);
 		}

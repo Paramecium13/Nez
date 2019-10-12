@@ -39,7 +39,7 @@ namespace Nez
 			base.OnSceneBackBufferSizeChanged(newWidth, newHeight);
 
 			// keep our Camera in sync with the normal Scene Camera. This will ensure the origin is updated with screen size changes.
-			Camera.Origin = new Vector2(newWidth / 2f, newHeight / 2f);
+			Camera.Origin = new System.Numerics.Vector2(newWidth / 2f, newHeight / 2f);
 		}
 	}
 }

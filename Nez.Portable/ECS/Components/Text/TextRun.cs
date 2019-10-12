@@ -16,13 +16,13 @@ namespace Nez
 		{
 			public Texture2D Texture;
 			public Vector3[] Verts;
-			public Vector2[] TexCoords;
+			public System.Numerics.Vector2[] TexCoords;
 			public Color Color;
 
 			public void Initialize()
 			{
 				Verts = new Vector3[4];
-				TexCoords = new Vector2[4];
+				TexCoords = new System.Numerics.Vector2[4];
 			}
 		}
 
@@ -30,10 +30,10 @@ namespace Nez
 
 		public float Height => _size.Y;
 
-		public Vector2 Origin => _origin;
+		public System.Numerics.Vector2 Origin => _origin;
 
 		public float Rotation;
-		public Vector2 Position;
+		public System.Numerics.Vector2 Position;
 
 		/// <summary>
 		/// text to draw
@@ -70,10 +70,10 @@ namespace Nez
 		VerticalAlign _verticalAlign;
 		BitmapFont _font;
 		string _text;
-		Vector2 _size;
+		System.Numerics.Vector2 _size;
 		Color _color = Color.White;
-		Vector2 _origin;
-		Vector2 _scale = Vector2.One;
+		System.Numerics.Vector2 _origin;
+		System.Numerics.Vector2 _scale = System.Numerics.Vector2.One;
 		CharDetails[] _charDetails;
 
 		static readonly float[] _cornerOffsetX = {0.0f, 1.0f, 0.0f, 1.0f};
@@ -134,7 +134,7 @@ namespace Nez
 
 		void UpdateCentering()
 		{
-			var newOrigin = Vector2.Zero;
+			var newOrigin = System.Numerics.Vector2.Zero;
 
 			if (_horizontalAlign == HorizontalAlign.Left)
 				newOrigin.X = 0;
@@ -150,7 +150,7 @@ namespace Nez
 			else
 				newOrigin.Y = _size.Y;
 
-			_origin = new Vector2((int) (newOrigin.X * _scale.X), (int) (newOrigin.Y * _scale.Y));
+			_origin = new System.Numerics.Vector2((int) (newOrigin.X * _scale.X), (int) (newOrigin.Y * _scale.Y));
 		}
 
 
@@ -165,7 +165,7 @@ namespace Nez
 			var effects = (byte) SpriteEffects.None;
 
 			var _transformationMatrix = Matrix2D.Identity;
-			var requiresTransformation = Rotation != 0f || _scale != Vector2.One;
+			var requiresTransformation = Rotation != 0f || _scale != System.Numerics.Vector2.One;
 			if (requiresTransformation)
 			{
 				Matrix2D temp;
@@ -178,7 +178,7 @@ namespace Nez
 				Matrix2D.Multiply(ref _transformationMatrix, ref temp, out _transformationMatrix);
 			}
 
-			var offset = requiresTransformation ? Vector2.Zero : Position - _origin;
+			var offset = requiresTransformation ? System.Numerics.Vector2.Zero : Position - _origin;
 
 			for (var i = 0; i < _text.Length; ++i)
 			{

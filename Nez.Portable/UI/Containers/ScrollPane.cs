@@ -49,7 +49,7 @@ namespace Nez.UI
 		bool _variableSizeKnobs = true;
 
 		// input data
-		Vector2 _lastMousePos;
+		System.Numerics.Vector2 _lastMousePos;
 		float _lastHandlePosition;
 
 
@@ -379,12 +379,12 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
-			if (_scrollX && _hScrollBounds.Contains(mousePos))
+			if (_scrollX && _hScrollBounds.Contains(mousePos.ToXna()))
 			{
 				ResetFade();
-				if (_hKnobBounds.Contains(mousePos))
+				if (_hKnobBounds.Contains(mousePos.ToXna()))
 				{
 					_lastMousePos = mousePos;
 					_lastHandlePosition = _hKnobBounds.X;
@@ -396,10 +396,10 @@ namespace Nez.UI
 				return true;
 			}
 
-			if (_scrollY && _vScrollBounds.Contains(mousePos))
+			if (_scrollY && _vScrollBounds.Contains(mousePos.ToXna()))
 			{
 				ResetFade();
-				if (_vKnobBounds.Contains(mousePos))
+				if (_vKnobBounds.Contains(mousePos.ToXna()))
 				{
 					_lastMousePos = mousePos;
 					_lastHandlePosition = _vKnobBounds.Y;
@@ -415,7 +415,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			ResetFade();
 
@@ -453,7 +453,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 			Cancel();
 		}
@@ -1046,14 +1046,14 @@ namespace Nez.UI
 		}
 
 
-		public override Element Hit(Vector2 point)
+		public override Element Hit(System.Numerics.Vector2 point)
 		{
 			// first we do a bounds check, then check our x and y scroll bars
 			if (point.X < 0 || point.X >= GetWidth() || point.Y < 0 || point.Y >= GetHeight())
 				return null;
-			if (_scrollX && _hScrollBounds.Contains(point))
+			if (_scrollX && _hScrollBounds.Contains(point.ToXna()))
 				return this;
-			if (_scrollY && _vScrollBounds.Contains(point))
+			if (_scrollY && _vScrollBounds.Contains(point.ToXna()))
 				return this;
 
 			return base.Hit(point);

@@ -130,7 +130,7 @@ namespace Nez
 				return new BoolInspector();
 			if (valueType == typeof(string))
 				return new StringInspector();
-			if (valueType == typeof(Vector2))
+			if (valueType == typeof(System.Numerics.Vector2))
 				return new Vector2Inspector();
 			if (valueType == typeof(Color))
 				return new ColorInspector();

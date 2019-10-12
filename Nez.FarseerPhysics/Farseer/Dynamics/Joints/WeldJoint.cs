@@ -54,20 +54,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 LocalAnchorA;
+		public System.Numerics.Vector2 LocalAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 LocalAnchorB;
+		public System.Numerics.Vector2 LocalAnchorB;
 
-		public override Vector2 WorldAnchorA
+		public override System.Numerics.Vector2 WorldAnchorA
 		{
 			get => BodyA.GetWorldPoint(LocalAnchorA);
 			set => LocalAnchorA = BodyA.GetLocalPoint(value);
 		}
 
-		public override Vector2 WorldAnchorB
+		public override System.Numerics.Vector2 WorldAnchorB
 		{
 			get => BodyB.GetWorldPoint(LocalAnchorB);
 			set => LocalAnchorB = BodyB.GetLocalPoint(value);
@@ -99,10 +99,10 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		System.Numerics.Vector2 _rA;
+		System.Numerics.Vector2 _rB;
+		System.Numerics.Vector2 _localCenterA;
+		System.Numerics.Vector2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -126,7 +126,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchorA">The first body anchor.</param>
 		/// <param name="anchorB">The second body anchor.</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public WeldJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false)
+		public WeldJoint(Body bodyA, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB, bool useWorldCoordinates = false)
 			: base(bodyA, bodyB)
 		{
 			JointType = JointType.Weld;
@@ -145,9 +145,9 @@ namespace FarseerPhysics.Dynamics.Joints
 			ReferenceAngle = base.BodyB.Rotation - base.BodyA.Rotation;
 		}
 
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
-			return invDt * new Vector2(_impulse.X, _impulse.Y);
+			return invDt * new System.Numerics.Vector2(_impulse.X, _impulse.Y);
 		}
 
 		public override float GetReactionTorque(float invDt)
@@ -167,11 +167,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIB = BodyB._invI;
 
 			float aA = data.Positions[_indexA].A;
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
 
 			float aB = data.Positions[_indexB].A;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			Rot qA = new Rot(aA), qB = new Rot(aB);
@@ -241,7 +241,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				// Scale impulses to support a variable time step.
 				_impulse *= data.Step.DtRatio;
 
-				Vector2 P = new Vector2(_impulse.X, _impulse.Y);
+				System.Numerics.Vector2 P = new System.Numerics.Vector2(_impulse.X, _impulse.Y);
 
 				vA -= mA * P;
 				wA -= iA * (MathUtils.Cross(_rA, P) + _impulse.Z);
@@ -303,7 +303,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				var impulse = -MathUtils.Mul(_mass, Cdot);
 				_impulse += impulse;
 
-				var P = new Vector2(impulse.X, impulse.Y);
+				var P = new System.Numerics.Vector2(impulse.X, impulse.Y);
 
 				vA -= mA * P;
 				wA -= iA * (MathUtils.Cross(_rA, P) + impulse.Z);
@@ -348,12 +348,12 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			if (FrequencyHz > 0.0f)
 			{
-				Vector2 C1 = cB + rB - cA - rA;
+				System.Numerics.Vector2 C1 = cB + rB - cA - rA;
 
 				positionError = C1.Length();
 				angularError = 0.0f;
 
-				Vector2 P = -K.Solve22(C1);
+				System.Numerics.Vector2 P = -K.Solve22(C1);
 
 				cA -= mA * P;
 				aA -= iA * MathUtils.Cross(rA, P);
@@ -363,7 +363,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				Vector2 C1 = cB + rB - cA - rA;
+				System.Numerics.Vector2 C1 = cB + rB - cA - rA;
 				float C2 = aB - aA - ReferenceAngle;
 
 				positionError = C1.Length();
@@ -372,7 +372,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				Vector3 C = new Vector3(C1.X, C1.Y, C2);
 
 				Vector3 impulse = -K.Solve33(C);
-				Vector2 P = new Vector2(impulse.X, impulse.Y);
+				System.Numerics.Vector2 P = new System.Numerics.Vector2(impulse.X, impulse.Y);
 
 				cA -= mA * P;
 				aA -= iA * (MathUtils.Cross(rA, P) + impulse.Z);

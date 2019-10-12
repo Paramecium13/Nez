@@ -19,7 +19,7 @@ namespace Nez
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, _origin, Entity.Transform.Scale.ToXna(),
+					_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, _origin, Entity.Transform.Scale,
 						Entity.Transform.Rotation, _width, _height);
 					_areBoundsDirty = false;
 				}
@@ -91,7 +91,7 @@ namespace Nez
 
 		public override void Render(Batcher batcher, Camera camera)
 		{
-			var pos = (Entity.Transform.Position - (Origin.ToSimd() * Entity.Transform.Scale) + LocalOffset.ToSimd());
+			var pos = (Entity.Transform.Position - (Origin * Entity.Transform.Scale) + LocalOffset);
 			var size = new Point((int) (_width * Entity.Transform.Scale.X), (int) (_height * Entity.Transform.Scale.Y));
 			var destRect = new Rectangle((int) pos.X, (int) pos.Y, size.X, size.Y);
 			batcher.Draw(_sprite, destRect, _sprite.SourceRect, Color, Entity.Transform.Rotation,

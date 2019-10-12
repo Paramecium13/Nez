@@ -167,17 +167,17 @@ namespace Nez.UI
 
         }
 
-        public bool OnMousePressed(Vector2 mousePos)
+        public bool OnMousePressed(System.Numerics.Vector2 mousePos)
         {
             return false;
         }
 
-        public void OnMouseMoved(Vector2 mousePos)
+        public void OnMouseMoved(System.Numerics.Vector2 mousePos)
         {
 
         }
 
-        public void OnMouseUp(Vector2 mousePos)
+        public void OnMouseUp(System.Numerics.Vector2 mousePos)
         {
 
         }

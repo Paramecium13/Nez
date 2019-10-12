@@ -14,21 +14,21 @@ namespace Nez.Farseer
 		/// </summary>
 		public static class BodyFactory
 		{
-			public static Body CreateBody(World world, Vector2 position = new Vector2(), float rotation = 0,
+			public static Body CreateBody(World world, System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                              BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return new Body(world, FSConvert.ToSimUnits(position), rotation, bodyType, userData);
 			}
 
 
-			public static Body CreateEdge(World world, Vector2 start, Vector2 end, object userData = null)
+			public static Body CreateEdge(World world, System.Numerics.Vector2 start, System.Numerics.Vector2 end, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateEdge(world, FSConvert.ToSimUnits(start),
 					FSConvert.ToSimUnits(end), userData);
 			}
 
 
-			public static Body CreateChainShape(World world, Vertices vertices, Vector2 position = new Vector2(),
+			public static Body CreateChainShape(World world, Vertices vertices, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 			                                    object userData = null)
 			{
 				for (var i = 0; i < vertices.Count; i++)
@@ -39,7 +39,7 @@ namespace Nez.Farseer
 			}
 
 
-			public static Body CreateLoopShape(World world, Vertices vertices, Vector2 position = new Vector2(),
+			public static Body CreateLoopShape(World world, Vertices vertices, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 			                                   object userData = null)
 			{
 				for (var i = 0; i < vertices.Count; i++)
@@ -51,7 +51,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateRectangle(World world, float width, float height, float density,
-			                                   Vector2 position = new Vector2(), float rotation = 0,
+			                                   System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                   BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateRectangle(world, FSConvert.ToSimUnits(width),
@@ -60,7 +60,7 @@ namespace Nez.Farseer
 			}
 
 
-			public static Body CreateCircle(World world, float radius, float density, Vector2 position = new Vector2(),
+			public static Body CreateCircle(World world, float radius, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 			                                BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateCircle(world, FSConvert.ToSimUnits(radius), density,
@@ -69,7 +69,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateEllipse(World world, float xRadius, float yRadius, int edges, float density,
-			                                 Vector2 position = new Vector2(), float rotation = 0,
+			                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                 BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateEllipse(world, FSConvert.ToSimUnits(xRadius),
@@ -79,7 +79,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreatePolygon(World world, Vertices vertices, float density,
-			                                 Vector2 position = new Vector2(), float rotation = 0,
+			                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                 BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				for (var i = 0; i < vertices.Count; i++)
@@ -91,7 +91,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateCompoundPolygon(World world, List<Vertices> list, float density,
-			                                         Vector2 position = new Vector2(), float rotation = 0,
+			                                         System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                         BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateCompoundPolygon(world, list, density,
@@ -100,7 +100,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateGear(World world, float radius, int numberOfTeeth, float tipPercentage,
-			                              float toothHeight, float density, Vector2 position = new Vector2(),
+			                              float toothHeight, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 			                              float rotation = 0, BodyType bodyType = BodyType.Static,
 			                              object userData = null)
 			{
@@ -112,7 +112,7 @@ namespace Nez.Farseer
 
 			public static Body CreateCapsule(World world, float height, float topRadius, int topEdges,
 			                                 float bottomRadius, int bottomEdges, float density,
-			                                 Vector2 position = new Vector2(), float rotation = 0,
+			                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                 BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				height *= FSConvert.DisplayToSim;
@@ -126,7 +126,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateCapsule(World world, float height, float endRadius, float density,
-			                                 Vector2 position = new Vector2(), float rotation = 0,
+			                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                 BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateCapsule(world, FSConvert.ToSimUnits(height),
@@ -137,7 +137,7 @@ namespace Nez.Farseer
 
 			public static Body CreateRoundedRectangle(World world, float width, float height, float xRadius,
 			                                          float yRadius, int segments, float density,
-			                                          Vector2 position = new Vector2(), float rotation = 0,
+			                                          System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                          BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				width *= FSConvert.DisplayToSim;
@@ -152,7 +152,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateLineArc(World world, float radians, int sides, float radius, bool closed = false,
-			                                 Vector2 position = new Vector2(), float rotation = 0,
+			                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                 BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				var body = FarseerPhysics.Factories.BodyFactory.CreateLineArc(world, radians, sides,
@@ -163,7 +163,7 @@ namespace Nez.Farseer
 
 
 			public static Body CreateSolidArc(World world, float density, float radians, int sides, float radius,
-			                                  Vector2 position = new Vector2(), float rotation = 0,
+			                                  System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 			                                  BodyType bodyType = BodyType.Static, object userData = null)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateSolidArc(world, density, radians, sides,
@@ -172,7 +172,7 @@ namespace Nez.Farseer
 
 
 			public static BreakableBody CreateBreakableBody(World world, Vertices vertices, float density,
-			                                                Vector2 position = new Vector2(), float rotation = 0)
+			                                                System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0)
 			{
 				for (var i = 0; i < vertices.Count; i++)
 					vertices[i] *= FSConvert.DisplayToSim;
@@ -183,7 +183,7 @@ namespace Nez.Farseer
 
 
 			public static BreakableBody CreateBreakableBody(World world, IEnumerable<Shape> shapes,
-			                                                Vector2 position = new Vector2(), float rotation = 0)
+			                                                System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0)
 			{
 				return FarseerPhysics.Factories.BodyFactory.CreateBreakableBody(world, shapes,
 					FSConvert.ToSimUnits(position), rotation);

@@ -220,7 +220,7 @@ namespace Nez.Analysis
 
 
 		// TimerRuler draw position.
-		Vector2 _position;
+		System.Numerics.Vector2 _position;
 
 		#endregion
 
@@ -250,7 +250,7 @@ namespace Nez.Analysis
 		void OnGraphicsDeviceReset()
 		{
 			var layout = new Layout(Core.GraphicsDevice.Viewport);
-			_position = layout.Place(new Vector2(Width, barHeight), 0, 0.01f, Alignment.BottomCenter);
+			_position = layout.Place(new System.Numerics.Vector2(Width, barHeight), 0, 0.01f, Alignment.BottomCenter);
 		}
 
 		[Command("timeruler", "Toggles the display of the TimerRuler on/off")]
@@ -528,7 +528,7 @@ namespace Nez.Analysis
 		}
 
 		[Conditional("DEBUG")]
-		public void Render(Vector2 position, int width)
+		public void Render(System.Numerics.Vector2 position, int width)
 		{
 			// Reset update count.
 			Interlocked.Exchange(ref updateCount, 0);
@@ -657,7 +657,7 @@ namespace Nez.Analysis
 			batcher.DrawRect(rc, new Color(0, 0, 0, 128));
 
 			// Draw log string.
-			batcher.DrawString(font, logString, new Vector2(position.X + 22, y + 3), Color.White);
+			batcher.DrawString(font, logString, new System.Numerics.Vector2(position.X + 22, y + 3), Color.White);
 
 
 			// Draw log color boxes.

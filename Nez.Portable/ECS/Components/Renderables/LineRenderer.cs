@@ -215,7 +215,7 @@ namespace Nez
 		}
 
 
-		public LineRenderer SetPoints(Vector2[] points)
+		public LineRenderer SetPoints(System.Numerics.Vector2[] points)
 		{
 			_points.Reset();
 			_points.EnsureCapacity(points.Length);
@@ -237,7 +237,7 @@ namespace Nez
 		/// <returns>The point.</returns>
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
-		public LineRenderer AddPoint(Vector2 point, float width = 20)
+		public LineRenderer AddPoint(System.Numerics.Vector2 point, float width = 20)
 		{
 			_maxWidth = System.Math.Max(_maxWidth, width);
 
@@ -259,7 +259,7 @@ namespace Nez
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
 		/// <param name="color">Color.</param>
-		public LineRenderer AddPoint(Vector2 point, float width, Color color)
+		public LineRenderer AddPoint(System.Numerics.Vector2 point, float width, Color color)
 		{
 			_maxWidth = System.Math.Max(_maxWidth, width);
 
@@ -274,7 +274,7 @@ namespace Nez
 		}
 
 
-		public LineRenderer AddPoints(Vector2[] points)
+		public LineRenderer AddPoints(System.Numerics.Vector2[] points)
 		{
 			_points.EnsureCapacity(points.Length);
 			for (var i = 0; i < points.Length; i++)
@@ -295,7 +295,7 @@ namespace Nez
 		/// <returns>The point.</returns>
 		/// <param name="index">Index.</param>
 		/// <param name="point">Point.</param>
-		public LineRenderer UpdatePoint(int index, Vector2 point)
+		public LineRenderer UpdatePoint(int index, System.Numerics.Vector2 point)
 		{
 			_points.Buffer[index].Position = point;
 			_areVertsDirty = true;
@@ -311,7 +311,7 @@ namespace Nez
 		/// <param name="index">Index.</param>
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
-		public LineRenderer UpdatePoint(int index, Vector2 point, float width)
+		public LineRenderer UpdatePoint(int index, System.Numerics.Vector2 point, float width)
 		{
 			_maxWidth = System.Math.Max(_maxWidth, width);
 
@@ -331,7 +331,7 @@ namespace Nez
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
 		/// <param name="color">Color.</param>
-		public LineRenderer UpdatePoint(int index, Vector2 point, float width, Color color)
+		public LineRenderer UpdatePoint(int index, System.Numerics.Vector2 point, float width, Color color)
 		{
 			_maxWidth = System.Math.Max(_maxWidth, width);
 
@@ -381,7 +381,7 @@ namespace Nez
 			_points.Buffer[0].LengthFromPreviousPoint = 0;
 			for (var i = 0; i < _points.Length - 1; i++)
 			{
-				var distance = Vector2.Distance(_points.Buffer[i].Position, _points.Buffer[i + 1].Position);
+				var distance = System.Numerics.Vector2.Distance(_points.Buffer[i].Position, _points.Buffer[i + 1].Position);
 				_points.Buffer[i + 1].LengthFromPreviousPoint = distance;
 				lineLength += distance;
 
@@ -421,7 +421,7 @@ namespace Nez
 			}
 
 			var distanceSoFar = 0f;
-			var fusedPoint = Vector2.Zero;
+			var fusedPoint = System.Numerics.Vector2.Zero;
 			var vertIndex = 0;
 			var thirdPoint = new SegmentPoint();
 
@@ -510,10 +510,10 @@ namespace Nez
 			_indices.Add(2);
 			_indices.Add(3);
 
-			AddVert(0, segment.Tl, new Vector2(0, 1), _useStartEndColors ? _startColor : segment.Point.Color);
-			AddVert(1, segment.Tr, new Vector2(1, 1), nextPointColor);
-			AddVert(2, segment.Br, new Vector2(1, 0), nextPointColor);
-			AddVert(3, segment.Bl, new Vector2(0, 0), _useStartEndColors ? _startColor : segment.Point.Color);
+			AddVert(0, segment.Tl, new System.Numerics.Vector2(0, 1), _useStartEndColors ? _startColor : segment.Point.Color);
+			AddVert(1, segment.Tr, new System.Numerics.Vector2(1, 1), nextPointColor);
+			AddVert(2, segment.Br, new System.Numerics.Vector2(1, 0), nextPointColor);
+			AddVert(3, segment.Bl, new System.Numerics.Vector2(0, 0), _useStartEndColors ? _startColor : segment.Point.Color);
 		}
 
 
@@ -539,24 +539,24 @@ namespace Nez
 			_indices.Add(4);
 
 			// the tl vert will always be present, as weill the bl
-			AddVert(vertIndex++, segment.Tl, new Vector2(0, 1), segment.Point.Color);
+			AddVert(vertIndex++, segment.Tl, new System.Numerics.Vector2(0, 1), segment.Point.Color);
 
 			if (nextSegment.ShouldFuseBottom)
 			{
-				AddVert(vertIndex++, segment.Tr, new Vector2(1, 1), segment.NextPoint.Color);
-				AddVert(vertIndex++, nextSegment.Point.Position, new Vector2(1, 0.5f), segment.NextPoint.Color);
-				AddVert(vertIndex++, nextSegment.HasFusedPoint ? nextSegment.FusedPoint : segment.Tl, new Vector2(1, 0),
+				AddVert(vertIndex++, segment.Tr, new System.Numerics.Vector2(1, 1), segment.NextPoint.Color);
+				AddVert(vertIndex++, nextSegment.Point.Position, new System.Numerics.Vector2(1, 0.5f), segment.NextPoint.Color);
+				AddVert(vertIndex++, nextSegment.HasFusedPoint ? nextSegment.FusedPoint : segment.Tl, new System.Numerics.Vector2(1, 0),
 					segment.NextPoint.Color);
 			}
 			else
 			{
-				AddVert(vertIndex++, nextSegment.HasFusedPoint ? nextSegment.FusedPoint : segment.Bl, new Vector2(1, 1),
+				AddVert(vertIndex++, nextSegment.HasFusedPoint ? nextSegment.FusedPoint : segment.Bl, new System.Numerics.Vector2(1, 1),
 					segment.NextPoint.Color);
-				AddVert(vertIndex++, nextSegment.Point.Position, new Vector2(1, 0.5f), segment.NextPoint.Color);
-				AddVert(vertIndex++, segment.Br, new Vector2(1, 0), segment.NextPoint.Color);
+				AddVert(vertIndex++, nextSegment.Point.Position, new System.Numerics.Vector2(1, 0.5f), segment.NextPoint.Color);
+				AddVert(vertIndex++, segment.Br, new System.Numerics.Vector2(1, 0), segment.NextPoint.Color);
 			}
 
-			AddVert(vertIndex++, segment.Bl, new Vector2(0, 0), segment.Point.Color);
+			AddVert(vertIndex++, segment.Bl, new System.Numerics.Vector2(0, 0), segment.Point.Color);
 		}
 
 
@@ -585,22 +585,22 @@ namespace Nez
 
 			if (segment.ShouldFuseBottom)
 			{
-				AddVert(vertIndex++, segment.Tl, new Vector2(0, 1), segment.Point.Color);
-				AddVert(vertIndex++, segment.Tr, new Vector2(1, 1), segment.NextPoint.Color);
-				AddVert(vertIndex++, segment.Br, new Vector2(1, 0), segment.NextPoint.Color);
-				AddVert(vertIndex++, segment.HasFusedPoint ? segment.FusedPoint : segment.Bl, new Vector2(0, 0),
+				AddVert(vertIndex++, segment.Tl, new System.Numerics.Vector2(0, 1), segment.Point.Color);
+				AddVert(vertIndex++, segment.Tr, new System.Numerics.Vector2(1, 1), segment.NextPoint.Color);
+				AddVert(vertIndex++, segment.Br, new System.Numerics.Vector2(1, 0), segment.NextPoint.Color);
+				AddVert(vertIndex++, segment.HasFusedPoint ? segment.FusedPoint : segment.Bl, new System.Numerics.Vector2(0, 0),
 					segment.Point.Color);
 			}
 			else
 			{
-				AddVert(vertIndex++, segment.HasFusedPoint ? segment.FusedPoint : segment.Tl, new Vector2(0, 1),
+				AddVert(vertIndex++, segment.HasFusedPoint ? segment.FusedPoint : segment.Tl, new System.Numerics.Vector2(0, 1),
 					segment.Point.Color);
-				AddVert(vertIndex++, segment.Tr, new Vector2(1, 1), segment.NextPoint.Color);
-				AddVert(vertIndex++, segment.Br, new Vector2(1, 0), segment.NextPoint.Color);
-				AddVert(vertIndex++, segment.Bl, new Vector2(0, 0), segment.Point.Color);
+				AddVert(vertIndex++, segment.Tr, new System.Numerics.Vector2(1, 1), segment.NextPoint.Color);
+				AddVert(vertIndex++, segment.Br, new System.Numerics.Vector2(1, 0), segment.NextPoint.Color);
+				AddVert(vertIndex++, segment.Bl, new System.Numerics.Vector2(0, 0), segment.Point.Color);
 			}
 
-			AddVert(vertIndex++, segment.Point.Position, new Vector2(1, 0.5f), segment.Point.Color);
+			AddVert(vertIndex++, segment.Point.Position, new System.Numerics.Vector2(1, 0.5f), segment.Point.Color);
 		}
 
 
@@ -652,13 +652,13 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void PatchJaggedJoint(ref Segment segment, ref int vertIndex)
 		{
-			Vector2 intersection;
+			System.Numerics.Vector2 intersection;
 			if (segment.ShouldFuseBottom)
 			{
 				if (Vector2Ext.GetRayIntersection(segment.Tl, segment.Tr, _lastSegment.Tl, _lastSegment.Tr,
 					out intersection))
 				{
-					AddVert(vertIndex++, intersection, new Vector2(1, 1), segment.Point.Color);
+					AddVert(vertIndex++, intersection, new System.Numerics.Vector2(1, 1), segment.Point.Color);
 
 					_indices.Add((short) vertIndex);
 					_indices.Add((short) (vertIndex + 4));
@@ -675,7 +675,7 @@ namespace Nez
 					out intersection))
 				{
 					var firstSegmentOffset = vertIndex == 5 ? 1 : 0;
-					AddVert(vertIndex++, intersection, new Vector2(1, 0), segment.Point.Color);
+					AddVert(vertIndex++, intersection, new System.Numerics.Vector2(1, 0), segment.Point.Color);
 
 					_indices.Add((short) (vertIndex + 4));
 					_indices.Add((short) (vertIndex + 3));
@@ -731,7 +731,7 @@ namespace Nez
 				{
 					var midAngle = angle1 + angleIncrement * (i + 1);
 					var midPoint = Mathf.PointOnCircle(center, segment.Point.Width / 2, midAngle);
-					AddVert(vertIndex++, midPoint, new Vector2(1, 1), segment.Point.Color);
+					AddVert(vertIndex++, midPoint, new System.Numerics.Vector2(1, 1), segment.Point.Color);
 				}
 			}
 			else
@@ -767,7 +767,7 @@ namespace Nez
 				{
 					var midAngle = angle1 + angleIncrement * (i + 1);
 					var midPoint = Mathf.PointOnCircle(center, segment.Point.Width / 2, midAngle);
-					AddVert(vertIndex++, midPoint, new Vector2(1, 0), segment.Point.Color);
+					AddVert(vertIndex++, midPoint, new System.Numerics.Vector2(1, 0), segment.Point.Color);
 				}
 			}
 		}
@@ -781,11 +781,11 @@ namespace Nez
 		/// <param name="texCoord">Tex coordinate.</param>
 		/// <param name="col">Col.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void AddVert(int index, Vector2 position, Vector2 texCoord, Color col)
+		void AddVert(int index, System.Numerics.Vector2 position, System.Numerics.Vector2 texCoord, Color col)
 		{
 			_vertices.EnsureCapacity();
 			_vertices.Buffer[index].Position = position.ToVector3();
-			_vertices.Buffer[index].TextureCoordinate = texCoord;
+			_vertices.Buffer[index].TextureCoordinate = texCoord.ToXna();
 			_vertices.Buffer[index].Color = col;
 			_vertices.Length++;
 		}
@@ -810,11 +810,11 @@ namespace Nez
 
 		public override void OnEntityTransformChanged(Transform.Component comp)
 		{
-			// we dont care if the transform changed if we are in world space
+			// we don't care if the transform changed if we are in world space
 			if (UseWorldSpace)
 				return;
 
-			_bounds.CalculateBounds(Entity.Transform.Position.ToXna(), _localOffset, Vector2.Zero, Entity.Transform.Scale.ToXna(),
+			_bounds.CalculateBounds(Entity.Transform.Position, _localOffset, System.Numerics.Vector2.Zero, Entity.Transform.Scale,
 				Entity.Transform.Rotation, Width, Height);
 		}
 
@@ -863,7 +863,7 @@ namespace Nez
 
 		struct SegmentPoint
 		{
-			public Vector2 Position;
+			public System.Numerics.Vector2 Position;
 			public Color Color;
 			public float Width;
 			public float LengthFromPreviousPoint;
@@ -875,10 +875,10 @@ namespace Nez
 		/// </summary>
 		class Segment
 		{
-			public Vector2 Tl, Tr, Br, Bl;
+			public System.Numerics.Vector2 Tl, Tr, Br, Bl;
 			public SegmentPoint Point;
 			public SegmentPoint NextPoint;
-			public Vector2 FusedPoint;
+			public System.Numerics.Vector2 FusedPoint;
 			public bool HasFusedPoint;
 			public bool ShouldFuseBottom;
 			public float Angle;
@@ -897,10 +897,10 @@ namespace Nez
 				var halfCos = Mathf.Cos(radians) * 0.5f;
 				var halfSin = Mathf.Sin(radians) * 0.5f;
 
-				Tl = point.Position - new Vector2(point.Width * halfCos, point.Width * halfSin);
-				Tr = nextPoint.Position - new Vector2(nextPoint.Width * halfCos, nextPoint.Width * halfSin);
-				Br = nextPoint.Position + new Vector2(nextPoint.Width * halfCos, nextPoint.Width * halfSin);
-				Bl = point.Position + new Vector2(point.Width * halfCos, point.Width * halfSin);
+				Tl = point.Position - new System.Numerics.Vector2(point.Width * halfCos, point.Width * halfSin);
+				Tr = nextPoint.Position - new System.Numerics.Vector2(nextPoint.Width * halfCos, nextPoint.Width * halfSin);
+				Br = nextPoint.Position + new System.Numerics.Vector2(nextPoint.Width * halfCos, nextPoint.Width * halfSin);
+				Bl = point.Position + new System.Numerics.Vector2(point.Width * halfCos, point.Width * halfSin);
 			}
 
 

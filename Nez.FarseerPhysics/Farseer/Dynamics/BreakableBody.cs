@@ -26,12 +26,12 @@ namespace FarseerPhysics.Dynamics
 
 		float[] _angularVelocitiesCache = new float[8];
 		bool _break;
-		Vector2[] _velocitiesCache = new Vector2[8];
+		System.Numerics.Vector2[] _velocitiesCache = new System.Numerics.Vector2[8];
 		World _world;
 
 
 		public BreakableBody(World world, IEnumerable<Vertices> vertices, float density,
-		                     Vector2 position = new Vector2(), float rotation = 0)
+		                     System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0)
 		{
 			_world = world;
 			_world.ContactManager.OnPostSolve += OnPostSolve;
@@ -45,7 +45,7 @@ namespace FarseerPhysics.Dynamics
 			}
 		}
 
-		public BreakableBody(World world, IEnumerable<Shape> shapes, Vector2 position = new Vector2(),
+		public BreakableBody(World world, IEnumerable<Shape> shapes, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                     float rotation = 0)
 		{
 			_world = world;
@@ -97,7 +97,7 @@ namespace FarseerPhysics.Dynamics
 				//Enlarge the cache if needed
 				if (Parts.Count > _angularVelocitiesCache.Length)
 				{
-					_velocitiesCache = new Vector2[Parts.Count];
+					_velocitiesCache = new System.Numerics.Vector2[Parts.Count];
 					_angularVelocitiesCache = new float[Parts.Count];
 				}
 

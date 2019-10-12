@@ -13,7 +13,7 @@ namespace Nez.Sprites
 	{
 		public List<string> Names = new List<string>();
 		public List<Rectangle> SourceRects = new List<Rectangle>();
-		public List<Vector2> Origins = new List<Vector2>();
+		public List<System.Numerics.Vector2> Origins = new List<System.Numerics.Vector2>();
 
 		public List<string> AnimationNames = new List<string>();
 		public List<int> AnimationFps = new List<int>();

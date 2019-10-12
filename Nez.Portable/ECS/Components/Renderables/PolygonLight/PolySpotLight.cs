@@ -91,11 +91,11 @@ namespace Nez.Shadows
 			var sides = Mathf.CeilToInt(_spotAngle / 25) + 1;
 			var stepSize = (_spotAngle * Mathf.Deg2Rad) / sides;
 
-			var verts = new Vector2[sides + 2];
-			verts[0] = Vector2.Zero;
+			var verts = new System.Numerics.Vector2[sides + 2];
+			verts[0] = System.Numerics.Vector2.Zero;
 
 			for (var i = 0; i <= sides; i++)
-				verts[i + 1] = new Vector2(expandedRadius * Mathf.Cos(stepSize * i),
+				verts[i + 1] = new System.Numerics.Vector2(expandedRadius * Mathf.Cos(stepSize * i),
 					expandedRadius * Mathf.Sin(stepSize * i));
 
 			if (_polygon == null)

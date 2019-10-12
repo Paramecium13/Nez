@@ -31,7 +31,7 @@ namespace Nez.UI
 				y = startY;
 				for (var j = 0; j < fullY; j++)
 				{
-					batcher.Draw(Sprite, new Vector2(x, y), Sprite.SourceRect, color);
+					batcher.Draw(Sprite, new System.Numerics.Vector2(x, y), Sprite.SourceRect, color);
 					y += regionHeight;
 				}
 
@@ -46,14 +46,14 @@ namespace Nez.UI
 				y = startY;
 				for (var ii = 0; ii < fullY; ii++)
 				{
-					batcher.Draw(Sprite, new Vector2(x, y), tempSourceRect, color);
+					batcher.Draw(Sprite, new System.Numerics.Vector2(x, y), tempSourceRect, color);
 					y += regionHeight;
 				}
 
 				// lower right corner.
 				tempSourceRect.Height = (int) remainingY;
 				if (remainingY > 0)
-					batcher.Draw(Sprite, new Vector2(x, y), tempSourceRect, color);
+					batcher.Draw(Sprite, new System.Numerics.Vector2(x, y), tempSourceRect, color);
 			}
 
 			tempSourceRect.Width = Sprite.SourceRect.Width;
@@ -64,7 +64,7 @@ namespace Nez.UI
 				x = startX;
 				for (var i = 0; i < fullX; i++)
 				{
-					batcher.Draw(Sprite, new Vector2(x, y), tempSourceRect, color);
+					batcher.Draw(Sprite, new System.Numerics.Vector2(x, y), tempSourceRect, color);
 					x += regionWidth;
 				}
 			}

@@ -120,7 +120,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			if (disabled)
 				return false;
@@ -137,7 +137,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			if (DistanceOutsideBoundsToPoint(mousePos) > TextFieldBoundaryThreshold)
 			{
@@ -151,7 +151,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 			if (selectionStart == cursor)
 				hasSelection = false;
@@ -623,7 +623,7 @@ namespace Nez.UI
 						: new Color(180, 180, 180, (int) (color.A * parentAlpha));
 					var messageFont = style.MessageFont != null ? style.MessageFont : font;
 					batcher.DrawString(messageFont, messageText,
-						new Vector2(x + bgLeftWidth, y + textY + yOffset), messageFontColor);
+						new System.Numerics.Vector2(x + bgLeftWidth, y + textY + yOffset), messageFontColor);
 
 					//messageFont.draw( batcher.batcher, messageText, x + bgLeftWidth, y + textY + yOffset, 0, messageText.length(),
 					//	width - bgLeftWidth - bgRightWidth, textHAlign, false, "..." );
@@ -633,7 +633,7 @@ namespace Nez.UI
 			{
 				var col = new Color(fontColor, (int) (fontColor.A * parentAlpha));
 				var t = displayText.Substring(visibleTextStart, visibleTextEnd - visibleTextStart);
-				batcher.DrawString(font, t, new Vector2(x + bgLeftWidth + textOffset, y + textY + yOffset),
+				batcher.DrawString(font, t, new System.Numerics.Vector2(x + bgLeftWidth + textOffset, y + textY + yOffset),
 					col);
 			}
 
@@ -883,16 +883,16 @@ namespace Nez.UI
 			if (stage == null)
 				return;
 
-			var tmp2 = Vector2.Zero;
-			var tmp1 = GetParent().LocalToStageCoordinates(new Vector2(GetX(), GetY()));
+			var tmp2 = System.Numerics.Vector2.Zero;
+			var tmp1 = GetParent().LocalToStageCoordinates(new System.Numerics.Vector2(GetX(), GetY()));
 			var textField = FindNextTextField(stage.GetElements(), null, tmp2, tmp1, up);
 			if (textField == null)
 			{
 				// Try to wrap around.
 				if (up)
-					tmp1 = new Vector2(float.MinValue, float.MinValue);
+					tmp1 = new System.Numerics.Vector2(float.MinValue, float.MinValue);
 				else
-					tmp1 = new Vector2(float.MaxValue, float.MaxValue);
+					tmp1 = new System.Numerics.Vector2(float.MaxValue, float.MaxValue);
 				textField = FindNextTextField(GetStage().GetElements(), null, tmp2, tmp1, up);
 			}
 
@@ -901,10 +901,10 @@ namespace Nez.UI
 		}
 
 
-		TextField FindNextTextField(List<Element> elements, TextField best, Vector2 bestCoords, Vector2 currentCoords,
+		TextField FindNextTextField(List<Element> elements, TextField best, System.Numerics.Vector2 bestCoords, System.Numerics.Vector2 currentCoords,
 		                            bool up)
 		{
-			bestCoords = Vector2.Zero;
+			bestCoords = System.Numerics.Vector2.Zero;
 			for (int i = 0, n = elements.Count; i < n; i++)
 			{
 				var element = elements[i];
@@ -918,7 +918,7 @@ namespace Nez.UI
 						continue;
 
 					var elementCoords = element.GetParent()
-						.LocalToStageCoordinates(new Vector2(element.GetX(), element.GetY()));
+						.LocalToStageCoordinates(new System.Numerics.Vector2(element.GetX(), element.GetY()));
 					if ((elementCoords.Y < currentCoords.Y ||
 					     (elementCoords.Y == currentCoords.Y && elementCoords.X > currentCoords.X)) ^ up)
 					{

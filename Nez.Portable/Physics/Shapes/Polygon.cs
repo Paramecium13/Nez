@@ -9,13 +9,13 @@ namespace Nez.PhysicsShapes
 		/// <summary>
 		/// the points that make up the Polygon. They should be CW and convex.
 		/// </summary>
-		public Vector2[] Points;
+		public System.Numerics.Vector2[] Points;
 
 		/// <summary>
 		/// edge normals are used for SAT collision detection. We cache them to avoid the squareroots. Note that Boxes will only have
 		/// 2 edgeNormals since the other two sides are parallel.
 		/// </summary>
-		public Vector2[] EdgeNormals
+		public System.Numerics.Vector2[] EdgeNormals
 		{
 			get
 			{
@@ -26,11 +26,11 @@ namespace Nez.PhysicsShapes
 		}
 
 		bool _areEdgeNormalsDirty = true;
-		public Vector2[] _edgeNormals;
+		public System.Numerics.Vector2[] _edgeNormals;
 
 		// we cache the original details of our polygon
-		internal Vector2[] _originalPoints;
-		internal Vector2 _polygonCenter;
+		internal System.Numerics.Vector2[] _originalPoints;
+		internal System.Numerics.Vector2 _polygonCenter;
 
 		// used as an optimization for unrotated Box collisions
 		internal bool isBox;
@@ -42,7 +42,7 @@ namespace Nez.PhysicsShapes
 		/// they should be centered around 0,0.
 		/// </summary>
 		/// <param name="points">Points.</param>
-		public Polygon(Vector2[] points) => SetPoints(points);
+		public Polygon(System.Numerics.Vector2[] points) => SetPoints(points);
 
 		/// <summary>
 		/// creates a symmetrical polygon based on the radius and vertCount passed in
@@ -51,7 +51,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="radius">Radius.</param>
 		public Polygon(int vertCount, float radius) => SetPoints(BuildSymmetricalPolygon(vertCount, radius));
 
-		internal Polygon(Vector2[] points, bool isBox) : this(points)
+		internal Polygon(System.Numerics.Vector2[] points, bool isBox) : this(points)
 		{
 			this.isBox = isBox;
 		}
@@ -60,12 +60,12 @@ namespace Nez.PhysicsShapes
 		/// resets the points and recalculates center and edge normals
 		/// </summary>
 		/// <param name="points"></param>
-		public void SetPoints(Vector2[] points)
+		public void SetPoints(System.Numerics.Vector2[] points)
 		{
 			Points = points;
 			RecalculateCenterAndEdgeNormals();
 
-			_originalPoints = new Vector2[points.Length];
+			_originalPoints = new System.Numerics.Vector2[points.Length];
 			Array.Copy(points, _originalPoints, points.Length);
 		}
 
@@ -86,9 +86,9 @@ namespace Nez.PhysicsShapes
 			// for boxes we only require 2 edges since the other 2 are parallel
 			var totalEdges = isBox ? 2 : Points.Length;
 			if (_edgeNormals == null || _edgeNormals.Length != totalEdges)
-				_edgeNormals = new Vector2[totalEdges];
+				_edgeNormals = new System.Numerics.Vector2[totalEdges];
 
-			Vector2 p2;
+			System.Numerics.Vector2 p2;
 			for (var i = 0; i < totalEdges; i++)
 			{
 				var p1 = Points[i];
@@ -114,14 +114,14 @@ namespace Nez.PhysicsShapes
 		/// <returns>The symmetrical polygon.</returns>
 		/// <param name="vertCount">Vert count.</param>
 		/// <param name="radius">Radius.</param>
-		public static Vector2[] BuildSymmetricalPolygon(int vertCount, float radius)
+		public static System.Numerics.Vector2[] BuildSymmetricalPolygon(int vertCount, float radius)
 		{
-			var verts = new Vector2[vertCount];
+			var verts = new System.Numerics.Vector2[vertCount];
 
 			for (var i = 0; i < vertCount; i++)
 			{
 				var a = 2.0f * MathHelper.Pi * (i / (float) vertCount);
-				verts[i] = new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * radius;
+				verts[i] = new System.Numerics.Vector2(Mathf.Cos(a), Mathf.Sin(a)) * radius;
 			}
 
 			return verts;
@@ -131,7 +131,7 @@ namespace Nez.PhysicsShapes
 		/// recenters the points of the polygon
 		/// </summary>
 		/// <param name="points">Points.</param>
-		public static void RecenterPolygonVerts(Vector2[] points)
+		public static void RecenterPolygonVerts(System.Numerics.Vector2[] points)
 		{
 			var center = FindPolygonCenter(points);
 			for (var i = 0; i < points.Length; i++)
@@ -143,7 +143,7 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <returns>The polygon center.</returns>
 		/// <param name="points">Points.</param>
-		public static Vector2 FindPolygonCenter(Vector2[] points)
+		public static System.Numerics.Vector2 FindPolygonCenter(System.Numerics.Vector2[] points)
 		{
 			float x = 0, y = 0;
 
@@ -153,19 +153,19 @@ namespace Nez.PhysicsShapes
 				y += points[i].Y;
 			}
 
-			return new Vector2(x / points.Length, y / points.Length);
+			return new System.Numerics.Vector2(x / points.Length, y / points.Length);
 		}
 
 		// Dont know adjancent vertices so take each vertex
 		// If you know adjancent vertices, perform hill climbing algorithm
-		public static Vector2 GetFarthestPointInDirection(Vector2[] points, Vector2 direction)
+		public static System.Numerics.Vector2 GetFarthestPointInDirection(System.Numerics.Vector2[] points, System.Numerics.Vector2 direction)
 		{
 			var index = 0;
-			Vector2.Dot(ref points[index], ref direction, out float maxDot);
+			var maxDot = System.Numerics.Vector2.Dot(points[index], direction);
 
 			for (var i = 1; i < points.Length; i++)
 			{
-				Vector2.Dot(ref points[i], ref direction, out float dot);
+				var dot = System.Numerics.Vector2.Dot(points[i], direction);
 				if (dot > maxDot)
 				{
 					maxDot = dot;
@@ -184,12 +184,12 @@ namespace Nez.PhysicsShapes
 		/// <param name="point">Point.</param>
 		/// <param name="distanceSquared">Distance squared.</param>
 		/// <param name="edgeNormal">Edge normal.</param>
-		public static Vector2 GetClosestPointOnPolygonToPoint(Vector2[] points, Vector2 point,
-		                                                      out float distanceSquared, out Vector2 edgeNormal)
+		public static System.Numerics.Vector2 GetClosestPointOnPolygonToPoint(System.Numerics.Vector2[] points, System.Numerics.Vector2 point,
+		                                                      out float distanceSquared, out System.Numerics.Vector2 edgeNormal)
 		{
 			distanceSquared = float.MaxValue;
-			edgeNormal = Vector2.Zero;
-			var closestPoint = Vector2.Zero;
+			edgeNormal = System.Numerics.Vector2.Zero;
+			var closestPoint = System.Numerics.Vector2.Zero;
 
 			float tempDistanceSquared;
 			for (var i = 0; i < points.Length; i++)
@@ -199,7 +199,7 @@ namespace Nez.PhysicsShapes
 					j = 0;
 
 				var closest = ShapeCollisions.ClosestPointOnLine(points[i], points[j], point);
-				Vector2.DistanceSquared(ref point, ref closest, out tempDistanceSquared);
+				tempDistanceSquared = System.Numerics.Vector2.DistanceSquared(point, closest);
 
 				if (tempDistanceSquared < distanceSquared)
 				{
@@ -224,7 +224,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="radians">Radians.</param>
 		/// <param name="originalPoints">Original points.</param>
 		/// <param name="rotatedPoints">Rotated points.</param>
-		public static void RotatePolygonVerts(float radians, Vector2[] originalPoints, Vector2[] rotatedPoints)
+		public static void RotatePolygonVerts(float radians, System.Numerics.Vector2[] originalPoints, System.Numerics.Vector2[] rotatedPoints)
 		{
 			var cos = Mathf.Cos(radians);
 			var sin = Mathf.Sin(radians);
@@ -232,7 +232,7 @@ namespace Nez.PhysicsShapes
 			for (var i = 0; i < originalPoints.Length; i++)
 			{
 				var position = originalPoints[i];
-				rotatedPoints[i] = new Vector2((position.X * cos + position.Y * -sin),
+				rotatedPoints[i] = new System.Numerics.Vector2((position.X * cos + position.Y * -sin),
 					(position.X * sin + position.Y * cos));
 			}
 		}
@@ -253,7 +253,7 @@ namespace Nez.PhysicsShapes
 				Matrix2D tempMat;
 				var combinedMatrix = Matrix2D.CreateTranslation(-_polygonCenter);
 
-				if (collider.Entity.Scale != Vector2.One)
+				if (collider.Entity.Scale != System.Numerics.Vector2.One)
 				{
 					Matrix2D.CreateScale(collider.Entity.Transform.Scale.X, collider.Entity.Transform.Scale.Y,
 						out tempMat);
@@ -277,7 +277,7 @@ namespace Nez.PhysicsShapes
 					var offsetLength = hasUnitScale
 						? collider._localOffsetLength
 						: (collider.LocalOffset * collider.Entity.Scale).Length();
-					center = Mathf.PointOnCircle(Vector2.Zero, offsetLength,
+					center = Mathf.PointOnCircle(System.Numerics.Vector2.Zero, offsetLength,
 						collider.Entity.Transform.RotationDegrees + offsetAngle);
 				}
 
@@ -338,7 +338,7 @@ namespace Nez.PhysicsShapes
 			throw new NotImplementedException(string.Format("overlaps of Polygon to {0} are not supported", other));
 		}
 
-		public override bool CollidesWithLine(Vector2 start, Vector2 end, out RaycastHit hit)
+		public override bool CollidesWithLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
 			return ShapeCollisions.LineToPoly(start, end, this, out hit);
@@ -348,7 +348,7 @@ namespace Nez.PhysicsShapes
 		/// essentially what the algorithm is doing is shooting a ray from point out. If it intersects an odd number of polygon sides
 		/// we know it is inside the polygon.
 		/// </summary>
-		public override bool ContainsPoint(Vector2 point)
+		public override bool ContainsPoint(System.Numerics.Vector2 point)
 		{
 			// normalize the point to be in our Polygon coordinate space
 			point -= position;
@@ -367,7 +367,7 @@ namespace Nez.PhysicsShapes
 			return isInside;
 		}
 
-		public override bool PointCollidesWithShape(Vector2 point, out CollisionResult result)
+		public override bool PointCollidesWithShape(System.Numerics.Vector2 point, out CollisionResult result)
 		{
 			return ShapeCollisions.PointToPoly(point, this, out result);
 		}

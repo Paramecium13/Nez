@@ -11,43 +11,43 @@ namespace Nez
 	public static class BatcherSpriteFontExt
 	{
 		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text,
-		                              Vector2 position, Color color)
+		                              System.Numerics.Vector2 position, Color color)
 		{
-			batcher.DrawString(spriteFont, text, position, color, 0.0f, Vector2.Zero, new Vector2(1.0f),
+			batcher.DrawString(spriteFont, text, position, color, 0.0f, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(1.0f),
 				SpriteEffects.None, 0.0f);
 		}
 
 
 		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text,
-		                              Vector2 position, Color color,
-		                              float rotation, Vector2 origin, float scale, SpriteEffects effects,
+		                              System.Numerics.Vector2 position, Color color,
+		                              float rotation, System.Numerics.Vector2 origin, float scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
-			batcher.DrawString(spriteFont, text, position, color, rotation, origin, new Vector2(scale), effects,
+			batcher.DrawString(spriteFont, text, position, color, rotation, origin, new System.Numerics.Vector2(scale), effects,
 				layerDepth);
 		}
 
 
-		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position,
+		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, System.Numerics.Vector2 position,
 		                              Color color)
 		{
-			batcher.DrawString(spriteFont, text, position, color, 0.0f, Vector2.Zero, new Vector2(1.0f),
+			batcher.DrawString(spriteFont, text, position, color, 0.0f, System.Numerics.Vector2.Zero, new System.Numerics.Vector2(1.0f),
 				SpriteEffects.None, 0.0f);
 		}
 
 
-		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position,
+		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, System.Numerics.Vector2 position,
 		                              Color color, float rotation,
-		                              Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
+		                              System.Numerics.Vector2 origin, float scale, SpriteEffects effects, float layerDepth)
 		{
-			batcher.DrawString(spriteFont, text, position, color, rotation, origin, new Vector2(scale), effects,
+			batcher.DrawString(spriteFont, text, position, color, rotation, origin, new System.Numerics.Vector2(scale), effects,
 				layerDepth);
 		}
 
 
 		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text,
-		                              Vector2 position, Color color,
-		                              float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects,
+		                              System.Numerics.Vector2 position, Color color,
+		                              float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effects,
 		                              float layerDepth)
 		{
 			Insist.IsFalse(text == null);
@@ -60,9 +60,9 @@ namespace Nez
 		}
 
 
-		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position,
+		public static void DrawString(this Batcher batcher, NezSpriteFont spriteFont, string text, System.Numerics.Vector2 position,
 		                              Color color, float rotation,
-		                              Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth)
+		                              System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effects, float layerDepth)
 		{
 			Insist.IsFalse(text == null);
 

@@ -11,7 +11,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSMouseJoint SetWorldAnchor(Vector2 worldAnchor)
+		public FSMouseJoint SetWorldAnchor(System.Numerics.Vector2 worldAnchor)
 		{
 			_jointDef.WorldAnchor = worldAnchor;
 			if (_joint != null)

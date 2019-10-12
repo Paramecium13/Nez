@@ -199,7 +199,7 @@ namespace Nez.Spatial
 
 			if (cellCount > 0)
 			{
-				var textPosition = new Vector2((float) x * (float) _cellSize + 0.5f * _cellSize,
+				var textPosition = new System.Numerics.Vector2((float) x * (float) _cellSize + 0.5f * _cellSize,
 					(float) y * (float) _cellSize + 0.5f * _cellSize);
 				Debug.DrawText(Graphics.Instance.BitmapFont, cellCount.ToString(), textPosition, Color.DarkGreen,
 					secondsToDisplay, textScale);
@@ -269,7 +269,7 @@ namespace Nez.Spatial
 		/// <param name="end">End.</param>
 		/// <param name="hits">Hits.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int Linecast(Vector2 start, Vector2 end, RaycastHit[] hits, int layerMask)
+		public int Linecast(System.Numerics.Vector2 start, System.Numerics.Vector2 end, RaycastHit[] hits, int layerMask)
 		{
 			var ray = new Ray2D(start, end);
 			_raycastParser.Start(ref ray, hits, layerMask);
@@ -407,7 +407,7 @@ namespace Nez.Spatial
 		/// <param name="radius">Radius.</param>
 		/// <param name="results">Results.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int OverlapCircle(Vector2 circleCenter, float radius, Collider[] results, int layerMask)
+		public int OverlapCircle(System.Numerics.Vector2 circleCenter, float radius, Collider[] results, int layerMask)
 		{
 			var bounds = new RectangleF(circleCenter.X - radius, circleCenter.Y - radius, radius * 2f, radius * 2f);
 

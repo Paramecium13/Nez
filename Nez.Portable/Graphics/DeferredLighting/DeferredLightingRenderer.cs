@@ -264,7 +264,7 @@ namespace Nez.DeferredLighting
 
 			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, scene.SceneRenderTarget);
 			Graphics.Instance.Batcher.Begin(BlendState.Opaque);
-			Graphics.Instance.Batcher.Draw(tempRT, Vector2.Zero);
+			Graphics.Instance.Batcher.Draw(tempRT, System.Numerics.Vector2.Zero);
 			Graphics.Instance.Batcher.End();
 
 			RenderTarget.ReleaseTemporary(tempRT);

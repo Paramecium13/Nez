@@ -32,7 +32,7 @@ namespace Nez
 		/// <summary>
 		/// offset from the screen center that the camera will focus on
 		/// </summary>
-		public Vector2 FocusOffset;
+		public System.Numerics.Vector2 FocusOffset;
 
 		/// <summary>
 		/// If true, the camera position will not got out of the map rectangle (0,0, mapwidth, mapheight)
@@ -42,11 +42,11 @@ namespace Nez
 		/// <summary>
 		/// Contains the width and height of the current map.
 		/// </summary>
-		public Vector2 MapSize;
+		public System.Numerics.Vector2 MapSize;
 
 		Entity _targetEntity;
 		Collider _targetCollider;
-		Vector2 _desiredPositionDelta;
+		System.Numerics.Vector2 _desiredPositionDelta;
 		CameraStyle _cameraStyle;
 		RectangleF _worldSpaceDeadzone;
 
@@ -95,7 +95,7 @@ namespace Nez
 			if (_targetEntity != null)
 				UpdateFollow();
 
-			Camera.Position = Vector2.Lerp(Camera.Position, Camera.Position + _desiredPositionDelta, FollowLerp);
+			Camera.Position = System.Numerics.Vector2.Lerp(Camera.Position, Camera.Position + _desiredPositionDelta, FollowLerp);
 			Camera.Entity.Transform.RoundPosition();
 
 			if (MapLockEnabled)
@@ -110,12 +110,12 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to map size.</returns>
 		/// <param name="position">Position.</param>
-		Vector2 ClampToMapSize(Vector2 position)
+		System.Numerics.Vector2 ClampToMapSize(System.Numerics.Vector2 position)
 		{
-			var halfScreen = new Vector2(Camera.Bounds.Width, Camera.Bounds.Height) * 0.5f;
-			var cameraMax = new Vector2(MapSize.X - halfScreen.X, MapSize.Y - halfScreen.Y);
+			var halfScreen = new System.Numerics.Vector2(Camera.Bounds.Width, Camera.Bounds.Height) * 0.5f;
+			var cameraMax = new System.Numerics.Vector2(MapSize.X - halfScreen.X, MapSize.Y - halfScreen.Y);
 
-			return Vector2.Clamp(position, halfScreen, cameraMax);
+			return System.Numerics.Vector2.Clamp(position, halfScreen, cameraMax);
 		}
 
 		public override void DebugRender(Batcher batcher)

@@ -17,7 +17,7 @@ namespace Nez.Farseer
 		/// <param name="self">Fixture a.</param>
 		/// <param name="motion">the delta movement in Nez pixel coordinates</param>
 		/// <param name="result">Result.</param>
-		public static bool CollidesWithAnyFixtures(this Fixture self, ref Vector2 motion, out FSCollisionResult result)
+		public static bool CollidesWithAnyFixtures(this Fixture self, ref System.Numerics.Vector2 motion, out FSCollisionResult result)
 		{
 			result = new FSCollisionResult();
 			motion *= FSConvert.DisplayToSim;

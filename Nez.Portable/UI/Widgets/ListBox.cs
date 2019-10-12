@@ -78,7 +78,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			if (_selection.IsDisabled() || _items.Count == 0)
 				return false;
@@ -96,12 +96,12 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 		}
 
@@ -112,7 +112,7 @@ namespace Nez.UI
 		}
 
 
-		int GetItemIndexUnderMousePosition(Vector2 mousePos)
+		int GetItemIndexUnderMousePosition(System.Numerics.Vector2 mousePos)
 		{
 			if (_selection.IsDisabled() || _items.Count == 0)
 				return -1;
@@ -220,7 +220,7 @@ namespace Nez.UI
 						fontColor = unselectedFontColor;
 					}
 
-					var textPos = new Vector2(x + _textOffsetX, y + itemY + _textOffsetY);
+					var textPos = new System.Numerics.Vector2(x + _textOffsetX, y + itemY + _textOffsetY);
 					batcher.DrawString(font, item.ToString(), textPos, fontColor);
 				}
 				else if (itemY < _cullingArea.Value.Y)

@@ -26,7 +26,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSRigidBody SetLinearVelocity(Vector2 linearVelocity)
+		public FSRigidBody SetLinearVelocity(System.Numerics.Vector2 linearVelocity)
 		{
 			if (Body != null)
 				Body.LinearVelocity = linearVelocity;

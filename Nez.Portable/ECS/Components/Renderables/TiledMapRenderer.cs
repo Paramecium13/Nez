@@ -74,7 +74,7 @@ namespace Nez
 		/// <summary>
 		/// this method requires that you are using a collision layer setup in the constructor.
 		/// </summary>
-		public TmxLayerTile GetTileAtWorldPosition(Vector2 worldPos)
+		public TmxLayerTile GetTileAtWorldPosition(System.Numerics.Vector2 worldPos)
 		{
 			Insist.IsNotNull(CollisionLayer, "collisionLayer must not be null!");
 
@@ -124,14 +124,14 @@ namespace Nez
 		{
 			if (LayerIndicesToRender == null)
 			{
-				TiledRendering.RenderMap(TiledMap, batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth);
+				TiledRendering.RenderMap(TiledMap, batcher, Entity.Position + _localOffset, Transform.Scale, LayerDepth);
 			}
 			else
 			{
 				for (var i = 0; i < TiledMap.Layers.Count; i++)
 				{
 					if (TiledMap.Layers[i].Visible && LayerIndicesToRender.Contains(i))
-						TiledRendering.RenderLayer(TiledMap.Layers[i], batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth, camera.Bounds);
+						TiledRendering.RenderLayer(TiledMap.Layers[i], batcher, Entity.Position + _localOffset, Transform.Scale, LayerDepth, camera.Bounds);
 				}
 			}
 		}
@@ -139,7 +139,7 @@ namespace Nez
 		public override void DebugRender(Batcher batcher)
 		{
 			foreach (var group in TiledMap.ObjectGroups)
-				TiledRendering.RenderObjectGroup(group, batcher, Entity.Position + _localOffset, Transform.Scale.ToXna(), LayerDepth);
+				TiledRendering.RenderObjectGroup(group, batcher, Entity.Position + _localOffset, Transform.Scale, LayerDepth);
 
 			if (_colliders != null)
 			{

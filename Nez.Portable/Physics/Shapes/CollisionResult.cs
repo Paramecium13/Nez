@@ -14,17 +14,17 @@ namespace Nez
 		/// <summary>
 		/// The normal vector of the surface hit by the shape
 		/// </summary>
-		public Vector2 Normal;
+		public System.Numerics.Vector2 Normal;
 
 		/// <summary>
-		/// The translation to apply to the first shape to push the shapes appart
+		/// The translation to apply to the first shape to push the shapes apart
 		/// </summary>
-		public Vector2 MinimumTranslationVector;
+		public System.Numerics.Vector2 MinimumTranslationVector;
 
 		/// <summary>
 		/// not used for all collisions types! Check the ShapeCollisions class before relying on this field!
 		/// </summary>
-		public Vector2 Point;
+		public System.Numerics.Vector2 Point;
 
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Nez
 		/// the same direction.
 		/// </summary>
 		/// <param name="deltaMovement">the original movement that caused the collision</param>
-		public void RemoveHorizontalTranslation(Vector2 deltaMovement)
+		public void RemoveHorizontalTranslation(System.Numerics.Vector2 deltaMovement)
 		{
 			// http://dev.yuanworks.com/2013/03/19/little-ninja-physics-and-collision-detection/
 			// fix is the vector that is only in the y-direction that we want. Projecting it on the normal gives us the
@@ -49,7 +49,7 @@ namespace Nez
 				// fix value since we divide by normal
 				if (Math.Abs(Normal.X) != 1f && Math.Abs(fix) < Math.Abs(deltaMovement.Y * 3f))
 				{
-					MinimumTranslationVector = new Vector2(0f, -fix);
+					MinimumTranslationVector = new System.Numerics.Vector2(0f, -fix);
 				}
 			}
 		}
@@ -60,8 +60,8 @@ namespace Nez
 		/// </summary>
 		public void InvertResult()
 		{
-			Vector2.Negate(ref MinimumTranslationVector, out MinimumTranslationVector);
-			Vector2.Negate(ref Normal, out Normal);
+			MinimumTranslationVector = System.Numerics.Vector2.Negate(MinimumTranslationVector);
+			Normal = System.Numerics.Vector2.Negate(Normal);
 		}
 
 

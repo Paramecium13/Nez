@@ -34,7 +34,7 @@ namespace Nez
 
 			if (_screenSpaceDebugDrawItems.Count > 0)
 			{
-				var pos = DrawTextFromBottom ? new Vector2(0, Core.Scene.SceneRenderTargetSize.Y) : Vector2.Zero;
+				var pos = DrawTextFromBottom ? new System.Numerics.Vector2(0, Core.Scene.SceneRenderTargetSize.Y) : System.Numerics.Vector2.Zero;
 				Graphics.Instance.Batcher.Begin();
 
 				for (var i = _screenSpaceDebugDrawItems.Count - 1; i >= 0; i--)
@@ -43,7 +43,7 @@ namespace Nez
 					var itemHeight = item.GetHeight();
 
 					if (DrawTextFromBottom)
-						item.Position = pos - new Vector2(0, itemHeight);
+						item.Position = pos - new System.Numerics.Vector2(0, itemHeight);
 					else
 						item.Position = pos;
 
@@ -61,7 +61,7 @@ namespace Nez
 		}
 
 		[Conditional("DEBUG")]
-		public static void DrawLine(Vector2 start, Vector2 end, Color color, float duration = 0f)
+		public static void DrawLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Color color, float duration = 0f)
 		{
 			if (!Core.DebugRenderEnabled)
 				return;
@@ -79,7 +79,7 @@ namespace Nez
 		}
 
 		[Conditional("DEBUG")]
-		public static void DrawPixel(Vector2 position, int size, Color color, float duration = 0f)
+		public static void DrawPixel(System.Numerics.Vector2 position, int size, Color color, float duration = 0f)
 		{
 			if (!Core.DebugRenderEnabled)
 				return;
@@ -97,7 +97,7 @@ namespace Nez
 		}
 
 		[Conditional("DEBUG")]
-		public static void DrawHollowBox(Vector2 center, int size, Color color, float duration = 0f)
+		public static void DrawHollowBox(System.Numerics.Vector2 center, int size, Color color, float duration = 0f)
 		{
 			if (!Core.DebugRenderEnabled)
 				return;
@@ -108,7 +108,7 @@ namespace Nez
 		}
 
 		[Conditional("DEBUG")]
-		public static void DrawText(BitmapFont font, string text, Vector2 position, Color color, float duration = 0f,
+		public static void DrawText(BitmapFont font, string text, System.Numerics.Vector2 position, Color color, float duration = 0f,
 									float scale = 1f)
 		{
 			if (!Core.DebugRenderEnabled)
@@ -118,7 +118,7 @@ namespace Nez
 		}
 
 		[Conditional("DEBUG")]
-		public static void DrawText(NezSpriteFont font, string text, Vector2 position, Color color, float duration = 0f,
+		public static void DrawText(NezSpriteFont font, string text, System.Numerics.Vector2 position, Color color, float duration = 0f,
 									float scale = 1f)
 		{
 			if (!Core.DebugRenderEnabled)

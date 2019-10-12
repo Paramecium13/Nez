@@ -23,12 +23,12 @@ namespace Nez.Farseer
 		FixedMouseJoint _mouseJoint;
 
 
-		public FSWorld() : this(new Vector2(0, 9.82f))
+		public FSWorld() : this(new System.Numerics.Vector2(0, 9.82f))
 		{
 		}
 
 
-		public FSWorld(Vector2 gravity)
+		public FSWorld(System.Numerics.Vector2 gravity)
 		{
 			World = new World(gravity);
 		}

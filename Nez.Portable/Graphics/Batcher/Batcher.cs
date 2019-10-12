@@ -279,19 +279,19 @@ namespace Nez
 
 		#region Public draw methods
 
-		public void Draw(Texture2D texture, Vector2 position)
+		public void Draw(Texture2D texture, System.Numerics.Vector2 position)
 		{
 			CheckBegin();
 			PushSprite(texture, null, position.X, position.Y, 1.0f, 1.0f,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0);
+				Color.White, System.Numerics.Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0);
 		}
 
 
-		public void Draw(Texture2D texture, Vector2 position, Color color)
+		public void Draw(Texture2D texture, System.Numerics.Vector2 position, Color color)
 		{
 			CheckBegin();
 			PushSprite(texture, null, position.X, position.Y, 1.0f, 1.0f,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0);
+				color, System.Numerics.Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0);
 		}
 
 
@@ -300,7 +300,7 @@ namespace Nez
 			CheckBegin();
 			PushSprite(texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width,
 				destinationRectangle.Height,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
+				Color.White, System.Numerics.Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
 		}
 
 
@@ -309,7 +309,7 @@ namespace Nez
 			CheckBegin();
 			PushSprite(texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width,
 				destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
+				color, System.Numerics.Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
 		}
 
 
@@ -318,7 +318,7 @@ namespace Nez
 			CheckBegin();
 			PushSprite(texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y,
 				destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
+				color, System.Numerics.Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0);
 		}
 
 
@@ -328,7 +328,7 @@ namespace Nez
 			CheckBegin();
 			PushSprite(texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y,
 				destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, (byte) (effects & (SpriteEffects) 0x03), true, 0, 0, 0, 0);
+				color, System.Numerics.Vector2.Zero, 0.0f, 0.0f, (byte) (effects & (SpriteEffects) 0x03), true, 0, 0, 0, 0);
 		}
 
 
@@ -352,7 +352,7 @@ namespace Nez
 				destinationRectangle.Width,
 				destinationRectangle.Height,
 				color,
-				Vector2.Zero,
+				System.Numerics.Vector2.Zero,
 				rotation,
 				layerDepth,
 				(byte) (effects & (SpriteEffects) 0x03),
@@ -362,7 +362,7 @@ namespace Nez
 		}
 
 
-		public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color)
+		public void Draw(Texture2D texture, System.Numerics.Vector2 position, Rectangle? sourceRectangle, Color color)
 		{
 			CheckBegin();
 			PushSprite(
@@ -373,7 +373,7 @@ namespace Nez
 				1.0f,
 				1.0f,
 				color,
-				Vector2.Zero,
+				System.Numerics.Vector2.Zero,
 				0.0f,
 				0.0f,
 				0,
@@ -385,11 +385,11 @@ namespace Nez
 
 		public void Draw(
 			Texture2D texture,
-			Vector2 position,
+			System.Numerics.Vector2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			System.Numerics.Vector2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -416,10 +416,10 @@ namespace Nez
 
 		public void Draw(
 			Sprite sprite,
-			Vector2 position,
+			System.Numerics.Vector2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			System.Numerics.Vector2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -444,12 +444,12 @@ namespace Nez
 
 		public void Draw(
 			Texture2D texture,
-			Vector2 position,
+			System.Numerics.Vector2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			System.Numerics.Vector2 origin,
+			System.Numerics.Vector2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -474,11 +474,11 @@ namespace Nez
 
 		public void Draw(
 			Sprite sprite,
-			Vector2 position,
+			System.Numerics.Vector2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			System.Numerics.Vector2 origin,
+			System.Numerics.Vector2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -501,12 +501,12 @@ namespace Nez
 
 		public void Draw(
 			Texture2D texture,
-			Vector2 position,
+			System.Numerics.Vector2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			System.Numerics.Vector2 origin,
+			System.Numerics.Vector2 scale,
 			SpriteEffects effects,
 			float layerDepth,
 			float skewTopX, float skewBottomX, float skewLeftY, float skewRightY
@@ -537,7 +537,7 @@ namespace Nez
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			System.Numerics.Vector2 origin,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -569,7 +569,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="colors">Colors.</param>
-		public void DrawRaw(Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color[] colors)
+		public void DrawRaw(Texture2D texture, Vector3[] verts, System.Numerics.Vector2[] textureCoords, Color[] colors)
 		{
 			Insist.IsTrue(verts.Length == 4, "there must be only 4 verts");
 			Insist.IsTrue(textureCoords.Length == 4, "there must be only 4 texture coordinates");
@@ -616,7 +616,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="color">Color.</param>
-		public void DrawRaw(Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color color)
+		public void DrawRaw(Texture2D texture, Vector3[] verts, System.Numerics.Vector2[] textureCoords, Color color)
 		{
 			Insist.IsTrue(verts.Length == 4, "there must be only 4 verts");
 			Insist.IsTrue(textureCoords.Length == 4, "there must be only 4 texture coordinates");
@@ -657,8 +657,8 @@ namespace Nez
 
 
 		[Obsolete("SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont")]
-		public void DrawString(SpriteFont spriteFont, string text, Vector2 position, Color color, float rotation,
-		                       Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth)
+		public void DrawString(SpriteFont spriteFont, string text, System.Numerics.Vector2 position, Color color, float rotation,
+		                       System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effects, float layerDepth)
 		{
 			throw new NotImplementedException(
 				"SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont");
@@ -689,7 +689,7 @@ namespace Nez
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void PushSprite(Texture2D texture, Rectangle? sourceRectangle, float destinationX, float destinationY,
-		                float destinationW, float destinationH, Color color, Vector2 origin,
+		                float destinationW, float destinationH, Color color, System.Numerics.Vector2 origin,
 		                float rotation, float depth, byte effects, bool destSizeInPixels, float skewTopX,
 		                float skewBottomX, float skewLeftY, float skewRightY)
 		{
@@ -867,7 +867,7 @@ namespace Nez
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void PushSprite(Sprite sprite, float destinationX, float destinationY, float destinationW,
-		                float destinationH, Color color, Vector2 origin,
+		                float destinationH, Color color, System.Numerics.Vector2 origin,
 		                float rotation, float depth, byte effects, float skewTopX, float skewBottomX, float skewLeftY,
 		                float skewRightY)
 		{
@@ -1139,16 +1139,16 @@ namespace Nez
 
 			public Vector3 Position0;
 			public Color Color0;
-			public Vector2 TextureCoordinate0;
+			public System.Numerics.Vector2 TextureCoordinate0;
 			public Vector3 Position1;
 			public Color Color1;
-			public Vector2 TextureCoordinate1;
+			public System.Numerics.Vector2 TextureCoordinate1;
 			public Vector3 Position2;
 			public Color Color2;
-			public Vector2 TextureCoordinate2;
+			public System.Numerics.Vector2 TextureCoordinate2;
 			public Vector3 Position3;
 			public Color Color3;
-			public Vector2 TextureCoordinate3;
+			public System.Numerics.Vector2 TextureCoordinate3;
 		}
 
 		#endregion

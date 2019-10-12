@@ -44,7 +44,7 @@ namespace Nez
 		/// <param name="height">Height.</param>
 		public BoxCollider(float x, float y, float width, float height)
 		{
-			_localOffset = new Vector2(x + width / 2, y + height / 2);
+			_localOffset = new System.Numerics.Vector2(x + width / 2, y + height / 2);
 			Shape = new Box(width, height);
 		}
 
@@ -138,7 +138,7 @@ namespace Nez
 				Debug.Size.LineSizeMultiplier);
 			batcher.DrawPixel(Entity.Transform.Position, Debug.Colors.ColliderPosition,
 				4 * Debug.Size.LineSizeMultiplier);
-			batcher.DrawPixel(Entity.Transform.Position + Shape.center.ToSimd(), Debug.Colors.ColliderCenter,
+			batcher.DrawPixel(Entity.Transform.Position + Shape.center, Debug.Colors.ColliderCenter,
 				2 * Debug.Size.LineSizeMultiplier);
 		}
 

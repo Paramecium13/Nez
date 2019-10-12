@@ -38,10 +38,10 @@ namespace Nez
 
 
 		/// <summary>
-		/// tweens a Vector2 field or property
+		/// tweens a System.Numerics.Vector2 field or property
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static ITween<Vector2> Tween(this object self, string memberName, Vector2 to, float duration)
+		public static ITween<System.Numerics.Vector2> Tween(this object self, string memberName, System.Numerics.Vector2 to, float duration)
 		{
 			return PropertyTweens.Vector2PropertyTo(self, memberName, to, duration);
 		}

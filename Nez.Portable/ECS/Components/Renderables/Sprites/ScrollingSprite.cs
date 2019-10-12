@@ -25,7 +25,7 @@ namespace Nez.Sprites
 		/// scale of the texture
 		/// </summary>
 		/// <value>The texture scale.</value>
-		public override Vector2 TextureScale
+		public override System.Numerics.Vector2 TextureScale
 		{
 			get => _textureScale;
 			set
@@ -33,7 +33,7 @@ namespace Nez.Sprites
 				_textureScale = value;
 
 				// recalulcate our inverseTextureScale and the source rect size
-				_inverseTexScale = new Vector2(1f / _textureScale.X, 1f / _textureScale.Y);
+				_inverseTexScale = new System.Numerics.Vector2(1f / _textureScale.X, 1f / _textureScale.Y);
 			}
 		}
 

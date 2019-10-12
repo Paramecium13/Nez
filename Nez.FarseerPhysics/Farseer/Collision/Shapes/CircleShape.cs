@@ -38,7 +38,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// Get or set the position of the circle
 		/// </summary>
-		public Vector2 Position
+		public System.Numerics.Vector2 Position
 		{
 			get => _position;
 			set
@@ -48,7 +48,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		internal Vector2 _position;
+		internal System.Numerics.Vector2 _position;
 
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace FarseerPhysics.Collision.Shapes
 			Debug.Assert(density >= 0);
 
 			ShapeType = ShapeType.Circle;
-			_position = Vector2.Zero;
+			_position = System.Numerics.Vector2.Zero;
 			base.Radius =
 				radius; // The Radius property cache 2radius and calls ComputeProperties(). So no need to call ComputeProperties() here.
 		}
@@ -71,14 +71,14 @@ namespace FarseerPhysics.Collision.Shapes
 		{
 			ShapeType = ShapeType.Circle;
 			_radius = 0.0f;
-			_position = Vector2.Zero;
+			_position = System.Numerics.Vector2.Zero;
 		}
 
-		public override bool TestPoint(ref Transform transform, ref Vector2 point)
+		public override bool TestPoint(ref Transform transform, ref System.Numerics.Vector2 point)
 		{
 			var center = transform.P + MathUtils.Mul(transform.Q, Position);
 			var d = point - center;
-			return Vector2.Dot(d, d) <= _2radius;
+			return System.Numerics.Vector2.Dot(d, d) <= _2radius;
 		}
 
 		public override bool RayCast(out RayCastOutput output, ref RayCastInput input, ref Transform transform,
@@ -93,12 +93,12 @@ namespace FarseerPhysics.Collision.Shapes
 
 			var pos = transform.P + MathUtils.Mul(transform.Q, this.Position);
 			var s = input.Point1 - pos;
-			var b = Vector2.Dot(s, s) - _2radius;
+			var b = System.Numerics.Vector2.Dot(s, s) - _2radius;
 
 			// Solve quadratic equation.
 			var r = input.Point2 - input.Point1;
-			var c = Vector2.Dot(s, r);
-			var rr = Vector2.Dot(r, r);
+			var c = System.Numerics.Vector2.Dot(s, r);
+			var rr = System.Numerics.Vector2.Dot(r, r);
 			var sigma = c * c - rr * b;
 
 			// Check for negative discriminant and short segment.
@@ -126,8 +126,8 @@ namespace FarseerPhysics.Collision.Shapes
 		public override void ComputeAABB(out AABB aabb, ref Transform transform, int childIndex)
 		{
 			var p = transform.P + MathUtils.Mul(transform.Q, Position);
-			aabb.LowerBound = new Vector2(p.X - Radius, p.Y - Radius);
-			aabb.UpperBound = new Vector2(p.X + Radius, p.Y + Radius);
+			aabb.LowerBound = new System.Numerics.Vector2(p.X - Radius, p.Y - Radius);
+			aabb.UpperBound = new System.Numerics.Vector2(p.X + Radius, p.Y + Radius);
 		}
 
 		protected override sealed void ComputeProperties()
@@ -138,15 +138,15 @@ namespace FarseerPhysics.Collision.Shapes
 			MassData.Centroid = Position;
 
 			// inertia about the local origin
-			MassData.Inertia = MassData.Mass * (0.5f * _2radius + Vector2.Dot(Position, Position));
+			MassData.Inertia = MassData.Mass * (0.5f * _2radius + System.Numerics.Vector2.Dot(Position, Position));
 		}
 
-		public override float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc)
+		public override float ComputeSubmergedArea(ref System.Numerics.Vector2 normal, float offset, ref Transform xf, out System.Numerics.Vector2 sc)
 		{
-			sc = Vector2.Zero;
+			sc = System.Numerics.Vector2.Zero;
 
 			var p = MathUtils.Mul(ref xf, Position);
-			float l = -(Vector2.Dot(normal, p) - offset);
+			float l = -(System.Numerics.Vector2.Dot(normal, p) - offset);
 			if (l < -Radius + Settings.Epsilon)
 			{
 				//Completely dry

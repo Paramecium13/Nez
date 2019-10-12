@@ -13,7 +13,7 @@ namespace Nez.Farseer
 		/// </summary>
 		protected Vertices _verts;
 
-		Vector2 _center;
+		System.Numerics.Vector2 _center;
 		protected bool _areVertsDirty = true;
 
 
@@ -23,17 +23,17 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon(List<Vector2> vertices) : this()
+		public FSCollisionPolygon(List<System.Numerics.Vector2> vertices) : this()
 		{
 			_verts = new Vertices(vertices);
-			_verts.Scale(new Vector2(FSConvert.DisplayToSim));
+			_verts.Scale(new System.Numerics.Vector2(FSConvert.DisplayToSim));
 		}
 
 
-		public FSCollisionPolygon(Vector2[] vertices) : this()
+		public FSCollisionPolygon(System.Numerics.Vector2[] vertices) : this()
 		{
 			_verts = new Vertices(vertices);
-			_verts.Scale(new Vector2(FSConvert.DisplayToSim));
+			_verts.Scale(new System.Numerics.Vector2(FSConvert.DisplayToSim));
 		}
 
 
@@ -48,7 +48,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon SetVertices(List<Vector2> vertices)
+		public FSCollisionPolygon SetVertices(List<System.Numerics.Vector2> vertices)
 		{
 			_verts = new Vertices(vertices);
 			_areVertsDirty = true;
@@ -57,7 +57,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon SetCenter(Vector2 center)
+		public FSCollisionPolygon SetCenter(System.Numerics.Vector2 center)
 		{
 			_center = center;
 			_areVertsDirty = true;

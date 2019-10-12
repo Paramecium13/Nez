@@ -8,6 +8,7 @@ namespace Nez.PhysicsShapes
 	/// </summary>
 	public class Box : Polygon
 	{
+		// ToDo: SIMD
 		public float Width;
 		public float Height;
 
@@ -26,17 +27,17 @@ namespace Nez.PhysicsShapes
 		/// <returns>The box.</returns>
 		/// <param name="width">Width.</param>
 		/// <param name="height">Height.</param>
-		static Vector2[] BuildBox(float width, float height)
+		static System.Numerics.Vector2[] BuildBox(float width, float height)
 		{
 			// we create our points around a center of 0,0
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
-			var verts = new Vector2[4];
+			var verts = new System.Numerics.Vector2[4];
 
-			verts[0] = new Vector2(-halfWidth, -halfHeight);
-			verts[1] = new Vector2(halfWidth, -halfHeight);
-			verts[2] = new Vector2(halfWidth, halfHeight);
-			verts[3] = new Vector2(-halfWidth, halfHeight);
+			verts[0] = new System.Numerics.Vector2(-halfWidth, -halfHeight);
+			verts[1] = new System.Numerics.Vector2(halfWidth, -halfHeight);
+			verts[2] = new System.Numerics.Vector2(halfWidth, halfHeight);
+			verts[3] = new System.Numerics.Vector2(-halfWidth, halfHeight);
 
 			return verts;
 		}
@@ -56,10 +57,10 @@ namespace Nez.PhysicsShapes
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
 
-			Points[0] = new Vector2(-halfWidth, -halfHeight);
-			Points[1] = new Vector2(halfWidth, -halfHeight);
-			Points[2] = new Vector2(halfWidth, halfHeight);
-			Points[3] = new Vector2(-halfWidth, halfHeight);
+			Points[0] = new System.Numerics.Vector2(-halfWidth, -halfHeight);
+			Points[1] = new System.Numerics.Vector2(halfWidth, -halfHeight);
+			Points[2] = new System.Numerics.Vector2(halfWidth, halfHeight);
+			Points[3] = new System.Numerics.Vector2(-halfWidth, halfHeight);
 
 			for (var i = 0; i < Points.Length; i++)
 				_originalPoints[i] = Points[i];
@@ -99,7 +100,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool ContainsPoint(Vector2 point)
+		public override bool ContainsPoint(System.Numerics.Vector2 point)
 		{
 			if (IsUnrotated)
 				return bounds.Contains(point);
@@ -108,7 +109,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool PointCollidesWithShape(Vector2 point, out CollisionResult result)
+		public override bool PointCollidesWithShape(System.Numerics.Vector2 point, out CollisionResult result)
 		{
 			if (IsUnrotated)
 				return ShapeCollisions.PointToBox(point, this, out result);

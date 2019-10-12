@@ -151,7 +151,7 @@ namespace FarseerPhysics.Collision
 			_tree.RemoveProxy(proxyId);
 		}
 
-		public void MoveProxy(int proxyId, ref AABB aabb, Vector2 displacement)
+		public void MoveProxy(int proxyId, ref AABB aabb, System.Numerics.Vector2 displacement)
 		{
 			var buffer = _tree.MoveProxy(proxyId, ref aabb, displacement);
 			if (buffer)
@@ -346,7 +346,7 @@ namespace FarseerPhysics.Collision
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public void ShiftOrigin(Vector2 newOrigin)
+		public void ShiftOrigin(System.Numerics.Vector2 newOrigin)
 		{
 			_tree.ShiftOrigin(newOrigin);
 		}

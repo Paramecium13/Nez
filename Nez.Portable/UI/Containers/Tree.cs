@@ -448,7 +448,7 @@ namespace Nez.UI.Containers
 			//if (toActor == null || !toActor.isDescendantOf(Tree.this)) setOverNode(null);
 		}
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			var node = GetNodeAt(mousePos.Y);
 			if (node == null)
@@ -502,12 +502,12 @@ namespace Nez.UI.Containers
 			return true;
 		}
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			SetOverNode(GetNodeAt(mousePos.Y));
 		}
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 		}
 

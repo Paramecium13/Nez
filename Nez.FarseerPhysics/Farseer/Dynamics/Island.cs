@@ -94,7 +94,7 @@ namespace FarseerPhysics.Dynamics
 			JointCount = 0;
 		}
 
-		public void Solve(ref TimeStep step, ref Vector2 gravity)
+		public void Solve(ref TimeStep step, ref System.Numerics.Vector2 gravity)
 		{
 			float h = step.Dt;
 
@@ -196,14 +196,14 @@ namespace FarseerPhysics.Dynamics
 			// Integrate positions
 			for (int i = 0; i < BodyCount; ++i)
 			{
-				Vector2 c = _positions[i].C;
+				System.Numerics.Vector2 c = _positions[i].C;
 				float a = _positions[i].A;
-				Vector2 v = _velocities[i].V;
+				System.Numerics.Vector2 v = _velocities[i].V;
 				float w = _velocities[i].W;
 
 				// Check for large velocities
-				Vector2 translation = h * v;
-				if (Vector2.Dot(translation, translation) > Settings.MaxTranslationSquared)
+				System.Numerics.Vector2 translation = h * v;
+				if (System.Numerics.Vector2.Dot(translation, translation) > Settings.MaxTranslationSquared)
 				{
 					float ratio = Settings.MaxTranslation / translation.Length();
 					v *= ratio;
@@ -291,7 +291,7 @@ namespace FarseerPhysics.Dynamics
 						continue;
 
 					if (!b.IsSleepingAllowed || b._angularVelocity * b._angularVelocity > AngTolSqr ||
-					    Vector2.Dot(b._linearVelocity, b._linearVelocity) > LinTolSqr)
+					    System.Numerics.Vector2.Dot(b._linearVelocity, b._linearVelocity) > LinTolSqr)
 					{
 						b._sleepTime = 0.0f;
 						minSleepTime = 0.0f;
@@ -365,14 +365,14 @@ namespace FarseerPhysics.Dynamics
 			// Integrate positions.
 			for (int i = 0; i < BodyCount; ++i)
 			{
-				Vector2 c = _positions[i].C;
+				System.Numerics.Vector2 c = _positions[i].C;
 				float a = _positions[i].A;
-				Vector2 v = _velocities[i].V;
+				System.Numerics.Vector2 v = _velocities[i].V;
 				float w = _velocities[i].W;
 
 				// Check for large velocities
-				Vector2 translation = h * v;
-				if (Vector2.Dot(translation, translation) > Settings.MaxTranslationSquared)
+				System.Numerics.Vector2 translation = h * v;
+				if (System.Numerics.Vector2.Dot(translation, translation) > Settings.MaxTranslationSquared)
 				{
 					float ratio = Settings.MaxTranslation / translation.Length();
 					v *= ratio;

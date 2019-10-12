@@ -30,9 +30,9 @@ namespace Nez
 		/// size of the squares. If you want perfect squares use size, size / aspectRatio_of_screen
 		/// </summary>
 		/// <value>The size.</value>
-		public Vector2 Size
+		public System.Numerics.Vector2 Size
 		{
-			set => _squaresEffect.Parameters["_size"].SetValue(value);
+			set => _squaresEffect.Parameters["_size"].SetValue(value.ToXna());
 		}
 
 		/// <summary>
@@ -70,7 +70,7 @@ namespace Nez
 			Smoothness = 0.5f;
 
 			var aspectRatio = (float) Screen.Width / (float) Screen.Height;
-			Size = new Vector2(30, 30 / aspectRatio);
+			Size = new System.Numerics.Vector2(30, 30 / aspectRatio);
 		}
 
 

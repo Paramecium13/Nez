@@ -35,7 +35,7 @@ namespace Nez
 		/// you will need to scale this value appropriately.
 		/// </summary>
 		/// <value>The center.</value>
-		public static Vector2 Center => new Vector2(Width / 2, Height / 2);
+		public static System.Numerics.Vector2 Center => new System.Numerics.Vector2(Width / 2, Height / 2);
 
 		public static int PreferredBackBufferWidth
 		{

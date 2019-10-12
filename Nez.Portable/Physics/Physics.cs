@@ -17,7 +17,7 @@ namespace Nez
 		/// <summary>
 		/// convenience field for storing a gravity value globally 
 		/// </summary>
-		public static Vector2 Gravity = new Vector2(0, 300f);
+		public static System.Numerics.Vector2 Gravity = new System.Numerics.Vector2(0, 300f);
 
 		/// <summary>
 		/// cell size used when reset is called and a new SpatialHash is created
@@ -125,7 +125,7 @@ namespace Nez
 		/// <param name="start">Start.</param>
 		/// <param name="end">End.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static RaycastHit Linecast(Vector2 start, Vector2 end, int layerMask = AllLayers)
+		public static RaycastHit Linecast(System.Numerics.Vector2 start, System.Numerics.Vector2 end, int layerMask = AllLayers)
 		{
 			// cleanse the collider before proceeding
 			_hitArray[0].Reset();
@@ -142,7 +142,7 @@ namespace Nez
 		/// <param name="end">End.</param>
 		/// <param name="hits">Hits.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static int LinecastAll(Vector2 start, Vector2 end, RaycastHit[] hits, int layerMask = AllLayers)
+		public static int LinecastAll(System.Numerics.Vector2 start, System.Numerics.Vector2 end, RaycastHit[] hits, int layerMask = AllLayers)
 		{
 			Insist.IsFalse(hits.Length == 0, "An empty hits array was passed in. No hits will ever be returned.");
 			return _spatialHash.Linecast(start, end, hits, layerMask);
@@ -197,7 +197,7 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="radius">Radius.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static Collider OverlapCircle(Vector2 center, float radius, int layerMask = AllLayers)
+		public static Collider OverlapCircle(System.Numerics.Vector2 center, float radius, int layerMask = AllLayers)
 		{
 			_colliderArray[0] = null;
 			_spatialHash.OverlapCircle(center, radius, _colliderArray, layerMask);
@@ -213,7 +213,7 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		/// <param name="results">Results.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static int OverlapCircleAll(Vector2 center, float radius, Collider[] results, int layerMask = AllLayers)
+		public static int OverlapCircleAll(System.Numerics.Vector2 center, float radius, Collider[] results, int layerMask = AllLayers)
 		{
 			Insist.IsFalse(results.Length == 0,
 				"An empty results array was passed in. No results will ever be returned.");

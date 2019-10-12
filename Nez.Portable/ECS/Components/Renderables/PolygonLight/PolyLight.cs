@@ -22,8 +22,8 @@ namespace Nez.Shadows
 			{
 				if (_areBoundsDirty)
 				{
-					_bounds.CalculateBounds(Entity.Position, _localOffset, new Vector2(_radius, _radius),
-						Vector2.One, 0, _radius * 2f, _radius * 2f);
+					_bounds.CalculateBounds(Entity.Position, _localOffset, new System.Numerics.Vector2(_radius, _radius),
+						System.Numerics.Vector2.One, 0, _radius * 2f, _radius * 2f);
 					_areBoundsDirty = false;
 				}
 
@@ -139,7 +139,7 @@ namespace Nez.Shadows
 			RenderImpl(batcher, Entity.Scene.Camera, true);
 
 			// draw a square for our pivot/origin and draw our bounds
-			batcher.DrawPixel(Entity.Transform.Position + _localOffset.ToSimd(), Debug.Colors.RenderableCenter, 4);
+			batcher.DrawPixel(Entity.Transform.Position + _localOffset, Debug.Colors.RenderableCenter, 4);
 			batcher.DrawHollowRect(Bounds, Debug.Colors.RenderableBounds);
 		}
 
@@ -150,7 +150,7 @@ namespace Nez.Shadows
 				var totalOverlaps = GetOverlappedColliders();
 
 				// compute the visibility mesh
-				_visibility.Begin(Entity.Transform.Position + _localOffset.ToSimd(), _radius);
+				_visibility.Begin(Entity.Transform.Position + _localOffset, _radius);
 				LoadVisibilityBoundaries();
 				for (var i = 0; i < totalOverlaps; i++)
 				{

@@ -64,7 +64,7 @@ namespace Nez.Verlet
 			if (distance > -1)
 				RestingDistance = distance;
 			else
-				RestingDistance = Vector2.Distance(first.Position, second.Position);
+				RestingDistance = System.Numerics.Vector2.Distance(first.Position, second.Position);
 		}
 
 
@@ -79,8 +79,8 @@ namespace Nez.Verlet
 		public static DistanceConstraint Create(Particle a, Particle center, Particle c, float stiffness,
 		                                        float angleInDegrees)
 		{
-			var aToCenter = Vector2.Distance(a.Position, center.Position);
-			var cToCenter = Vector2.Distance(c.Position, center.Position);
+			var aToCenter = System.Numerics.Vector2.Distance(a.Position, center.Position);
+			var cToCenter = System.Numerics.Vector2.Distance(c.Position, center.Position);
 			var distance = Mathf.Sqrt(aToCenter * aToCenter + cToCenter * cToCenter -
 			                          (2 * aToCenter * cToCenter * Mathf.Cos(angleInDegrees * Mathf.Deg2Rad)));
 
@@ -171,7 +171,7 @@ namespace Nez.Verlet
 			var maxY = Math.Max(_particleOne.Position.Y, _particleTwo.Position.Y);
 			_polygon.bounds = RectangleF.FromMinMax(minX, minY, maxX, maxY);
 
-			Vector2 midPoint;
+			System.Numerics.Vector2 midPoint;
 			PreparePolygonForCollisionChecks(out midPoint);
 
 			var colliders = Physics.BoxcastBroadphase(ref _polygon.bounds, collidesWithLayers);
@@ -186,7 +186,7 @@ namespace Nez.Verlet
 					// center. If it is, we flip the result.
 					//if( collider.shape is Circle )
 					//{
-					//	var dot = Vector2.Dot( midPoint - collider.shape.position, result.normal );
+					//	var dot = System.Numerics.Vector2.Dot( midPoint - collider.shape.position, result.normal );
 					//	if( dot < 0 )
 					//		result.invertResult();
 					//}
@@ -201,10 +201,10 @@ namespace Nez.Verlet
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void ApproximateCollisionsWithPoints(int collidesWithLayers)
 		{
-			Vector2 pt;
+			System.Numerics.Vector2 pt;
 			for (var j = 0; j < TotalPointsToApproximateCollisionsWith - 1; j++)
 			{
-				pt = Vector2.Lerp(_particleOne.Position, _particleTwo.Position,
+				pt = System.Numerics.Vector2.Lerp(_particleOne.Position, _particleTwo.Position,
 					(j + 1) / (float) TotalPointsToApproximateCollisionsWith);
 				var collidedCount = Physics.OverlapCircleAll(pt, 3, VerletWorld._colliders, collidesWithLayers);
 				for (var i = 0; i < collidedCount; i++)
@@ -222,10 +222,10 @@ namespace Nez.Verlet
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void PreparePolygonForCollisionChecks(out Vector2 midPoint)
+		void PreparePolygonForCollisionChecks(out System.Numerics.Vector2 midPoint)
 		{
 			// set our Polygon points
-			midPoint = Vector2.Lerp(_particleOne.Position, _particleTwo.Position, 0.5f);
+			midPoint = System.Numerics.Vector2.Lerp(_particleOne.Position, _particleTwo.Position, 0.5f);
 			_polygon.position = midPoint;
 			_polygon.Points[0] = _particleOne.Position - _polygon.position;
 			_polygon.Points[1] = _particleTwo.Position - _polygon.position;

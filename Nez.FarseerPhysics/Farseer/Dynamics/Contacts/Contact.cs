@@ -181,7 +181,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 		/// <summary>
 		/// Gets the world manifold.
 		/// </summary>
-		public void GetWorldManifold(out Vector2 normal, out FixedArray2<Vector2> points)
+		public void GetWorldManifold(out System.Numerics.Vector2 normal, out FixedArray2<System.Numerics.Vector2> points)
 		{
 			var bodyA = FixtureA.Body;
 			var bodyB = FixtureB.Body;

@@ -18,14 +18,14 @@ namespace Nez
 		/// </summary>
 		/// <returns>The string.</returns>
 		/// <param name="text">Text.</param>
-		Vector2 MeasureString(string text);
+		System.Numerics.Vector2 MeasureString(string text);
 
 		/// <summary>
 		/// returns the size in pixels of text when rendered in this font
 		/// </summary>
 		/// <returns>The string.</returns>
 		/// <param name="text">Text.</param>
-		Vector2 MeasureString(StringBuilder text);
+		System.Numerics.Vector2 MeasureString(StringBuilder text);
 
 		/// <summary>
 		/// returns true if the character exists in the font or false if it does not
@@ -34,10 +34,10 @@ namespace Nez
 		/// <param name="c">C.</param>
 		bool HasCharacter(char c);
 
-		void DrawInto(Batcher batcher, string text, Vector2 position, Color color,
-		              float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth);
+		void DrawInto(Batcher batcher, string text, System.Numerics.Vector2 position, Color color,
+		              float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effect, float depth);
 
-		void DrawInto(Batcher batcher, StringBuilder text, Vector2 position, Color color,
-		              float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth);
+		void DrawInto(Batcher batcher, StringBuilder text, System.Numerics.Vector2 position, Color color,
+		              float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale, SpriteEffects effect, float depth);
 	}
 }

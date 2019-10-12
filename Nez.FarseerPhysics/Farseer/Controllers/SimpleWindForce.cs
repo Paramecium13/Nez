@@ -14,7 +14,7 @@ namespace FarseerPhysics.Controllers
 		/// <summary>
 		/// Direction of the windforce
 		/// </summary>
-		public Vector2 Direction;
+		public System.Numerics.Vector2 Direction;
 
 		/// <summary>
 		/// The amount of Direction randomization. Allowed range is 0-1.
@@ -36,7 +36,7 @@ namespace FarseerPhysics.Controllers
 				float decayMultiplier = GetDecayMultiplier(body);
 				if (decayMultiplier != 0)
 				{
-					Vector2 forceVector;
+					System.Numerics.Vector2 forceVector;
 					if (ForceType == ForceTypes.Point)
 					{
 						forceVector = body.Position - Position;
@@ -47,11 +47,11 @@ namespace FarseerPhysics.Controllers
 						forceVector = Direction;
 
 						if (forceVector.Length() == 0)
-							forceVector = new Vector2(0, 1);
+							forceVector = new System.Numerics.Vector2(0, 1);
 					}
 
 					//TODO: Consider Divergence:
-					//forceVector = Vector2.Transform(forceVector, Matrix.CreateRotationZ((MathHelper.Pi - MathHelper.Pi/2) * (float)Randomize.NextDouble()));
+					//forceVector = System.Numerics.Vector2.Transform(forceVector, Matrix.CreateRotationZ((MathHelper.Pi - MathHelper.Pi/2) * (float)Randomize.NextDouble()));
 
 					// Calculate random Variation
 					if (Variation != 0)

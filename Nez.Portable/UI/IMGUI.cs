@@ -27,7 +27,7 @@ namespace Nez
 		const float ELEMENT_HEIGHT = 20;
 		const float SHORT_ELEMENT_HEIGHT = 15;
 		const float ELEMENT_PADDING = 10;
-		static Vector2 FONT_SCALE;
+		static System.Numerics.Vector2 FONT_SCALE;
 
 		// colors
 		static Color FONT_COLOR = new Color(255, 255, 255);
@@ -61,7 +61,7 @@ namespace Nez
 			_font = Graphics.Instance.BitmapFont;
 
 			var scale = FONT_LINE_HEIGHT / _font.LineHeight;
-			FONT_SCALE = new Vector2(scale, scale);
+			FONT_SCALE = new System.Numerics.Vector2(scale, scale);
 		}
 
 
@@ -85,8 +85,8 @@ namespace Nez
 
 			var y = _lastY + ELEMENT_PADDING + (elementHeight - FONT_LINE_HEIGHT) * 0.5f;
 
-			BitmapFonts.BatcherBitmapFontExt.DrawString(_batcher, _font, text, new Vector2(x, y), color, 0,
-				Vector2.Zero, FONT_SCALE, SpriteEffects.None, 0);
+			BitmapFonts.BatcherBitmapFontExt.DrawString(_batcher, _font, text, new System.Numerics.Vector2(x, y), color, 0,
+				System.Numerics.Vector2.Zero, FONT_SCALE, SpriteEffects.None, 0);
 		}
 
 

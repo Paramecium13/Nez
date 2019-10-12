@@ -11,20 +11,20 @@ namespace FarseerPhysics.Factories
 {
 	public static class BodyFactory
 	{
-		public static Body CreateBody(World world, Vector2 position = new Vector2(), float rotation = 0,
+		public static Body CreateBody(World world, System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                              BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			return new Body(world, position, rotation, bodyType, userData);
 		}
 
-		public static Body CreateEdge(World world, Vector2 start, Vector2 end, object userData = null)
+		public static Body CreateEdge(World world, System.Numerics.Vector2 start, System.Numerics.Vector2 end, object userData = null)
 		{
 			var body = CreateBody(world);
 			FixtureFactory.AttachEdge(start, end, body, userData);
 			return body;
 		}
 
-		public static Body CreateChainShape(World world, Vertices vertices, Vector2 position = new Vector2(),
+		public static Body CreateChainShape(World world, Vertices vertices, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                                    object userData = null)
 		{
 			var body = CreateBody(world, position);
@@ -32,7 +32,7 @@ namespace FarseerPhysics.Factories
 			return body;
 		}
 
-		public static Body CreateLoopShape(World world, Vertices vertices, Vector2 position = new Vector2(),
+		public static Body CreateLoopShape(World world, Vertices vertices, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                                   object userData = null)
 		{
 			var body = CreateBody(world, position);
@@ -41,7 +41,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateRectangle(World world, float width, float height, float density,
-		                                   Vector2 position = new Vector2(), float rotation = 0,
+		                                   System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                   BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			if (width <= 0)
@@ -60,7 +60,7 @@ namespace FarseerPhysics.Factories
 			return newBody;
 		}
 
-		public static Body CreateCircle(World world, float radius, float density, Vector2 position = new Vector2(),
+		public static Body CreateCircle(World world, float radius, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                                BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			var body = CreateBody(world, position, 0, bodyType);
@@ -69,7 +69,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateEllipse(World world, float xRadius, float yRadius, int edges, float density,
-		                                 Vector2 position = new Vector2(), float rotation = 0,
+		                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                 BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			var body = CreateBody(world, position, rotation, bodyType);
@@ -78,7 +78,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreatePolygon(World world, Vertices vertices, float density,
-		                                 Vector2 position = new Vector2(), float rotation = 0,
+		                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                 BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			var body = CreateBody(world, position, rotation, bodyType);
@@ -87,7 +87,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateCompoundPolygon(World world, List<Vertices> list, float density,
-		                                         Vector2 position = new Vector2(), float rotation = 0,
+		                                         System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                         BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			//We create a single body
@@ -97,7 +97,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateGear(World world, float radius, int numberOfTeeth, float tipPercentage,
-		                              float toothHeight, float density, Vector2 position = new Vector2(),
+		                              float toothHeight, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                              float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			var gearPolygon = PolygonTools.CreateGear(radius, numberOfTeeth, tipPercentage, toothHeight);
@@ -114,7 +114,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateCapsule(World world, float height, float topRadius, int topEdges, float bottomRadius,
-		                                 int bottomEdges, float density, Vector2 position = new Vector2(),
+		                                 int bottomEdges, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                                 float rotation = 0, BodyType bodyType = BodyType.Static,
 		                                 object userData = null)
 		{
@@ -131,7 +131,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateCapsule(World world, float height, float endRadius, float density,
-		                                 Vector2 position = new Vector2(), float rotation = 0,
+		                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                 BodyType bodyType = BodyType.Static, object userData = null)
 		{
 			//Create the middle rectangle
@@ -142,14 +142,14 @@ namespace FarseerPhysics.Factories
 			var body = CreateCompoundPolygon(world, list, density, position, rotation, bodyType, userData);
 
 			//Create the two circles
-			FixtureFactory.AttachCircle(endRadius, density, body, new Vector2(0, height / 2));
-			FixtureFactory.AttachCircle(endRadius, density, body, new Vector2(0, -(height / 2)));
+			FixtureFactory.AttachCircle(endRadius, density, body, new System.Numerics.Vector2(0, height / 2));
+			FixtureFactory.AttachCircle(endRadius, density, body, new System.Numerics.Vector2(0, -(height / 2)));
 
 			return body;
 		}
 
 		public static Body CreateRoundedRectangle(World world, float width, float height, float xRadius, float yRadius,
-		                                          int segments, float density, Vector2 position = new Vector2(),
+		                                          int segments, float density, System.Numerics.Vector2 position = new System.Numerics.Vector2(),
 		                                          float rotation = 0, BodyType bodyType = BodyType.Static,
 		                                          object userData = null)
 		{
@@ -166,7 +166,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateLineArc(World world, float radians, int sides, float radius, bool closed = false,
-		                                 Vector2 position = new Vector2(), float rotation = 0,
+		                                 System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                 BodyType bodyType = BodyType.Static)
 		{
 			var body = CreateBody(world, position, rotation, bodyType);
@@ -175,7 +175,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static Body CreateSolidArc(World world, float density, float radians, int sides, float radius,
-		                                  Vector2 position = new Vector2(), float rotation = 0,
+		                                  System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0,
 		                                  BodyType bodyType = BodyType.Static)
 		{
 			var body = CreateBody(world, position, rotation, bodyType);
@@ -185,7 +185,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static BreakableBody CreateBreakableBody(World world, Vertices vertices, float density,
-		                                                Vector2 position = new Vector2(), float rotation = 0)
+		                                                System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0)
 		{
 			//TODO: Implement a Voronoi diagram algorithm to split up the vertices
 			var triangles = Triangulate.ConvexPartition(vertices, TriangulationAlgorithm.Earclip);
@@ -197,7 +197,7 @@ namespace FarseerPhysics.Factories
 		}
 
 		public static BreakableBody CreateBreakableBody(World world, IEnumerable<Shape> shapes,
-		                                                Vector2 position = new Vector2(), float rotation = 0)
+		                                                System.Numerics.Vector2 position = new System.Numerics.Vector2(), float rotation = 0)
 		{
 			var breakableBody = new BreakableBody(world, shapes, position, rotation);
 			breakableBody.MainBody.Position = position;

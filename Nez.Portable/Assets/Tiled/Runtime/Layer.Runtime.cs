@@ -16,7 +16,7 @@ namespace Nez.Tiled
 		/// <summary>
 		/// gets the TmxLayerTile at the given world position
 		/// </summary>
-		public TmxLayerTile GetTileAtWorldPosition(Vector2 pos)
+		public TmxLayerTile GetTileAtWorldPosition(System.Numerics.Vector2 pos)
 		{
 			var worldPoint = Map.WorldToTilePosition(pos);
 			return GetTile(worldPoint.X, worldPoint.Y);

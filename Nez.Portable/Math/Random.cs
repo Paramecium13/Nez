@@ -108,14 +108,14 @@ namespace Nez
 
 
 		/// <summary>
-		/// Returns a random Vector2, and x- and y-values of which are between min (inclusive) and max (exclusive)
+		/// Returns a random System.Numerics.Vector2, and x- and y-values of which are between min (inclusive) and max (exclusive)
 		/// </summary>
 		/// <param name="min"></param>
 		/// <param name="max"></param>
 		/// <returns></returns>
-		static public Vector2 Range(Vector2 min, Vector2 max)
+		static public System.Numerics.Vector2 Range(System.Numerics.Vector2 min, System.Numerics.Vector2 max)
 		{
-			return min + new Vector2(NextFloat(max.X - min.X), NextFloat(max.Y - min.Y));
+			return min + new System.Numerics.Vector2(NextFloat(max.X - min.X), NextFloat(max.Y - min.Y));
 		}
 
 

@@ -18,9 +18,9 @@ namespace FarseerPhysics.Common.Decomposition
 	/// </summary>
 	internal static class FlipcodeDecomposer
 	{
-		private static Vector2 _tmpA;
-		private static Vector2 _tmpB;
-		private static Vector2 _tmpC;
+		private static System.Numerics.Vector2 _tmpA;
+		private static System.Numerics.Vector2 _tmpB;
+		private static System.Numerics.Vector2 _tmpC;
 
 		/// <summary>
 		/// Decompose the polygon into triangles.
@@ -107,7 +107,7 @@ namespace FarseerPhysics.Common.Decomposition
 		/// <param name="c">The C point.</param>
 		/// <param name="p">The point to be tested.</param>
 		/// <returns>True if the point is inside the triangle</returns>
-		private static bool InsideTriangle(ref Vector2 a, ref Vector2 b, ref Vector2 c, ref Vector2 p)
+		private static bool InsideTriangle(ref System.Numerics.Vector2 a, ref System.Numerics.Vector2 b, ref System.Numerics.Vector2 c, ref System.Numerics.Vector2 p)
 		{
 			//A cross bp
 			float abp = (c.X - b.X) * (p.Y - b.Y) - (c.Y - b.Y) * (p.X - b.X);
@@ -142,7 +142,7 @@ namespace FarseerPhysics.Common.Decomposition
 				if ((p == u) || (p == v) || (p == w))
 					continue;
 
-				Vector2 point = contour[V[p]];
+				System.Numerics.Vector2 point = contour[V[p]];
 
 				if (InsideTriangle(ref _tmpA, ref _tmpB, ref _tmpC, ref point))
 					return false;

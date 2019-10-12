@@ -6,8 +6,8 @@ namespace Nez
 {
 	public class CameraShake : Component, IUpdatable
 	{
-		Vector2 _shakeDirection;
-		Vector2 _shakeOffset;
+		System.Numerics.Vector2 _shakeDirection;
+		System.Numerics.Vector2 _shakeOffset;
 		float _shakeIntensity = 0f;
 		float _shakeDegredation = 0.95f;
 
@@ -21,7 +21,7 @@ namespace Nez
 		/// <param name="shakeDirection">Vector3.zero will result in a shake on just the x/y axis. any other values will result in the passed
 		/// in shakeDirection * intensity being the offset the camera is moved</param>
 		public void Shake(float shakeIntensity = 15f, float shakeDegredation = 0.9f,
-		                  Vector2 shakeDirection = default(Vector2))
+		                  System.Numerics.Vector2 shakeDirection = default(System.Numerics.Vector2))
 		{
 			Enabled = true;
 			if (_shakeIntensity < shakeIntensity)

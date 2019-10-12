@@ -55,20 +55,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point relative to bodyA's origin.
 		/// </summary>
-		public Vector2 LocalAnchorA;
+		public System.Numerics.Vector2 LocalAnchorA;
 
 		/// <summary>
 		/// The local anchor point relative to bodyB's origin.
 		/// </summary>
-		public Vector2 LocalAnchorB;
+		public System.Numerics.Vector2 LocalAnchorB;
 
-		public override sealed Vector2 WorldAnchorA
+		public override sealed System.Numerics.Vector2 WorldAnchorA
 		{
 			get => BodyA.GetWorldPoint(LocalAnchorA);
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
 		}
 
-		public override sealed Vector2 WorldAnchorB
+		public override sealed System.Numerics.Vector2 WorldAnchorB
 		{
 			get => BodyB.GetWorldPoint(LocalAnchorB);
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
@@ -99,11 +99,11 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _u;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		System.Numerics.Vector2 _u;
+		System.Numerics.Vector2 _rA;
+		System.Numerics.Vector2 _rB;
+		System.Numerics.Vector2 _localCenterA;
+		System.Numerics.Vector2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -131,7 +131,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchorA">The first body anchor</param>
 		/// <param name="anchorB">The second body anchor</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public DistanceJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false)
+		public DistanceJoint(Body bodyA, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB, bool useWorldCoordinates = false)
 			: base(bodyA, bodyB)
 		{
 			JointType = JointType.Distance;
@@ -155,9 +155,9 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// </summary>
 		/// <param name="invDt"></param>
 		/// <returns></returns>
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
-			Vector2 F = (invDt * _impulse) * _u;
+			System.Numerics.Vector2 F = (invDt * _impulse) * _u;
 			return F;
 		}
 
@@ -183,14 +183,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = BodyA._invI;
 			_invIB = BodyB._invI;
 
-			Vector2 cA = data.Positions[_indexA].C;
+			System.Numerics.Vector2 cA = data.Positions[_indexA].C;
 			float aA = data.Positions[_indexA].A;
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
 
-			Vector2 cB = data.Positions[_indexB].C;
+			System.Numerics.Vector2 cB = data.Positions[_indexB].C;
 			float aB = data.Positions[_indexB].A;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			Rot qA = new Rot(aA), qB = new Rot(aB);
@@ -207,7 +207,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_u = Vector2.Zero;
+				_u = System.Numerics.Vector2.Zero;
 			}
 
 			float crAu = MathUtils.Cross(_rA, _u);
@@ -250,7 +250,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				// Scale the impulse to support a variable time step.
 				_impulse *= data.Step.DtRatio;
 
-				Vector2 P = _impulse * _u;
+				System.Numerics.Vector2 P = _impulse * _u;
 				vA -= _invMassA * P;
 				wA -= _invIA * MathUtils.Cross(_rA, P);
 				vB += _invMassB * P;
@@ -269,20 +269,20 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void SolveVelocityConstraints(ref SolverData data)
 		{
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			// Cdot = dot(u, v + cross(w, r))
-			Vector2 vpA = vA + MathUtils.Cross(wA, _rA);
-			Vector2 vpB = vB + MathUtils.Cross(wB, _rB);
-			float Cdot = Vector2.Dot(_u, vpB - vpA);
+			System.Numerics.Vector2 vpA = vA + MathUtils.Cross(wA, _rA);
+			System.Numerics.Vector2 vpB = vB + MathUtils.Cross(wB, _rB);
+			float Cdot = System.Numerics.Vector2.Dot(_u, vpB - vpA);
 
 			float impulse = -_mass * (Cdot + _bias + _gamma * _impulse);
 			_impulse += impulse;
 
-			Vector2 P = impulse * _u;
+			System.Numerics.Vector2 P = impulse * _u;
 			vA -= _invMassA * P;
 			wA -= _invIA * MathUtils.Cross(_rA, P);
 			vB += _invMassB * P;

@@ -18,7 +18,7 @@ namespace Nez.DeferredLighting
 					// the size of the light only uses the x scale value
 					var size = Radius * Entity.Transform.Scale.X * 2;
 					_bounds.CalculateBounds(Entity.Position, _localOffset, _radius * Entity.Scale,
-						Vector2.One, 0, size, size);
+						System.Numerics.Vector2.One, 0, size, size);
 					_areBoundsDirty = false;
 				}
 

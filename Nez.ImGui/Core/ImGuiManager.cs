@@ -28,13 +28,13 @@ namespace Nez.ImGuiTools
 		List<Action> _drawCommands = new List<Action>();
 		ImGuiRenderer _renderer;
 
-		Num.Vector2 _gameWindowFirstPosition;
+		System.Numerics.Vector2 _gameWindowFirstPosition;
 		string _gameWindowTitle;
 		ImGuiWindowFlags _gameWindowFlags = 0;
 
 		RenderTarget2D _lastRenderTarget;
 		IntPtr _renderTargetId = IntPtr.Zero;
-		Num.Vector2? _gameViewForcedSize;
+		System.Numerics.Vector2? _gameViewForcedSize;
 		WindowPosition? _gameViewForcedPos;
 		float _mainMenuBarHeight;
 
@@ -141,19 +141,19 @@ namespace Nez.ImGuiTools
 					if (ImGui.BeginMenu("Resize"))
 					{
 						if (ImGui.MenuItem("0.25x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 4f, rtSize.Y / 4f);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X / 4f, rtSize.Y / 4f);
 						if (ImGui.MenuItem("0.5x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 2f, rtSize.Y / 2f);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X / 2f, rtSize.Y / 2f);
 						if (ImGui.MenuItem("0.75x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X / 1.33f, rtSize.Y / 1.33f);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X / 1.33f, rtSize.Y / 1.33f);
 						if (ImGui.MenuItem("1x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X, rtSize.Y);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X, rtSize.Y);
 						if (ImGui.MenuItem("1.5x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 1.5f, rtSize.Y * 1.5f);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X * 1.5f, rtSize.Y * 1.5f);
 						if (ImGui.MenuItem("2x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 2, rtSize.Y * 2);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X * 2, rtSize.Y * 2);
 						if (ImGui.MenuItem("3x"))
-							_gameViewForcedSize = new Num.Vector2(rtSize.X * 3, rtSize.Y * 3);
+							_gameViewForcedSize = new System.Numerics.Vector2(rtSize.X * 3, rtSize.Y * 3);
 						ImGui.EndMenu();
 					}
 

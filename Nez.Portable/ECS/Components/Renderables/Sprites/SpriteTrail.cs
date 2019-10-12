@@ -19,7 +19,7 @@ namespace Nez.Sprites
 		/// </summary>
 		class SpriteTrailInstance
 		{
-			public Vector2 Position;
+			public System.Numerics.Vector2 Position;
 			Sprite _sprite;
 			float _fadeDuration;
 			float _fadeDelay;
@@ -29,13 +29,13 @@ namespace Nez.Sprites
 			Color _renderColor;
 
 			float _rotation;
-			Vector2 _origin;
-			Vector2 _scale;
+			System.Numerics.Vector2 _origin;
+			System.Numerics.Vector2 _scale;
 			SpriteEffects _spriteEffects;
 			float _layerDepth;
 
 
-			public void Spawn(Vector2 position, Sprite sprite, float fadeDuration, float fadeDelay,
+			public void Spawn(System.Numerics.Vector2 position, Sprite sprite, float fadeDuration, float fadeDelay,
 							  Color initialColor, Color targetColor)
 			{
 				Position = position;
@@ -51,7 +51,7 @@ namespace Nez.Sprites
 			}
 
 
-			public void SetSpriteRenderOptions(float rotation, Vector2 origin, Vector2 scale,
+			public void SetSpriteRenderOptions(float rotation, System.Numerics.Vector2 origin, System.Numerics.Vector2 scale,
 											   SpriteEffects spriteEffects, float layerDepth)
 			{
 				_rotation = rotation;
@@ -130,7 +130,7 @@ namespace Nez.Sprites
 		int _maxSpriteInstances = 15;
 		Stack<SpriteTrailInstance> _availableSpriteTrailInstances = new Stack<SpriteTrailInstance>();
 		List<SpriteTrailInstance> _liveSpriteTrailInstances = new List<SpriteTrailInstance>(5);
-		Vector2 _lastPosition;
+		System.Numerics.Vector2 _lastPosition;
 		SpriteRenderer _sprite;
 
 		/// <summary>
@@ -281,13 +281,13 @@ namespace Nez.Sprites
 			}
 			else
 			{
-				var distanceMoved = Math.Abs(Vector2.Distance(Entity.Position + _localOffset, _lastPosition));
+				var distanceMoved = Math.Abs(System.Numerics.Vector2.Distance(Entity.Position + _localOffset, _lastPosition));
 				if (distanceMoved >= MinDistanceBetweenInstances)
 					SpawnInstance();
 			}
 
-			var min = new Vector2(float.MaxValue, float.MaxValue);
-			var max = new Vector2(float.MinValue, float.MinValue);
+			var min = new System.Numerics.Vector2(float.MaxValue, float.MaxValue);
+			var max = new System.Numerics.Vector2(float.MinValue, float.MinValue);
 
 			// update any live instances
 			for (var i = _liveSpriteTrailInstances.Count - 1; i >= 0; i--)
@@ -300,15 +300,14 @@ namespace Nez.Sprites
 				else
 				{
 					// calculate our min/max for the bounds
-					Vector2.Min(ref min, ref _liveSpriteTrailInstances[i].Position, out min);
-					Vector2.Max(ref max, ref _liveSpriteTrailInstances[i].Position, out max);
+					min = System.Numerics.Vector2.Min(min, _liveSpriteTrailInstances[i].Position);
+					max = System.Numerics.Vector2.Max(max, _liveSpriteTrailInstances[i].Position);
 				}
 			}
 
 			_bounds.Location = min;
-			_bounds.Width = max.X - min.X;
-			_bounds.Height = max.Y - min.Y;
-			_bounds.Inflate(_sprite.Width, _sprite.Height);
+			_bounds.Size = max - min;
+			_bounds.Inflate(_sprite.Bounds.Size);
 
 			// nothing left to render. disable ourself
 			if (_awaitingDisable && _liveSpriteTrailInstances.Count == 0)

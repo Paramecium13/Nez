@@ -36,9 +36,9 @@ namespace Nez
 		/// <summary>
 		/// Position stored in this matrix.
 		/// </summary>
-		public Vector2 Translation
+		public System.Numerics.Vector2 Translation
 		{
-			get => new Vector2(M31, M32);
+			get => new System.Numerics.Vector2(M31, M32);
 			set
 			{
 				M31 = value.X;
@@ -78,9 +78,9 @@ namespace Nez
 		/// <summary>
 		/// Scale stored in this matrix.
 		/// </summary>
-		public Vector2 Scale
+		public System.Numerics.Vector2 Scale
 		{
-			get => new Vector2(M11, M22);
+			get => new System.Numerics.Vector2(M11, M22);
 			set
 			{
 				M11 = value.X;
@@ -252,10 +252,10 @@ namespace Nez
 		/// <summary>
 		/// Creates a new scaling <see cref="Matrix2D"/>.
 		/// </summary>
-		/// <param name="scale"><see cref="Vector2"/> representing x and y scale values.</param>
+		/// <param name="scale"><see cref="System.Numerics.Vector2"/> representing x and y scale values.</param>
 		/// <returns>The scaling <see cref="Matrix2D"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Matrix2D CreateScale(Vector2 scale)
+		public static Matrix2D CreateScale(System.Numerics.Vector2 scale)
 		{
 			Matrix2D result;
 			CreateScale(ref scale, out result);
@@ -269,7 +269,7 @@ namespace Nez
 		/// <param name="scale"><see cref="Vector3"/> representing x,y and z scale values.</param>
 		/// <param name="result">The scaling <see cref="Matrix2D"/> as an output parameter.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void CreateScale(ref Vector2 scale, out Matrix2D result)
+		public static void CreateScale(ref System.Numerics.Vector2 scale, out Matrix2D result)
 		{
 			result.M11 = scale.X;
 			result.M12 = 0;
@@ -303,7 +303,7 @@ namespace Nez
 		/// <param name="position">X,Y and Z coordinates of translation.</param>
 		/// <param name="result">The translation <see cref="Matrix2D"/> as an output parameter.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void CreateTranslation(ref Vector2 position, out Matrix2D result)
+		public static void CreateTranslation(ref System.Numerics.Vector2 position, out Matrix2D result)
 		{
 			result.M11 = 1;
 			result.M12 = 0;
@@ -322,7 +322,7 @@ namespace Nez
 		/// <param name="position">X,Y and Z coordinates of translation.</param>
 		/// <returns>The translation <see cref="Matrix2D"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Matrix2D CreateTranslation(Vector2 position)
+		public static Matrix2D CreateTranslation(System.Numerics.Vector2 position)
 		{
 			Matrix2D result;
 			CreateTranslation(ref position, out result);
@@ -462,7 +462,7 @@ namespace Nez
 		/// Creates a new <see cref="Matrix2D"/> that contains linear interpolation of the values in specified matrixes.
 		/// </summary>
 		/// <param name="matrix1">The first <see cref="Matrix2D"/>.</param>
-		/// <param name="matrix2">The second <see cref="Vector2"/>.</param>
+		/// <param name="matrix2">The second <see cref="System.Numerics.Vector2"/>.</param>
 		/// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
 		/// <returns>>The result of linear interpolation of the specified matrixes.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -484,7 +484,7 @@ namespace Nez
 		/// Creates a new <see cref="Matrix2D"/> that contains linear interpolation of the values in specified matrixes.
 		/// </summary>
 		/// <param name="matrix1">The first <see cref="Matrix2D"/>.</param>
-		/// <param name="matrix2">The second <see cref="Vector2"/>.</param>
+		/// <param name="matrix2">The second <see cref="System.Numerics.Vector2"/>.</param>
 		/// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
 		/// <param name="result">The result of linear interpolation of the specified matrixes as an output parameter.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

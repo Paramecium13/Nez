@@ -42,7 +42,7 @@ namespace Nez
 		/// shortcut to entity.transform.position
 		/// </summary>
 		/// <value>The position.</value>
-		public Vector2 Position
+		public System.Numerics.Vector2 Position
 		{
 			get => Entity.Position;
 			set => Entity.Position = value;
@@ -133,19 +133,19 @@ namespace Nez
 				if (_areBoundsDirty)
 				{
 					// top-left and bottom-right are needed by either rotated or non-rotated bounds
-					var topLeft = ScreenToWorldPoint(new Vector2(Core.GraphicsDevice.Viewport.X + _inset.left,
+					var topLeft = ScreenToWorldPoint(new System.Numerics.Vector2(Core.GraphicsDevice.Viewport.X + _inset.left,
 						Core.GraphicsDevice.Viewport.Y + _inset.top));
-					var bottomRight = ScreenToWorldPoint(new Vector2(
+					var bottomRight = ScreenToWorldPoint(new System.Numerics.Vector2(
 						Core.GraphicsDevice.Viewport.X + Core.GraphicsDevice.Viewport.Width - _inset.right,
 						Core.GraphicsDevice.Viewport.Y + Core.GraphicsDevice.Viewport.Height - _inset.bottom));
 
 					if (Entity.Transform.Rotation != 0)
 					{
 						// special care for rotated bounds. we need to find our absolute min/max values and create the bounds from that
-						var topRight = ScreenToWorldPoint(new Vector2(
+						var topRight = ScreenToWorldPoint(new System.Numerics.Vector2(
 							Core.GraphicsDevice.Viewport.X + Core.GraphicsDevice.Viewport.Width - _inset.right,
 							Core.GraphicsDevice.Viewport.Y + _inset.top));
-						var bottomLeft = ScreenToWorldPoint(new Vector2(Core.GraphicsDevice.Viewport.X + _inset.left,
+						var bottomLeft = ScreenToWorldPoint(new System.Numerics.Vector2(Core.GraphicsDevice.Viewport.X + _inset.left,
 							Core.GraphicsDevice.Viewport.Y + Core.GraphicsDevice.Viewport.Height - _inset.bottom));
 
 						var minX = Mathf.MinOf(topLeft.X, bottomRight.X, topRight.X, bottomLeft.X);
@@ -153,7 +153,7 @@ namespace Nez
 						var minY = Mathf.MinOf(topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y);
 						var maxY = Mathf.MaxOf(topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y);
 
-						_bounds.Location = new Vector2(minX, minY);
+						_bounds.Location = new System.Numerics.Vector2(minX, minY);
 						_bounds.Width = maxX - minX;
 						_bounds.Height = maxY - minY;
 					}
@@ -257,7 +257,7 @@ namespace Nez
 
 		#endregion
 
-		public Vector2 Origin
+		public System.Numerics.Vector2 Origin
 		{
 			get => _origin;
 			internal set
@@ -279,7 +279,7 @@ namespace Nez
 		Matrix2D _transformMatrix = Matrix2D.Identity;
 		Matrix2D _inverseTransformMatrix = Matrix2D.Identity;
 		Matrix _projectionMatrix;
-		Vector2 _origin;
+		System.Numerics.Vector2 _origin;
 
 		bool _areMatrixesDirty = true;
 		bool _areBoundsDirty = true;
@@ -303,7 +303,7 @@ namespace Nez
 		{
 			_isProjectionMatrixDirty = true;
 			var oldOrigin = _origin;
-			Origin = new Vector2(newWidth / 2f, newHeight / 2f);
+			Origin = new System.Numerics.Vector2(newWidth / 2f, newHeight / 2f);
 
 			// offset our position to match the new center
 			Entity.Position += (_origin - oldOrigin);
@@ -491,7 +491,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to screen point.</returns>
 		/// <param name="worldPosition">World position.</param>
-		public Vector2 WorldToScreenPoint(Vector2 worldPosition)
+		public System.Numerics.Vector2 WorldToScreenPoint(System.Numerics.Vector2 worldPosition)
 		{
 			UpdateMatrixes();
 			Vector2Ext.Transform(ref worldPosition, ref _transformMatrix, out worldPosition);
@@ -504,7 +504,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to world point.</returns>
 		/// <param name="screenPosition">Screen position.</param>
-		public Vector2 ScreenToWorldPoint(Vector2 screenPosition)
+		public System.Numerics.Vector2 ScreenToWorldPoint(System.Numerics.Vector2 screenPosition)
 		{
 			UpdateMatrixes();
 			Vector2Ext.Transform(ref screenPosition, ref _inverseTransformMatrix, out screenPosition);
@@ -517,9 +517,9 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to world point.</returns>
 		/// <param name="screenPosition">Screen position.</param>
-		public Vector2 ScreenToWorldPoint(Point screenPosition)
+		public System.Numerics.Vector2 ScreenToWorldPoint(Point screenPosition)
 		{
-			return ScreenToWorldPoint(screenPosition.ToVector2());
+			return ScreenToWorldPoint(screenPosition.ToVector2().ToSimd());
 		}
 
 
@@ -527,7 +527,7 @@ namespace Nez
 		/// returns the mouse position in world space
 		/// </summary>
 		/// <returns>The to world point.</returns>
-		public Vector2 MouseToWorldPoint()
+		public System.Numerics.Vector2 MouseToWorldPoint()
 		{
 			return ScreenToWorldPoint(Input.MousePosition);
 		}
@@ -537,7 +537,7 @@ namespace Nez
 		/// returns the touch position in world space
 		/// </summary>
 		/// <returns>The to world point.</returns>
-		public Vector2 TouchToWorldPoint(TouchLocation touch)
+		public System.Numerics.Vector2 TouchToWorldPoint(TouchLocation touch)
 		{
 			return ScreenToWorldPoint(touch.ScaledPosition());
 		}

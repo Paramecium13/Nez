@@ -55,8 +55,8 @@ namespace Nez.UI
 		RectangleF _handleBounds;
 
 		bool _vertical;
-		Vector2 _lastPoint;
-		Vector2 _handlePosition;
+		System.Numerics.Vector2 _lastPoint;
+		System.Numerics.Vector2 _handlePosition;
 
 
 		public SplitPane(Element firstWidget, Element secondWidget, SplitPaneStyle style, bool vertical = false)
@@ -89,7 +89,7 @@ namespace Nez.UI
 		{ }
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			if (_handleBounds.Contains(mousePos))
 			{
@@ -102,7 +102,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			if (_vertical)
 			{
@@ -135,7 +135,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{ }
 
 

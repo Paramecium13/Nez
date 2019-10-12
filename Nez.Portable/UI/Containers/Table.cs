@@ -178,7 +178,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element Hit(Vector2 point)
+		public override Element Hit(System.Numerics.Vector2 point)
 		{
 			if (Clip)
 			{

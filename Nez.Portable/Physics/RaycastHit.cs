@@ -23,31 +23,31 @@ namespace Nez
 		/// <summary>
 		/// The point in world space where the ray hit the collider's surface
 		/// </summary>
-		public Vector2 Point;
+		public System.Numerics.Vector2 Point;
 
 		/// <summary>
 		/// The normal vector of the surface hit by the ray
 		/// </summary>
-		public Vector2 Normal;
+		public System.Numerics.Vector2 Normal;
 
 		/// <summary>
 		/// The centroid of the primitive used to perform the cast. Where the shape would be positioned for it to contact.
 		/// </summary>
-		public Vector2 Centroid;
+		public System.Numerics.Vector2 Centroid;
 
 
-		public RaycastHit(Collider collider, float fraction, float distance, Vector2 point, Vector2 normal)
+		public RaycastHit(Collider collider, float fraction, float distance, System.Numerics.Vector2 point, System.Numerics.Vector2 normal)
 		{
 			Collider = collider;
 			Fraction = fraction;
 			Distance = distance;
 			Point = point;
 			Normal = normal;
-			Centroid = Vector2.Zero;
+			Centroid = System.Numerics.Vector2.Zero;
 		}
 
 
-		internal void SetValues(Collider collider, float fraction, float distance, Vector2 point)
+		internal void SetValues(Collider collider, float fraction, float distance, System.Numerics.Vector2 point)
 		{
 			Collider = collider;
 			Fraction = fraction;
@@ -56,7 +56,7 @@ namespace Nez
 		}
 
 
-		internal void SetValues(float fraction, float distance, Vector2 point, Vector2 normal)
+		internal void SetValues(float fraction, float distance, System.Numerics.Vector2 point, System.Numerics.Vector2 normal)
 		{
 			Fraction = fraction;
 			Distance = distance;

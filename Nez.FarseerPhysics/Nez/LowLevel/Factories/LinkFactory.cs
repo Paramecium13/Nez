@@ -23,7 +23,7 @@ namespace Nez.Farseer
 			/// <param name="fixStart"></param>
 			/// <param name="fixEnd"></param>
 			/// <returns></returns>
-			public static List<Body> CreateChain(World world, Vector2 start, Vector2 end, float linkWidth,
+			public static List<Body> CreateChain(World world, System.Numerics.Vector2 start, System.Numerics.Vector2 end, float linkWidth,
 			                                     float linkHeight, int numberOfLinks, float linkDensity,
 			                                     bool attachRopeJoint, bool fixStart = false, bool fixEnd = false)
 			{

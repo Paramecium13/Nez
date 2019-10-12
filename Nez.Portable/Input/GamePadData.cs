@@ -121,23 +121,23 @@ namespace Nez
 
 		#region Sticks
 
-		public Vector2 GetLeftStick()
+		public System.Numerics.Vector2 GetLeftStick()
 		{
-			var res = _currentState.ThumbSticks.Left;
+			var res = _currentState.ThumbSticks.Left.ToSimd();
 
 			if (IsLeftStickVerticalInverted)
-				res.Y = -res.Y;
+				res *= (new System.Numerics.Vector2(1, -1));
 
 			return res;
 		}
 
 
-		public Vector2 GetLeftStick(float deadzone)
+		public System.Numerics.Vector2 GetLeftStick(float deadzone)
 		{
-			var res = _currentState.ThumbSticks.Left;
+			var res = _currentState.ThumbSticks.Left.ToSimd();
 
 			if (res.LengthSquared() < deadzone * deadzone)
-				res = Vector2.Zero;
+				res = System.Numerics.Vector2.Zero;
 			else if (IsLeftStickVerticalInverted)
 				res.Y = -res.Y;
 
@@ -145,9 +145,9 @@ namespace Nez
 		}
 
 
-		public Vector2 GetRightStick()
+		public System.Numerics.Vector2 GetRightStick()
 		{
-			var res = _currentState.ThumbSticks.Right;
+			var res = _currentState.ThumbSticks.Right.ToSimd();
 
 			if (IsRightStickVerticalInverted)
 				res.Y = -res.Y;
@@ -156,12 +156,12 @@ namespace Nez
 		}
 
 
-		public Vector2 GetRightStick(float deadzone)
+		public System.Numerics.Vector2 GetRightStick(float deadzone)
 		{
-			var res = _currentState.ThumbSticks.Right;
+			var res = _currentState.ThumbSticks.Right.ToSimd();
 
 			if (res.LengthSquared() < deadzone * deadzone)
-				res = Vector2.Zero;
+				res = System.Numerics.Vector2.Zero;
 			else if (IsRightStickVerticalInverted)
 				res.Y = -res.Y;
 

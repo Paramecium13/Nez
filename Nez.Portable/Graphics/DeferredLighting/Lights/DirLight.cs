@@ -74,7 +74,7 @@ namespace Nez.DeferredLighting
 		public override void DebugRender(Batcher batcher)
 		{
 			// figure out a starting corner for the line
-			var root = Vector2.Zero;
+			var root = System.Numerics.Vector2.Zero;
 			if (Direction.Y > 0)
 				root.Y = 10f;
 			else

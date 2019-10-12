@@ -104,20 +104,20 @@ namespace Nez
 			get => Transform.ChildCount;
 		}
 
-		public Vector2 Position
+		public System.Numerics.Vector2 Position
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.Position.ToXna();
+			get => Transform.Position;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetPosition(value.ToSimd());
+			set => Transform.SetPosition(value);
 		}
 
-		public Vector2 LocalPosition
+		public System.Numerics.Vector2 LocalPosition
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.LocalPosition.ToXna();
+			get => Transform.LocalPosition;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetLocalPosition(value.ToSimd());
+			set => Transform.SetLocalPosition(value);
 		}
 
 		public float Rotation
@@ -152,20 +152,20 @@ namespace Nez
 			set => Transform.SetLocalRotationDegrees(value);
 		}
 
-		public Vector2 Scale
+		public System.Numerics.Vector2 Scale
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.Scale.ToXna();
+			get => Transform.Scale;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetScale(value.ToSimd());
+			set => Transform.SetScale(value);
 		}
 
-		public Vector2 LocalScale
+		public System.Numerics.Vector2 LocalScale
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Transform.LocalScale.ToXna();
+			get => Transform.LocalScale;
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set => Transform.SetLocalScale(value.ToSimd());
+			set => Transform.SetLocalScale(value);
 		}
 
 		public System.Numerics.Matrix3x2 WorldInverseTransform
@@ -325,12 +325,12 @@ namespace Nez
 		/// the CopyFrom method should be called which will clone all Components, Colliders and Transform children for you. Note
 		/// that the cloned Entity will not be added to any Scene! You must add them yourself!
 		/// </summary>
-		public virtual Entity Clone(Vector2 position = default)
+		public virtual Entity Clone(System.Numerics.Vector2 position = default)
 		{
 			var entity = Activator.CreateInstance(GetType()) as Entity;
 			entity.Name = Name + "(clone)";
 			entity.CopyFrom(this);
-			entity.Transform.Position = position.ToSimd();
+			entity.Transform.Position = position;
 
 			return entity;
 		}

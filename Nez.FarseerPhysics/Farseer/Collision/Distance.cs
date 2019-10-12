@@ -105,13 +105,13 @@ namespace FarseerPhysics.Collision
 		/// </summary>
 		/// <param name="direction">The direction.</param>
 		/// <returns></returns>
-		public int GetSupport(Vector2 direction)
+		public int GetSupport(System.Numerics.Vector2 direction)
 		{
 			int bestIndex = 0;
-			float bestValue = Vector2.Dot(vertices[0], direction);
+			float bestValue = System.Numerics.Vector2.Dot(vertices[0], direction);
 			for (int i = 1; i < vertices.Count; ++i)
 			{
-				float value = Vector2.Dot(vertices[i], direction);
+				float value = System.Numerics.Vector2.Dot(vertices[i], direction);
 				if (value > bestValue)
 				{
 					bestIndex = i;
@@ -127,13 +127,13 @@ namespace FarseerPhysics.Collision
 		/// </summary>
 		/// <param name="direction">The direction.</param>
 		/// <returns></returns>
-		public Vector2 GetSupportVertex(Vector2 direction)
+		public System.Numerics.Vector2 GetSupportVertex(System.Numerics.Vector2 direction)
 		{
 			int bestIndex = 0;
-			float bestValue = Vector2.Dot(vertices[0], direction);
+			float bestValue = System.Numerics.Vector2.Dot(vertices[0], direction);
 			for (int i = 1; i < vertices.Count; ++i)
 			{
-				float value = Vector2.Dot(vertices[i], direction);
+				float value = System.Numerics.Vector2.Dot(vertices[i], direction);
 				if (value > bestValue)
 				{
 					bestIndex = i;
@@ -197,12 +197,12 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// Closest point on shapeA
 		/// </summary>
-		public Vector2 PointA;
+		public System.Numerics.Vector2 PointA;
 
 		/// <summary>
 		/// Closest point on shapeB
 		/// </summary>
-		public Vector2 PointB;
+		public System.Numerics.Vector2 PointB;
 	}
 
 	struct SimplexVertex
@@ -225,17 +225,17 @@ namespace FarseerPhysics.Collision
 		/// <summary>
 		/// wB - wA
 		/// </summary>
-		public Vector2 W;
+		public System.Numerics.Vector2 W;
 
 		/// <summary>
 		/// Support point in proxyA
 		/// </summary>
-		public Vector2 WA;
+		public System.Numerics.Vector2 WA;
 
 		/// <summary>
 		/// Support point in proxyB
 		/// </summary>
-		public Vector2 WB;
+		public System.Numerics.Vector2 WB;
 	}
 
 
@@ -306,7 +306,7 @@ namespace FarseerPhysics.Collision
 			}
 		}
 
-		internal Vector2 GetSearchDirection()
+		internal System.Numerics.Vector2 GetSearchDirection()
 		{
 			switch (Count)
 			{
@@ -315,33 +315,33 @@ namespace FarseerPhysics.Collision
 
 				case 2:
 				{
-					Vector2 e12 = V[1].W - V[0].W;
+					System.Numerics.Vector2 e12 = V[1].W - V[0].W;
 					float sgn = MathUtils.Cross(e12, -V[0].W);
 					if (sgn > 0.0f)
 					{
 						// Origin is left of e12.
-						return new Vector2(-e12.Y, e12.X);
+						return new System.Numerics.Vector2(-e12.Y, e12.X);
 					}
 					else
 					{
 						// Origin is right of e12.
-						return new Vector2(e12.Y, -e12.X);
+						return new System.Numerics.Vector2(e12.Y, -e12.X);
 					}
 				}
 
 				default:
 					Debug.Assert(false);
-					return Vector2.Zero;
+					return System.Numerics.Vector2.Zero;
 			}
 		}
 
-		internal Vector2 GetClosestPoint()
+		internal System.Numerics.Vector2 GetClosestPoint()
 		{
 			switch (Count)
 			{
 				case 0:
 					Debug.Assert(false);
-					return Vector2.Zero;
+					return System.Numerics.Vector2.Zero;
 
 				case 1:
 					return V[0].W;
@@ -350,21 +350,21 @@ namespace FarseerPhysics.Collision
 					return V[0].A * V[0].W + V[1].A * V[1].W;
 
 				case 3:
-					return Vector2.Zero;
+					return System.Numerics.Vector2.Zero;
 
 				default:
 					Debug.Assert(false);
-					return Vector2.Zero;
+					return System.Numerics.Vector2.Zero;
 			}
 		}
 
-		internal void GetWitnessPoints(out Vector2 pA, out Vector2 pB)
+		internal void GetWitnessPoints(out System.Numerics.Vector2 pA, out System.Numerics.Vector2 pB)
 		{
 			switch (Count)
 			{
 				case 0:
-					pA = Vector2.Zero;
-					pB = Vector2.Zero;
+					pA = System.Numerics.Vector2.Zero;
+					pB = System.Numerics.Vector2.Zero;
 					Debug.Assert(false);
 					break;
 
@@ -436,12 +436,12 @@ namespace FarseerPhysics.Collision
 
 		internal void Solve2()
 		{
-			Vector2 w1 = V[0].W;
-			Vector2 w2 = V[1].W;
-			Vector2 e12 = w2 - w1;
+			System.Numerics.Vector2 w1 = V[0].W;
+			System.Numerics.Vector2 w2 = V[1].W;
+			System.Numerics.Vector2 e12 = w2 - w1;
 
 			// w1 region
-			float d12_2 = -Vector2.Dot(w1, e12);
+			float d12_2 = -System.Numerics.Vector2.Dot(w1, e12);
 			if (d12_2 <= 0.0f)
 			{
 				// a2 <= 0, so we clamp it to 0
@@ -453,7 +453,7 @@ namespace FarseerPhysics.Collision
 			}
 
 			// w2 region
-			float d12_1 = Vector2.Dot(w2, e12);
+			float d12_1 = System.Numerics.Vector2.Dot(w2, e12);
 			if (d12_1 <= 0.0f)
 			{
 				// a1 <= 0, so we clamp it to 0
@@ -483,17 +483,17 @@ namespace FarseerPhysics.Collision
 		// - inside the triangle
 		internal void Solve3()
 		{
-			Vector2 w1 = V[0].W;
-			Vector2 w2 = V[1].W;
-			Vector2 w3 = V[2].W;
+			System.Numerics.Vector2 w1 = V[0].W;
+			System.Numerics.Vector2 w2 = V[1].W;
+			System.Numerics.Vector2 w3 = V[2].W;
 
 			// Edge12
 			// [1      1     ][a1] = [1]
 			// [w1.e12 w2.e12][a2] = [0]
 			// a3 = 0
-			Vector2 e12 = w2 - w1;
-			float w1e12 = Vector2.Dot(w1, e12);
-			float w2e12 = Vector2.Dot(w2, e12);
+			System.Numerics.Vector2 e12 = w2 - w1;
+			float w1e12 = System.Numerics.Vector2.Dot(w1, e12);
+			float w2e12 = System.Numerics.Vector2.Dot(w2, e12);
 			float d12_1 = w2e12;
 			float d12_2 = -w1e12;
 
@@ -501,9 +501,9 @@ namespace FarseerPhysics.Collision
 			// [1      1     ][a1] = [1]
 			// [w1.e13 w3.e13][a3] = [0]
 			// a2 = 0
-			Vector2 e13 = w3 - w1;
-			float w1e13 = Vector2.Dot(w1, e13);
-			float w3e13 = Vector2.Dot(w3, e13);
+			System.Numerics.Vector2 e13 = w3 - w1;
+			float w1e13 = System.Numerics.Vector2.Dot(w1, e13);
+			float w3e13 = System.Numerics.Vector2.Dot(w3, e13);
 			float d13_1 = w3e13;
 			float d13_2 = -w1e13;
 
@@ -511,9 +511,9 @@ namespace FarseerPhysics.Collision
 			// [1      1     ][a2] = [1]
 			// [w2.e23 w3.e23][a3] = [0]
 			// a1 = 0
-			Vector2 e23 = w3 - w2;
-			float w2e23 = Vector2.Dot(w2, e23);
-			float w3e23 = Vector2.Dot(w3, e23);
+			System.Numerics.Vector2 e23 = w3 - w2;
+			float w2e23 = System.Numerics.Vector2.Dot(w2, e23);
+			float w3e23 = System.Numerics.Vector2.Dot(w3, e23);
 			float d23_1 = w3e23;
 			float d23_2 = -w2e23;
 
@@ -689,7 +689,7 @@ namespace FarseerPhysics.Collision
 
 				//FPE: This code was not used anyway.
 				// Compute closest point.
-				//Vector2 p = simplex.GetClosestPoint();
+				//System.Numerics.Vector2 p = simplex.GetClosestPoint();
 				//float distanceSqr2 = p.LengthSquared();
 
 				// Ensure progress

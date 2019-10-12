@@ -169,7 +169,7 @@ namespace Nez
 		{
 			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, null);
 			batcher.Begin(BlendState.Opaque, Core.DefaultSamplerState, DepthStencilState.None, null);
-			batcher.Draw(PreviousSceneRender, Vector2.Zero, Color.White);
+			batcher.Draw(PreviousSceneRender, System.Numerics.Vector2.Zero, Color.White);
 			batcher.End();
 		}
 

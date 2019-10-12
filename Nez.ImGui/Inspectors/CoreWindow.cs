@@ -22,8 +22,8 @@ namespace Nez.ImGuiTools
 			if (!isOpen)
 				return;
 
-			ImGui.SetNextWindowPos(new Num.Vector2(Screen.Width - 300, Screen.Height - 240), ImGuiCond.FirstUseEver);
-			ImGui.SetNextWindowSize(new Num.Vector2(300, 240), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowPos(new System.Numerics.Vector2(Screen.Width - 300, Screen.Height - 240), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new System.Numerics.Vector2(300, 240), ImGuiCond.FirstUseEver);
 			ImGui.Begin("Nez Core", ref isOpen);
 			DrawSettings();
 			ImGui.End();
@@ -35,7 +35,7 @@ namespace Nez.ImGuiTools
 			_frameRateArrayIndex = (_frameRateArrayIndex + 1) % _frameRateArray.Length;
 
 			ImGui.PlotLines("##hidelabel", ref _frameRateArray[0], _frameRateArray.Length, _frameRateArrayIndex,
-				$"FPS: {ImGui.GetIO().Framerate:0}", 0, 60, new Num.Vector2(ImGui.GetContentRegionAvail().X, 50));
+				$"FPS: {ImGui.GetIO().Framerate:0}", 0, 60, new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 50));
 
 			NezImGui.SmallVerticalSpace();
 

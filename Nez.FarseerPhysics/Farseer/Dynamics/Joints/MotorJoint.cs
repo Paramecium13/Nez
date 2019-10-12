@@ -36,13 +36,13 @@ namespace FarseerPhysics.Dynamics.Joints
 	{
 		#region Properties/Fields
 
-		public override Vector2 WorldAnchorA
+		public override System.Numerics.Vector2 WorldAnchorA
 		{
 			get => BodyA.Position;
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
 		}
 
-		public override Vector2 WorldAnchorB
+		public override System.Numerics.Vector2 WorldAnchorB
 		{
 			get => BodyB.Position;
 			set => Debug.Assert(false, "You can't set the world anchor on this joint type.");
@@ -77,7 +77,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The linear (translation) offset.
 		/// </summary>
-		public Vector2 LinearOffset
+		public System.Numerics.Vector2 LinearOffset
 		{
 			set
 			{
@@ -110,9 +110,9 @@ namespace FarseerPhysics.Dynamics.Joints
 		internal float correctionFactor;
 
 		// Solver shared
-		Vector2 _linearOffset;
+		System.Numerics.Vector2 _linearOffset;
 		float _angularOffset;
-		Vector2 _linearImpulse;
+		System.Numerics.Vector2 _linearImpulse;
 		float _angularImpulse;
 		float _maxForce;
 		float _maxTorque;
@@ -120,11 +120,11 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
-		Vector2 _linearError;
+		System.Numerics.Vector2 _rA;
+		System.Numerics.Vector2 _rB;
+		System.Numerics.Vector2 _localCenterA;
+		System.Numerics.Vector2 _localCenterB;
+		System.Numerics.Vector2 _linearError;
 		float _angularError;
 		float _invMassA;
 		float _invMassB;
@@ -151,7 +151,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		{
 			JointType = JointType.Motor;
 
-			Vector2 xB = base.BodyB.Position;
+			System.Numerics.Vector2 xB = base.BodyB.Position;
 
 			if (useWorldCoordinates)
 				_linearOffset = base.BodyA.GetLocalPoint(xB);
@@ -167,7 +167,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			_angularOffset = base.BodyB.Rotation - base.BodyA.Rotation;
 		}
 
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
 			return invDt * _linearImpulse;
 		}
@@ -188,14 +188,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = BodyA._invI;
 			_invIB = BodyB._invI;
 
-			Vector2 cA = data.Positions[_indexA].C;
+			System.Numerics.Vector2 cA = data.Positions[_indexA].C;
 			float aA = data.Positions[_indexA].A;
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
 
-			Vector2 cB = data.Positions[_indexB].C;
+			System.Numerics.Vector2 cB = data.Positions[_indexB].C;
 			float aB = data.Positions[_indexB].A;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			Rot qA = new Rot(aA);
@@ -240,7 +240,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_linearImpulse *= data.Step.DtRatio;
 				_angularImpulse *= data.Step.DtRatio;
 
-				Vector2 P = new Vector2(_linearImpulse.X, _linearImpulse.Y);
+				System.Numerics.Vector2 P = new System.Numerics.Vector2(_linearImpulse.X, _linearImpulse.Y);
 
 				vA -= mA * P;
 				wA -= iA * (MathUtils.Cross(_rA, P) + _angularImpulse);
@@ -249,7 +249,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_linearImpulse = Vector2.Zero;
+				_linearImpulse = System.Numerics.Vector2.Zero;
 				_angularImpulse = 0.0f;
 			}
 
@@ -261,9 +261,9 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void SolveVelocityConstraints(ref SolverData data)
 		{
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			float mA = _invMassA, mB = _invMassB;

@@ -8,12 +8,12 @@ namespace Nez
 	/// </summary>
 	public struct Ray2D
 	{
-		public Vector2 Start;
-		public Vector2 End;
-		public Vector2 Direction;
+		public System.Numerics.Vector2 Start;
+		public System.Numerics.Vector2 End;
+		public System.Numerics.Vector2 Direction;
 
 
-		public Ray2D(Vector2 position, Vector2 end)
+		public Ray2D(System.Numerics.Vector2 position, System.Numerics.Vector2 end)
 		{
 			Start = position;
 			End = end;

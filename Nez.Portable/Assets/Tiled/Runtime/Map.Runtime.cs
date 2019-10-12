@@ -88,7 +88,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to tile position.</returns>
 		/// <param name="pos">Position.</param>
-		public Point WorldToTilePosition(Vector2 pos, bool clampToTilemapBounds = true)
+		public Point WorldToTilePosition(System.Numerics.Vector2 pos, bool clampToTilemapBounds = true)
 		{
 			return new Point(WorldToTilePositionX(pos.X, clampToTilemapBounds), WorldToTilePositionY(pos.Y, clampToTilemapBounds));
 		}
@@ -124,7 +124,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to world position.</returns>
 		/// <param name="pos">Position.</param>
-		public Vector2 TileToWorldPosition(Vector2 pos) => new Vector2(TileToWorldPositionX((int)pos.X), TileToWorldPositionY((int)pos.Y));
+		public System.Numerics.Vector2 TileToWorldPosition(System.Numerics.Vector2 pos) => new System.Numerics.Vector2(TileToWorldPositionX((int)pos.X), TileToWorldPositionY((int)pos.Y));
 
 		/// <summary>
 		/// converts from tile to world position

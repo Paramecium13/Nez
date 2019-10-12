@@ -122,11 +122,11 @@ namespace Nez.Analysis
 		/// </summary>
 		/// <param name="region">placing region</param>
 		/// <returns>Placed position</returns>
-		public Vector2 Place(Vector2 size, float horizontalMargin, float verticalMargine, Alignment alignment)
+		public System.Numerics.Vector2 Place(System.Numerics.Vector2 size, float horizontalMargin, float verticalMargine, Alignment alignment)
 		{
 			var rc = new Rectangle(0, 0, (int) size.X, (int) size.Y);
 			rc = Place(rc, horizontalMargin, verticalMargine, alignment);
-			return new Vector2(rc.X, rc.Y);
+			return new System.Numerics.Vector2(rc.X, rc.Y);
 		}
 
 

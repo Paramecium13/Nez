@@ -57,24 +57,24 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 LocalAnchorA;
+		public System.Numerics.Vector2 LocalAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 LocalAnchorB;
+		public System.Numerics.Vector2 LocalAnchorB;
 
 		/// <summary>
 		/// Get the first world anchor.
 		/// </summary>
 		/// <value></value>
-		public override sealed Vector2 WorldAnchorA { get; set; }
+		public override sealed System.Numerics.Vector2 WorldAnchorA { get; set; }
 
 		/// <summary>
 		/// Get the second world anchor.
 		/// </summary>
 		/// <value></value>
-		public override sealed Vector2 WorldAnchorB { get; set; }
+		public override sealed System.Numerics.Vector2 WorldAnchorB { get; set; }
 
 		/// <summary>
 		/// Get the current length of the segment attached to body1.
@@ -131,12 +131,12 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _uA;
-		Vector2 _uB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		System.Numerics.Vector2 _uA;
+		System.Numerics.Vector2 _uB;
+		System.Numerics.Vector2 _rA;
+		System.Numerics.Vector2 _rB;
+		System.Numerics.Vector2 _localCenterA;
+		System.Numerics.Vector2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -162,8 +162,8 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="worldAnchorB">The world anchor for the second body.</param>
 		/// <param name="ratio">The ratio.</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public PulleyJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA,
-		                   Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false)
+		public PulleyJoint(Body bodyA, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB, System.Numerics.Vector2 worldAnchorA,
+		                   System.Numerics.Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false)
 			: base(bodyA, bodyB)
 		{
 			JointType = JointType.Pulley;
@@ -186,9 +186,9 @@ namespace FarseerPhysics.Dynamics.Joints
 				LocalAnchorA = anchorA;
 				LocalAnchorB = anchorB;
 
-				Vector2 dA = anchorA - base.BodyA.GetLocalPoint(worldAnchorA);
+				System.Numerics.Vector2 dA = anchorA - base.BodyA.GetLocalPoint(worldAnchorA);
 				LengthA = dA.Length();
-				Vector2 dB = anchorB - base.BodyB.GetLocalPoint(worldAnchorB);
+				System.Numerics.Vector2 dB = anchorB - base.BodyB.GetLocalPoint(worldAnchorB);
 				LengthB = dB.Length();
 			}
 
@@ -200,9 +200,9 @@ namespace FarseerPhysics.Dynamics.Joints
 			_impulse = 0.0f;
 		}
 
-		public override Vector2 GetReactionForce(float invDt)
+		public override System.Numerics.Vector2 GetReactionForce(float invDt)
 		{
-			Vector2 P = _impulse * _uB;
+			System.Numerics.Vector2 P = _impulse * _uB;
 			return invDt * P;
 		}
 
@@ -222,14 +222,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = BodyA._invI;
 			_invIB = BodyB._invI;
 
-			Vector2 cA = data.Positions[_indexA].C;
+			System.Numerics.Vector2 cA = data.Positions[_indexA].C;
 			float aA = data.Positions[_indexA].A;
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
 
-			Vector2 cB = data.Positions[_indexB].C;
+			System.Numerics.Vector2 cB = data.Positions[_indexB].C;
 			float aB = data.Positions[_indexB].A;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
 			Rot qA = new Rot(aA), qB = new Rot(aB);
@@ -250,7 +250,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_uA = Vector2.Zero;
+				_uA = System.Numerics.Vector2.Zero;
 			}
 
 			if (lengthB > 10.0f * Settings.LinearSlop)
@@ -259,7 +259,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_uB = Vector2.Zero;
+				_uB = System.Numerics.Vector2.Zero;
 			}
 
 			// Compute effective mass.
@@ -282,8 +282,8 @@ namespace FarseerPhysics.Dynamics.Joints
 				_impulse *= data.Step.DtRatio;
 
 				// Warm starting.
-				Vector2 PA = -(_impulse) * _uA;
-				Vector2 PB = (-Ratio * _impulse) * _uB;
+				System.Numerics.Vector2 PA = -(_impulse) * _uA;
+				System.Numerics.Vector2 PB = (-Ratio * _impulse) * _uB;
 
 				vA += _invMassA * PA;
 				wA += _invIA * MathUtils.Cross(_rA, PA);
@@ -303,20 +303,20 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void SolveVelocityConstraints(ref SolverData data)
 		{
-			Vector2 vA = data.Velocities[_indexA].V;
+			System.Numerics.Vector2 vA = data.Velocities[_indexA].V;
 			float wA = data.Velocities[_indexA].W;
-			Vector2 vB = data.Velocities[_indexB].V;
+			System.Numerics.Vector2 vB = data.Velocities[_indexB].V;
 			float wB = data.Velocities[_indexB].W;
 
-			Vector2 vpA = vA + MathUtils.Cross(wA, _rA);
-			Vector2 vpB = vB + MathUtils.Cross(wB, _rB);
+			System.Numerics.Vector2 vpA = vA + MathUtils.Cross(wA, _rA);
+			System.Numerics.Vector2 vpB = vB + MathUtils.Cross(wB, _rB);
 
-			float Cdot = -Vector2.Dot(_uA, vpA) - Ratio * Vector2.Dot(_uB, vpB);
+			float Cdot = -System.Numerics.Vector2.Dot(_uA, vpA) - Ratio * System.Numerics.Vector2.Dot(_uB, vpB);
 			float impulse = -_mass * Cdot;
 			_impulse += impulse;
 
-			Vector2 PA = -impulse * _uA;
-			Vector2 PB = -Ratio * impulse * _uB;
+			System.Numerics.Vector2 PA = -impulse * _uA;
+			System.Numerics.Vector2 PB = -Ratio * impulse * _uB;
 			vA += _invMassA * PA;
 			wA += _invIA * MathUtils.Cross(_rA, PA);
 			vB += _invMassB * PB;
@@ -330,19 +330,19 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override bool SolvePositionConstraints(ref SolverData data)
 		{
-			Vector2 cA = data.Positions[_indexA].C;
+			System.Numerics.Vector2 cA = data.Positions[_indexA].C;
 			float aA = data.Positions[_indexA].A;
-			Vector2 cB = data.Positions[_indexB].C;
+			System.Numerics.Vector2 cB = data.Positions[_indexB].C;
 			float aB = data.Positions[_indexB].A;
 
 			Rot qA = new Rot(aA), qB = new Rot(aB);
 
-			Vector2 rA = MathUtils.Mul(qA, LocalAnchorA - _localCenterA);
-			Vector2 rB = MathUtils.Mul(qB, LocalAnchorB - _localCenterB);
+			System.Numerics.Vector2 rA = MathUtils.Mul(qA, LocalAnchorA - _localCenterA);
+			System.Numerics.Vector2 rB = MathUtils.Mul(qB, LocalAnchorB - _localCenterB);
 
 			// Get the pulley axes.
-			Vector2 uA = cA + rA - WorldAnchorA;
-			Vector2 uB = cB + rB - WorldAnchorB;
+			System.Numerics.Vector2 uA = cA + rA - WorldAnchorA;
+			System.Numerics.Vector2 uB = cB + rB - WorldAnchorB;
 
 			float lengthA = uA.Length();
 			float lengthB = uB.Length();
@@ -353,7 +353,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				uA = Vector2.Zero;
+				uA = System.Numerics.Vector2.Zero;
 			}
 
 			if (lengthB > 10.0f * Settings.LinearSlop)
@@ -362,7 +362,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				uB = Vector2.Zero;
+				uB = System.Numerics.Vector2.Zero;
 			}
 
 			// Compute effective mass.
@@ -384,8 +384,8 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			float impulse = -mass * C;
 
-			Vector2 PA = -impulse * uA;
-			Vector2 PB = -Ratio * impulse * uB;
+			System.Numerics.Vector2 PA = -impulse * uA;
+			System.Numerics.Vector2 PB = -Ratio * impulse * uB;
 
 			cA += _invMassA * PA;
 			aA += _invIA * MathUtils.Cross(rA, PA);

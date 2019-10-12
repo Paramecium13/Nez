@@ -184,19 +184,19 @@ namespace Nez.Tiled
 			return ColorExt.HexToColor(colorStr);
 		}
 
-		public static Vector2 ParsePoint(string s)
+		public static System.Numerics.Vector2 ParsePoint(string s)
 		{
 			var pt = s.Split(',');
 			var x = float.Parse(pt[0], NumberStyles.Float, CultureInfo.InvariantCulture);
 			var y = float.Parse(pt[1], NumberStyles.Float, CultureInfo.InvariantCulture);
-			return new Vector2(x, y);
+			return new System.Numerics.Vector2(x, y);
 		}
 
-		public static Vector2[] ParsePoints(XElement xPoints)
+		public static System.Numerics.Vector2[] ParsePoints(XElement xPoints)
 		{
 			var pointString = (string)xPoints.Attribute("points");
 			var pointStringPair = pointString.Split(' ');
-			var points = new Vector2[pointStringPair.Length];
+			var points = new System.Numerics.Vector2[pointStringPair.Length];
 
 			var index = 0;
 			foreach (var s in pointStringPair)

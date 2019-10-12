@@ -96,7 +96,7 @@ namespace Nez
 			_horizontalSampleOffsets = new Vector2[_sampleCount];
 
 			// The first sample always has a zero offset.
-			_verticalSampleOffsets[0] = Vector2.Zero;
+			_verticalSampleOffsets[0] =Vector2.Zero;
 			_horizontalSampleOffsets[0] = Vector2.Zero;
 
 			// we can calculate the sample weights just once since they are always the same for horizontal or vertical blur

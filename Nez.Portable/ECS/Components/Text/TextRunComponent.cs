@@ -36,7 +36,7 @@
 		/// </summary>
 		public void Compile()
 		{
-			_textRun.Position = Transform.Position.ToXna();
+			_textRun.Position = Transform.Position;
 			_textRun.Rotation = Transform.Rotation;
 			_textRun.Compile();
 		}

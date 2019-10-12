@@ -18,7 +18,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="second">Second.</param>
 		/// <param name="deltaMovement">Delta movement.</param>
 		/// <param name="hit">Hit.</param>
-		public static bool Collide(Shape first, Shape second, Vector2 deltaMovement, out RaycastHit hit)
+		public static bool Collide(Shape first, Shape second, System.Numerics.Vector2 deltaMovement, out RaycastHit hit)
 		{
 			hit = new RaycastHit();
 			throw new NotImplementedException(
@@ -34,7 +34,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="second">Second.</param>
 		/// <param name="deltaMovement">Delta movement.</param>
 		/// <param name="hit">Hit.</param>
-		public static bool BoxToBoxCast(Box first, Box second, Vector2 movement, out RaycastHit hit)
+		public static bool BoxToBoxCast(Box first, Box second, System.Numerics.Vector2 movement, out RaycastHit hit)
 		{
 			// http://hamaluik.com/posts/swept-aabb-collision-using-minkowski-difference/
 			hit = new RaycastHit();
@@ -45,7 +45,7 @@ namespace Nez.PhysicsShapes
 			{
 				// calculate the MTV. if it is zero then we can just call this a non-collision
 				var mtv = minkowskiDiff.GetClosestPointOnBoundsToOrigin();
-				if (mtv == Vector2.Zero)
+				if (mtv == System.Numerics.Vector2.Zero)
 					return false;
 
 				hit.Normal = -mtv;
@@ -58,7 +58,7 @@ namespace Nez.PhysicsShapes
 			else
 			{
 				// ray-cast the movement vector against the Minkowski AABB
-				var ray = new Ray2D(Vector2.Zero, -movement);
+				var ray = new Ray2D(System.Numerics.Vector2.Zero, -movement);
 				float fraction;
 				if (minkowskiDiff.RayIntersects(ref ray, out fraction) && fraction <= 1.0f)
 				{
@@ -86,7 +86,7 @@ namespace Nez.PhysicsShapes
 				// calculate the MTV. if it is zero then we can just call this a non-collision
 				result.MinimumTranslationVector = minkowskiDiff.GetClosestPointOnBoundsToOrigin();
 
-				if (result.MinimumTranslationVector == Vector2.Zero)
+				if (result.MinimumTranslationVector == System.Numerics.Vector2.Zero)
 					return false;
 
 				result.Normal = -result.MinimumTranslationVector;
@@ -114,11 +114,11 @@ namespace Nez.PhysicsShapes
 
 		#region Retired Polygon to Polygon
 
-		static Vector2[] _satAxisArray = new Vector2[0];
+		static System.Numerics.Vector2[] _satAxisArray = new System.Numerics.Vector2[0];
 		static float[] _satTimerPerAxis = new float[0];
 
 		[Obsolete]
-		public static bool PolygonToPolygonCast(Polygon first, Polygon second, Vector2 deltaMovement,
+		public static bool PolygonToPolygonCast(Polygon first, Polygon second, System.Numerics.Vector2 deltaMovement,
 		                                        out RaycastHit hit)
 		{
 			hit = new RaycastHit();
@@ -162,11 +162,11 @@ namespace Nez.PhysicsShapes
 
 
 		[Obsolete]
-		static bool PolygonToPolygon(Polygon first, Polygon second, Vector2? deltaMovement, out Vector2 responseNormal,
+		static bool PolygonToPolygon(Polygon first, Polygon second, System.Numerics.Vector2? deltaMovement, out System.Numerics.Vector2 responseNormal,
 		                             out float timeOfCollision)
 		{
 			timeOfCollision = float.MinValue;
-			responseNormal = Vector2.Zero;
+			responseNormal = System.Numerics.Vector2.Zero;
 
 			// polygon verts are in local space so we need to convert one of the polys to be in the space of the other. We use the distance
 			// between them to do so.
@@ -178,8 +178,8 @@ namespace Nez.PhysicsShapes
 
 			if (deltaMovement.HasValue)
 			{
-				_satAxisArray[iNumAxes] = new Vector2(-deltaMovement.Value.Y, deltaMovement.Value.X);
-				var fVel2 = Vector2.Dot(deltaMovement.Value, deltaMovement.Value);
+				_satAxisArray[iNumAxes] = new System.Numerics.Vector2(-deltaMovement.Value.Y, deltaMovement.Value.X);
+				var fVel2 = System.Numerics.Vector2.Dot(deltaMovement.Value, deltaMovement.Value);
 				if (fVel2 > Mathf.Epsilon)
 				{
 					if (!IntervalIntersect(first, second, ref _satAxisArray[iNumAxes], ref polygonOffset,
@@ -200,7 +200,7 @@ namespace Nez.PhysicsShapes
 				var point0 = first.Points[j];
 				var point1 = first.Points[i];
 				var edge = point1 - point0;
-				_satAxisArray[iNumAxes] = new Vector2(-edge.Y, edge.X);
+				_satAxisArray[iNumAxes] = new System.Numerics.Vector2(-edge.Y, edge.X);
 
 				if (!IntervalIntersect(first, second, ref _satAxisArray[iNumAxes], ref polygonOffset, ref deltaMovement,
 					out _satTimerPerAxis[iNumAxes]))
@@ -219,7 +219,7 @@ namespace Nez.PhysicsShapes
 				var point0 = second.Points[j];
 				var point1 = second.Points[i];
 				var edge = point1 - point0;
-				_satAxisArray[iNumAxes] = new Vector2(-edge.Y, edge.X);
+				_satAxisArray[iNumAxes] = new System.Numerics.Vector2(-edge.Y, edge.X);
 
 				if (!IntervalIntersect(first, second, ref _satAxisArray[iNumAxes], ref polygonOffset, ref deltaMovement,
 					out _satTimerPerAxis[iNumAxes]))
@@ -232,15 +232,15 @@ namespace Nez.PhysicsShapes
 				return false;
 
 			// make sure the polygons gets pushed away from each other.
-			if (Vector2.Dot(responseNormal, polygonOffset) < 0f)
+			if (System.Numerics.Vector2.Dot(responseNormal, polygonOffset) < 0f)
 				responseNormal = -responseNormal;
 
 			return true;
 		}
 
 
-		static bool IntervalIntersect(Polygon first, Polygon second, ref Vector2 axis, ref Vector2 shapeOffset,
-		                              ref Vector2? deltaMovement, out float taxis)
+		static bool IntervalIntersect(Polygon first, Polygon second, ref System.Numerics.Vector2 axis, ref System.Numerics.Vector2 shapeOffset,
+		                              ref System.Numerics.Vector2? deltaMovement, out float taxis)
 		{
 			taxis = float.MinValue;
 			float min0, max0;
@@ -248,7 +248,7 @@ namespace Nez.PhysicsShapes
 			GetInterval(first, first.Points.Length, axis, out min0, out max0);
 			GetInterval(second, second.Points.Length, axis, out min1, out max1);
 
-			var h = Vector2.Dot(shapeOffset, axis);
+			var h = System.Numerics.Vector2.Dot(shapeOffset, axis);
 			min0 += h;
 			max0 += h;
 
@@ -262,7 +262,7 @@ namespace Nez.PhysicsShapes
 				if (!deltaMovement.HasValue)
 					return false;
 
-				var v = Vector2.Dot(deltaMovement.Value, axis);
+				var v = System.Numerics.Vector2.Dot(deltaMovement.Value, axis);
 
 				// small velocity, so only the overlap test will be relevant. 
 				if (Math.Abs(v) < 0.0000001f)
@@ -294,13 +294,13 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		static void GetInterval(Polygon polygon, int numVertices, Vector2 axis, out float min, out float max)
+		static void GetInterval(Polygon polygon, int numVertices, System.Numerics.Vector2 axis, out float min, out float max)
 		{
-			min = max = Vector2.Dot(polygon.Points[0], axis);
+			min = max = System.Numerics.Vector2.Dot(polygon.Points[0], axis);
 
 			for (var i = 1; i < numVertices; i++)
 			{
-				var d = Vector2.Dot(polygon.Points[i], axis);
+				var d = System.Numerics.Vector2.Dot(polygon.Points[i], axis);
 				if (d < min)
 					min = d;
 				else if (d > max)
@@ -310,12 +310,12 @@ namespace Nez.PhysicsShapes
 
 
 		[Obsolete]
-		static bool FindMinimumTranslationDistance(int iNumAxes, out Vector2 normal, out float timeOfIntersection)
+		static bool FindMinimumTranslationDistance(int iNumAxes, out System.Numerics.Vector2 normal, out float timeOfIntersection)
 		{
 			// find collision first
 			var mini = -1;
 			timeOfIntersection = 0f;
-			normal = new Vector2(0, 0);
+			normal = new System.Numerics.Vector2(0, 0);
 
 			for (var i = 0; i < iNumAxes; i++)
 			{

@@ -14,7 +14,7 @@ namespace FarseerPhysics.Factories
 	/// </summary>
 	public static class FixtureFactory
 	{
-		public static Fixture AttachEdge(Vector2 start, Vector2 end, Body body, object userData = null)
+		public static Fixture AttachEdge(System.Numerics.Vector2 start, System.Numerics.Vector2 end, Body body, object userData = null)
 		{
 			var edgeShape = new EdgeShape(start, end);
 			return body.CreateFixture(edgeShape, userData);
@@ -32,7 +32,7 @@ namespace FarseerPhysics.Factories
 			return body.CreateFixture(shape, userData);
 		}
 
-		public static Fixture AttachRectangle(float width, float height, float density, Vector2 offset, Body body,
+		public static Fixture AttachRectangle(float width, float height, float density, System.Numerics.Vector2 offset, Body body,
 		                                      object userData = null)
 		{
 			var rectangleVertices = PolygonTools.CreateRectangle(width / 2, height / 2);
@@ -68,7 +68,7 @@ namespace FarseerPhysics.Factories
 			return body.CreateFixture(circleShape, userData);
 		}
 
-		public static Fixture AttachCircle(float radius, float density, Body body, Vector2 offset,
+		public static Fixture AttachCircle(float radius, float density, Body body, System.Numerics.Vector2 offset,
 		                                   object userData = null)
 		{
 			if (radius <= 0)

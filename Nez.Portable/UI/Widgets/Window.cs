@@ -61,7 +61,7 @@ namespace Nez.UI
 		{ }
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			float width = GetWidth(), height = GetHeight();
 			edge = 0;
@@ -104,7 +104,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 			if (!_dragging)
 				return;
@@ -186,7 +186,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 			_dragging = false;
 		}
@@ -251,8 +251,8 @@ namespace Nez.UI
 
 			if (style.StageBackground != null)
 			{
-				var stagePos = StageToLocalCoordinates(Vector2.Zero);
-				var stageSize = StageToLocalCoordinates(new Vector2(_stage.GetWidth(), _stage.GetHeight()));
+				var stagePos = StageToLocalCoordinates(System.Numerics.Vector2.Zero);
+				var stageSize = StageToLocalCoordinates(new System.Numerics.Vector2(_stage.GetWidth(), _stage.GetHeight()));
 				DrawStageBackground(batcher, parentAlpha, GetX() + stagePos.X, GetY() + stagePos.Y,
 					GetX() + stageSize.X, GetY() + stageSize.Y);
 			}
@@ -279,7 +279,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element Hit(Vector2 point)
+		public override Element Hit(System.Numerics.Vector2 point)
 		{
 			var hit = base.Hit(point);
 			if (hit == null || hit == this)

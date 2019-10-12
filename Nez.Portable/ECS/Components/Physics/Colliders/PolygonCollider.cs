@@ -14,7 +14,7 @@ namespace Nez
 		/// If the points are not centered they will be centered with the difference being applied to the localOffset.
 		/// </summary>
 		/// <param name="points">Points.</param>
-		public PolygonCollider(Vector2[] points)
+		public PolygonCollider(System.Numerics.Vector2[] points)
 		{
 			// first and last point must not be the same. we want an open polygon
 			var isPolygonClosed = points[0] == points[points.Length - 1];
@@ -50,7 +50,7 @@ namespace Nez
 			// Normal debug code
 			//for( var i = 0; i < poly.points.Length; i++ )
 			//{
-			//	Vector2 p2;
+			//	System.Numerics.Vector2 p2;
 			//	var p1 = poly.points[i];
 			//	if( i + 1 >= poly.points.Length )
 			//		p2 = poly.points[0];
@@ -58,7 +58,7 @@ namespace Nez
 			//		p2 = poly.points[i + 1];
 			//	var perp = Vector2Ext.perpendicular( ref p1, ref p2 );
 			//	Vector2Ext.normalize( ref perp );
-			//	var mp = Vector2.Lerp( p1, p2, 0.5f ) + poly.position;
+			//	var mp = System.Numerics.Vector2.Lerp( p1, p2, 0.5f ) + poly.position;
 			//	batcher.drawLine( mp, mp + perp * 10, Color.White );
 			//}
 		}

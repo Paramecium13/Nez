@@ -46,14 +46,14 @@ namespace FarseerPhysics.Dynamics
 	/// This is an internal structure.
 	public struct Position
 	{
-		public Vector2 C;
+		public System.Numerics.Vector2 C;
 		public float A;
 	}
 
 	/// This is an internal structure.
 	public struct Velocity
 	{
-		public Vector2 V;
+		public System.Numerics.Vector2 V;
 		public float W;
 	}
 

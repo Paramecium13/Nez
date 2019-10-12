@@ -25,7 +25,7 @@ namespace Nez
         /// <returns><c>true</c>, if movement was calculated, <c>false</c> otherwise.</returns>
         /// <param name="motion">Motion.</param>
         /// <param name="collisionResult">Collision result.</param>
-        public bool CalculateMovement(ref Vector2 motion, out CollisionResult collisionResult)
+        public bool CalculateMovement(ref System.Numerics.Vector2 motion, out CollisionResult collisionResult)
         {
             collisionResult = new CollisionResult();
 
@@ -81,7 +81,7 @@ namespace Nez
         /// <returns>The amount of collisions that occured.</returns>
         /// <param name="motion">Motion.</param>
         /// <param name="collisionResult">Collision result.</param>
-        public int AdvancedCalculateMovement(ref Vector2 motion, ICollection<CollisionResult> collisionResults)
+        public int AdvancedCalculateMovement(ref System.Numerics.Vector2 motion, ICollection<CollisionResult> collisionResults)
         {
             int Collisions = 0;
             // no collider? just move and forget about it
@@ -141,15 +141,13 @@ namespace Nez
 			_triggerHelper?.Update();
 		}
 
-		public void ApplyMovement(Vector2 motion) => ApplyMovement(motion.ToSimd());
-
 		/// <summary>
 		/// moves the entity taking collisions into account by calling calculateMovement followed by applyMovement;
 		/// </summary>
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="collisionResult">Collision result.</param>
-		public bool Move(Vector2 motion, out CollisionResult collisionResult)
+		public bool Move(System.Numerics.Vector2 motion, out CollisionResult collisionResult)
 		{
 			CalculateMovement(ref motion, out collisionResult);
 

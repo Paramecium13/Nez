@@ -6,12 +6,12 @@ namespace Nez.Farseer
 	public class FSFrictionJoint : FSJoint
 	{
 		FSFrictionJointDef _jointDef = new FSFrictionJointDef();
-		Vector2 _anchor;
+		System.Numerics.Vector2 _anchor;
 
 
 		#region Configuration
 
-		public FSFrictionJoint SetAnchor(Vector2 anchor)
+		public FSFrictionJoint SetAnchor(System.Numerics.Vector2 anchor)
 		{
 			_anchor = anchor;
 			RecreateJoint();

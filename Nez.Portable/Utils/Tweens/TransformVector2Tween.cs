@@ -20,27 +20,27 @@ namespace Nez.Tweens
 	/// this is a special case since Transforms are by far the most tweened object. we encapsulate the Tween and the ITweenTarget
 	/// in a single, cacheable class
 	/// </summary>
-	public class TransformVector2Tween : Vector2Tween, ITweenTarget<Vector2>
+	public class TransformVector2Tween : Vector2Tween, ITweenTarget<System.Numerics.Vector2>
 	{
 		Transform _transform;
 		TransformTargetType _targetType;
 
 
-		public void SetTweenedValue(Vector2 value)
+		public void SetTweenedValue(System.Numerics.Vector2 value)
 		{
 			switch (_targetType)
 			{
 				case TransformTargetType.Position:
-					_transform.Position = value.ToSimd();
+					_transform.Position = value;
 					break;
 				case TransformTargetType.LocalPosition:
-					_transform.LocalPosition = value.ToSimd();
+					_transform.LocalPosition = value;
 					break;
 				case TransformTargetType.Scale:
-					_transform.Scale = value.ToSimd();
+					_transform.Scale = value;
 					break;
 				case TransformTargetType.LocalScale:
-					_transform.LocalScale = value.ToSimd();
+					_transform.LocalScale = value;
 					break;
 				case TransformTargetType.RotationDegrees:
 					_transform.RotationDegrees = value.X;
@@ -54,22 +54,22 @@ namespace Nez.Tweens
 		}
 
 
-		public Vector2 GetTweenedValue()
+		public System.Numerics.Vector2 GetTweenedValue()
 		{
 			switch (_targetType)
 			{
 				case TransformTargetType.Position:
-					return _transform.Position.ToXna();
+					return _transform.Position;
 				case TransformTargetType.LocalPosition:
-					return _transform.LocalPosition.ToXna();
+					return _transform.LocalPosition;
 				case TransformTargetType.Scale:
-					return _transform.Scale.ToXna();
+					return _transform.Scale;
 				case TransformTargetType.LocalScale:
-					return _transform.LocalScale.ToXna();
+					return _transform.LocalScale;
 				case TransformTargetType.RotationDegrees:
-					return new Vector2(_transform.RotationDegrees);
+					return new System.Numerics.Vector2(_transform.RotationDegrees);
 				case TransformTargetType.LocalRotationDegrees:
-					return new Vector2(_transform.LocalRotationDegrees, 0);
+					return new System.Numerics.Vector2(_transform.LocalRotationDegrees, 0);
 				default:
 					throw new System.ArgumentOutOfRangeException();
 			}

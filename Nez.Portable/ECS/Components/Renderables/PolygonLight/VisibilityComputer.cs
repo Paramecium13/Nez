@@ -50,8 +50,6 @@ namespace Nez.Shadows
 			_radius = radius;
 		}
 
-		public VisibilityComputer(Vector2 origin, float radius) : this(origin.ToSimd(), radius) { }
-
 		/// <summary>
 		/// adds a Collider as an occluder for the PolyLight
 		/// </summary>
@@ -78,14 +76,14 @@ namespace Nez.Shadows
 			}
 			else if (collider is CircleCollider)
 			{
-				AddCircleOccluder(collider.AbsolutePosition.ToSimd(), (collider as CircleCollider).Radius);
+				AddCircleOccluder(collider.AbsolutePosition, (collider as CircleCollider).Radius);
 			}
 		}
 
 		/// <summary>
 		/// Add a square shaped occluder
 		/// </summary>        
-		public void AddSquareOccluder(Vector2 position, float width, float rotation)
+		public void AddSquareOccluder(System.Numerics.Vector2 position, float width, float rotation)
 		{
 			var x = position.X;
 			var y = position.Y;
@@ -119,10 +117,10 @@ namespace Nez.Shadows
 			var bl = new System.Numerics.Vector2(bounds.Left, bounds.Bottom);
 			var br = new System.Numerics.Vector2(bounds.Right, bounds.Bottom);
 
-			AddSegment(bounds.Location.ToSimd(), tr);
+			AddSegment(bounds.Location, tr);
 			AddSegment(tr, br);
 			AddSegment(br, bl);
-			AddSegment(bl, bounds.Location.ToSimd());
+			AddSegment(bl, bounds.Location);
 		}
 
 		/// <summary>
@@ -137,10 +135,10 @@ namespace Nez.Shadows
 
 			var stepSize = MathHelper.Pi / LineCountForCircleApproximation;
 			var startAngle = angle + MathHelper.PiOver2;
-			var lastPt = Mathf.AngleToVector(startAngle, radius).ToSimd() + position;
+			var lastPt = Mathf.AngleToVector(startAngle, radius) + position;
 			for (var i = 1; i < LineCountForCircleApproximation; i++)
 			{
-				var nextPt = Mathf.AngleToVector(startAngle + i * stepSize, radius).ToSimd() + position;
+				var nextPt = Mathf.AngleToVector(startAngle + i * stepSize, radius) + position;
 				AddLineOccluder(lastPt, nextPt);
 				lastPt = nextPt;
 			}
@@ -152,11 +150,6 @@ namespace Nez.Shadows
 		public void AddLineOccluder(System.Numerics.Vector2 p1, System.Numerics.Vector2 p2)
 		{
 			AddSegment(p1, p2);
-		}
-
-		public void AddLineOccluder(Vector2 p1, Vector2 p2)
-		{
-			AddLineOccluder(p1.ToSimd(), p2.ToSimd());
 		}
 
 
@@ -202,11 +195,6 @@ namespace Nez.Shadows
 			_origin = origin;
 			_radius = radius;
 			_isSpotLight = false;
-		}
-
-		public void Begin(Vector2 origin, float radius)
-		{
-			Begin(origin.ToSimd(), radius);
 		}
 
 		/// <summary>
@@ -327,15 +315,15 @@ namespace Nez.Shadows
 				new System.Numerics.Vector2(_origin.X + _radius, _origin.Y + _radius));
 		}
 
-		public void LoadSpotLightBoundaries(Vector2[] points)
+		public void LoadSpotLightBoundaries(System.Numerics.Vector2[] points)
 		{
 			_isSpotLight = true;
 
 			// add the two outer edges of the polygon but lerp them a bit so they dont start at the origin
-			var first = Vector2.Lerp(_origin.ToXna(), _origin.ToXna() + points[1], 0.1f);
-			var second = Vector2.Lerp(_origin.ToXna(), _origin.ToXna() + points[points.Length - 1], 0.1f);
-			AddSegment(first.ToSimd(), _origin + points[1].ToSimd());
-			AddSegment(second.ToSimd(), _origin + points[points.Length - 1].ToSimd());
+			var first = System.Numerics.Vector2.Lerp(_origin, _origin + points[1], 0.1f);
+			var second = System.Numerics.Vector2.Lerp(_origin, _origin + points[points.Length - 1], 0.1f);
+			AddSegment(first, _origin + points[1]);
+			AddSegment(second, _origin + points[points.Length - 1]);
 
 			LoadRectangleBoundaries();
 		}

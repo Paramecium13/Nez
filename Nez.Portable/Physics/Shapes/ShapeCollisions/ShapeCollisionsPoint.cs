@@ -5,17 +5,17 @@ namespace Nez.PhysicsShapes
 {
 	public static partial class ShapeCollisions
 	{
-		public static bool PointToCircle(Vector2 point, Circle circle, out CollisionResult result)
+		public static bool PointToCircle(System.Numerics.Vector2 point, Circle circle, out CollisionResult result)
 		{
 			result = new CollisionResult();
 
 			// avoid the square root until we actually need it
-			var distanceSquared = Vector2.DistanceSquared(point, circle.position);
+			var distanceSquared = System.Numerics.Vector2.DistanceSquared(point, circle.position);
 			var sumOfRadii = 1 + circle.Radius;
 			var collided = distanceSquared < sumOfRadii * sumOfRadii;
 			if (collided)
 			{
-				result.Normal = Vector2.Normalize(point - circle.position);
+				result.Normal = System.Numerics.Vector2.Normalize(point - circle.position);
 				var depth = sumOfRadii - Mathf.Sqrt(distanceSquared);
 				result.MinimumTranslationVector = -depth * result.Normal;
 				result.Point = circle.position + result.Normal * circle.Radius;
@@ -27,7 +27,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public static bool PointToBox(Vector2 point, Box box, out CollisionResult result)
+		public static bool PointToBox(System.Numerics.Vector2 point, Box box, out CollisionResult result)
 		{
 			result = new CollisionResult();
 
@@ -44,7 +44,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public static bool PointToPoly(Vector2 point, Polygon poly, out CollisionResult result)
+		public static bool PointToPoly(System.Numerics.Vector2 point, Polygon poly, out CollisionResult result)
 		{
 			result = new CollisionResult();
 

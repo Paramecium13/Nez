@@ -13,13 +13,13 @@ namespace Nez.Farseer
 	{
 		#region Fixtures/Shapes
 
-		public static Fixture AttachEdge(this Body body, Vector2 start, Vector2 end)
+		public static Fixture AttachEdge(this Body body, System.Numerics.Vector2 start, System.Numerics.Vector2 end)
 		{
 			return FixtureFactory.AttachEdge(FSConvert.DisplayToSim * start, FSConvert.DisplayToSim * end, body);
 		}
 
 
-		public static Fixture AttachChainShape(this Body body, List<Vector2> vertices)
+		public static Fixture AttachChainShape(this Body body, List<System.Numerics.Vector2> vertices)
 		{
 			for (var i = 0; i < vertices.Count; i++)
 				vertices[i] = FSConvert.ToSimUnits(vertices[i]);
@@ -28,7 +28,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static Fixture AttachLoopShape(this Body body, List<Vector2> vertices)
+		public static Fixture AttachLoopShape(this Body body, List<System.Numerics.Vector2> vertices)
 		{
 			for (var i = 0; i < vertices.Count; i++)
 				vertices[i] = FSConvert.ToSimUnits(vertices[i]);
@@ -38,7 +38,7 @@ namespace Nez.Farseer
 
 
 		public static Fixture AttachCircle(this Body body, float radius, float density,
-		                                   Vector2 offset = default(Vector2))
+		                                   System.Numerics.Vector2 offset = default(System.Numerics.Vector2))
 		{
 			return FixtureFactory.AttachCircle(FSConvert.DisplayToSim * radius, density, body,
 				offset * FSConvert.DisplayToSim, null);
@@ -46,7 +46,7 @@ namespace Nez.Farseer
 
 
 		public static Fixture AttachRectangle(this Body body, float width, float height, float density,
-		                                      Vector2 offset = default(Vector2))
+		                                      System.Numerics.Vector2 offset = default(System.Numerics.Vector2))
 		{
 			return FixtureFactory.AttachRectangle(FSConvert.DisplayToSim * width, FSConvert.DisplayToSim * height,
 				density, FSConvert.DisplayToSim * offset, body);
@@ -55,7 +55,7 @@ namespace Nez.Farseer
 
 		public static List<Fixture> AttachRoundedRectangle(this Body body, float width, float height, float xRadius,
 		                                                   float yRadius, int segments, float density,
-		                                                   Vector2 position = new Vector2())
+		                                                   System.Numerics.Vector2 position = new System.Numerics.Vector2())
 		{
 			width *= FSConvert.DisplayToSim;
 			height *= FSConvert.DisplayToSim;
@@ -67,7 +67,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static Fixture AttachPolygon(this Body body, List<Vector2> vertices, float density)
+		public static Fixture AttachPolygon(this Body body, List<System.Numerics.Vector2> vertices, float density)
 		{
 			for (var i = 0; i < vertices.Count; i++)
 				vertices[i] = FSConvert.DisplayToSim * vertices[i];
@@ -135,8 +135,8 @@ namespace Nez.Farseer
 			body.AttachRectangle(endRadius, height / 2, density);
 
 			// create the two circles
-			body.AttachCircle(endRadius, density, new Vector2(0, height / 2));
-			body.AttachCircle(endRadius, density, new Vector2(0, -height / 2));
+			body.AttachCircle(endRadius, density, new System.Numerics.Vector2(0, height / 2));
+			body.AttachCircle(endRadius, density, new System.Numerics.Vector2(0, -height / 2));
 		}
 
 		#endregion
@@ -150,7 +150,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static RevoluteJoint CreateRevoluteJoint(this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB,
+		public static RevoluteJoint CreateRevoluteJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB,
 		                                                bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateRevoluteJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchorA,
@@ -158,13 +158,13 @@ namespace Nez.Farseer
 		}
 
 
-		public static RevoluteJoint CreateRevoluteJoint(this Body body, Body bodyB, Vector2 anchor)
+		public static RevoluteJoint CreateRevoluteJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchor)
 		{
 			return JointFactory.CreateRevoluteJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchor);
 		}
 
 
-		public static RopeJoint CreateRopeJoint(this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB,
+		public static RopeJoint CreateRopeJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB,
 		                                        bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateRopeJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchorA,
@@ -172,7 +172,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static WeldJoint CreateWeldJoint(this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB,
+		public static WeldJoint CreateWeldJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB,
 		                                        bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateWeldJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchorA,
@@ -180,7 +180,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static PrismaticJoint CreatePrismaticJoint(this Body body, Body bodyB, Vector2 anchor, Vector2 axis,
+		public static PrismaticJoint CreatePrismaticJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchor, System.Numerics.Vector2 axis,
 		                                                  bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreatePrismaticJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchor, axis,
@@ -188,7 +188,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static WheelJoint CreateWheelJoint(this Body body, Body bodyB, Vector2 anchor, Vector2 axis,
+		public static WheelJoint CreateWheelJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchor, System.Numerics.Vector2 axis,
 		                                          bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateWheelJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchor, axis,
@@ -196,9 +196,9 @@ namespace Nez.Farseer
 		}
 
 
-		public static WheelJoint CreateWheelJoint(this Body body, Body bodyB, Vector2 axis)
+		public static WheelJoint CreateWheelJoint(this Body body, Body bodyB, System.Numerics.Vector2 axis)
 		{
-			return CreateWheelJoint(body, bodyB, Vector2.Zero, axis);
+			return CreateWheelJoint(body, bodyB, System.Numerics.Vector2.Zero, axis);
 		}
 
 
@@ -208,7 +208,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static DistanceJoint CreateDistanceJoint(this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB,
+		public static DistanceJoint CreateDistanceJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB,
 		                                                bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateDistanceJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchorA,
@@ -218,11 +218,11 @@ namespace Nez.Farseer
 
 		public static DistanceJoint CreateDistanceJoint(this Body body, Body bodyB)
 		{
-			return CreateDistanceJoint(body, bodyB, Vector2.Zero, Vector2.Zero);
+			return CreateDistanceJoint(body, bodyB, System.Numerics.Vector2.Zero, System.Numerics.Vector2.Zero);
 		}
 
 
-		public static FrictionJoint CreateFrictionJoint(this Body body, Body bodyB, Vector2 anchor,
+		public static FrictionJoint CreateFrictionJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchor,
 		                                                bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreateFrictionJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchor,
@@ -232,7 +232,7 @@ namespace Nez.Farseer
 
 		public static FrictionJoint CreateFrictionJoint(this Body body, Body bodyB)
 		{
-			return CreateFrictionJoint(body, bodyB, Vector2.Zero);
+			return CreateFrictionJoint(body, bodyB, System.Numerics.Vector2.Zero);
 		}
 
 
@@ -242,8 +242,8 @@ namespace Nez.Farseer
 		}
 
 
-		public static PulleyJoint CreatePulleyJoint(this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB,
-		                                            Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio,
+		public static PulleyJoint CreatePulleyJoint(this Body body, Body bodyB, System.Numerics.Vector2 anchorA, System.Numerics.Vector2 anchorB,
+		                                            System.Numerics.Vector2 worldAnchorA, System.Numerics.Vector2 worldAnchorB, float ratio,
 		                                            bool useWorldCoordinates = false)
 		{
 			return JointFactory.CreatePulleyJoint(body.World, body, bodyB, FSConvert.DisplayToSim * anchorA,
@@ -252,7 +252,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static FixedMouseJoint CreateFixedMouseJoint(this Body body, Vector2 worldAnchor)
+		public static FixedMouseJoint CreateFixedMouseJoint(this Body body, System.Numerics.Vector2 worldAnchor)
 		{
 			return JointFactory.CreateFixedMouseJoint(body.World, body, FSConvert.DisplayToSim * worldAnchor);
 		}

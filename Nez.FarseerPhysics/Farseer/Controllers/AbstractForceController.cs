@@ -91,7 +91,7 @@ namespace FarseerPhysics.Controllers
 			Enabled = true;
 
 			Strength = 1.0f;
-			Position = new Vector2(0, 0);
+			Position = new System.Numerics.Vector2(0, 0);
 			MaximumSpeed = 100.0f;
 			TimingMode = TimingModes.Switched;
 			ImpulseTime = 0.0f;
@@ -142,7 +142,7 @@ namespace FarseerPhysics.Controllers
 		/// Position of the Force. Can be ignored (left at (0,0) for forces
 		/// that are not position-dependent
 		/// </summary>
-		public Vector2 Position { get; set; }
+		public System.Numerics.Vector2 Position { get; set; }
 
 		/// <summary>
 		/// Maximum speed of the bodies. Bodies that are travelling faster are

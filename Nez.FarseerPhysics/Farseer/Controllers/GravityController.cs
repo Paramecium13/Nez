@@ -20,7 +20,7 @@ namespace FarseerPhysics.Controllers
 		public float Strength;
 		public GravityType GravityType = GravityType.DistanceSquared;
 		public List<Body> Bodies = new List<Body>();
-		public List<Vector2> Points = new List<Vector2>();
+		public List<System.Numerics.Vector2> Points = new List<System.Numerics.Vector2>();
 
 
 		public GravityController(float strength) : base(ControllerType.GravityController)
@@ -36,13 +36,13 @@ namespace FarseerPhysics.Controllers
 			this.MaxRadius = maxRadius;
 			this.Strength = strength;
 			this.GravityType = GravityType.DistanceSquared;
-			this.Points = new List<Vector2>();
+			this.Points = new List<System.Numerics.Vector2>();
 			this.Bodies = new List<Body>();
 		}
 
 		public override void Update(float dt)
 		{
-			var f = Vector2.Zero;
+			var f = System.Numerics.Vector2.Zero;
 
 			foreach (var worldBody in World.BodyList)
 			{
@@ -74,7 +74,7 @@ namespace FarseerPhysics.Controllers
 					worldBody.ApplyForce(ref f);
 				}
 
-				foreach (Vector2 point in Points)
+				foreach (System.Numerics.Vector2 point in Points)
 				{
 					var d = point - worldBody.Position;
 					var r2 = d.LengthSquared();
@@ -102,7 +102,7 @@ namespace FarseerPhysics.Controllers
 			Bodies.Add(body);
 		}
 
-		public void AddPoint(Vector2 point)
+		public void AddPoint(System.Numerics.Vector2 point)
 		{
 			Points.Add(point);
 		}

@@ -131,7 +131,7 @@ namespace Nez
 				return;
 
 			for (var i = 0; i < _compiledMarkup.Count; i++)
-				_compiledMarkup[i].Render(batcher, Transform.Position.ToXna() + _localOffset);
+				_compiledMarkup[i].Render(batcher, Transform.Position + _localOffset);
 		}
 
 
@@ -146,7 +146,7 @@ namespace Nez
 				_compiledMarkup.Clear();
 
 			var reader = XmlReader.Create(new StringReader(_text));
-			var position = Vector2.Zero;
+			var position = System.Numerics.Vector2.Zero;
 			var formatingStack = new Stack<FormatInstruction>();
 			var conditionalsStack = new Stack<bool>();
 			var alignStack = new Stack<HorizontalAlign>();
@@ -180,7 +180,7 @@ namespace Nez
 							else if (formatingStack.Count > 0)
 								color = formatingStack.Peek().Color;
 
-							var scale = Vector2.One;
+							var scale = System.Numerics.Vector2.One;
 							s = reader.GetAttribute("scale");
 							if (!string.IsNullOrEmpty(s))
 								scale = ParseVector2(s);
@@ -261,7 +261,7 @@ namespace Nez
 							if (!string.IsNullOrEmpty(s))
 								color = ParseColor(s);
 
-							var scale = Vector2.One;
+							var scale = System.Numerics.Vector2.One;
 							s = reader.GetAttribute("scale");
 							if (!string.IsNullOrEmpty(s))
 								scale = ParseVector2(s);
@@ -396,7 +396,7 @@ namespace Nez
 				for (var i = 0; i < lineBuffer.Count; i++)
 				{
 					var element = lineBuffer[i];
-					element.Position = new Vector2(element.Position.X, position.Y + currentLineHeight / 2f);
+					element.Position = new System.Numerics.Vector2(element.Position.X, position.Y + currentLineHeight / 2f);
 				}
 
 				currentTotalHeight += currentLineHeight;
@@ -408,7 +408,7 @@ namespace Nez
 		}
 
 
-		Vector2 WrapLine(Vector2 position, List<ICompiledElement> lineBuffer, HorizontalAlign alignment,
+		System.Numerics.Vector2 WrapLine(System.Numerics.Vector2 position, List<ICompiledElement> lineBuffer, HorizontalAlign alignment,
 		                 out float currentLineHeight)
 		{
 			currentLineHeight = 0;
@@ -436,7 +436,7 @@ namespace Nez
 			// run back through and reset the y position of all the items to match the currentLineHeight and apply the xOffset
 			for (var i = 0; i < lineBuffer.Count; i++)
 				lineBuffer[i].Position =
-					new Vector2(lineBuffer[i].Position.X + xOffset, position.Y + currentLineHeight / 2f);
+					new System.Numerics.Vector2(lineBuffer[i].Position.X + xOffset, position.Y + currentLineHeight / 2f);
 
 			_compiledMarkup.AddRange(lineBuffer);
 			lineBuffer.Clear();
@@ -476,10 +476,10 @@ namespace Nez
 		}
 
 
-		static Vector2 ParseVector2(string vectorString)
+		static System.Numerics.Vector2 ParseVector2(string vectorString)
 		{
 			var split = Regex.Split(vectorString, @"[\\s,]+");
-			return new Vector2(float.Parse(split[0], CultureInfo.InvariantCulture),
+			return new System.Numerics.Vector2(float.Parse(split[0], CultureInfo.InvariantCulture),
 				float.Parse(split[1], CultureInfo.InvariantCulture));
 		}
 	}
@@ -491,10 +491,10 @@ namespace Nez
 	{
 		public readonly Color Color;
 		public readonly IFont Font;
-		public readonly Vector2 Scale;
+		public readonly System.Numerics.Vector2 Scale;
 
 
-		public FormatInstruction(IFont font, Color color, Vector2 scale)
+		public FormatInstruction(IFont font, Color color, System.Numerics.Vector2 scale)
 		{
 			Font = font;
 			Color = color;
@@ -505,22 +505,22 @@ namespace Nez
 
 	interface ICompiledElement
 	{
-		Vector2 Size { get; }
-		Vector2 Position { get; set; }
-		void Render(Batcher batcher, Vector2 offset);
+		System.Numerics.Vector2 Size { get; }
+		System.Numerics.Vector2 Position { get; set; }
+		void Render(Batcher batcher, System.Numerics.Vector2 offset);
 	}
 
 
 	struct CompiledTextElement : ICompiledElement
 	{
-		public Vector2 Position { get; set; }
-		public Vector2 Size { get; set; }
+		public System.Numerics.Vector2 Position { get; set; }
+		public System.Numerics.Vector2 Size { get; set; }
 
 		readonly FormatInstruction _formatInstruction;
 		readonly string _text;
 
 
-		public CompiledTextElement(string text, Vector2 position, FormatInstruction formatInstruction)
+		public CompiledTextElement(string text, System.Numerics.Vector2 position, FormatInstruction formatInstruction)
 		{
 			_text = text;
 			Position = position;
@@ -529,9 +529,9 @@ namespace Nez
 		}
 
 
-		public void Render(Batcher batcher, Vector2 offset)
+		public void Render(Batcher batcher, System.Numerics.Vector2 offset)
 		{
-			var origin = new Vector2(0, Size.Y / (2 * _formatInstruction.Scale.Y));
+			var origin = new System.Numerics.Vector2(0, Size.Y / (2 * _formatInstruction.Scale.Y));
 			batcher.DrawString(_formatInstruction.Font, _text, offset + Position, _formatInstruction.Color, 0,
 				origin, _formatInstruction.Scale, SpriteEffects.None, 0);
 		}
@@ -540,27 +540,27 @@ namespace Nez
 
 	struct CompiledImageElement : ICompiledElement
 	{
-		public Vector2 Position { get; set; }
-		public Vector2 Size { get; set; }
+		public System.Numerics.Vector2 Position { get; set; }
+		public System.Numerics.Vector2 Size { get; set; }
 
 		readonly Color _color;
 		readonly Texture2D _image;
-		readonly Vector2 _scale;
+		readonly System.Numerics.Vector2 _scale;
 
 
-		public CompiledImageElement(Texture2D image, Color color, Vector2 position, Vector2 scale)
+		public CompiledImageElement(Texture2D image, Color color, System.Numerics.Vector2 position, System.Numerics.Vector2 scale)
 		{
 			_image = image;
 			Position = position;
 			_color = color;
 			_scale = scale;
-			Size = new Vector2(image.Width, image.Height) * scale;
+			Size = new System.Numerics.Vector2(image.Width, image.Height) * scale;
 		}
 
 
-		public void Render(Batcher batcher, Vector2 offset)
+		public void Render(Batcher batcher, System.Numerics.Vector2 offset)
 		{
-			var origin = new Vector2(0, _image.Height / 2f);
+			var origin = new System.Numerics.Vector2(0, _image.Height / 2f);
 			batcher.Draw(_image, offset + Position, null, _color, 0, origin, _scale, SpriteEffects.None, 0);
 		}
 	}

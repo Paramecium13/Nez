@@ -60,7 +60,7 @@ namespace Nez.Tiled
 			/// resets collision state and does sub-pixel movement calculations
 			/// </summary>
 			/// <param name="motion">Motion.</param>
-			public void Reset(ref Vector2 motion)
+			public void Reset(ref System.Numerics.Vector2 motion)
 			{
 				if (motion.X == 0)
 					Right = Left = false;
@@ -138,7 +138,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="motion">Motion.</param>
 		/// <param name="boxCollider">Box collider.</param>
-		public void Move(Vector2 motion, BoxCollider boxCollider, CollisionState collisionState)
+		public void Move(System.Numerics.Vector2 motion, BoxCollider boxCollider, CollisionState collisionState)
 		{
 			if (TiledMap == null)
 				return;
@@ -151,7 +151,7 @@ namespace Nez.Tiled
 			boxCollider.RegisterColliderWithPhysicsSystem();
 		}
 
-		public void TestCollisions(ref Vector2 motion, Rectangle boxColliderBounds, CollisionState collisionState)
+		public void TestCollisions(ref System.Numerics.Vector2 motion, Rectangle boxColliderBounds, CollisionState collisionState)
 		{
 			_boxColliderBounds = boxColliderBounds;
 

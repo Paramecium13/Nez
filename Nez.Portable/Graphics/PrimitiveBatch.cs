@@ -102,7 +102,7 @@ namespace Nez
 			_hasBegun = false;
 		}
 
-		public void AddVertex(Vector2 vertex, Color color, PrimitiveType primitiveType)
+		public void AddVertex(System.Numerics.Vector2 vertex, Color color, PrimitiveType primitiveType)
 		{
 			Insist.IsTrue(_hasBegun, "Invalid state. Begin must be called before AddVertex can be called.");
 			Insist.IsFalse(primitiveType == PrimitiveType.LineStrip || primitiveType == PrimitiveType.TriangleStrip,
@@ -113,7 +113,7 @@ namespace Nez
 				if (_triangleVertsCount >= _triangleVertices.Length)
 					FlushTriangles();
 
-				_triangleVertices[_triangleVertsCount].Position = new Vector3(vertex, 0);
+				_triangleVertices[_triangleVertsCount].Position = new Vector3(vertex.ToXna(), 0);
 				_triangleVertices[_triangleVertsCount].Color = color;
 				_triangleVertsCount++;
 			}
@@ -123,7 +123,7 @@ namespace Nez
 				if (_lineVertsCount >= _lineVertices.Length)
 					FlushLines();
 
-				_lineVertices[_lineVertsCount].Position = new Vector3(vertex, 0);
+				_lineVertices[_lineVertsCount].Position = new Vector3(vertex.ToXna(), 0);
 				_lineVertices[_lineVertsCount].Color = color;
 				_lineVertsCount++;
 			}
@@ -165,27 +165,27 @@ namespace Nez
 
 		public void DrawRectangle(float x, float y, float width, float height, Color color)
 		{
-			var verts = new Vector2[4];
-			verts[2] = new Vector2(x + width, y + height);
-			verts[1] = new Vector2(x + width, y);
-			verts[0] = new Vector2(x, y);
-			verts[3] = new Vector2(x, y + height);
+			var verts = new System.Numerics.Vector2[4];
+			verts[2] = new System.Numerics.Vector2(x + width, y + height);
+			verts[1] = new System.Numerics.Vector2(x + width, y);
+			verts[0] = new System.Numerics.Vector2(x, y);
+			verts[3] = new System.Numerics.Vector2(x, y + height);
 
 			DrawPolygon(verts, 4, color);
 		}
 
 		public void DrawRectangle(ref Rectangle rect, Color color)
 		{
-			var verts = new Vector2[4];
-			verts[0] = new Vector2(rect.Left, rect.Top);
-			verts[1] = new Vector2(rect.Right, rect.Top);
-			verts[2] = new Vector2(rect.Right, rect.Bottom);
-			verts[3] = new Vector2(rect.Left, rect.Bottom);
+			var verts = new System.Numerics.Vector2[4];
+			verts[0] = new System.Numerics.Vector2(rect.Left, rect.Top);
+			verts[1] = new System.Numerics.Vector2(rect.Right, rect.Top);
+			verts[2] = new System.Numerics.Vector2(rect.Right, rect.Bottom);
+			verts[3] = new System.Numerics.Vector2(rect.Left, rect.Bottom);
 
 			DrawPolygon(verts, 4, color);
 		}
 
-		public void DrawPolygon(Vector2[] vertices, int count, Color color)
+		public void DrawPolygon(System.Numerics.Vector2[] vertices, int count, Color color)
 		{
 			for (int i = 1; i < count - 1; i++)
 			{
@@ -195,7 +195,7 @@ namespace Nez
 			}
 		}
 
-		public void DrawPolygon(Vector2 position, Vector2[] vertices, Color color)
+		public void DrawPolygon(System.Numerics.Vector2 position, System.Numerics.Vector2[] vertices, Color color)
 		{
 			var v0 = vertices[0];
 			var v1 = v0;
@@ -216,18 +216,18 @@ namespace Nez
 			AddVertex(position, color, PrimitiveType.TriangleList);
 		}
 
-		public void DrawCircle(Vector2 center, float radius, Color color, int circleSegments = 32)
+		public void DrawCircle(System.Numerics.Vector2 center, float radius, Color color, int circleSegments = 32)
 		{
 			var increment = MathHelper.Pi * 2.0f / circleSegments;
 			var theta = 0.0f;
 
-			var v0 = center + radius * new Vector2((float) Math.Cos(theta), (float) Math.Sin(theta));
+			var v0 = center + radius * new System.Numerics.Vector2((float) Math.Cos(theta), (float) Math.Sin(theta));
 			theta += increment;
 
 			for (int i = 1; i < circleSegments - 1; i++)
 			{
-				var v1 = center + radius * new Vector2((float) Math.Cos(theta), (float) Math.Sin(theta));
-				var v2 = center + radius * new Vector2((float) Math.Cos(theta + increment),
+				var v1 = center + radius * new System.Numerics.Vector2((float) Math.Cos(theta), (float) Math.Sin(theta));
+				var v2 = center + radius * new System.Numerics.Vector2((float) Math.Cos(theta + increment),
 					         (float) Math.Sin(theta + increment));
 
 				AddVertex(v0, color, PrimitiveType.TriangleList);
@@ -238,7 +238,7 @@ namespace Nez
 			}
 		}
 
-		public void DrawArrow(Vector2 start, Vector2 end, float length, float width, bool drawStartIndicator, Color color)
+		public void DrawArrow(System.Numerics.Vector2 start, System.Numerics.Vector2 end, float length, float width, bool drawStartIndicator, Color color)
 		{
 			// Draw connection segment between start- and end-point
 			//drawLine( start, end, color );
@@ -247,7 +247,7 @@ namespace Nez
 			var halfWidth = width / 2;
 
 			// Create directional reference
-			Vector2 rotation = (start - end);
+			System.Numerics.Vector2 rotation = (start - end);
 			rotation.Normalize();
 
 			// Calculate angle of directional vector
@@ -260,10 +260,10 @@ namespace Nez
 			Matrix2D endMatrix = Matrix2D.CreateTranslation(end.X, end.Y);
 
 			// Setup arrow end shape
-			Vector2[] verts = new Vector2[3];
-			verts[0] = new Vector2(0, 0);
-			verts[1] = new Vector2(-halfWidth, -length);
-			verts[2] = new Vector2(halfWidth, -length);
+			System.Numerics.Vector2[] verts = new System.Numerics.Vector2[3];
+			verts[0] = new System.Numerics.Vector2(0, 0);
+			verts[1] = new System.Numerics.Vector2(-halfWidth, -length);
+			verts[2] = new System.Numerics.Vector2(halfWidth, -length);
 
 			// Rotate end shape
 			Vector2Ext.Transform(verts, ref rotMatrix, verts);
@@ -280,11 +280,11 @@ namespace Nez
 				Matrix2D startMatrix = Matrix2D.CreateTranslation(start.X, start.Y);
 
 				// Setup arrow start shape
-				Vector2[] baseVerts = new Vector2[4];
-				baseVerts[0] = new Vector2(-halfWidth, length / 4);
-				baseVerts[1] = new Vector2(halfWidth, length / 4);
-				baseVerts[2] = new Vector2(halfWidth, 0);
-				baseVerts[3] = new Vector2(-halfWidth, 0);
+				System.Numerics.Vector2[] baseVerts = new System.Numerics.Vector2[4];
+				baseVerts[0] = new System.Numerics.Vector2(-halfWidth, length / 4);
+				baseVerts[1] = new System.Numerics.Vector2(halfWidth, length / 4);
+				baseVerts[2] = new System.Numerics.Vector2(halfWidth, 0);
+				baseVerts[3] = new System.Numerics.Vector2(-halfWidth, 0);
 
 				// Rotate start shape
 				Vector2Ext.Transform(baseVerts, ref rotMatrix, baseVerts);

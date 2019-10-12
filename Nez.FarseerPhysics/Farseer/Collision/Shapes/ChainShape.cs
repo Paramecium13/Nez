@@ -47,7 +47,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// Establish connectivity to a vertex that precedes the first vertex.
 		/// Don't call this for loops.
 		/// </summary>
-		public Vector2 PrevVertex
+		public System.Numerics.Vector2 PrevVertex
 		{
 			get => _prevVertex;
 			set
@@ -61,7 +61,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// Establish connectivity to a vertex that follows the last vertex.
 		/// Don't call this for loops.
 		/// </summary>
-		public Vector2 NextVertex
+		public System.Numerics.Vector2 NextVertex
 		{
 			get => _nextVertex;
 			set
@@ -71,7 +71,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		Vector2 _prevVertex, _nextVertex;
+		System.Numerics.Vector2 _prevVertex, _nextVertex;
 		bool _hasPrevVertex, _hasNextVertex;
 		static EdgeShape _edgeShape = new EdgeShape();
 
@@ -162,7 +162,7 @@ namespace FarseerPhysics.Collision.Shapes
 				var v2 = vertices[i];
 
 				// If the code crashes here, it means your vertices are too close together.
-				Debug.Assert(Vector2.DistanceSquared(v1, v2) > Settings.LinearSlop * Settings.LinearSlop);
+				Debug.Assert(System.Numerics.Vector2.DistanceSquared(v1, v2) > Settings.LinearSlop * Settings.LinearSlop);
 			}
 
 			this.Vertices = vertices;
@@ -177,7 +177,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		public override bool TestPoint(ref Transform transform, ref Vector2 point)
+		public override bool TestPoint(ref Transform transform, ref System.Numerics.Vector2 point)
 		{
 			return false;
 		}
@@ -210,8 +210,8 @@ namespace FarseerPhysics.Collision.Shapes
 			var v1 = MathUtils.Mul(ref transform, Vertices[i1]);
 			var v2 = MathUtils.Mul(ref transform, Vertices[i2]);
 
-			aabb.LowerBound = Vector2.Min(v1, v2);
-			aabb.UpperBound = Vector2.Max(v1, v2);
+			aabb.LowerBound = System.Numerics.Vector2.Min(v1, v2);
+			aabb.UpperBound = System.Numerics.Vector2.Max(v1, v2);
 		}
 
 		protected override void ComputeProperties()
@@ -219,9 +219,9 @@ namespace FarseerPhysics.Collision.Shapes
 			//Does nothing. Chain shapes don't have properties.
 		}
 
-		public override float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc)
+		public override float ComputeSubmergedArea(ref System.Numerics.Vector2 normal, float offset, ref Transform xf, out System.Numerics.Vector2 sc)
 		{
-			sc = Vector2.Zero;
+			sc = System.Numerics.Vector2.Zero;
 			return 0;
 		}
 

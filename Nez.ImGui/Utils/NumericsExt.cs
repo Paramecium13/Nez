@@ -10,14 +10,14 @@ namespace Nez.ImGuiTools
 	/// </summary>
 	public static class NumericsExt
 	{
-		public static Vector2 ToXNA(this Num.Vector2 self)
+		public static System.Numerics.Vector2 ToXNA(this System.Numerics.Vector2 self)
 		{
-			return new Vector2(self.X, self.Y);
+			return new System.Numerics.Vector2(self.X, self.Y);
 		}
 
-		public static Num.Vector2 ToNumerics(this Vector2 self)
+		public static System.Numerics.Vector2 ToNumerics(this System.Numerics.Vector2 self)
 		{
-			return new Num.Vector2(self.X, self.Y);
+			return new System.Numerics.Vector2(self.X, self.Y);
 		}
 
 		public static Vector3 ToXNA(this Num.Vector3 self)

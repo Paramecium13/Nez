@@ -52,8 +52,8 @@ namespace FarseerPhysics.Common.ConvexHull
 						continue;
 					}
 
-					Vector2 r = vertices[ie] - vertices[hull[m]];
-					Vector2 v = vertices[j] - vertices[hull[m]];
+					System.Numerics.Vector2 r = vertices[ie] - vertices[hull[m]];
+					System.Numerics.Vector2 v = vertices[j] - vertices[hull[m]];
 					float c = MathUtils.Cross(ref r, ref v);
 					if (c < 0.0f)
 					{

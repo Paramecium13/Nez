@@ -20,11 +20,11 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="exitPoint">The exit point - The end point</param>
 		/// <param name="first">The first collection of vertexes</param>
 		/// <param name="second">The second collection of vertexes</param>
-		public static void SplitShape(Fixture fixture, Vector2 entryPoint, Vector2 exitPoint, out Vertices first,
+		public static void SplitShape(Fixture fixture, System.Numerics.Vector2 entryPoint, System.Numerics.Vector2 exitPoint, out Vertices first,
 		                              out Vertices second)
 		{
-			Vector2 localEntryPoint = fixture.Body.GetLocalPoint(ref entryPoint);
-			Vector2 localExitPoint = fixture.Body.GetLocalPoint(ref exitPoint);
+			System.Numerics.Vector2 localEntryPoint = fixture.Body.GetLocalPoint(ref entryPoint);
+			System.Numerics.Vector2 localExitPoint = fixture.Body.GetLocalPoint(ref exitPoint);
 
 			PolygonShape shape = fixture.Shape as PolygonShape;
 
@@ -37,13 +37,13 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			}
 
 			//Offset the entry and exit points if they are too close to the vertices
-			foreach (Vector2 vertex in shape.Vertices)
+			foreach (System.Numerics.Vector2 vertex in shape.Vertices)
 			{
 				if (vertex.Equals(localEntryPoint))
-					localEntryPoint -= new Vector2(0, Settings.Epsilon);
+					localEntryPoint -= new System.Numerics.Vector2(0, Settings.Epsilon);
 
 				if (vertex.Equals(localExitPoint))
-					localExitPoint += new Vector2(0, Settings.Epsilon);
+					localExitPoint += new System.Numerics.Vector2(0, Settings.Epsilon);
 			}
 
 			Vertices vertices = new Vertices(shape.Vertices);
@@ -61,7 +61,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				int n;
 
 				//Find out if this vertex is on the old or new shape.
-				if (Vector2.Dot(MathUtils.Cross(localExitPoint - localEntryPoint, 1), vertices[i] - localEntryPoint) >
+				if (System.Numerics.Vector2.Dot(MathUtils.Cross(localExitPoint - localEntryPoint, 1), vertices[i] - localEntryPoint) >
 				    Settings.Epsilon)
 					n = 0;
 				else
@@ -108,7 +108,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
 			for (int n = 0; n < 2; n++)
 			{
-				Vector2 offset;
+				System.Numerics.Vector2 offset;
 				if (cutAdded[n] > 0)
 					offset = (newPolygon[n][cutAdded[n] - 1] - newPolygon[n][cutAdded[n]]);
 				else
@@ -116,7 +116,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				Nez.Vector2Ext.Normalize(ref offset);
 
 				if (!offset.IsValid())
-					offset = Vector2.One;
+					offset = System.Numerics.Vector2.One;
 
 				newPolygon[n][cutAdded[n]] += Settings.Epsilon * offset;
 
@@ -127,7 +127,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				Nez.Vector2Ext.Normalize(ref offset);
 
 				if (!offset.IsValid())
-					offset = Vector2.One;
+					offset = System.Numerics.Vector2.One;
 
 				newPolygon[n][cutAdded[n] + 1] += Settings.Epsilon * offset;
 			}
@@ -145,11 +145,11 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="start">The startpoint.</param>
 		/// <param name="end">The endpoint.</param>
 		/// <returns>True if the cut was performed.</returns>
-		public static bool Cut(World world, Vector2 start, Vector2 end)
+		public static bool Cut(World world, System.Numerics.Vector2 start, System.Numerics.Vector2 end)
 		{
 			var fixtures = new List<Fixture>();
-			var entryPoints = new List<Vector2>();
-			var exitPoints = new List<Vector2>();
+			var entryPoints = new List<System.Numerics.Vector2>();
+			var exitPoints = new List<System.Numerics.Vector2>();
 
 			//We don't support cutting when the start or end is inside a shape.
 			if (world.TestPoint(start) != null || world.TestPoint(end) != null)

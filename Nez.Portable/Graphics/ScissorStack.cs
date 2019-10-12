@@ -73,9 +73,10 @@ namespace Nez
 		/// <param name="scissor">Area.</param>
 		public static Rectangle CalculateScissors(Camera camera, Matrix batchTransform, Rectangle scissor)
 		{
+			var batchTrans = batchTransform.ToSimd();
 			// convert the top-left point to screen space
-			var tmp = new Vector2(scissor.X, scissor.Y);
-			tmp = Vector2.Transform(tmp, batchTransform);
+			var tmp = new System.Numerics.Vector2(scissor.X, scissor.Y);
+			tmp = System.Numerics.Vector2.Transform(tmp, batchTrans);
 
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint( tmp/camera.RawZoom );
@@ -87,7 +88,7 @@ namespace Nez
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;
 			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform(tmp, batchTransform);
+			tmp = System.Numerics.Vector2.Transform(tmp, batchTrans);
 
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint( tmp / camera.RawZoom);
@@ -109,9 +110,10 @@ namespace Nez
 		/// <param name="scissor">Area.</param>
 		public static Rectangle CalculateScissors(Camera camera, Matrix2D batchTransform, Rectangle scissor)
 		{
+			var batchTrans = batchTransform.ToSimd();
 			// convert the top-left point to screen space
-			var tmp = new Vector2(scissor.X, scissor.Y);
-			tmp = Vector2.Transform(tmp, batchTransform);
+			var tmp = new System.Numerics.Vector2(scissor.X, scissor.Y);
+			tmp = System.Numerics.Vector2.Transform(tmp, batchTrans);
 
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint(tmp);
@@ -123,7 +125,7 @@ namespace Nez
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;
 			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform(tmp, batchTransform);
+			tmp = System.Numerics.Vector2.Transform(tmp, batchTrans);
 
 			if (camera != null)
 				tmp = camera.WorldToScreenPoint(tmp);

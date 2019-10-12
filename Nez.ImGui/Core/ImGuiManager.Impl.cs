@@ -91,7 +91,7 @@ namespace Nez.ImGuiTools
 				return;
 
 			var rtAspectRatio = (float) _lastRenderTarget.Width / (float) _lastRenderTarget.Height;
-			var maxSize = new Num.Vector2(_lastRenderTarget.Width, _lastRenderTarget.Height);
+			var maxSize = new System.Numerics.Vector2(_lastRenderTarget.Width, _lastRenderTarget.Height);
 			if (maxSize.X >= Screen.Width || maxSize.Y >= Screen.Height)
 			{
 				maxSize.X = Screen.Width * 0.8f;
@@ -111,11 +111,11 @@ namespace Nez.ImGuiTools
 			}
 
 			ImGui.SetNextWindowPos(_gameWindowFirstPosition, ImGuiCond.FirstUseEver);
-			ImGui.SetNextWindowSize(new Num.Vector2(Screen.Width / 2, (Screen.Width / 2) / rtAspectRatio), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new System.Numerics.Vector2(Screen.Width / 2, (Screen.Width / 2) / rtAspectRatio), ImGuiCond.FirstUseEver);
 
 			HandleForcedGameViewParams();
 
-			ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
+			ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new System.Numerics.Vector2(0, 0));
 			ImGui.Begin(_gameWindowTitle, _gameWindowFlags);
 
 			// convert mouse input to the game windows coordinates
@@ -149,7 +149,7 @@ namespace Nez.ImGuiTools
 				var windowSize = ImGui.GetWindowSize();
 				ImGui.End();
 
-				var pos = new Num.Vector2();
+				var pos = new System.Numerics.Vector2();
 				switch (_gameViewForcedPos.Value)
 				{
 					case WindowPosition.TopLeft:
@@ -202,15 +202,15 @@ namespace Nez.ImGuiTools
 		void OverrideMouseInput()
 		{
 			// ImGui.GetCursorScreenPos() is the position of top-left pixel in windows drawable area
-			var offset = new Vector2(ImGui.GetCursorScreenPos().X, ImGui.GetCursorScreenPos().Y);
+			var offset = new System.Numerics.Vector2(ImGui.GetCursorScreenPos().X, ImGui.GetCursorScreenPos().Y);
 
 			// remove window position offset from our raw input. this gets us normalized back to the top-left origin.
 			// We are essentilly removing any input delta that is not in the game window.
-			var normalizedPos = Input.RawMousePosition.ToVector2() - offset;
+			var normalizedPos = Input.RawMousePosition.ToVector2().ToSimd() - offset;
 
 			var scaleX = ImGui.GetContentRegionAvail().X / _lastRenderTarget.Width;
 			var scaleY = ImGui.GetContentRegionAvail().Y / _lastRenderTarget.Height;
-			var scale = new Vector2(scaleX, scaleY);
+			var scale = new System.Numerics.Vector2(scaleX, scaleY);
 
 			// scale the rest of the input since it is in a scaled window (the offset portion is not scaled since
 			// it is outside the scaled portion)
@@ -285,7 +285,7 @@ namespace Nez.ImGuiTools
 
 				// we cant draw the game window until we have the texture bound so we append it here
 				ImGui.Begin(_gameWindowTitle, _gameWindowFlags);
-				ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, Num.Vector2.Zero);
+				ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, System.Numerics.Vector2.Zero);
 				ImGui.ImageButton(_renderTargetId, ImGui.GetContentRegionAvail());
 				ImGui.PopStyleVar();
 				ImGui.End();

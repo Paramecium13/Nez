@@ -57,11 +57,11 @@ namespace Nez
 			_vertices = new VertexPositionColor[_ribbonLength * 2 + 3];
 
 			// head of ribbon
-			_vertices[0].Position = new Vector3(Entity.Position, 0f) + radiusVec;
+			_vertices[0].Position = new Vector3(Entity.Position.ToXna(), 0f) + radiusVec;
 			_vertices[0].Color = Color.Red;
-			_vertices[1].Position = new Vector3(Entity.Position, 0f) + radiusVec;
+			_vertices[1].Position = new Vector3(Entity.Position.ToXna(), 0f) + radiusVec;
 			_vertices[1].Color = Color.Yellow;
-			_vertices[2].Position = new Vector3(Entity.Position, 0f) + radiusVec;
+			_vertices[2].Position = new Vector3(Entity.Position.ToXna(), 0f) + radiusVec;
 			_vertices[2].Color = Color.Green;
 
 			var pos = Entity.Position;
@@ -85,7 +85,7 @@ namespace Nez
 			if (!_areVertsDirty)
 				return;
 
-			var center = new Vector3(Entity.Position, 0f);
+			var center = new Vector3(Entity.Position.ToXna(), 0f);
 			var radVec = new Vector3(0, -RibbonRadius, 0);
 
 			// starting triangle, the head
@@ -173,7 +173,7 @@ namespace Nez
 			{
 				seg.Position = Entity.Position;
 				seg.Radius = RibbonRadius;
-				seg.RadiusDirection = new Vector2(-velocity.Y, velocity.X);
+				seg.RadiusDirection = new System.Numerics.Vector2(-velocity.Y, velocity.X);
 				seg.RadiusDirection.Normalize();
 			}
 			else
@@ -210,9 +210,9 @@ namespace Nez
 
 		class RibbonSegment
 		{
-			public Vector2 Position;
+			public System.Numerics.Vector2 Position;
 
-			public Vector2 RadiusDirection;
+			public System.Numerics.Vector2 RadiusDirection;
 
 			// normalized
 			public float Radius;
@@ -236,7 +236,7 @@ namespace Nez
 			}
 
 
-			public RibbonSegment(Vector2 position, float radius)
+			public RibbonSegment(System.Numerics.Vector2 position, float radius)
 			{
 				Position = position;
 				Radius = radius;

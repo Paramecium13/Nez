@@ -41,7 +41,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// The position of the shape's centroid relative to the shape's origin.
 		/// </summary>
-		public Vector2 Centroid { get; internal set; }
+		public System.Numerics.Vector2 Centroid { get; internal set; }
 
 		/// <summary>
 		/// The rotational inertia of the shape about the local origin.
@@ -204,7 +204,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <param name="transform">The shape world transform.</param>
 		/// <param name="point">A point in world coordinates.</param>
 		/// <returns>True if the point is inside the shape</returns>
-		public abstract bool TestPoint(ref Transform transform, ref Vector2 point);
+		public abstract bool TestPoint(ref Transform transform, ref System.Numerics.Vector2 point);
 
 		/// <summary>
 		/// Cast a ray against a child shape.
@@ -256,6 +256,6 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// Used for the buoyancy controller
 		/// </summary>
-		public abstract float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc);
+		public abstract float ComputeSubmergedArea(ref System.Numerics.Vector2 normal, float offset, ref Transform xf, out System.Numerics.Vector2 sc);
 	}
 }

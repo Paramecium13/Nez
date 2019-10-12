@@ -68,7 +68,7 @@ namespace FarseerPhysics.Dynamics
 		/// Change the global gravity vector.
 		/// </summary>
 		/// <value>The gravity.</value>
-		public Vector2 Gravity;
+		public System.Numerics.Vector2 Gravity;
 
 		/// <summary>
 		/// Get the contact manager for testing.
@@ -176,13 +176,13 @@ namespace FarseerPhysics.Dynamics
 
 		Func<Fixture, bool> _queryAABBCallback;
 		Func<int, bool> _queryAABBCallbackWrapper;
-		Func<Fixture, Vector2, Vector2, float, float> _rayCastCallback;
+		Func<Fixture, System.Numerics.Vector2, System.Numerics.Vector2, float, float> _rayCastCallback;
 		Func<RayCastInput, int, float> _rayCastCallbackWrapper;
 
 		TOIInput _input = new TOIInput();
 		Fixture _myFixture;
-		Vector2 _point1;
-		Vector2 _point2;
+		System.Numerics.Vector2 _point1;
+		System.Numerics.Vector2 _point2;
 		List<Fixture> _testPointAllFixtures;
 		Stopwatch _watch = new Stopwatch();
 
@@ -195,7 +195,7 @@ namespace FarseerPhysics.Dynamics
 		/// <summary>
 		/// Initializes a new instance of the <see cref="World"/> class.
 		/// </summary>
-		public World(Vector2 gravity)
+		public World(System.Numerics.Vector2 gravity)
 		{
 			Island = new Island();
 			Enabled = true;
@@ -1264,7 +1264,7 @@ namespace FarseerPhysics.Dynamics
 			for (int i = 0; i < BodyList.Count; i++)
 			{
 				var body = BodyList[i];
-				body._force = Vector2.Zero;
+				body._force = System.Numerics.Vector2.Zero;
 				body._torque = 0.0f;
 			}
 		}
@@ -1278,7 +1278,7 @@ namespace FarseerPhysics.Dynamics
 		/// <param name="center">Center.</param>
 		/// <param name="radius">Radius.</param>
 		/// <param name="fixtures">Fixtures.</param>
-		public void QueryCircle(Vector2 center, float radius, List<Fixture> fixtures)
+		public void QueryCircle(System.Numerics.Vector2 center, float radius, List<Fixture> fixtures)
 		{
 			// prep the CircleShape
 			_tempOverlapCircle.Radius = radius;
@@ -1288,7 +1288,7 @@ namespace FarseerPhysics.Dynamics
 
 			// create an AABB for our query
 			AABB aabb;
-			var d = new Vector2(radius, radius);
+			var d = new System.Numerics.Vector2(radius, radius);
 			aabb.LowerBound = center - d;
 			aabb.UpperBound = center + d;
 
@@ -1373,7 +1373,7 @@ namespace FarseerPhysics.Dynamics
 		/// <param name="callback">A user implemented callback class.</param>
 		/// <param name="point1">The ray starting point.</param>
 		/// <param name="point2">The ray ending point.</param>
-		public void RayCast(Func<Fixture, Vector2, Vector2, float, float> callback, Vector2 point1, Vector2 point2)
+		public void RayCast(Func<Fixture, System.Numerics.Vector2, System.Numerics.Vector2, float, float> callback, System.Numerics.Vector2 point1, System.Numerics.Vector2 point2)
 		{
 			var input = new RayCastInput();
 			input.MaxFraction = 1.0f;
@@ -1385,7 +1385,7 @@ namespace FarseerPhysics.Dynamics
 			_rayCastCallback = null;
 		}
 
-		public List<Fixture> RayCast(Vector2 point1, Vector2 point2)
+		public List<Fixture> RayCast(System.Numerics.Vector2 point1, System.Numerics.Vector2 point2)
 		{
 			var affected = new List<Fixture>();
 
@@ -1416,10 +1416,10 @@ namespace FarseerPhysics.Dynamics
 			return rayCastInput.MaxFraction;
 		}
 
-		public Fixture TestPoint(Vector2 point)
+		public Fixture TestPoint(System.Numerics.Vector2 point)
 		{
 			AABB aabb;
-			var d = new Vector2(Settings.Epsilon, Settings.Epsilon);
+			var d = new System.Numerics.Vector2(Settings.Epsilon, Settings.Epsilon);
 			aabb.LowerBound = point - d;
 			aabb.UpperBound = point + d;
 
@@ -1450,10 +1450,10 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="point">The point.</param>
 		/// <returns></returns>
-		public List<Fixture> TestPointAll(Vector2 point)
+		public List<Fixture> TestPointAll(System.Numerics.Vector2 point)
 		{
 			AABB aabb;
-			var d = new Vector2(Settings.Epsilon, Settings.Epsilon);
+			var d = new System.Numerics.Vector2(Settings.Epsilon, Settings.Epsilon);
 			aabb.LowerBound = point - d;
 			aabb.UpperBound = point + d;
 
@@ -1484,7 +1484,7 @@ namespace FarseerPhysics.Dynamics
 		/// Warning: Calling this method mid-update might cause a crash.
 		/// </summary>
 		/// <param name="newOrigin">the new origin with respect to the old origin</param>
-		public void ShiftOrigin(Vector2 newOrigin)
+		public void ShiftOrigin(System.Numerics.Vector2 newOrigin)
 		{
 			foreach (Body b in BodyList)
 			{

@@ -68,7 +68,7 @@ namespace Nez.Farseer
 		/// <param name="motion">delta movement in simulation space</param>
 		/// <param name="fixtureB">Fixture b.</param>
 		/// <param name="result">Result.</param>
-		public static bool CollideFixtures(Fixture fixtureA, ref Vector2 motion, Fixture fixtureB,
+		public static bool CollideFixtures(Fixture fixtureA, ref System.Numerics.Vector2 motion, Fixture fixtureB,
 		                                   out FSCollisionResult result)
 		{
 			// gather our transforms and adjust fixtureA's transform to account for the motion so we check for the collision at its new location
@@ -216,7 +216,7 @@ namespace Nez.Farseer
 				ref transformB);
 			if (_manifold.PointCount > 0)
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<System.Numerics.Vector2> points;
 				ContactSolver.WorldManifold.Initialize(ref _manifold, ref transformA, polygonA.Radius, ref transformB,
 					polygonB.Radius, out result.Normal, out points);
 
@@ -227,12 +227,12 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.Mul(ref transformA, _manifold.LocalPoint);
 
 					var clipPoint = MathUtils.Mul(ref transformB, _manifold.Points[0].LocalPoint);
-					var separation = Vector2.Dot(clipPoint - planePoint, result.Normal) - polygonA.Radius -
+					var separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, result.Normal) - polygonA.Radius -
 					                 polygonB.Radius;
 					result.Point = clipPoint * FSConvert.SimToDisplay;
 
 					// Ensure normal points from A to B
-					Vector2.Negate(ref result.Normal, out result.Normal);
+					System.Numerics.Vector2.Negate(ref result.Normal, out result.Normal);
 
 					result.MinimumTranslationVector = result.Normal * -separation;
 				}
@@ -242,7 +242,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.Mul(ref transformB, _manifold.LocalPoint);
 
 					var clipPoint = MathUtils.Mul(ref transformA, _manifold.Points[0].LocalPoint);
-					var separation = Vector2.Dot(clipPoint - planePoint, result.Normal) - polygonA.Radius -
+					var separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, result.Normal) - polygonA.Radius -
 					                 polygonB.Radius;
 					result.Point = clipPoint * FSConvert.SimToDisplay;
 
@@ -268,7 +268,7 @@ namespace Nez.Farseer
 			Collision.CollidePolygonAndCircle(ref _manifold, polygon, ref polyTransform, circle, ref circleTransform);
 			if (_manifold.PointCount > 0)
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<System.Numerics.Vector2> points;
 				ContactSolver.WorldManifold.Initialize(ref _manifold, ref polyTransform, polygon.Radius,
 					ref circleTransform, circle.Radius, out result.Normal, out points);
 
@@ -316,7 +316,7 @@ namespace Nez.Farseer
 				result.Point = 0.5f * (cA + cB);
 				result.Point *= FSConvert.SimToDisplay;
 
-				var separation = Vector2.Dot(pointA - pointB, result.Normal) - circleA.Radius - circleB.Radius;
+				var separation = System.Numerics.Vector2.Dot(pointA - pointB, result.Normal) - circleA.Radius - circleB.Radius;
 				result.MinimumTranslationVector = result.Normal * Math.Abs(separation);
 
 #if DEBUG_FSCOLLISIONS
@@ -354,10 +354,10 @@ namespace Nez.Farseer
 					result.Point = 0.5f * (cA + cB);
 					result.Point *= FSConvert.SimToDisplay;
 
-					var separation = Vector2.Dot(pointA - pointB, result.Normal) - edge.Radius - circle.Radius;
+					var separation = System.Numerics.Vector2.Dot(pointA - pointB, result.Normal) - edge.Radius - circle.Radius;
 
 					// Ensure normal points from A to B
-					Vector2.Negate(ref result.Normal, out result.Normal);
+					System.Numerics.Vector2.Negate(ref result.Normal, out result.Normal);
 					result.MinimumTranslationVector = result.Normal * Math.Abs(separation);
 				}
 				else // FaceA
@@ -366,7 +366,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.Mul(ref edgeTransform, _manifold.LocalPoint);
 
 					var clipPoint = MathUtils.Mul(ref circleTransform, _manifold.Points[0].LocalPoint);
-					var separation = Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - circle.Radius;
+					var separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - circle.Radius;
 					result.Point = (clipPoint - result.Normal * circle.Radius) * FSConvert.SimToDisplay;
 
 					result.MinimumTranslationVector = result.Normal * -separation;
@@ -391,7 +391,7 @@ namespace Nez.Farseer
 			Collision.CollideEdgeAndPolygon(ref _manifold, edge, ref edgeTransform, polygon, ref polygonTransform);
 			if (_manifold.PointCount > 0)
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<System.Numerics.Vector2> points;
 				ContactSolver.WorldManifold.Initialize(ref _manifold, ref edgeTransform, edge.Radius,
 					ref polygonTransform, polygon.Radius, out result.Normal, out points);
 
@@ -402,7 +402,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.Mul(ref edgeTransform, _manifold.LocalPoint);
 
 					var clipPoint = MathUtils.Mul(ref polygonTransform, _manifold.Points[0].LocalPoint);
-					var separation = Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - polygon.Radius;
+					var separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - polygon.Radius;
 					result.Point = clipPoint * FSConvert.SimToDisplay;
 
 					result.MinimumTranslationVector = result.Normal * -separation;
@@ -413,11 +413,11 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.Mul(ref polygonTransform, _manifold.LocalPoint);
 
 					var clipPoint = MathUtils.Mul(ref edgeTransform, _manifold.Points[0].LocalPoint);
-					var separation = Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - polygon.Radius;
+					var separation = System.Numerics.Vector2.Dot(clipPoint - planePoint, result.Normal) - edge.Radius - polygon.Radius;
 					result.Point = clipPoint * FSConvert.SimToDisplay;
 
 					// Ensure normal points from A to B
-					Vector2.Negate(ref result.Normal, out result.Normal);
+					System.Numerics.Vector2.Negate(ref result.Normal, out result.Normal);
 
 					result.MinimumTranslationVector = result.Normal * -separation;
 				}

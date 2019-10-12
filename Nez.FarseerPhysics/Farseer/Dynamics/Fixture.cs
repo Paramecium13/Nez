@@ -424,7 +424,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="point">A point in world coordinates.</param>
 		/// <returns></returns>
-		public bool TestPoint(ref Vector2 point)
+		public bool TestPoint(ref System.Numerics.Vector2 point)
 		{
 			return Shape.TestPoint(ref Body._xf, ref point);
 		}
@@ -536,7 +536,7 @@ namespace FarseerPhysics.Dynamics
 
 				proxy.AABB.Combine(ref aabb1, ref aabb2);
 
-				Vector2 displacement = transform2.P - transform1.P;
+				System.Numerics.Vector2 displacement = transform2.P - transform1.P;
 
 				broadPhase.MoveProxy(proxy.ProxyId, ref proxy.AABB, displacement);
 			}

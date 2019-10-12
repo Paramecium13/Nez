@@ -120,7 +120,7 @@ namespace Nez.UI
 				}
 
 				fontColor = new Color(fontColor, (int) (fontColor.A * parentAlpha));
-				batcher.DrawString(font, str, new Vector2(x, y), fontColor);
+				batcher.DrawString(font, str, new System.Numerics.Vector2(x, y), fontColor);
 			}
 		}
 
@@ -162,7 +162,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(Vector2 mousePos)
+		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
 		{
 			if (_isDisabled)
 				return false;
@@ -176,12 +176,12 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(Vector2 mousePos)
+		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
 		{
 		}
 
 
-		void IInputListener.OnMouseUp(Vector2 mousePos)
+		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
 		{
 		}
 

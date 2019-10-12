@@ -16,7 +16,7 @@ namespace Nez
 		/// localOffset is added to entity.position to get the final position for the collider geometry. This allows you to add multiple
 		/// Colliders to an Entity and position them separately and also lets you set the point of rotation/scale.
 		/// </summary>
-		public Vector2 LocalOffset
+		public System.Numerics.Vector2 LocalOffset
 		{
 			get => _localOffset;
 			set => SetLocalOffset(value);
@@ -26,7 +26,7 @@ namespace Nez
 		/// represents the absolute position to this Collider. It is entity.transform.position + localPosition - origin.
 		/// </summary>
 		/// <value>The absolute position.</value>
-		public Vector2 AbsolutePosition => Entity.Position + _localOffset;
+		public System.Numerics.Vector2 AbsolutePosition => Entity.Position + _localOffset;
 
 		/// <summary>
 		/// wraps Transform.rotation and returns 0 if this Collider does not rotate with the Entity else it returns Transform.rotation
@@ -85,7 +85,7 @@ namespace Nez
 
 		protected bool _colliderRequiresAutoSizing;
 
-		protected Vector2 _localOffset;
+		protected System.Numerics.Vector2 _localOffset;
 		internal float _localOffsetLength;
 
 		/// <summary>
@@ -110,7 +110,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The local offset.</returns>
 		/// <param name="offset">Offset.</param>
-		public Collider SetLocalOffset(Vector2 offset)
+		public Collider SetLocalOffset(System.Numerics.Vector2 offset)
 		{
 			if (_localOffset != offset)
 			{
@@ -294,7 +294,7 @@ namespace Nez
 		/// <param name="collider">Collider.</param>
 		/// <param name="motion">Motion.</param>
 		/// <param name="result">Result.</param>
-		public bool CollidesWith(Collider collider, Vector2 motion, out CollisionResult result)
+		public bool CollidesWith(Collider collider, System.Numerics.Vector2 motion, out CollisionResult result)
 		{
 			// alter the shapes position so that it is in the place it would be after movement so we can check for overlaps
 			var oldPosition = Shape.position;
@@ -346,7 +346,7 @@ namespace Nez
 		/// <returns><c>true</c>, if with was collidesed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="result">Result.</param>
-		public bool CollidesWithAny(ref Vector2 motion, out CollisionResult result)
+		public bool CollidesWithAny(ref System.Numerics.Vector2 motion, out CollisionResult result)
 		{
 			result = new CollisionResult();
 

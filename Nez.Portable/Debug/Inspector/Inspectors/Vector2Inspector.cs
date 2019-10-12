@@ -13,7 +13,7 @@ namespace Nez
 
 		public override void Initialize(Table table, Skin skin, float leftCellWidth)
 		{
-			var value = GetValue<Vector2>();
+			var value = GetValue<System.Numerics.Vector2>();
 			var label = CreateNameLabel(table, skin, leftCellWidth);
 
 			var labelX = new Label("x", skin);
@@ -24,7 +24,7 @@ namespace Nez
 				float newX;
 				if (float.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture, out newX))
 				{
-					var newValue = GetValue<Vector2>();
+					var newValue = GetValue<System.Numerics.Vector2>();
 					newValue.X = newX;
 					SetValue(newValue);
 				}
@@ -38,7 +38,7 @@ namespace Nez
 				float newY;
 				if (float.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture, out newY))
 				{
-					var newValue = GetValue<Vector2>();
+					var newValue = GetValue<System.Numerics.Vector2>();
 					newValue.Y = newY;
 					SetValue(newValue);
 				}
@@ -57,7 +57,7 @@ namespace Nez
 
 		public override void Update()
 		{
-			var value = GetValue<Vector2>();
+			var value = GetValue<System.Numerics.Vector2>();
 			_textFieldX.SetText(value.X.ToString(CultureInfo.InvariantCulture));
 			_textFieldY.SetText(value.Y.ToString(CultureInfo.InvariantCulture));
 		}

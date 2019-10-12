@@ -48,7 +48,7 @@ namespace FarseerPhysics.Common
 
 
 	[DebuggerDisplay("Count = {Count} Vertices = {ToString()}")]
-	public class Vertices : List<Vector2>
+	public class Vertices : List<System.Numerics.Vector2>
 	{
 		internal bool attachedToBody;
 
@@ -67,7 +67,7 @@ namespace FarseerPhysics.Common
 		{
 		}
 
-		public Vertices(IEnumerable<Vector2> vertices)
+		public Vertices(IEnumerable<System.Numerics.Vector2> vertices)
 		{
 			AddRange(vertices);
 		}
@@ -85,7 +85,7 @@ namespace FarseerPhysics.Common
 		/// Gets the next vertex. Used for iterating all the edges with wrap-around.
 		/// </summary>
 		/// <param name="index">The current index</param>
-		public Vector2 NextVertex(int index)
+		public System.Numerics.Vector2 NextVertex(int index)
 		{
 			return this[NextIndex(index)];
 		}
@@ -103,7 +103,7 @@ namespace FarseerPhysics.Common
 		/// Gets the previous vertex. Used for iterating all the edges with wrap-around.
 		/// </summary>
 		/// <param name="index">The current index</param>
-		public Vector2 PreviousVertex(int index)
+		public System.Numerics.Vector2 PreviousVertex(int index)
 		{
 			return this[PreviousIndex(index)];
 		}
@@ -126,8 +126,8 @@ namespace FarseerPhysics.Common
 			{
 				int j = (i + 1) % Count;
 
-				Vector2 vi = this[i];
-				Vector2 vj = this[j];
+				System.Numerics.Vector2 vi = this[i];
+				System.Numerics.Vector2 vj = this[j];
 
 				area += vi.X * vj.Y;
 				area -= vi.Y * vj.X;
@@ -151,22 +151,22 @@ namespace FarseerPhysics.Common
 		/// Gets the centroid.
 		/// </summary>
 		/// <returns></returns>
-		public Vector2 GetCentroid()
+		public System.Numerics.Vector2 GetCentroid()
 		{
 			//The simplest polygon which can exist in the Euclidean plane has 3 sides.
 			if (Count < 3)
-				return new Vector2(float.NaN, float.NaN);
+				return new System.Numerics.Vector2(float.NaN, float.NaN);
 
 			// Same algorithm is used by Box2D
-			Vector2 c = Vector2.Zero;
+			System.Numerics.Vector2 c = System.Numerics.Vector2.Zero;
 			float area = 0.0f;
 			const float inv3 = 1.0f / 3.0f;
 
 			for (int i = 0; i < Count; ++i)
 			{
 				// Triangle vertices.
-				Vector2 current = this[i];
-				Vector2 next = (i + 1 < Count ? this[i + 1] : this[0]);
+				System.Numerics.Vector2 current = this[i];
+				System.Numerics.Vector2 next = (i + 1 < Count ? this[i + 1] : this[0]);
 
 				float triangleArea = 0.5f * (current.X * next.Y - current.Y * next.X);
 				area += triangleArea;
@@ -186,8 +186,8 @@ namespace FarseerPhysics.Common
 		public AABB GetAABB()
 		{
 			AABB aabb;
-			Vector2 lowerBound = new Vector2(float.MaxValue, float.MaxValue);
-			Vector2 upperBound = new Vector2(float.MinValue, float.MinValue);
+			System.Numerics.Vector2 lowerBound = new System.Numerics.Vector2(float.MaxValue, float.MaxValue);
+			System.Numerics.Vector2 upperBound = new System.Numerics.Vector2(float.MinValue, float.MinValue);
 
 			for (int i = 0; i < Count; ++i)
 			{
@@ -222,7 +222,7 @@ namespace FarseerPhysics.Common
 		/// Translates the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public void Translate(Vector2 value)
+		public void Translate(System.Numerics.Vector2 value)
 		{
 			Translate(ref value);
 		}
@@ -231,13 +231,13 @@ namespace FarseerPhysics.Common
 		/// Translates the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The vector.</param>
-		public void Translate(ref Vector2 value)
+		public void Translate(ref System.Numerics.Vector2 value)
 		{
 			Debug.Assert(!attachedToBody,
 				"Translating vertices that are used by a Body can result in unstable behavior. Use Body.Position instead.");
 
 			for (int i = 0; i < Count; i++)
-				this[i] = Vector2.Add(this[i], value);
+				this[i] = System.Numerics.Vector2.Add(this[i], value);
 
 			if (Holes != null && Holes.Count > 0)
 			{
@@ -252,7 +252,7 @@ namespace FarseerPhysics.Common
 		/// Scales the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The Value.</param>
-		public void Scale(Vector2 value)
+		public void Scale(System.Numerics.Vector2 value)
 		{
 			Scale(ref value);
 		}
@@ -261,12 +261,12 @@ namespace FarseerPhysics.Common
 		/// Scales the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The Value.</param>
-		public void Scale(ref Vector2 value)
+		public void Scale(ref System.Numerics.Vector2 value)
 		{
 			Debug.Assert(!attachedToBody, "Scaling vertices that are used by a Body can result in unstable behavior.");
 
 			for (int i = 0; i < Count; i++)
-				this[i] = Vector2.Multiply(this[i], value);
+				this[i] = System.Numerics.Vector2.Multiply(this[i], value);
 
 			if (Holes != null && Holes.Count > 0)
 			{
@@ -293,7 +293,7 @@ namespace FarseerPhysics.Common
 			for (var i = 0; i < Count; i++)
 			{
 				var position = this[i];
-				this[i] = new Vector2((position.X * cos + position.Y * -sin), (position.X * sin + position.Y * cos));
+				this[i] = new System.Numerics.Vector2((position.X * cos + position.Y * -sin), (position.X * sin + position.Y * cos));
 			}
 
 			if (Holes != null && Holes.Count > 0)
@@ -330,7 +330,7 @@ namespace FarseerPhysics.Common
 			for (int i = 0; i < Count; ++i)
 			{
 				int next = i + 1 < Count ? i + 1 : 0;
-				Vector2 edge = this[next] - this[i];
+				System.Numerics.Vector2 edge = this[next] - this[i];
 
 				for (int j = 0; j < Count; ++j)
 				{
@@ -338,7 +338,7 @@ namespace FarseerPhysics.Common
 					if (j == i || j == next)
 						continue;
 
-					Vector2 r = this[j] - this[i];
+					System.Numerics.Vector2 r = this[j] - this[i];
 
 					float s = edge.X * r.Y - edge.Y * r.X;
 
@@ -387,14 +387,14 @@ namespace FarseerPhysics.Common
 
 			for (int i = 0; i < Count; ++i)
 			{
-				Vector2 a1 = this[i];
-				Vector2 a2 = NextVertex(i);
+				System.Numerics.Vector2 a1 = this[i];
+				System.Numerics.Vector2 a2 = NextVertex(i);
 				for (int j = i + 1; j < Count; ++j)
 				{
-					Vector2 b1 = this[j];
-					Vector2 b2 = NextVertex(j);
+					System.Numerics.Vector2 b1 = this[j];
+					System.Numerics.Vector2 b2 = NextVertex(j);
 
-					Vector2 temp;
+					System.Numerics.Vector2 temp;
 
 					if (LineTools.LineIntersect2(ref a1, ref a2, ref b1, ref b2, out temp))
 						return false;
@@ -431,7 +431,7 @@ namespace FarseerPhysics.Common
 			for (int i = 0; i < Count; ++i)
 			{
 				int next = i + 1 < Count ? i + 1 : 0;
-				Vector2 edge = this[next] - this[i];
+				System.Numerics.Vector2 edge = this[next] - this[i];
 				if (edge.LengthSquared() <= Settings.Epsilon * Settings.Epsilon)
 				{
 					return PolygonError.SideTooSmall;
@@ -450,16 +450,16 @@ namespace FarseerPhysics.Common
 		/// <param name="axis">The axis.</param>
 		/// <param name="min">The min.</param>
 		/// <param name="max">The max.</param>
-		public void ProjectToAxis(ref Vector2 axis, out float min, out float max)
+		public void ProjectToAxis(ref System.Numerics.Vector2 axis, out float min, out float max)
 		{
 			// To project a point on an axis use the dot product
-			float dotProduct = Vector2.Dot(axis, this[0]);
+			float dotProduct = System.Numerics.Vector2.Dot(axis, this[0]);
 			min = dotProduct;
 			max = dotProduct;
 
 			for (int i = 0; i < Count; i++)
 			{
-				dotProduct = Vector2.Dot(this[i], axis);
+				dotProduct = System.Numerics.Vector2.Dot(this[i], axis);
 				if (dotProduct < min)
 				{
 					min = dotProduct;
@@ -482,7 +482,7 @@ namespace FarseerPhysics.Common
 		/// <returns>-1 if the winding number is zero and the point is outside
 		/// the polygon, 1 if the point is inside the polygon, and 0 if the point
 		/// is on the polygons edge.</returns>
-		public int PointInPolygon(ref Vector2 point)
+		public int PointInPolygon(ref System.Numerics.Vector2 point)
 		{
 			// Winding number
 			int wn = 0;
@@ -491,13 +491,13 @@ namespace FarseerPhysics.Common
 			for (int i = 0; i < Count; i++)
 			{
 				// Get points
-				Vector2 p1 = this[i];
-				Vector2 p2 = this[NextIndex(i)];
+				System.Numerics.Vector2 p1 = this[i];
+				System.Numerics.Vector2 p2 = this[NextIndex(i)];
 
 				// Test if a point is directly on the edge
-				Vector2 edge = p2 - p1;
+				System.Numerics.Vector2 edge = p2 - p1;
 				float area = MathUtils.Area(ref p1, ref p2, ref point);
-				if (area == 0f && Vector2.Dot(point - p1, edge) >= 0f && Vector2.Dot(point - p2, edge) <= 0f)
+				if (area == 0f && System.Numerics.Vector2.Dot(point - p1, edge) >= 0f && System.Numerics.Vector2.Dot(point - p2, edge) <= 0f)
 				{
 					return 0;
 				}
@@ -527,7 +527,7 @@ namespace FarseerPhysics.Common
 		/// If this sum is 2pi then the point is an interior point, if 0 then the point is an exterior point. 
 		/// ref: http://ozviz.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/  - Solution 2 
 		/// </summary>
-		public bool PointInPolygonAngle(ref Vector2 point)
+		public bool PointInPolygonAngle(ref System.Numerics.Vector2 point)
 		{
 			double angle = 0;
 
@@ -535,8 +535,8 @@ namespace FarseerPhysics.Common
 			for (int i = 0; i < Count; i++)
 			{
 				// Get points
-				Vector2 p1 = this[i] - point;
-				Vector2 p2 = this[NextIndex(i)] - point;
+				System.Numerics.Vector2 p1 = this[i] - point;
+				System.Numerics.Vector2 p2 = this[NextIndex(i)] - point;
 
 				angle += MathUtils.VectorAngle(ref p1, ref p2);
 			}
@@ -557,15 +557,15 @@ namespace FarseerPhysics.Common
 		{
 			// Transform main polygon
 			for (int i = 0; i < Count; i++)
-				this[i] = Vector2.Transform(this[i], transform);
+				this[i] = System.Numerics.Vector2.Transform(this[i], transform);
 
 			// Transform holes
 			if (Holes != null && Holes.Count > 0)
 			{
 				for (int i = 0; i < Holes.Count; i++)
 				{
-					Vector2[] temp = Holes[i].ToArray();
-					Vector2.Transform(temp, ref transform, temp);
+					System.Numerics.Vector2[] temp = Holes[i].ToArray();
+					System.Numerics.Vector2.Transform(temp, ref transform, temp);
 
 					Holes[i] = new Vertices(temp);
 				}

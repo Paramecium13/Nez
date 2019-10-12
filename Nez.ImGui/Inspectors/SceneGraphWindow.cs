@@ -26,8 +26,8 @@ namespace Nez.ImGuiTools
 			if (Core.Scene == null || !isOpen)
 				return;
 
-			ImGui.SetNextWindowPos(new Num.Vector2(0, 25), ImGuiCond.FirstUseEver);
-			ImGui.SetNextWindowSize(new Num.Vector2(300, Screen.Height / 2), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowPos(new System.Numerics.Vector2(0, 25), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new System.Numerics.Vector2(300, Screen.Height / 2), ImGuiCond.FirstUseEver);
 
 			if (ImGui.Begin("Scene Graph", ref isOpen))
 			{

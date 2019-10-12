@@ -8,12 +8,12 @@ namespace Nez.Verlet
 		/// <summary>
 		/// the current position of the Particle
 		/// </summary>
-		public Vector2 Position;
+		public System.Numerics.Vector2 Position;
 
 		/// <summary>
 		/// the position of the Particle prior to its latest move
 		/// </summary>
-		public Vector2 LastPosition;
+		public System.Numerics.Vector2 LastPosition;
 
 		/// <summary>
 		/// the mass of the Particle. Taken into account for all forces and constraints
@@ -31,18 +31,18 @@ namespace Nez.Verlet
 		public bool CollidesWithColliders = true;
 
 		internal bool isPinned;
-		internal Vector2 acceleration;
-		internal Vector2 pinnedPosition;
+		internal System.Numerics.Vector2 acceleration;
+		internal System.Numerics.Vector2 pinnedPosition;
 
 
-		public Particle(Vector2 position)
+		public Particle(System.Numerics.Vector2 position)
 		{
 			Position = position;
 			LastPosition = position;
 		}
 
 
-		public Particle(float x, float y) : this(new Vector2(x, y))
+		public Particle(float x, float y) : this(new System.Numerics.Vector2(x, y))
 		{
 		}
 
@@ -51,7 +51,7 @@ namespace Nez.Verlet
 		/// applies a force taking mass into account to the Particle
 		/// </summary>
 		/// <param name="force">Force.</param>
-		public void ApplyForce(Vector2 force)
+		public void ApplyForce(System.Numerics.Vector2 force)
 		{
 			// acceleration = (1 / mass) * force
 			acceleration += force / Mass;
@@ -73,7 +73,7 @@ namespace Nez.Verlet
 		/// pins the particle to the specified position
 		/// </summary>
 		/// <param name="position">Position.</param>
-		public Particle PinTo(Vector2 position)
+		public Particle PinTo(System.Numerics.Vector2 position)
 		{
 			isPinned = true;
 			pinnedPosition = position;

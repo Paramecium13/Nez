@@ -15,7 +15,7 @@ namespace Nez.Farseer
 		protected Vertices _verts;
 
 
-		public FSPolygonBody(Sprite sprite, List<Vector2> verts) : base(sprite)
+		public FSPolygonBody(Sprite sprite, List<System.Numerics.Vector2> verts) : base(sprite)
 		{
 			_verts = new Vertices(verts);
 		}
