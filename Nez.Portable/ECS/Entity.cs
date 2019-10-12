@@ -201,8 +201,7 @@ namespace Nez
 		}
 
 		public Entity() : this(Utils.RandomString(8))
-		{
-		}
+		{ }
 
 		internal void OnTransformChanged(Transform.Component comp)
 		{
@@ -295,8 +294,8 @@ namespace Nez
 
 		/// <summary>
 		/// detaches the Entity from the scene.
-		/// the following lifecycle method will be called on the Entity: onRemovedFromScene
-		/// the following lifecycle method will be called on the Components: onRemovedFromEntity
+		/// the following lifecycle method will be called on the Entity: OnRemovedFromScene
+		/// the following lifecycle method will be called on the Components: OnRemovedFromEntity
 		/// </summary>
 		public void DetachFromScene()
 		{
@@ -323,10 +322,10 @@ namespace Nez
 
 		/// <summary>
 		/// creates a deep clone of this Entity. Subclasses can override this method to copy any custom fields. When overriding,
-		/// the copyFrom method should be called which will clone all Components, Colliders and Transform children for you. Note that cloned
-		/// Entity will not be added to any Scene! You must add them yourself!
+		/// the CopyFrom method should be called which will clone all Components, Colliders and Transform children for you. Note
+		/// that the cloned Entity will not be added to any Scene! You must add them yourself!
 		/// </summary>
-		public virtual Entity Clone(Vector2 position = default(Vector2))
+		public virtual Entity Clone(Vector2 position = default)
 		{
 			var entity = Activator.CreateInstance(GetType()) as Entity;
 			entity.Name = Name + "(clone)";
@@ -375,8 +374,7 @@ namespace Nez
 		/// Called when this entity is added to a scene after all pending entity changes are committed
 		/// </summary>
 		public virtual void OnAddedToScene()
-		{
-		}
+		{ }
 
 		/// <summary>
 		/// Called when this entity is removed from a scene
@@ -391,19 +389,13 @@ namespace Nez
 		/// <summary>
 		/// called each frame as long as the Entity is enabled
 		/// </summary>
-		public virtual void Update()
-		{
-			Components.Update();
-		}
+		public virtual void Update() => Components.Update();
 
 		/// <summary>
 		/// called if Core.debugRenderEnabled is true by the default renderers. Custom renderers can choose to call it or not.
 		/// </summary>
 		/// <param name="batcher">Batcher.</param>
-		public virtual void DebugRender(Batcher batcher)
-		{
-			Components.DebugRender(batcher);
-		}
+		public virtual void DebugRender(Batcher batcher) => Components.DebugRender(batcher);
 
 		#endregion
 
@@ -443,10 +435,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The component.</returns>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public T GetComponent<T>() where T : Component
-		{
-			return Components.GetComponent<T>(false);
-		}
+		public T GetComponent<T>() where T : Component => Components.GetComponent<T>(false);
 
 		/// <summary>
 		/// Gets the first Component of type T and returns it. If no Component is found the Component will be created.
@@ -479,25 +468,18 @@ namespace Nez
 		/// </summary>
 		/// <param name="componentList">Component list.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public void GetComponents<T>(List<T> componentList) where T : class
-		{
-			Components.GetComponents(componentList);
-		}
+		public void GetComponents<T>(List<T> componentList) where T : class => Components.GetComponents(componentList);
 
 		/// <summary>
 		/// Gets all the components of type T. The returned List can be put back in the pool via ListPool.free.
 		/// </summary>
 		/// <returns>The component.</returns>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public List<T> GetComponents<T>() where T : Component
-		{
-			return Components.GetComponents<T>();
-		}
+		public List<T> GetComponents<T>() where T : Component => Components.GetComponents<T>();
 
 		/// <summary>
 		/// removes the first Component of type T from the components list
 		/// </summary>
-		/// <param name="component">The Component to remove</param>
 		public bool RemoveComponent<T>() where T : Component
 		{
 			var comp = GetComponent<T>();
@@ -514,10 +496,7 @@ namespace Nez
 		/// removes a Component from the components list
 		/// </summary>
 		/// <param name="component">The Component to remove</param>
-		public void RemoveComponent(Component component)
-		{
-			Components.Remove(component);
-		}
+		public void RemoveComponent(Component component) => Components.Remove(component);
 
 		/// <summary>
 		/// removes all Components from the Entity
@@ -541,8 +520,7 @@ namespace Nez
 
 		public override string ToString()
 		{
-			return string.Format("[Entity: name: {0}, tag: {1}, enabled: {2}, depth: {3}]", Name, Tag, Enabled,
-				UpdateOrder);
+			return string.Format("[Entity: name: {0}, tag: {1}, enabled: {2}, depth: {3}]", Name, Tag, Enabled, UpdateOrder);
 		}
 	}
 }

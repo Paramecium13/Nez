@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Nez.ParticleDesigner;
 using Nez.Sprites;
 using Nez.Textures;
+using Nez.Tiled;
 
 namespace Nez.Systems
 {
@@ -93,15 +94,15 @@ namespace Nez.Systems
 		/// <summary>
 		/// loads a Tiled map
 		/// </summary>
-		public Tiled.TmxMap LoadTiledMap(string name)
+		public TmxMap LoadTiledMap(string name)
 		{
 			if (LoadedAssets.TryGetValue(name, out var asset))
 			{
-				if (asset is Tiled.TmxMap map)
+				if (asset is TmxMap map)
 					return map;
 			}
 
-			var tiledMap = new Tiled.TmxMap(name);
+			var tiledMap = new TmxMap().LoadTmxMap(name);
 
 			LoadedAssets[name] = tiledMap;
 			DisposableAssets.Add(tiledMap);
@@ -131,7 +132,7 @@ namespace Nez.Systems
 		/// <summary>
 		/// Loads a SpriteAtlas created with the Sprite Atlas Packer tool
 		/// </summary>
-		public SpriteAtlas LoadSpriteAtlas(string name)
+		public SpriteAtlas LoadSpriteAtlas(string name, bool premultiplyAlpha = false)
 		{
 			if (LoadedAssets.TryGetValue(name, out var asset))
 			{
@@ -139,7 +140,7 @@ namespace Nez.Systems
 					return spriteAtlas;
 			}
 
-			var atlas = SpriteAtlasLoader.ParseSpriteAtlas(name);
+			var atlas = SpriteAtlasLoader.ParseSpriteAtlas(name, premultiplyAlpha);
 
 			LoadedAssets.Add(name, atlas);
 			DisposableAssets.Add(atlas);
@@ -196,7 +197,7 @@ namespace Nez.Systems
 		/// </summary>
 		/// <returns>The effect.</returns>
 		/// <param name="name">Name.</param>
-		internal T LoadEffect<T>(string name, byte[] effectCode) where T : Effect
+		public T LoadEffect<T>(string name, byte[] effectCode) where T : Effect
 		{
 			var effect = Activator.CreateInstance(typeof(T), Core.GraphicsDevice, effectCode) as T;
 			effect.Name = name + "-" + Utils.RandomString(5);
@@ -417,13 +418,13 @@ namespace Nez.Systems
 		{
 			if (assetName.StartsWith("nez://"))
 			{
-				var assembly = ReflectionUtils.GetAssembly(GetType());
+				var assembly = GetType().Assembly;
 
 #if FNA
 				// for FNA, we will just search for the file by name since the assembly name will not be known at runtime
-				foreach( var item in assembly.GetManifestResourceNames() )
+				foreach (var item in assembly.GetManifestResourceNames())
 				{
-					if( item.EndsWith( assetName.Substring( assetName.Length - 20 ) ) )
+					if (item.EndsWith(assetName.Substring(assetName.Length - 20)))
 					{
 						assetName = "nez://" + item;
 						break;
