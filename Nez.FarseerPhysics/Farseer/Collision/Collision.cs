@@ -991,8 +991,7 @@ namespace FarseerPhysics.Collision
 			{
 				P = A;
 				d = Q - P;
-				float dd;
-				System.Numerics.Vector2.Dot(ref d, ref d, out dd);
+				float dd = d.LengthSquared();
 				if (dd > radius * radius)
 					return;
 
@@ -1029,8 +1028,7 @@ namespace FarseerPhysics.Collision
 			{
 				P = B;
 				d = Q - P;
-				float dd;
-				System.Numerics.Vector2.Dot(ref d, ref d, out dd);
+				float dd = d.LengthSquared();
 				if (dd > radius * radius)
 					return;
 
@@ -1063,13 +1061,11 @@ namespace FarseerPhysics.Collision
 			}
 
 			// Region AB
-			float den;
-			System.Numerics.Vector2.Dot(ref e, ref e, out den);
+			float den = e.LengthSquared();
 			Debug.Assert(den > 0.0f);
 			P = (1.0f / den) * (u * A + v * B);
 			d = Q - P;
-			float dd2;
-			System.Numerics.Vector2.Dot(ref d, ref d, out dd2);
+			float dd2 = d.LengthSquared();
 			if (dd2 > radius * radius)
 				return;
 

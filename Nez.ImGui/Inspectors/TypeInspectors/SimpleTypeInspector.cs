@@ -144,14 +144,14 @@ namespace Nez.ImGuiTools.TypeInspectors
 
 		void InspectVector2()
 		{
-			var value = GetValue<System.Numerics.Vector2>().ToNumerics();
+			var value = GetValueUnsafe<Num.Vector2>();
 			if (ImGui.DragFloat2(_name, ref value))
 				SetValue(value.ToXNA());
 		}
 
 		void InspectVector3()
 		{
-			var value = GetValue<Vector3>().ToNumerics();
+			var value = GetValueUnsafe<Num.Vector3>();
 			if (ImGui.DragFloat3(_name, ref value))
 				SetValue(value.ToXNA());
 		}

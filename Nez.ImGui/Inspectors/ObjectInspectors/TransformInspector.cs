@@ -34,21 +34,21 @@ namespace Nez.ImGuiTools.ObjectInspectors
 
 				NezImGui.SmallVerticalSpace();
 
-				var pos = _transform.LocalPosition.ToNumerics();
+				var pos = _transform.LocalPosition;
 				if (ImGui.DragFloat2("Local Position", ref pos))
-					_transform.SetLocalPosition(pos.ToXNA());
+					_transform.SetLocalPosition(pos);
 
 				var rot = _transform.LocalRotationDegrees;
 				if (ImGui.DragFloat("Local Rotation", ref rot, 1, -360, 360))
 					_transform.SetLocalRotationDegrees(rot);
 
-				var scale = _transform.LocalScale.ToNumerics();
+				var scale = _transform.LocalScale;
 				if (ImGui.DragFloat2("Local Scale", ref scale, 0.05f))
-					_transform.SetLocalScale(scale.ToXNA());
+					_transform.SetLocalScale(scale);
 
-				scale = _transform.Scale.ToNumerics();
+				scale = _transform.Scale;
 				if (ImGui.DragFloat2("Scale", ref scale, 0.05f))
-					_transform.SetScale(scale.ToXNA());
+					_transform.SetScale(scale);
 			}
 		}
 	}

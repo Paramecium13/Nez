@@ -40,9 +40,14 @@ namespace Nez.Farseer
 			return simUnits * SimToDisplay;
 		}
 
+		public static Vector2 ToDisplayUnits(Vector2 simUnits)
+		{
+			return simUnits * SimToDisplay;
+		}
+
 		public static void ToDisplayUnits(ref System.Numerics.Vector2 simUnits, out System.Numerics.Vector2 displayUnits)
 		{
-			System.Numerics.Vector2.Multiply(ref simUnits, SimToDisplay, out displayUnits);
+			displayUnits = simUnits * SimToDisplay;
 		}
 
 		public static Vector3 ToDisplayUnits(Vector3 simUnits)
@@ -89,7 +94,7 @@ namespace Nez.Farseer
 
 		public static void ToSimUnits(ref System.Numerics.Vector2 displayUnits, out System.Numerics.Vector2 simUnits)
 		{
-			System.Numerics.Vector2.Multiply(ref displayUnits, DisplayToSim, out simUnits);
+			simUnits = displayUnits * DisplayToSim;
 		}
 
 		public static System.Numerics.Vector2 ToSimUnits(float x, float y)

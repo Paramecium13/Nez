@@ -215,6 +215,12 @@ namespace Nez.ImGuiTools.TypeInspectors
 			return (T) _getter(_target);
 		}
 
+		protected T GetValueUnsafe<T>()
+		{
+			var v = _getter(_target);
+			return System.Runtime.CompilerServices.Unsafe.As<object, T>(ref v);
+		}
+
 		protected object GetValue()
 		{
 			return _getter(_target);

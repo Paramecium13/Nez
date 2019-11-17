@@ -10,7 +10,7 @@ using Nez.Textures;
 
 namespace Nez
 {
-	public class Batcher : GraphicsResource
+	public unsafe class Batcher : GraphicsResource
 	{
 		/// <summary>
 		/// Matrix to be used when creating the projection matrix

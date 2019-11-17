@@ -116,9 +116,9 @@ namespace Nez.ImGuiTools.TypeInspectors
 				_list[index] = value;
 		}
 
-		void DrawWidget(System.Numerics.Vector2 value, int index)
+		void DrawWidget(Num.Vector2 value, int index)
 		{
-			var vec = value.ToNumerics();
+			var vec = value;
 			if (ImGui.DragFloat2($"{index}", ref vec))
 				_list[index] = vec.ToXNA();
 		}

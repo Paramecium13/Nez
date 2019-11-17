@@ -375,8 +375,8 @@ namespace FarseerPhysics.Collision
 			var segmentAABB = new AABB();
 			{
 				var t = p1 + maxFraction * (p2 - p1);
-				System.Numerics.Vector2.Min(ref p1, ref t, out segmentAABB.LowerBound);
-				System.Numerics.Vector2.Max(ref p1, ref t, out segmentAABB.UpperBound);
+				segmentAABB.LowerBound = System.Numerics.Vector2.Min(p1, t);
+				segmentAABB.UpperBound = System.Numerics.Vector2.Max(p1, t);
 			}
 
 			_raycastStack.Clear();

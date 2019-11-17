@@ -62,7 +62,7 @@ namespace Nez.Sprites
 							if (leaveOriginsRelative)
 								spriteAtlas.Origins.Add(origin);
 							else
-								spriteAtlas.Origins.Add(origin * new Vector2(rect.Width, rect.Height));
+								spriteAtlas.Origins.Add(origin * new System.Numerics.Vector2(rect.Width, rect.Height));
 						}
 						else
 						{

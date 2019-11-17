@@ -126,7 +126,7 @@ namespace Nez
 
 
 		static public bool RectToCircle(float rectX, float rectY, float rectWidth, float rectHeight,
-										Vector2 circleCenter, float radius)
+										System.Numerics.Vector2 circleCenter, float radius)
 		{
 			//Check if the rectangle contains the circle's center-point
 			if (RectToPoint(rectX, rectY, rectWidth, rectHeight, circleCenter))

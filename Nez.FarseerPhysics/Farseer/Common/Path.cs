@@ -285,9 +285,9 @@ namespace FarseerPhysics.Common
 			return length;
 		}
 
-		public List<Vector3> SubdivideEvenly(int divisions)
+		public List<System.Numerics.Vector3> SubdivideEvenly(int divisions)
 		{
-			List<Vector3> verts = new List<Vector3>();
+			List<System.Numerics.Vector3> verts = new List<System.Numerics.Vector3>();
 
 			float length = GetLength();
 
@@ -316,7 +316,7 @@ namespace FarseerPhysics.Common
 				System.Numerics.Vector2 normal = GetPositionNormal(t);
 				float angle = (float) Math.Atan2(normal.Y, normal.X);
 
-				verts.Add(new Vector3(end, angle));
+				verts.Add(new System.Numerics.Vector3(end, angle));
 
 				// until we reach the correct distance down the curve
 				while (deltaLength >= System.Numerics.Vector2.Distance(start, end))

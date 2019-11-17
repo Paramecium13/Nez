@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez (lib)", "Nez.Portable\Nez (lib).csproj", "{60B7197D-D0D5-405C-90A2-A56903E9B039}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez.FarseerPhysics", "Nez.FarseerPhysics\Nez.FarseerPhysics.csproj", "{CB893B1D-CE04-4492-B957-31CE0DCA6C15}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez.ImGui", "Nez.ImGui\Nez.ImGui.csproj", "{2555137D-E6E3-4897-BFF4-7F6DC3DC2BC4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez.Persistence", "Nez.Persistence\Nez.Persistence.csproj", "{F8C8A3AD-84FE-4BDA-952F-223B1B3C6BCD}"
@@ -41,22 +39,6 @@ Global
 		{60B7197D-D0D5-405C-90A2-A56903E9B039}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{60B7197D-D0D5-405C-90A2-A56903E9B039}.Release|x86.ActiveCfg = Release|Any CPU
 		{60B7197D-D0D5-405C-90A2-A56903E9B039}.Release|x86.Build.0 = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Debug|x86.Build.0 = Debug|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|iPhone.Build.0 = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|x86.ActiveCfg = Release|Any CPU
-		{CB893B1D-CE04-4492-B957-31CE0DCA6C15}.Release|x86.Build.0 = Release|Any CPU
 		{2555137D-E6E3-4897-BFF4-7F6DC3DC2BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2555137D-E6E3-4897-BFF4-7F6DC3DC2BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2555137D-E6E3-4897-BFF4-7F6DC3DC2BC4}.Debug|iPhone.ActiveCfg = Debug|Any CPU

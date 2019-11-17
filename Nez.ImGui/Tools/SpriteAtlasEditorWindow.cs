@@ -200,47 +200,47 @@ namespace Nez.ImGuiTools
 		int _globalOriginEnumValue;
 		void DrawLeftPane()
 		{
-			Origin OriginIndex(Vector2 origin)
+			Origin OriginIndex(Num.Vector2 origin)
 			{
 				switch (origin)
 				{
-					case Vector2 o when o.X == 0 && o.Y == 0: // tl
+					case Num.Vector2 o when o.X == 0 && o.Y == 0: // tl
 						return Origin.TopLeft;
-					case Vector2 o when o.X == 0.5f && o.Y == 0: // t
+					case Num.Vector2 o when o.X == 0.5f && o.Y == 0: // t
 						return Origin.Top;
-					case Vector2 o when o.X == 1 && o.Y == 0: // tr
+					case Num.Vector2 o when o.X == 1 && o.Y == 0: // tr
 						return Origin.TopRight;
-					case Vector2 o when o.X == 0 && o.Y == 0.5f: // l
+					case Num.Vector2 o when o.X == 0 && o.Y == 0.5f: // l
 						return Origin.Left;
-					case Vector2 o when o.X == 0.5f && o.Y == 0.5f: // center
+					case Num.Vector2 o when o.X == 0.5f && o.Y == 0.5f: // center
 						return Origin.Center;
-					case Vector2 o when o.X == 1 && o.Y == 0.5f: // right
+					case Num.Vector2 o when o.X == 1 && o.Y == 0.5f: // right
 						return Origin.Right;
-					case Vector2 o when o.X == 0 && o.Y == 1: // bl
+					case Num.Vector2 o when o.X == 0 && o.Y == 1: // bl
 						return Origin.BottomLeft;
-					case Vector2 o when o.X == 0.5f && o.Y == 1: // b
+					case Num.Vector2 o when o.X == 0.5f && o.Y == 1: // b
 						return Origin.Bottom;
-					case Vector2 o when o.X == 1 && o.Y == 1: // br
+					case Num.Vector2 o when o.X == 1 && o.Y == 1: // br
 						return Origin.BottomRight;
 					default:
 						return Origin.Custom;
 				}
 			}
 
-			Vector2 OriginValue(Origin origin, Vector2 currentOrigin)
+			System.Numerics.Vector2 OriginValue(Origin origin, System.Numerics.Vector2 currentOrigin)
 			{
 				switch (origin)
 				{
-					case Origin.TopLeft: return new Vector2(0, 0);
-					case Origin.Top: return new Vector2(0.5f, 0);
-					case Origin.TopRight: return new Vector2(1, 0);
-					case Origin.Left: return new Vector2(0, 0.5f);
-					case Origin.Center: return new Vector2(0.5f, 0.5f);
-					case Origin.Right: return new Vector2(1, 0.5f);
-					case Origin.BottomLeft: return new Vector2(0, 1);
-					case Origin.Bottom: return new Vector2(0.5f, 1);
-					case Origin.BottomRight: return new Vector2(1, 1);
-					default: return currentOrigin + new Vector2(0.01f, 0.01f);
+					case Origin.TopLeft: return new Num.Vector2(0, 0);
+					case Origin.Top: return new Num.Vector2(0.5f, 0);
+					case Origin.TopRight: return new Num.Vector2(1, 0);
+					case Origin.Left: return new Num.Vector2(0, 0.5f);
+					case Origin.Center: return new Num.Vector2(0.5f, 0.5f);
+					case Origin.Right: return new Num.Vector2(1, 0.5f);
+					case Origin.BottomLeft: return new Num.Vector2(0, 1);
+					case Origin.Bottom: return new Num.Vector2(0.5f, 1);
+					case Origin.BottomRight: return new Num.Vector2(1, 1);
+					default: return currentOrigin + new Num.Vector2(0.01f, 0.01f);
 				}
 			}
 
@@ -271,9 +271,9 @@ namespace Nez.ImGuiTools
 				if (ImGui.InputText("Name", ref name, 25))
 					_spriteAtlasData.Names[i] = name;
 
-				var origin = _spriteAtlasData.Origins[i].ToNumerics();
+				var origin = _spriteAtlasData.Origins[i];
 				if (ImGui.SliderFloat2("Origin", ref origin, 0f, 1f))
-					_spriteAtlasData.Origins[i] = origin.ToXNA();
+					_spriteAtlasData.Origins[i] = origin;
 
 				var originEnum = OriginIndex(_spriteAtlasData.Origins[i]);
 				var originEnumValue = (int)originEnum;
@@ -587,11 +587,11 @@ namespace Nez.ImGuiTools
 				ImGui.GetWindowDrawList().AddText(topLeftScreen, Color.Yellow.PackedValue, rectIndex.ToString());
 		}
 
-		void DrawOrigin(Num.Vector2 cursorPos, Vector2 origin, Rectangle rect)
+		void DrawOrigin(Num.Vector2 cursorPos, Num.Vector2 origin, Rectangle rect)
 		{
 			var topLeftScreen = cursorPos + rect.Location.ToNumerics() * _imageZoom;
-			var offsetInImage = origin * rect.GetSize().ToVector2() * _imageZoom;
-			var center = topLeftScreen + offsetInImage.ToNumerics();
+			var offsetInImage = origin * rect.GetSize().ToNumerics() * _imageZoom;
+			var center = topLeftScreen + offsetInImage;
 			ImGui.GetWindowDrawList().AddCircleFilled(center, 5, Color.Orange.PackedValue, 4);
 		}
 
