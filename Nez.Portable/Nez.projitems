@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+		<HasSharedItems>true</HasSharedItems>
+		<SharedGUID>55cd94dd-47db-48d7-9826-be2a2b6e4adf</SharedGUID>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration">
+		<Import_RootNamespace>Nez</Import_RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)/*.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/*/*.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/*/*/*.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/*/*/*/*.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/*/*/*/*/*.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="obj\**" />
+		<EmbeddedResource Remove="obj\**" />
+		<None Remove="obj\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Content\NezDefaultBMFont.xnb" />
+		<Compile Remove="Graphics\SVG\Shapes\Paths\SvgPathBuilder.cs" />
+	</ItemGroup>
+</Project>

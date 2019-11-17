@@ -3,9 +3,9 @@
 		<BaseIntermediateOutputPath>obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
 	</PropertyGroup>
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
-  
+	
 	<Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
-  
+	
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -19,24 +19,33 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<LangVersion>7.3</LangVersion>
 	</PropertyGroup>
-  
+	
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<OutputPath>bin\Debug\</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<OutputPath>bin\Release\</OutputPath>
 	</PropertyGroup>
-  
+	<ItemGroup>
+		<Compile Remove="obj\**" />
+		<EmbeddedResource Remove="obj\**" />
+		<None Remove="obj\**" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<EmbeddedResource Include="Content\NezDefaultBMFont.xnb" />
 		<Compile Remove="Graphics\SVG\Shapes\Paths\SvgPathBuilder.cs" />
 	</ItemGroup>
-  
+	
+	<ItemGroup>
+	  <None Remove="Nez.projitems" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="System.Drawing.Common" Version="4.6.0" />
 		<PackageReference Include="MonoGame.Framework.Portable" Version="3.7.1.189" PrivateAssets="all" />
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
 	</ItemGroup>
-  
+	
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
 </Project>
