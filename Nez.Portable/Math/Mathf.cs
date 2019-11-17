@@ -146,14 +146,14 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float Snap(float value, float increment)
+		public static float Snap(float value, float increment)
 		{
 			return Round(value / increment) * increment;
 		}
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float Snap(float value, float increment, float offset)
+		public static float Snap(float value, float increment, float offset)
 		{
 			return (Round((value - offset) / increment) * increment) + offset;
 		}
@@ -297,7 +297,7 @@ namespace Nez
 		/// <param name="value">Value.</param>
 		/// <param name="threshold">Threshold.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float SignThreshold(float value, float threshold)
+		public static float SignThreshold(float value, float threshold)
 		{
 			if (Math.Abs(value) >= threshold)
 				return Math.Sign(value);
@@ -611,12 +611,12 @@ namespace Nez
 			return Round(value / roundToNearest) * roundToNearest;
 		}
 
-        /// <summary>
-        /// Checks if the value passed falls under a certain threshold.
-        /// Useful for small, precise comparisons.
-        /// </summary>
-        /// <param name="value">The value to check.</param>
-        /// <param name="ep">The threshold to check the value with. <see cref="Epsilon"/> is used by default.</param>
+		/// <summary>
+		/// Checks if the value passed falls under a certain threshold.
+		/// Useful for small, precise comparisons.
+		/// </summary>
+		/// <param name="value">The value to check.</param>
+		/// <param name="ep">The threshold to check the value with. <see cref="Epsilon"/> is used by default.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool WithinEpsilon(float value, float ep = Epsilon)
 		{
@@ -727,14 +727,14 @@ namespace Nez
 		#region System.Numerics.Vector2
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float AngleBetweenVectors(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
+		public static float AngleBetweenVectors(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
 		{
 			return Atan2(to.Y - from.Y, to.X - from.X);
 		}
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public System.Numerics.Vector2 AngleToVector(float angleRadians, float length)
+		public static System.Numerics.Vector2 AngleToVector(float angleRadians, float length)
 		{
 			return new System.Numerics.Vector2(Cos(angleRadians) * length, Sin(angleRadians) * length);
 		}
@@ -744,7 +744,7 @@ namespace Nez
 		/// helper for moving a value around in a circle.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 position, float speed)
+		public static System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 position, float speed)
 		{
 			var time = Time.TotalTime * speed;
 
