@@ -415,6 +415,16 @@ namespace Nez
 			return SetLocalRotation(MathHelper.ToRadians(degrees));
 		}
 
+		/// <summary>
+		/// Rotate so the top of the sprite is facing <see cref="pos"/>
+		/// </summary>
+		/// <param name="pos">The position to look at</param>
+		public void LookAt(System.Numerics.Vector2 pos)
+		{
+			var sign = _position.X > pos.X ? -1 : 1;
+			var vectorToAlignTo = System.Numerics.Vector2.Normalize(_position - pos);
+			Rotation = sign * Mathf.Acos(System.Numerics.Vector2.Dot(vectorToAlignTo, System.Numerics.Vector2.UnitY));
+		}
 
 		/// <summary>
 		/// sets the global scale of the transform
