@@ -209,12 +209,12 @@ namespace Nez.Tiled
 				if (!obj.Visible)
 					continue;
 
-				// if we are not debug rendering, we only render Tile and Text types
-				if (!Core.DebugRenderEnabled)
-				{
-					if (obj.ObjectType != TmxObjectType.Tile || obj.ObjectType != TmxObjectType.Text)
-						continue;
-				}
+                // if we are not debug rendering, we only render Tile and Text types
+                if (!Core.DebugRenderEnabled)
+                {
+                    if (obj.ObjectType != TmxObjectType.Tile && obj.ObjectType != TmxObjectType.Text)
+                        continue;
+                }
 
 				var pos = position + new System.Numerics.Vector2(obj.X, obj.Y) * scale;
 				switch (obj.ObjectType)

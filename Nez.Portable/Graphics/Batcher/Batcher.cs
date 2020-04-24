@@ -1095,8 +1095,15 @@ namespace Nez
 
 			PrepRenderState();
 
+			#if FNA
+			fixed (VertexPositionColorTexture4* p = &_vertexInfo[0])
+			{
+				_vertexBuffer.SetDataPointerEXT(0, (IntPtr)p, _numSprites * VertexPositionColorTexture4.RealStride, SetDataOptions.None);
+			}
+			#else
 			_vertexBuffer.SetData(0, _vertexInfo, 0, _numSprites, VertexPositionColorTexture4.RealStride,
 				SetDataOptions.None);
+			#endif
 
 			curTexture = _textureInfo[0];
 			for (var i = 1; i < _numSprites; i += 1)

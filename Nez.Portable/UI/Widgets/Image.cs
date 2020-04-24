@@ -100,7 +100,7 @@ namespace Nez.UI
 			//				}
 			//			}
 
-			_drawable?.Draw(batcher, x + imageX, y + imageY, imageWidth * scaleX, imageHeight * scaleY, col);
+			_drawable?.Draw(batcher, x + imageX, y + imageY, imageWidth, imageHeight, col);
 		}
 
 
@@ -134,9 +134,9 @@ namespace Nez.UI
 
 		#region ILayout
 
-		public override float PreferredWidth => _drawable?.MinWidth ?? 0;
+		public override float PreferredWidth => (_drawable?.MinWidth ?? 0) * scaleX;
 
-		public override float PreferredHeight => _drawable?.MinHeight ?? 0;
+		public override float PreferredHeight => (_drawable?.MinHeight ?? 0) * scaleY;
 
 		#endregion
 	}
