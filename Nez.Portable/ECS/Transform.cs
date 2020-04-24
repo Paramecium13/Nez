@@ -419,11 +419,11 @@ namespace Nez
 		/// Rotate so the top of the sprite is facing <see cref="pos"/>
 		/// </summary>
 		/// <param name="pos">The position to look at</param>
-		public void LookAt(Vector2 pos)
+		public void LookAt(System.Numerics.Vector2 pos)
 		{
 			var sign = _position.X > pos.X ? -1 : 1;
-			var vectorToAlignTo = Vector2.Normalize(_position - pos);
-			Rotation = sign * Mathf.Acos(Vector2.Dot(vectorToAlignTo, Vector2.UnitY));
+			var vectorToAlignTo = System.Numerics.Vector2.Normalize(_position - pos);
+			Rotation = sign * Mathf.Acos(System.Numerics.Vector2.Dot(vectorToAlignTo, System.Numerics.Vector2.UnitY));
 		}
 
 		/// <summary>
