@@ -12,6 +12,9 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nez", "Nez.Portable\Nez.shproj", "{55CD94DD-47DB-48D7-9826-BE2A2B6E4ADF}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Nez.Portable\Nez.projitems*{55cd94dd-47db-48d7-9826-be2a2b6e4adf}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|iPhone = Debug|iPhone
