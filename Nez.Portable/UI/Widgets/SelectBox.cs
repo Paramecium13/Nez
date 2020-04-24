@@ -68,8 +68,8 @@ namespace Nez.UI
 			if (scrollStyle.Background != null)
 				listWidth += scrollStyle.Background.LeftWidth + scrollStyle.Background.RightWidth;
 			if (_selectBoxList == null || !_selectBoxList.IsScrollingDisabledY())
-				listWidth += Math.Max(style.ScrollStyle.VScroll != null ? style.ScrollStyle.VScroll.MinWidth : 0,
-					style.ScrollStyle.VScrollKnob != null ? style.ScrollStyle.VScrollKnob.MinWidth : 0);
+				listWidth += Math.Max(style.ScrollStyle.VScroll?.MinWidth ?? 0,
+					style.ScrollStyle.VScrollKnob?.MinWidth ?? 0);
 			_prefWidth = Math.Max(_prefWidth, listWidth);
 		}
 
@@ -94,7 +94,7 @@ namespace Nez.UI
 			var fontColor = _isDisabled ? style.DisabledFontColor : style.FontColor;
 
 			var color = GetColor();
-			color = ColorExt.Create(color, (int)(color.A * parentAlpha));
+			color = new Color(color, (int) (color.A * parentAlpha));
 			float x = GetX();
 			float y = GetY();
 			float width = GetWidth();
@@ -112,14 +112,14 @@ namespace Nez.UI
 					width -= background.LeftWidth + background.RightWidth;
 					height -= background.BottomHeight + background.TopHeight;
 					x += background.LeftWidth;
-					y += (int)(height / 2 + background.BottomHeight - font.LineHeight / 2);
+					y += (int) (height / 2 + background.BottomHeight - font.LineHeight / 2);
 				}
 				else
 				{
-					y += (int)(height / 2 + font.LineHeight / 2);
+					y += (int) (height / 2 + font.LineHeight / 2);
 				}
 
-				fontColor = ColorExt.Create(fontColor, (int)(fontColor.A * parentAlpha));
+				fontColor = new Color(fontColor, (int) (fontColor.A * parentAlpha));
 				batcher.DrawString(font, str, new System.Numerics.Vector2(x, y), fontColor);
 			}
 		}
@@ -465,7 +465,7 @@ namespace Nez.UI
 		}
 
 		public SelectBoxStyle(BitmapFont font, Color fontColor, IDrawable background, ScrollPaneStyle scrollStyle,
-							  ListBoxStyle listStyle)
+		                      ListBoxStyle listStyle)
 		{
 			Font = font;
 			FontColor = fontColor;

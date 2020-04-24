@@ -10,11 +10,11 @@ namespace Nez.Particles
 	{
 		public override RectangleF Bounds => _bounds;
 
-		public bool IsPaused => _isPaused;
-		public bool IsPlaying => _active && !_isPaused;
-		public bool IsStopped => !_active && !_isPaused;
-		public bool IsEmitting => _emitting;
-		public float ElapsedTime => _elapsedTime;
+		public bool IsPaused { get; private set; }
+		public bool IsPlaying => _active && !IsPaused;
+		public bool IsStopped => !_active && !IsPaused;
+		public bool IsEmitting { get; private set; }
+		public float ElapsedTime { get; private set; }
 
 
 		/// <summary>
@@ -31,11 +31,27 @@ namespace Nez.Particles
 		/// </summary>
 		public ParticleCollisionConfig CollisionConfig;
 
+		private Action<ParticleEmitter> _onAllParticlesExpired;
+
 		/// <summary>
 		/// event that's going to be called when particles count becomes 0 after stopping emission.
 		/// emission can stop after either we stop it manually or when we run for entire duration specified in ParticleEmitterConfig.
 		/// </summary>
-		public event Action<ParticleEmitter> OnAllParticlesExpired;
+		public event Action<ParticleEmitter> OnAllParticlesExpired
+		{
+			add 
+			{
+				if (_onAllParticlesExpired == null)
+				{
+					_onAllParticlesExpired = value;
+				}else if (!_onAllParticlesExpired.GetInvocationList().Contains(value))
+				{
+					_onAllParticlesExpired += value;
+				}
+			}
+			// ReSharper disable once DelegateSubtraction
+			remove { if(_onAllParticlesExpired != null) _onAllParticlesExpired -= value;}
+		}
 
 		/// <summary>
 		/// event that's going to be called when emission is stopped due to reaching duration specified in ParticleEmitterConfig
@@ -45,25 +61,12 @@ namespace Nez.Particles
 		/// <summary>
 		/// keeps track of how many particles should be emitted
 		/// </summary>
-		float _emitCounter;
+		private float _emitCounter;
 
-		/// <summary>
-		/// tracks the elapsed time of the emitter
-		/// </summary>
-		float _elapsedTime;
-
-		bool _active = false;
-		bool _isPaused;
-
-		/// <summary>
-		/// if the emitter is emitting this will be true. Note that emitting can be false while particles are still alive. emitting gets set
-		/// to false and then any live particles are allowed to finish their lifecycle.
-		/// </summary>
-		bool _emitting;
-
-		List<Particle> _particles;
-		bool _playOnAwake;
-		[Inspectable] ParticleEmitterConfig _emitterConfig;
+		private bool _active = false;
+		private readonly List<Particle> _particles;
+		private readonly bool _playOnAwake;
+		[Inspectable] private readonly ParticleEmitterConfig _emitterConfig;
 
 
 		public ParticleEmitter() : this(new ParticleEmitterConfig())
@@ -89,11 +92,19 @@ namespace Nez.Particles
 			Init();
 		}
 
+		internal void Explode(float v1, float v2)
+		{
+			PauseEmission();
+			foreach (var particle in _particles)
+			{
+				particle.Explode(v1, v2);
+			}
+		}
 
 		/// <summary>
 		/// creates the Batcher and loads the texture if it is available
 		/// </summary>
-		void Init()
+		private void Init()
 		{
 			// prep our custom BlendState and set the Material with it
 			var blendState = new BlendState();
@@ -115,7 +126,7 @@ namespace Nez.Particles
 
 		void IUpdatable.Update()
 		{
-			if (_isPaused)
+			if (IsPaused)
 				return;
 
 			// prep data for the particle.update method
@@ -124,7 +135,7 @@ namespace Nez.Particles
 			// if the emitter is active and the emission rate is greater than zero then emit particles
 			if (_active && _emitterConfig.EmissionRate > 0)
 			{
-				if (_emitting)
+				if (IsEmitting)
 				{
 					var rate = 1.0f / _emitterConfig.EmissionRate;
 
@@ -137,25 +148,23 @@ namespace Nez.Particles
 						_emitCounter -= rate;
 					}
 
-					_elapsedTime += Time.DeltaTime;
+					ElapsedTime += Time.DeltaTime;
 
-					if (_emitterConfig.Duration != -1 && _emitterConfig.Duration < _elapsedTime)
+					if (_emitterConfig.Duration != -1 && _emitterConfig.Duration < ElapsedTime)
 					{
 						// when we hit our duration we dont emit any more particles
-						_emitting = false;
+						IsEmitting = false;
 
-						if (OnEmissionDurationReached != null)
-							OnEmissionDurationReached(this);
+						OnEmissionDurationReached?.Invoke(this);
 					}
 				}
 
 				// once all our particles are done we stop the emitter
-				if (!_emitting && _particles.Count == 0)
+				if (!IsEmitting && _particles.Count == 0)
 				{
 					Stop();
 
-					if (OnAllParticlesExpired != null)
-						OnAllParticlesExpired(this);
+					_onAllParticlesExpired?.Invoke(this);
 				}
 			}
 
@@ -206,7 +215,7 @@ namespace Nez.Particles
 		public override void Render(Batcher batcher, Camera camera)
 		{
 			// we still render when we are paused
-			if (!_active && !_isPaused)
+			if (!_active && !IsPaused)
 				return;
 
 			var rootPosition = Entity.Position + _localOffset;
@@ -248,16 +257,16 @@ namespace Nez.Particles
 		public void Play()
 		{
 			// if we are just unpausing, we only toggle flags and we dont mess with any other parameters
-			if (_isPaused)
+			if (IsPaused)
 			{
 				_active = true;
-				_isPaused = false;
+				IsPaused = false;
 				return;
 			}
 
 			_active = true;
-			_emitting = true;
-			_elapsedTime = 0;
+			IsEmitting = true;
+			ElapsedTime = 0;
 			_emitCounter = 0;
 		}
 
@@ -267,8 +276,8 @@ namespace Nez.Particles
 		public void Stop()
 		{
 			_active = false;
-			_isPaused = false;
-			_elapsedTime = 0;
+			IsPaused = false;
+			ElapsedTime = 0;
 			_emitCounter = 0;
 			Clear();
 		}
@@ -278,7 +287,7 @@ namespace Nez.Particles
 		/// </summary>
 		public void Pause()
 		{
-			_isPaused = true;
+			IsPaused = true;
 			_active = false;
 		}
 
@@ -288,10 +297,10 @@ namespace Nez.Particles
 		/// </summary>
 		public void ResumeEmission()
 		{
-			if (IsStopped || (_emitterConfig.Duration != -1 && _emitterConfig.Duration < _elapsedTime))
+			if (IsStopped || (_emitterConfig.Duration != -1 && _emitterConfig.Duration < ElapsedTime))
 				return;
 
-			_emitting = true;
+			IsEmitting = true;
 		}
 
 		/// <summary>
@@ -299,7 +308,7 @@ namespace Nez.Particles
 		/// </summary>
 		public void PauseEmission()
 		{
-			_emitting = false;
+			IsEmitting = false;
 		}
 
 		/// <summary>
@@ -319,7 +328,7 @@ namespace Nez.Particles
 		/// <summary>
 		/// adds a Particle to the emitter
 		/// </summary>
-		void AddParticle(System.Numerics.Vector2 position)
+		private void AddParticle(System.Numerics.Vector2 position)
 		{
 			// take the next particle out of the particle pool we have created and initialize it
 			var particle = Pool<Particle>.Obtain();

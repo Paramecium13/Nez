@@ -28,6 +28,7 @@ namespace Nez
 			}
 		}
 
+
 		public static Rectangle GetHalfRect(this Rectangle rect, Edge edge)
 		{
 			switch (edge)
@@ -44,6 +45,7 @@ namespace Nez
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+
 
 		/// <summary>
 		/// gets a portion of the Rectangle with a width/height of size that is on the Edge of the Rectangle but still contained within it.
@@ -68,6 +70,7 @@ namespace Nez
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+
 
 		public static void ExpandSide(ref Rectangle rect, Edge edge, int amount)
 		{
@@ -95,6 +98,7 @@ namespace Nez
 			}
 		}
 
+
 		public static void Contract(ref Rectangle rect, int horizontalAmount, int verticalAmount)
 		{
 			rect.X += horizontalAmount;
@@ -102,6 +106,7 @@ namespace Nez
 			rect.Width -= horizontalAmount * 2;
 			rect.Height -= verticalAmount * 2;
 		}
+
 
 		/// <summary>
 		/// returns a rectangle from the passed in floats
@@ -116,6 +121,7 @@ namespace Nez
 			return new Rectangle((int) x, (int) y, (int) width, (int) height);
 		}
 
+
 		/// <summary>
 		/// creates a Rectangle given min/max points (top-left, bottom-right points)
 		/// </summary>
@@ -127,9 +133,13 @@ namespace Nez
 			return new Rectangle(min.X, min.Y, max.X - min.X, max.Y - min.Y);
 		}
 
+
 		/// <summary>
 		/// calculates the union of the two Rectangles. The result will be a rectangle that encompasses the other two.
 		/// </summary>
+		/// <param name="first">First.</param>
+		/// <param name="second">Second.</param>
+		/// <param name="result">Result.</param>
 		public static void Union(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
 		{
 			result.X = Math.Min(value1.X, value2.X);
@@ -137,6 +147,7 @@ namespace Nez
 			result.Width = Math.Max(value1.Right, value2.Right) - result.X;
 			result.Height = Math.Max(value1.Bottom, value2.Bottom) - result.Y;
 		}
+
 
 		/// <summary>
 		/// Update first to be the union of first and point
@@ -149,6 +160,7 @@ namespace Nez
 			var rect = new Rectangle(point.X, point.Y, 0, 0);
 			Union(ref first, ref rect, out result);
 		}
+
 
 		/// <summary>
 		/// given the points of a polygon calculates the bounds
@@ -234,11 +246,15 @@ namespace Nez
 			}
 		}
 
+
 		/// <summary>
 		/// clones and returns a new Rectangle with the same data as the current rectangle
 		/// </summary>
 		/// <param name="rect">Rect.</param>
-		public static Rectangle Clone(this Rectangle rect) => new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
+		public static Rectangle Clone(this Rectangle rect)
+		{
+			return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
+		}
 
 
 		/// <summary>
@@ -254,7 +270,12 @@ namespace Nez
 			rect.Height = (int) (rect.Height * scale.Y);
 		}
 
-		public static void Translate(ref Rectangle rect, System.Numerics.Vector2 vec) => rect.Location += vec.ToPoint();
+
+		public static void Translate(ref Rectangle rect, System.Numerics.Vector2 vec)
+		{
+			rect.Location += vec.ToPoint();
+		}
+
 
 		public static bool RayIntersects(ref Rectangle rect, ref Ray2D ray, out float distance)
 		{
@@ -311,6 +332,7 @@ namespace Nez
 
 			return true;
 		}
+
 
 		public static float? RayIntersects(this Rectangle rectangle, Ray ray)
 		{
@@ -370,16 +392,25 @@ namespace Nez
 			return new float?(num);
 		}
 
-		/// <summary>
-		/// returns a Bounds the spans the current bounds and the provided delta positions
-		/// </summary>
-		/// <returns>The swept broadphase box.</returns>
-		public static Rectangle GetSweptBroadphaseBounds(ref Rectangle rect, float deltaX, float deltaY) => GetSweptBroadphaseBounds(ref rect, (int)deltaX, (int)deltaY);
 
 		/// <summary>
 		/// returns a Bounds the spans the current bounds and the provided delta positions
 		/// </summary>
 		/// <returns>The swept broadphase box.</returns>
+		/// <param name="velocityX">Velocity x.</param>
+		/// <param name="velocityY">Velocity y.</param>
+		public static Rectangle GetSweptBroadphaseBounds(ref Rectangle rect, float deltaX, float deltaY)
+		{
+			return GetSweptBroadphaseBounds(ref rect, (int) deltaX, (int) deltaY);
+		}
+
+
+		/// <summary>
+		/// returns a Bounds the spans the current bounds and the provided delta positions
+		/// </summary>
+		/// <returns>The swept broadphase box.</returns>
+		/// <param name="velocityX">Velocity x.</param>
+		/// <param name="velocityY">Velocity y.</param>
 		public static Rectangle GetSweptBroadphaseBounds(ref Rectangle rect, int deltaX, int deltaY)
 		{
 			var broadphasebox = Rectangle.Empty;
@@ -392,15 +423,19 @@ namespace Nez
 			return broadphasebox;
 		}
 
+
 		/// <summary>
 		/// returns true if rect1 intersects rect2
 		/// </summary>
+		/// <param name="value1">Value1.</param>
+		/// <param name="value2">Value2.</param>
 		public static bool Intersect(ref Rectangle rect1, ref Rectangle rect2)
 		{
 			bool result;
 			rect1.Intersects(ref rect2, out result);
 			return result;
 		}
+
 
 		/// <summary>
 		/// returns true if the boxes are colliding
@@ -434,6 +469,7 @@ namespace Nez
 
 			return true;
 		}
+
 
 		/// <summary>
 		/// Calculates the signed depth of intersection between two rectangles.
@@ -503,6 +539,7 @@ namespace Nez
 			return boundsPoint;
 		}
 
+
 		/// <summary>
 		/// returns the closest point that is in or on the Rectangle to the given point
 		/// </summary>
@@ -518,6 +555,7 @@ namespace Nez
 
 			return res;
 		}
+
 
 		/// <summary>
 		/// gets the closest point that is on the rectangle border to the given point
@@ -554,44 +592,58 @@ namespace Nez
 			return res;
 		}
 
-		/// <summary>
-		/// gets the center point of the rectangle as a System.Numerics.Vector2
-		/// </summary>
-		/// <returns>The center.</returns>
-		/// <param name="rect">Rect.</param>
-		public static System.Numerics.Vector2 GetCenter(ref Rectangle rect) => new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
 
 		/// <summary>
 		/// gets the center point of the rectangle as a System.Numerics.Vector2
 		/// </summary>
 		/// <returns>The center.</returns>
 		/// <param name="rect">Rect.</param>
-		public static System.Numerics.Vector2 GetCenter(this Rectangle rect) => new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+		public static System.Numerics.Vector2 GetCenter(ref Rectangle rect)
+		{
+			return new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+		}
+
+
+		/// <summary>
+		/// gets the center point of the rectangle as a System.Numerics.Vector2
+		/// </summary>
+		/// <returns>The center.</returns>
+		/// <param name="rect">Rect.</param>
+		public static System.Numerics.Vector2 GetCenter(this Rectangle rect)
+		{
+			return new System.Numerics.Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+		}
+
 
 		/// <summary>
 		/// gets the half size of the rect
 		/// </summary>
 		/// <returns>The half size.</returns>
 		/// <param name="rect">Rect.</param>
-		public static System.Numerics.Vector2 GetHalfSize(this Rectangle rect) => new System.Numerics.Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
+		public static System.Numerics.Vector2 GetHalfSize(this Rectangle rect)
+		{
+			return new System.Numerics.Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
+		}
 
 		/// <summary>
 		/// gets the max point of the rectangle, the bottom-right corner
 		/// </summary>
 		/// <returns>The max.</returns>
 		/// <param name="rect">Rect.</param>
-		public static Point GetMax(ref Rectangle rect) => new Point(rect.Right, rect.Bottom);
+		public static Point GetMax(ref Rectangle rect)
+		{
+			return new Point(rect.Right, rect.Bottom);
+		}
 
-		/// <summary>
-		/// Gets the size of the Rectangle
-		/// </summary>
-		public static Point GetSize(this Rectangle rect) => new Point(rect.Width, rect.Height);
 
 		/// <summary>
 		/// gets the position of the rectangle as a System.Numerics.Vector2
 		/// </summary>
 		/// <returns>The position.</returns>
 		/// <param name="rect">Rect.</param>
-		public static System.Numerics.Vector2 GetPosition(ref Rectangle rect) => new System.Numerics.Vector2(rect.X, rect.Y);
+		public static System.Numerics.Vector2 GetPosition(ref Rectangle rect)
+		{
+			return new System.Numerics.Vector2(rect.X, rect.Y);
+		}
 	}
 }

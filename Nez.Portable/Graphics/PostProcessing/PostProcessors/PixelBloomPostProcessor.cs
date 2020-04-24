@@ -33,14 +33,17 @@ namespace Nez
 			base.Process(_layerRT, _tempRT);
 
 			// we need to be careful here and ensure we use AlphaBlending since the layer we rendered is mostly transparent
-			Core.GraphicsDevice.SetRenderTarget(destination);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, destination);
 			Graphics.Instance.Batcher.Begin(BlendState.AlphaBlend, SamplerState, DepthStencilState.None,
 				RasterizerState.CullNone);
 
 			// now we first draw the full scene (source), then draw our bloomed layer (tempRT) then draw the un-bloomed layer (layerRT)
-			Graphics.Instance.Batcher.Draw(source, new Rectangle(0, 0, destination.Width, destination.Height), Color.White);
-			Graphics.Instance.Batcher.Draw(_tempRT, new Rectangle(0, 0, destination.Width, destination.Height), Color.White);
-			Graphics.Instance.Batcher.Draw(_layerRT, new Rectangle(0, 0, destination.Width, destination.Height), Color.White);
+			Graphics.Instance.Batcher.Draw(source, new Rectangle(0, 0, destination.Width, destination.Height),
+				Color.White);
+			Graphics.Instance.Batcher.Draw(_tempRT, new Rectangle(0, 0, destination.Width, destination.Height),
+				Color.White);
+			Graphics.Instance.Batcher.Draw(_layerRT, new Rectangle(0, 0, destination.Width, destination.Height),
+				Color.White);
 
 			Graphics.Instance.Batcher.End();
 		}

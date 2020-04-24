@@ -15,7 +15,7 @@
 		/// <summary>
 		/// A value that is always zero.
 		/// </summary>
-		public static Fixed Zero = new Fixed(0);
+		static public Fixed Zero = new Fixed(0);
 
 
 		/// <summary>
@@ -37,7 +37,7 @@
 		}
 
 
-		public static Value MinWidth = new MinWidthValue();
+		static public Value MinWidth = new MinWidthValue();
 
 		/// <summary>
 		/// Value that is the minWidth of the element in the cell.
@@ -49,12 +49,12 @@
 				if (context is ILayout)
 					return ((ILayout) context).MinWidth;
 
-				return context == null ? 0 : context.width;
+				return context?.width ?? 0;
 			}
 		}
 
 
-		public static Value MinHeight = new MinHeightValue();
+		static public Value MinHeight = new MinHeightValue();
 
 		/// <summary>
 		/// Value that is the minHeight of the element in the cell.
@@ -66,12 +66,12 @@
 				if (context is ILayout)
 					return ((ILayout) context).MinHeight;
 
-				return context == null ? 0 : context.height;
+				return context?.height ?? 0;
 			}
 		}
 
 
-		public static Value PrefWidth = new PrefWidthValue();
+		static public Value PrefWidth = new PrefWidthValue();
 
 		/// <summary>
 		/// Value that is the prefWidth of the element in the cell.
@@ -83,12 +83,12 @@
 				if (context is ILayout)
 					return ((ILayout) context).PreferredWidth;
 
-				return context == null ? 0 : context.width;
+				return context?.width ?? 0;
 			}
 		}
 
 
-		public static Value PrefHeight = new PrefHeightValue();
+		static public Value PrefHeight = new PrefHeightValue();
 
 		/// <summary>
 		/// Value that is the prefHeight of the element in the cell.
@@ -100,12 +100,12 @@
 				if (context is ILayout)
 					return ((ILayout) context).PreferredHeight;
 
-				return context == null ? 0 : context.height;
+				return context?.height ?? 0;
 			}
 		}
 
 
-		public static Value MaxWidth = new MaxWidthValue();
+		static public Value MaxWidth = new MaxWidthValue();
 
 		/// <summary>
 		/// Value that is the maxWidth of the element in the cell.
@@ -117,12 +117,12 @@
 				if (context is ILayout)
 					return ((ILayout) context).MaxWidth;
 
-				return context == null ? 0 : context.width;
+				return context?.width ?? 0;
 			}
 		}
 
 
-		public static Value MaxHeight = new MaxHeightValue();
+		static public Value MaxHeight = new MaxHeightValue();
 
 		/// <summary>
 		/// Value that is the maxHeight of the element in the cell.
@@ -134,7 +134,7 @@
 				if (context is ILayout)
 					return ((ILayout) context).MaxHeight;
 
-				return context == null ? 0 : context.height;
+				return context?.height ?? 0;
 			}
 		}
 
@@ -142,7 +142,7 @@
 		/// <summary>
 		/// Value that is the maxHeight of the element in the cell.
 		/// </summary>
-		public static Value PercentWidth(float percent)
+		static public Value PercentWidth(float percent)
 		{
 			return new PercentWidthValue()
 			{
@@ -167,7 +167,7 @@
 		/// <summary>
 		/// Returns a value that is a percentage of the specified elements's width. The context element is ignored.
 		/// </summary>
-		public static Value PercentWidth(float percent, Element delegateElement)
+		static public Value PercentWidth(float percent, Element delegateElement)
 		{
 			return new PercentWidthDelegateValue()
 			{
@@ -194,7 +194,7 @@
 		/// <summary>
 		/// Returns a value that is a percentage of the element's height.
 		/// </summary>
-		public static Value PercentHeight(float percent)
+		static public Value PercentHeight(float percent)
 		{
 			return new PercentageHeightValue()
 			{
@@ -219,7 +219,7 @@
 		/// <summary>
 		/// Returns a value that is a percentage of the specified elements's height. The context element is ignored.
 		/// </summary>
-		public static Value PercentHeight(float percent, Element delegateElement)
+		static public Value PercentHeight(float percent, Element delegateElement)
 		{
 			return new PercentHeightDelegateValue()
 			{

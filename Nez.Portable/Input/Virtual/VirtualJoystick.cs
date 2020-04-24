@@ -113,7 +113,7 @@ namespace Nez
 		#endregion
 
 
-		public static implicit operator System.Numerics.Vector2(VirtualJoystick joystick)
+		static public implicit operator System.Numerics.Vector2(VirtualJoystick joystick)
 		{
 			return joystick.Value;
 		}

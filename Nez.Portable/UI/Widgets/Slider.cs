@@ -11,8 +11,8 @@ namespace Nez.UI
 		/// </summary>
 		public float SliderBoundaryThreshold = 50f;
 
-		SliderStyle style;
-		bool _mouseOver, _mouseDown;
+		private SliderStyle style;
+		private bool _mouseOver, _mouseDown;
 
 
 		/// <summary>
@@ -189,8 +189,6 @@ namespace Nez.UI
 
 		public Slider SetStyle(SliderStyle style)
 		{
-			Insist.IsTrue(style is SliderStyle, "style must be a SliderStyle");
-
 			base.SetStyle(style);
 			this.style = style;
 			return this;
@@ -228,7 +226,7 @@ namespace Nez.UI
 		}
 
 
-		void CalculatePositionAndValue(System.Numerics.Vector2 mousePos)
+		private void CalculatePositionAndValue(System.Numerics.Vector2 mousePos)
 		{
 			var knob = GetKnobDrawable();
 
@@ -236,7 +234,7 @@ namespace Nez.UI
 			if (_vertical)
 			{
 				var height = this.height - style.Background.TopHeight - style.Background.BottomHeight;
-				var knobHeight = knob == null ? 0 : knob.MinHeight;
+				var knobHeight = knob?.MinHeight ?? 0;
 				position = mousePos.Y - style.Background.BottomHeight - knobHeight * 0.5f;
 				value = Min + (Max - Min) * (position / (height - knobHeight));
 				position = Math.Max(0, position);
@@ -245,7 +243,7 @@ namespace Nez.UI
 			else
 			{
 				var width = this.width - style.Background.LeftWidth - style.Background.RightWidth;
-				var knobWidth = knob == null ? 0 : knob.MinWidth;
+				var knobWidth = knob?.MinWidth ?? 0;
 				position = mousePos.X - style.Background.LeftWidth - knobWidth * 0.5f;
 				value = Min + (Max - Min) * (position / (width - knobWidth));
 				position = Math.Max(0, position);

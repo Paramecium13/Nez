@@ -45,7 +45,7 @@ namespace Nez
 		}
 
 
-		public static implicit operator float(VirtualAxis axis)
+		static public implicit operator float(VirtualAxis axis)
 		{
 			return axis.Value;
 		}

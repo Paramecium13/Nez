@@ -234,7 +234,7 @@ namespace Nez.UI
 
 			if (_mouseDown && !_isDisabled)
 			{
-				_background = style.Down == null ? style.Up : style.Down;
+				_background = style.Down ?? style.Up;
 			}
 			else
 			{

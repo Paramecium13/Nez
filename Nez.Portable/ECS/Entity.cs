@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Nez
 {
-	public class Entity : IComparable<Entity>
+	public partial class Entity : IComparable<Entity>
 	{
 		static uint _idGenerator;
 
@@ -327,7 +327,7 @@ namespace Nez
 		/// </summary>
 		public virtual Entity Clone(System.Numerics.Vector2 position = default)
 		{
-			var entity = Activator.CreateInstance(GetType()) as Entity;
+			var entity = (Entity) Activator.CreateInstance(GetType());
 			entity.Name = Name + "(clone)";
 			entity.CopyFrom(this);
 			entity.Transform.Position = position;

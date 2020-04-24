@@ -108,7 +108,7 @@ namespace Nez
 		public readonly NezContentManager Content;
 
 		/// <summary>
-		/// global toggle for PostProcessors
+		/// global toggle for _postProcessors
 		/// </summary>
 		public bool EnablePostProcessing = true;
 
@@ -361,7 +361,7 @@ namespace Nez
 
 			// prep our render textures
 			UpdateResolutionScaler();
-			Core.GraphicsDevice.SetRenderTarget(_sceneRenderTarget);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, _sceneRenderTarget);
 
 			if (EntityProcessors != null)
 				EntityProcessors.Begin();
@@ -375,7 +375,7 @@ namespace Nez
 		{
 			_didSceneBegin = false;
 
-			// we kill Renderers and PostProcessors first since they rely on Entities
+			// we kill Renderers and _postProcessors first since they rely on Entities
 			for (var i = 0; i < _renderers.Length; i++)
 				_renderers.Buffer[i].Unload();
 
@@ -407,7 +407,7 @@ namespace Nez
 		public virtual void Update()
 		{
 			// we set the RenderTarget here so that the Viewport will match the RenderTarget properly
-			Core.GraphicsDevice.SetRenderTarget(_sceneRenderTarget);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, _sceneRenderTarget);
 
 			// update our lists in case they have any changes
 			Entities.UpdateLists();
@@ -445,7 +445,7 @@ namespace Nez
 			// the current RenderTarget when they render. If the first Renderer wants the sceneRenderTarget we set and clear it now.
 			if (_renderers[0].WantsToRenderToSceneRenderTarget)
 			{
-				Core.GraphicsDevice.SetRenderTarget(_sceneRenderTarget);
+				GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, _sceneRenderTarget);
 				Core.GraphicsDevice.Clear(ClearColor);
 			}
 
@@ -457,7 +457,7 @@ namespace Nez
 				// Because of that, we track when we are done with our RenderTargets and clear the scene at that time.
 				if (lastRendererHadRenderTarget && _renderers.Buffer[i].WantsToRenderToSceneRenderTarget)
 				{
-					Core.GraphicsDevice.SetRenderTarget(_sceneRenderTarget);
+					GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, _sceneRenderTarget);
 					Core.GraphicsDevice.Clear(ClearColor);
 
 					// force a Camera matrix update to account for the new Viewport size
@@ -472,7 +472,7 @@ namespace Nez
 		}
 
 		/// <summary>
-		/// any PostProcessors present get to do their processing then we do the final render of the RenderTarget to the screen.
+		/// any _postProcessors present get to do their processing then we do the final render of the RenderTarget to the screen.
 		/// In almost all cases finalRenderTarget will be null. The only time it will have a value is the first frame of a
 		/// SceneTransition if the transition is requesting the render.
 		/// </summary>
@@ -496,14 +496,14 @@ namespace Nez
 				}
 			}
 
-			// deal with our Renderers that want to render after PostProcessors if we have any
+			// deal with our Renderers that want to render after _postProcessors if we have any
 			for (var i = 0; i < _afterPostProcessorRenderers.Length; i++)
 			{
 				if (i == 0)
 				{
-					// we need to set the proper RenderTarget here. We want the last one that was the destination of our PostProcessors
+					// we need to set the proper RenderTarget here. We want the last one that was the destination of our _postProcessors
 					var currentRenderTarget = Mathf.IsEven(enabledCounter) ? _sceneRenderTarget : _destinationRenderTarget;
-					Core.GraphicsDevice.SetRenderTarget(currentRenderTarget);
+					GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, currentRenderTarget);
 				}
 
 				// force a Camera matrix update to account for the new Viewport size
@@ -535,7 +535,7 @@ namespace Nez
 			else
 			{
 				var currentRenderTarget = Mathf.IsEven(enabledCounter) ? _sceneRenderTarget : _destinationRenderTarget;
-				Core.GraphicsDevice.SetRenderTarget(finalRenderTarget);
+				GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, finalRenderTarget);
 				Core.GraphicsDevice.Clear(LetterboxColor);
 
 				Graphics.Instance.Batcher.Begin(BlendState.Opaque, SamplerState, null, null);
@@ -742,14 +742,14 @@ namespace Nez
 				_sceneRenderTarget.Dispose();
 			_sceneRenderTarget = RenderTarget.Create(renderTargetWidth, renderTargetHeight);
 
-			// only create the destinationRenderTarget if it already exists, which would indicate we have PostProcessors
+			// only create the destinationRenderTarget if it already exists, which would indicate we have _postProcessors
 			if (_destinationRenderTarget != null)
 			{
 				_destinationRenderTarget.Dispose();
 				_destinationRenderTarget = RenderTarget.Create(renderTargetWidth, renderTargetHeight);
 			}
 
-			// notify the Renderers, PostProcessors and FinalRenderDelegate of the change in render texture size
+			// notify the Renderers, _postProcessors and FinalRenderDelegate of the change in render texture size
 			for (var i = 0; i < _renderers.Length; i++)
 				_renderers.Buffer[i].OnSceneBackBufferSizeChanged(renderTargetWidth, renderTargetHeight);
 
@@ -814,8 +814,8 @@ namespace Nez
 			for (var i = 0; i < _sceneComponents.Length; i++)
 			{
 				var component = _sceneComponents.Buffer[i];
-				if (component is T)
-					return component as T;
+				if (component is T t)
+					return t;
 			}
 
 			return null;
@@ -931,7 +931,7 @@ namespace Nez
 		}
 
 		/// <summary>
-		/// adds a PostProcessor to the scene. Sets the scene field and calls PostProcessor.onAddedToScene so that PostProcessors can load
+		/// adds a PostProcessor to the scene. Sets the scene field and calls PostProcessor.onAddedToScene so that _postProcessors can load
 		/// resources using the scenes ContentManager.
 		/// </summary>
 		/// <param name="postProcessor">Post processor.</param>

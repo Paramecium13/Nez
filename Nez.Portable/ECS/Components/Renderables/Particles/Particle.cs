@@ -48,6 +48,11 @@ namespace Nez.Particles
 
 		System.Numerics.Vector2 _velocity;
 
+		public void Explode(float radAcc, float radAccVar)
+		{
+			_radialAcceleration = radAcc + Random.NextFloat() * radAccVar;
+		}
+
 
 		public void Initialize(ParticleEmitterConfig emitterConfig, System.Numerics.Vector2 spawnPosition)
 		{

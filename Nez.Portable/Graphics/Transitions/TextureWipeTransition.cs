@@ -117,7 +117,7 @@ namespace Nez
 
 		public override void Render(Batcher batcher)
 		{
-			Core.GraphicsDevice.SetRenderTarget(null);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, null);
 			batcher.Begin(BlendState.AlphaBlend, Core.DefaultSamplerState, DepthStencilState.None, null,
 				_textureWipeEffect);
 

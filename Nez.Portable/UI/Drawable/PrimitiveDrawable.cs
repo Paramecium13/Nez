@@ -67,7 +67,7 @@ namespace Nez.UI
 
 		public virtual void Draw(Batcher batcher, float x, float y, float width, float height, Color color)
 		{
-			var col = Color.HasValue ? Color.Value : color;
+			var col = Color ?? color;
 			if (color.A != 255)
 				col *= (color.A / 255f);
 			if (col.A != 255)

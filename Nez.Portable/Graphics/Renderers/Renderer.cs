@@ -58,7 +58,7 @@ namespace Nez
 		public virtual bool WantsToRenderToSceneRenderTarget => RenderTexture == null;
 
 		/// <summary>
-		/// if true, the Scene will call the render method AFTER all PostProcessors have finished. This must be set to true BEFORE calling
+		/// if true, the Scene will call the render method AFTER all _postProcessors have finished. This must be set to true BEFORE calling
 		/// Scene.addRenderer to take effect and the Renderer should NOT have a renderTexture. The main reason for this type of Renderer
 		/// is so that you can render your UI without post processing on top of the rest of your Scene. The ScreenSpaceRenderer is an
 		/// example Renderer that sets this to true;
@@ -102,7 +102,7 @@ namespace Nez
 			// if we have a renderTarget render into it
 			if (RenderTexture != null)
 			{
-				Core.GraphicsDevice.SetRenderTarget(RenderTexture);
+				GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, RenderTexture);
 				Core.GraphicsDevice.Clear(RenderTargetClearColor);
 			}
 

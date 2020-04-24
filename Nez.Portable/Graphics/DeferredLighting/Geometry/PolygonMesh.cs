@@ -40,7 +40,8 @@ namespace Nez.DeferredLighting
 		/// <param name="radius">Radius.</param>
 		public static PolygonMesh CreateSymmetricalPolygon(int vertCount, float radius)
 		{
-			return new PolygonMesh(PhysicsShapes.Polygon.BuildSymmetricalPolygon(vertCount, radius));
+			// TODO: change this code to use Polygon.createSymmetricalPolygon to avoid duplication
+			return new PolygonMesh(BuildSymmetricalPolygon(vertCount, radius));
 		}
 
 
@@ -49,7 +50,10 @@ namespace Nez.DeferredLighting
 		/// </summary>
 		/// <returns>The symmetrical polygon.</returns>
 		/// <param name="vertCount">Vert count.</param>
-		public static PolygonMesh CreateSymmetricalPolygon(int vertCount) => CreateSymmetricalPolygon(vertCount, 1);
+		public static PolygonMesh CreateSymmetricalPolygon(int vertCount)
+		{
+			return CreateSymmetricalPolygon(vertCount, 1);
+		}
 
 
 		static System.Numerics.Vector2[] BuildSymmetricalPolygon(int vertCount, float radius)
@@ -63,7 +67,6 @@ namespace Nez.DeferredLighting
 
 			return points;
 		}
-
 
 		#endregion
 

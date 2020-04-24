@@ -289,7 +289,7 @@ namespace Nez.UI
 			{
 				if (hScrollKnob != null)
 				{
-					var hScrollHeight = _style.HScroll != null ? _style.HScroll.MinHeight : hScrollKnob.MinHeight;
+					var hScrollHeight = _style.HScroll?.MinHeight ?? hScrollKnob.MinHeight;
 
 					// The corner gap where the two scroll bars intersect might have to flip from right to left.
 					var boundsX = _vScrollOnRight ? bgLeftWidth : bgLeftWidth + scrollbarWidth;
@@ -320,7 +320,7 @@ namespace Nez.UI
 			{
 				if (vScrollKnob != null)
 				{
-					var vScrollWidth = _style.VScroll != null ? _style.VScroll.MinWidth : vScrollKnob.MinWidth;
+					var vScrollWidth = _style.VScroll?.MinWidth ?? vScrollKnob.MinWidth;
 
 					// the small gap where the two scroll bars intersect might have to flip from bottom to top
 					float boundsX, boundsY;
@@ -1267,7 +1267,7 @@ namespace Nez.UI
 
 			// draw the background
 			var color = GetColor();
-			color = ColorExt.Create(color, (int)(color.A * parentAlpha));
+			color = new Color(color, (int)(color.A * parentAlpha));
 			if (_style.Background != null)
 				_style.Background.Draw(batcher, 0, 0, GetWidth(), GetHeight(), color);
 

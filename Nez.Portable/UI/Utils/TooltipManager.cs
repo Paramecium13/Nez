@@ -55,7 +55,7 @@ namespace Nez.UI
 		ITimer _showTask, _resetTask;
 
 
-		public static TooltipManager GetInstance()
+		static public TooltipManager GetInstance()
 		{
 			if (instance == null)
 				instance = new TooltipManager();

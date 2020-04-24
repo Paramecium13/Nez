@@ -33,7 +33,7 @@ namespace Nez
 		public static Material DefaultMaterial = new Material();
 
 		/// <summary>
-		/// default opaque Material used for PostProcessors
+		/// default opaque Material used for _postProcessors
 		/// </summary>
 		public static Material DefaultOpaqueMaterial = new Material(BlendState.Opaque);
 

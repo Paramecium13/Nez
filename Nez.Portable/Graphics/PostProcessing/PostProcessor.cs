@@ -69,7 +69,7 @@ namespace Nez
 		}
 
 		/// <summary>
-		/// this is the meat method here. The source passed in contains the full scene with any previous PostProcessors
+		/// this is the meat method here. The source passed in contains the full scene with any previous _postProcessors
 		/// rendering. Render it into the destination RenderTarget. The drawFullScreenQuad methods are there to make
 		/// the process even easier. The default implementation renders source into destination with effect.
 		/// 
@@ -103,7 +103,7 @@ namespace Nez
 		/// </summary>
 		protected void DrawFullscreenQuad(Texture2D texture, RenderTarget2D renderTarget, Effect effect = null)
 		{
-			Core.GraphicsDevice.SetRenderTarget(renderTarget);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, renderTarget);
 			DrawFullscreenQuad(texture, renderTarget.Width, renderTarget.Height, effect);
 		}
 

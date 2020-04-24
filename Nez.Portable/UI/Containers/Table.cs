@@ -23,9 +23,9 @@ namespace Nez.UI
 			Element
 		}
 
-		public static Color DebugTableColor = new Color(0, 0, 255, 255);
-		public static Color DebugCellColor = new Color(255, 0, 0, 255);
-		public static Color DebugElementColor = new Color(0, 255, 0, 255);
+		static public Color DebugTableColor = new Color(0, 0, 255, 255);
+		static public Color DebugCellColor = new Color(255, 0, 0, 255);
+		static public Color DebugElementColor = new Color(0, 255, 0, 255);
 		static float[] _columnWeightedWidth, _rowWeightedHeight;
 
 		public override float MinWidth
@@ -168,7 +168,7 @@ namespace Nez.UI
 			if (_background == null)
 				return;
 
-			_background.Draw(batcher, x, y, width, height, ColorExt.Create(color, (int) (color.A * parentAlpha)));
+			_background.Draw(batcher, x, y, width, height, new Color(color, (int) (color.A * parentAlpha)));
 		}
 
 
@@ -1598,7 +1598,7 @@ namespace Nez.UI
 
 		#region Value types
 
-		public static Value BackgroundTop = new BackgroundTopValue();
+		static public Value BackgroundTop = new BackgroundTopValue();
 
 		/// <summary>
 		/// Value that is the top padding of the table's background
@@ -1608,12 +1608,12 @@ namespace Nez.UI
 			public override float Get(Element context)
 			{
 				var background = ((Table) context)._background;
-				return background == null ? 0 : background.TopHeight;
+				return background?.TopHeight ?? 0;
 			}
 		}
 
 
-		public static Value BackgroundLeft = new BackgroundLeftValue();
+		static public Value BackgroundLeft = new BackgroundLeftValue();
 
 		/// <summary>
 		/// Value that is the left padding of the table's background
@@ -1623,12 +1623,12 @@ namespace Nez.UI
 			public override float Get(Element context)
 			{
 				var background = ((Table) context)._background;
-				return background == null ? 0 : background.LeftWidth;
+				return background?.LeftWidth ?? 0;
 			}
 		}
 
 
-		public static Value BackgroundBottom = new BackgroundBottomValue();
+		static public Value BackgroundBottom = new BackgroundBottomValue();
 
 		/// <summary>
 		/// Value that is the bottom padding of the table's background
@@ -1638,12 +1638,12 @@ namespace Nez.UI
 			public override float Get(Element context)
 			{
 				var background = ((Table) context)._background;
-				return background == null ? 0 : background.BottomHeight;
+				return background?.BottomHeight ?? 0;
 			}
 		}
 
 
-		public static Value BackgroundRight = new BackgroundRightValue();
+		static public Value BackgroundRight = new BackgroundRightValue();
 
 		/// <summary>
 		/// Value that is the right padding of the table's background
@@ -1653,7 +1653,7 @@ namespace Nez.UI
 			public override float Get(Element context)
 			{
 				var background = ((Table) context)._background;
-				return background == null ? 0 : background.RightWidth;
+				return background?.RightWidth ?? 0;
 			}
 		}
 

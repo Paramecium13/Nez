@@ -12,10 +12,10 @@ namespace Nez.UI
 			{
 				var first = _firstWidget == null
 					? 0
-					: (_firstWidget is ILayout ? ((ILayout)_firstWidget).PreferredWidth : _firstWidget.width);
+					: (_firstWidget as ILayout)?.PreferredWidth ?? _firstWidget.width;
 				var second = _secondWidget == null
 					? 0
-					: (_secondWidget is ILayout ? ((ILayout)_secondWidget).PreferredWidth : _secondWidget.width);
+					: (_secondWidget as ILayout)?.PreferredWidth ?? _secondWidget.width;
 
 				if (_vertical)
 					return Math.Max(first, second);
@@ -30,10 +30,10 @@ namespace Nez.UI
 			{
 				var first = _firstWidget == null
 					? 0
-					: (_firstWidget is ILayout ? ((ILayout)_firstWidget).PreferredHeight : _firstWidget.height);
+					: (_firstWidget as ILayout)?.PreferredHeight ?? _firstWidget.height;
 				var second = _secondWidget == null
 					? 0
-					: (_secondWidget is ILayout ? ((ILayout)_secondWidget).PreferredHeight : _secondWidget.height);
+					: (_secondWidget as ILayout)?.PreferredHeight ?? _secondWidget.height;
 
 				if (!_vertical)
 					return Math.Max(first, second);
@@ -208,7 +208,7 @@ namespace Nez.UI
 			}
 
 			_style.Handle.Draw(batcher, _handleBounds.X, _handleBounds.Y, _handleBounds.Width, _handleBounds.Height,
-				ColorExt.Create(color, (int)(color.A * parentAlpha)));
+				new Color(color, (int)(color.A * parentAlpha)));
 
 			if (transform)
 				ResetTransform(batcher);

@@ -49,7 +49,7 @@ namespace Nez
 		/// <value>The blur amount.</value>
 		public float BlurAmount
 		{
-			get => _blurEffect != null ? _blurEffect.BlurAmount : -1;
+			get => _blurEffect?.BlurAmount ?? -1;
 			set
 			{
 				if (_blurEffect != null)
@@ -180,7 +180,7 @@ namespace Nez
 				RenderTarget.ReleaseTemporary(tempRenderTarget);
 			}
 
-			Core.GraphicsDevice.SetRenderTarget(destination);
+			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, destination);
 			Graphics.Instance.Batcher.Begin(Effect);
 			Graphics.Instance.Batcher.Draw(source, new Rectangle(0, 0, destination.Width, destination.Height),
 				Color.White);

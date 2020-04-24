@@ -41,7 +41,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Floor(ref System.Numerics.Vector2 val)
+		static public void Floor(ref System.Numerics.Vector2 val)
 		{
 			val.X = (int) val.X;
 			val.Y = (int) val.Y;
@@ -49,7 +49,7 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static System.Numerics.Vector2 Floor(System.Numerics.Vector2 val)
+		static public System.Numerics.Vector2 Floor(System.Numerics.Vector2 val)
 		{
 			return new System.Numerics.Vector2((int) val.X, (int) val.Y);
 		}
@@ -278,6 +278,9 @@ namespace Nez
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static System.Numerics.Vector2 ToSimd(this Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static System.Numerics.Vector2 ToSimd(this Point self) => new System.Numerics.Vector2(self.X, self.Y);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static System.Numerics.Vector2 ToSimd(ref Vector2 self) => Unsafe.As<Vector2, System.Numerics.Vector2>(ref self);

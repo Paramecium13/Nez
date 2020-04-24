@@ -15,13 +15,13 @@ namespace Nez
 		struct CharDetails
 		{
 			public Texture2D Texture;
-			public Vector3[] Verts;
+			public System.Numerics.Vector3[] Verts;
 			public System.Numerics.Vector2[] TexCoords;
 			public Color Color;
 
 			public void Initialize()
 			{
-				Verts = new Vector3[4];
+				Verts = new System.Numerics.Vector3[4];
 				TexCoords = new System.Numerics.Vector2[4];
 			}
 		}

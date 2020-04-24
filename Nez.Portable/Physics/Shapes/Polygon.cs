@@ -302,21 +302,18 @@ namespace Nez.PhysicsShapes
 		public override bool Overlaps(Shape other)
 		{
 			CollisionResult result;
-			if (other is Polygon)
-				return ShapeCollisions.PolygonToPolygon(this, other as Polygon, out result);
-
-			if (other is Circle)
+			switch (other)
 			{
-				if (ShapeCollisions.CircleToPolygon(other as Circle, this, out result))
-				{
+				case Polygon polygon:
+					return ShapeCollisions.PolygonToPolygon(this, polygon, out result);
+				case Circle circle when ShapeCollisions.CircleToPolygon(circle, this, out result):
 					result.InvertResult();
 					return true;
-				}
-
-				return false;
+				case Circle circle:
+					return false;
+				default:
+					throw new NotImplementedException(string.Format("overlaps of Polygon to {0} are not supported", other));
 			}
-
-			throw new NotImplementedException(string.Format("overlaps of Polygon to {0} are not supported", other));
 		}
 
 		public override bool CollidesWithShape(Shape other, out CollisionResult result)

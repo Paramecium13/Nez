@@ -2,7 +2,7 @@
 
 namespace Nez
 {
-	public enum HorizontalAlign
+	public enum HorizontalAlign : byte
 	{
 		Left,
 		Center,
@@ -10,7 +10,7 @@ namespace Nez
 	}
 
 
-	public enum VerticalAlign
+	public enum VerticalAlign : byte
 	{
 		Top,
 		Center,
@@ -18,7 +18,7 @@ namespace Nez
 	}
 
 
-	public enum Edge
+	public enum Edge : byte
 	{
 		Top,
 		Bottom,
@@ -27,7 +27,7 @@ namespace Nez
 	}
 
 
-	public enum Direction
+	public enum Direction : byte
 	{
 		Up,
 		Down,
