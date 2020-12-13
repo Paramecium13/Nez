@@ -179,7 +179,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Point RoundToPoint(this System.Numerics.Vector2 vec)
 		{
-			var roundedVec = vec.Round();
+			var roundedVec = Vector2Ext.Round(vec);
 			return new Point((int) roundedVec.X, (int) roundedVec.Y);
 		}
 
