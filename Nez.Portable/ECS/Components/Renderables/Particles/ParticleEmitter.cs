@@ -124,7 +124,7 @@ namespace Nez.Particles
 		}
 
 
-		void IUpdatable.Update()
+		public virtual void Update()
 		{
 			if (IsPaused)
 				return;
