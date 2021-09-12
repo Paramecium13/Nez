@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Vector2 = System.Numerics.Vector2;
 
 
 namespace Nez.UI
@@ -62,7 +63,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnLeftMousePressed(Vector2 mousePos)
 		{
 			CalculatePositionAndValue(mousePos);
 			_mouseDown = true;
@@ -70,7 +71,13 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnRightMousePressed(Vector2 mousePos)
+		{
+			return false;
+		}
+
+
+		void IInputListener.OnMouseMoved(Vector2 mousePos)
 		{
 			if (DistanceOutsideBoundsToPoint(mousePos) > SliderBoundaryThreshold)
 			{
@@ -84,7 +91,13 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
+		void IInputListener.OnLeftMouseUp(Vector2 mousePos)
+		{
+			_mouseDown = false;
+		}
+
+
+		void IInputListener.OnRightMouseUp(Vector2 mousePos)
 		{
 			_mouseDown = false;
 		}
@@ -108,7 +121,7 @@ namespace Nez.UI
 
 
 		public void EnableExplicitFocusableControl(IGamepadFocusable upEle, IGamepadFocusable downEle,
-		                                           IGamepadFocusable leftEle, IGamepadFocusable rightEle)
+												   IGamepadFocusable leftEle, IGamepadFocusable rightEle)
 		{
 			ShouldUseExplicitFocusableControl = true;
 			GamepadUpElement = upEle;

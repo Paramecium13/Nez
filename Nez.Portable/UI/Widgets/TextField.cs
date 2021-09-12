@@ -1,9 +1,10 @@
-﻿using System;
-using Nez.BitmapFonts;
-using Microsoft.Xna.Framework;
-using System.Text;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Nez.BitmapFonts;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Vector2 = System.Numerics.Vector2;
 
 
 namespace Nez.UI
@@ -120,7 +121,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnLeftMousePressed(Vector2 mousePos)
 		{
 			if (disabled)
 				return false;
@@ -136,8 +137,13 @@ namespace Nez.UI
 			return true;
 		}
 
+		bool IInputListener.OnRightMousePressed(Vector2 mousePos)
+		{
+			return false;
+		}
 
-		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
+
+		void IInputListener.OnMouseMoved(Vector2 mousePos)
 		{
 			if (DistanceOutsideBoundsToPoint(mousePos) > TextFieldBoundaryThreshold)
 			{
@@ -151,7 +157,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
+		void IInputListener.OnLeftMouseUp(Vector2 mousePos)
 		{
 			if (selectionStart == cursor)
 				hasSelection = false;
@@ -163,6 +169,10 @@ namespace Nez.UI
 			_isPressed = _isOver = false;
 		}
 
+		void IInputListener.OnRightMouseUp(Vector2 mousePos)
+		{
+
+		}
 
 		bool IInputListener.OnMouseScrolled(int mouseWheelDelta)
 		{

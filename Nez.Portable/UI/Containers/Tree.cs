@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using Vector2 = System.Numerics.Vector2;
 
 
 namespace Nez.UI.Containers
@@ -448,7 +449,7 @@ namespace Nez.UI.Containers
 			//if (toActor == null || !toActor.isDescendantOf(Tree.this)) setOverNode(null);
 		}
 
-		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnLeftMousePressed(Vector2 mousePos)
 		{
 			var node = GetNodeAt(mousePos.Y);
 			if (node == null)
@@ -478,7 +479,7 @@ namespace Nez.UI.Containers
 			}
 
 			if (node.children.Count > 0 &&
-			    (!selection.GetMultiple() || !Keyboard.GetState().IsKeyDown(Keys.LeftControl)))
+				(!selection.GetMultiple() || !Keyboard.GetState().IsKeyDown(Keys.LeftControl)))
 			{
 				// Toggle expanded.
 				var rowX = node.actor.GetX();
@@ -502,12 +503,21 @@ namespace Nez.UI.Containers
 			return true;
 		}
 
-		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnRightMousePressed(Vector2 mousePos)
+		{
+			return false;
+		}
+
+		void IInputListener.OnMouseMoved(Vector2 mousePos)
 		{
 			SetOverNode(GetNodeAt(mousePos.Y));
 		}
 
-		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
+		void IInputListener.OnLeftMouseUp(Vector2 mousePos)
+		{
+		}
+
+		void IInputListener.OnRightMouseUp(Vector2 mousePos)
 		{
 		}
 
@@ -640,7 +650,7 @@ namespace Nez.UI.Containers
 			{
 				var children = this.children;
 				for (var i = this.children.Count - 1; i >= 0; i--)
-					((Node) children[i]).RemoveFromTree(tree);
+					((Node)children[i]).RemoveFromTree(tree);
 			}
 
 			children.Clear();
@@ -652,7 +662,7 @@ namespace Nez.UI.Containers
 			if (!(parent is Tree))
 				return null;
 
-			return (Tree) parent;
+			return (Tree)parent;
 		}
 
 		public Element GetActor()

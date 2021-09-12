@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Vector2 = System.Numerics.Vector2;
 
 
 namespace Nez.UI
@@ -89,7 +90,7 @@ namespace Nez.UI
 		{ }
 
 
-		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnLeftMousePressed(Vector2 mousePos)
 		{
 			if (_handleBounds.Contains(mousePos))
 			{
@@ -98,6 +99,11 @@ namespace Nez.UI
 				return true;
 			}
 
+			return false;
+		}
+
+		bool IInputListener.OnRightMousePressed(Vector2 mousePos)
+		{
 			return false;
 		}
 
@@ -135,7 +141,10 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
+		void IInputListener.OnLeftMouseUp(Vector2 mousePos)
+		{ }
+
+		void IInputListener.OnRightMouseUp(Vector2 mousePos)
 		{ }
 
 

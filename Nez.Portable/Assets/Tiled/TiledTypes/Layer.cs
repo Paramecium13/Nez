@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Nez.Tiled
 {
@@ -11,7 +12,11 @@ namespace Nez.Tiled
 		public bool Visible { get; set; }
 		public float OffsetX { get; set; }
 		public float OffsetY { get; set; }
-		public System.Numerics.Vector2 Offset => new System.Numerics.Vector2(OffsetX, OffsetY);
+		public Vector2 Offset => new Vector2(OffsetX, OffsetY);
+		public float ParallaxFactorX { get; set; }
+		public float ParallaxFactorY { get; set; }
+		public Vector2 ParallaxFactor => new Vector2(ParallaxFactorX, ParallaxFactorY);
+
 		public Dictionary<string, string> Properties { get; set; }
 
 		/// <summary>

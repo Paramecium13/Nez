@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using Vector2 = System.Numerics.Vector2;
 
 
 namespace Nez.UI
@@ -249,18 +250,27 @@ namespace Nez.UI
 			}
 		}
 
-		bool IInputListener.OnMousePressed(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnLeftMousePressed(Vector2 mousePos)
 		{
 			return true;
 		}
 
-		void IInputListener.OnMouseMoved(System.Numerics.Vector2 mousePos)
+		bool IInputListener.OnRightMousePressed(Vector2 mousePos)
+		{
+			return false;
+		}
+
+		void IInputListener.OnMouseMoved(Vector2 mousePos)
 		{
 		}
 
-		void IInputListener.OnMouseUp(System.Numerics.Vector2 mousePos)
+		void IInputListener.OnLeftMouseUp(Vector2 mousePos)
 		{
 			OnClick?.Invoke();
+		}
+
+		void IInputListener.OnRightMouseUp(Vector2 mousePos)
+		{
 		}
 
 		bool IInputListener.OnMouseScrolled(int mouseWheelDelta)
