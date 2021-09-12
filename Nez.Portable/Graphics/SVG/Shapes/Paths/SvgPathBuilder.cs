@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
+using Vector2 = System.Numerics.Vector2;
 
 // IMPORTANT NOTE! THIS CLASS IS NOT COMPILED INTO THE NEZ PCL! YOU MUST ADD THIS CLASS MANUALLY TO YOUR MAIN PROJECT TO USE IT.
 

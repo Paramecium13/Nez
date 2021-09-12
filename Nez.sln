@@ -11,10 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez.Persistence", "Nez.Pers
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nez", "Nez.Portable\Nez.shproj", "{55CD94DD-47DB-48D7-9826-BE2A2B6E4ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez (5)", "Nez (5)\Nez (5).csproj", "{3C1B7E9B-BB37-4A9B-9296-5302B9D42771}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez (5)", "Nez (5)\Nez (5).csproj", "{3C1B7E9B-BB37-4A9B-9296-5302B9D42771}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Nez.Portable\Nez.projitems*{3c1b7e9b-bb37-4a9b-9296-5302b9d42771}*SharedItemsImports = 5
 		Nez.Portable\Nez.projitems*{55cd94dd-47db-48d7-9826-be2a2b6e4adf}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

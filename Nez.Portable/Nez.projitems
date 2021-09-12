@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 		<HasSharedItems>true</HasSharedItems>
 		<SharedGUID>55cd94dd-47db-48d7-9826-be2a2b6e4adf</SharedGUID>
 	</PropertyGroup>
@@ -20,9 +19,11 @@
 		<EmbeddedResource Remove="obj\**" />
 		<None Remove="obj\**" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<EmbeddedResource Include="Content\NezDefaultBMFont.xnb" />
+		<Compile Remove="obj/Nez/Debug/.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="..\Nez.Portable\Content\NezDefaultBMFont.xnb" />
 		<Compile Remove="Graphics\SVG\Shapes\Paths\SvgPathBuilder.cs" />
 	</ItemGroup>
 </Project>
