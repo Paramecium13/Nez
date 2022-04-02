@@ -8,7 +8,7 @@ namespace Nez
 	/// </summary>
 	public static class Pool<T> where T : new()
 	{
-		private static Queue<T> _objectQueue = new Queue<T>(10);
+		private static readonly Queue<T> _objectQueue = new Queue<T>(10);
 
 
 		/// <summary>
@@ -66,8 +66,8 @@ namespace Nez
 		{
 			_objectQueue.Enqueue(obj);
 
-			if (obj is IPoolable)
-				((IPoolable) obj).Reset();
+			if (obj is IPoolable poolable)
+				poolable.Reset();
 		}
 	}
 

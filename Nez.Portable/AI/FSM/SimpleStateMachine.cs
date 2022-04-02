@@ -9,7 +9,7 @@ namespace Nez.AI.FSM
 	/// - before update is called initialState must be set (use the constructor or onAddedToEntity)
 	/// - if you implement update in your subclass you must call base.update()
 	/// 
-	/// Note: if you use an enum as the contraint you can avoid allocations/boxing in Mono by doing what the Core
+	/// Note: if you use an enum as the constraint you can avoid allocations/boxing in Mono by doing what the Core
 	/// Emitter does for its enum: pass in a IEqualityComparer to the constructor.
 	/// </summary>
 	public abstract class SimpleStateMachine<TEnum> : Component, IUpdatable

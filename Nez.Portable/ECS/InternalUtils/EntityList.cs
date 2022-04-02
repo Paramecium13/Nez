@@ -254,6 +254,28 @@ namespace Nez
 
 			return null;
 		}
+		
+		/// <summary>
+		/// returns the first Entity found with a id of id. If none are found returns null.
+		/// </summary>
+		/// <returns>The entity.</returns>
+		/// <param name="id">Id.</param>
+		public Entity FindEntity(uint id)
+		{
+			for (var i = 0; i < _entities.Length; i++)
+			{
+				if (_entities.Buffer[i].Id == id)
+					return _entities.Buffer[i];
+			}
+
+			foreach (var entity in _entitiesToAdd)
+			{
+				if (entity.Id == id)
+					return entity;
+			}
+
+			return null;
+		}
 
 		/// <summary>
 		/// returns a list of all entities with tag. If no entities have the tag an empty list is returned. The returned List can be put back in the pool via ListPool.free.

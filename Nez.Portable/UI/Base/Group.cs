@@ -382,15 +382,13 @@ namespace Nez.UI
 		public void SetDebug(bool enabled, bool recursively)
 		{
 			_debug = enabled;
-			if (recursively)
+			if (!recursively) return;
+			foreach (var child in children)
 			{
-				foreach (var child in children)
-				{
-					if (child is Group)
-						((Group)child).SetDebug(enabled, recursively);
-					else
-						child.SetDebug(enabled);
-				}
+				if (child is Group group)
+					group.SetDebug(enabled, true);
+				else
+					child.SetDebug(enabled);
 			}
 		}
 

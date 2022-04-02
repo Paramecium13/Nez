@@ -15,7 +15,7 @@ namespace Nez
 
 		public static FieldInfo GetFieldInfo(Type type, string fieldName)
 		{
-			FieldInfo fieldInfo = null;
+			FieldInfo fieldInfo;
 			do
 			{
 				fieldInfo = type.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);

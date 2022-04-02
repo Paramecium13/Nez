@@ -45,7 +45,23 @@ namespace Nez
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-
+		
+		public static RectangleF GetHalfRect(this RectangleF rect, Edge edge)
+		{
+			switch (edge)
+			{
+				case Edge.Top:
+					return new RectangleF(rect.X, rect.Y, rect.Width, rect.Height / 2);
+				case Edge.Bottom:
+					return new RectangleF(rect.X, rect.Y + rect.Height / 2, rect.Width, rect.Height / 2);
+				case Edge.Left:
+					return new RectangleF(rect.X, rect.Y, rect.Width / 2, rect.Height);
+				case Edge.Right:
+					return new RectangleF(rect.X + rect.Width / 2, rect.Y, rect.Width / 2, rect.Height);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
 
 		/// <summary>
 		/// gets a portion of the Rectangle with a width/height of size that is on the Edge of the Rectangle but still contained within it.
@@ -70,8 +86,31 @@ namespace Nez
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-
-
+		
+		/// <summary>
+		/// gets a portion of the Rectangle with a width/height of size that is on the Edge of the Rectangle but still contained within it.
+		/// </summary>
+		/// <returns>The rect edge portion.</returns>
+		/// <param name="rect">Rect.</param>
+		/// <param name="edge">Edge.</param>
+		/// <param name="size">Size.</param>
+		public static RectangleF GetRectEdgePortion(this RectangleF rect, Edge edge, int size = 1)
+		{
+			switch (edge)
+			{
+				case Edge.Top:
+					return new RectangleF(rect.X, rect.Y, rect.Width, size);
+				case Edge.Bottom:
+					return new RectangleF(rect.X, rect.Y + rect.Height - size, rect.Width, size);
+				case Edge.Left:
+					return new RectangleF(rect.X, rect.Y, size, rect.Height);
+				case Edge.Right:
+					return new RectangleF(rect.X + rect.Width - size, rect.Y, size, rect.Height);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+		
 		public static void ExpandSide(ref Rectangle rect, Edge edge, int amount)
 		{
 			// ensure we have a positive value
@@ -97,9 +136,41 @@ namespace Nez
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+		public static void ExpandSide(ref RectangleF rect, Edge edge, int amount)
+		{
+			// ensure we have a positive value
+			amount = Math.Abs(amount);
 
+			switch (edge)
+			{
+				case Edge.Top:
+					rect.Y -= amount;
+					rect.Height += amount;
+					break;
+				case Edge.Bottom:
+					rect.Height += amount;
+					break;
+				case Edge.Left:
+					rect.X -= amount;
+					rect.Width += amount;
+					break;
+				case Edge.Right:
+					rect.Width += amount;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
 
+		
 		public static void Contract(ref Rectangle rect, int horizontalAmount, int verticalAmount)
+		{
+			rect.X += horizontalAmount;
+			rect.Y += verticalAmount;
+			rect.Width -= horizontalAmount * 2;
+			rect.Height -= verticalAmount * 2;
+		}
+		public static void Contract(ref RectangleF rect, int horizontalAmount, int verticalAmount)
 		{
 			rect.X += horizontalAmount;
 			rect.Y += verticalAmount;

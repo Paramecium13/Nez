@@ -629,10 +629,12 @@ namespace Nez
 		{
 			if (value1.Intersects(value2))
 			{
-				var right_side = Math.Min(value1.X + value1.Width, value2.X + value2.Width);
+				var foo1 = value1.Location + value1.Size;
+				var foo2 = value2.Location + value2.Size;
+				var right_side = Math.Min(foo1.X, foo2.X);
+				var bottom_side = Math.Min(foo1.Y, foo2.Y);
 				var left_side = Math.Max(value1.X, value2.X);
 				var top_side = Math.Max(value1.Y, value2.Y);
-				var bottom_side = Math.Min(value1.Y + value1.Height, value2.Y + value2.Height);
 				result = new RectangleF(left_side, top_side, right_side - left_side, bottom_side - top_side);
 			}
 			else

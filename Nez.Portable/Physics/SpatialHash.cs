@@ -537,7 +537,7 @@ namespace Nez.Spatial
 	{
 		public int HitCounter;
 
-		static Comparison<RaycastHit> compareRaycastHits = (a, b) => { return a.Distance.CompareTo(b.Distance); };
+		private static readonly Comparison<RaycastHit> compareRaycastHits = (a, b) => a.Distance.CompareTo(b.Distance);
 
 		//int _cellSize;
 		//Rectangle _hitTesterRect; see note in checkRayIntersection
