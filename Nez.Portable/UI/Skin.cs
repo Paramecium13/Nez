@@ -208,7 +208,7 @@ namespace Nez.UI
 					// Check to see if valueObject is a Dictionary object instead of a string. If so, it is an 'inline' style
 					//	and needs to be recursively parsed like any other style. Otherwise, it is assumed to be a string and
 					//	represents an existing style that has been previously parsed.
-					if (valueObject is Dictionary<string, object>)
+					if (valueObject is Dictionary<string, object> objects)
 					{
 						// Since there is no existing field to reference, we create it and fill it out by hand
 						var inlineStyle = Activator.CreateInstance(styleField.FieldType);
@@ -220,7 +220,7 @@ namespace Nez.UI
 							setStylesForStyleClassMethod.MakeGenericMethod(styleField.FieldType);
 						inlineStyle = setStylesForStyleClassMethod.Invoke(this,
 							new object[]
-								{inlineStyle, valueObject as Dictionary<string, object>, contentManager, styleName});
+								{inlineStyle, objects, contentManager, styleName});
 						styleField.SetValue(styleClass, inlineStyle);
 					}
 					else
@@ -264,8 +264,8 @@ namespace Nez.UI
 			for (int i = 0, n = atlas.Sprites.Length; i < n; i++)
 			{
 				var sprite = atlas.Sprites[i];
-				if (sprite is NinePatchSprite)
-					Add(atlas.Names[i], sprite as NinePatchSprite);
+				if (sprite is NinePatchSprite patchSprite)
+					Add(atlas.Names[i], patchSprite);
 				else
 					Add(atlas.Names[i], sprite);
 			}
@@ -294,7 +294,7 @@ namespace Nez.UI
 		/// <param name="resource">Resource.</param>
 		public void Add(string name, object resource, Type type)
 		{
-			if (!_resources.TryGetValue(type, out Dictionary<string, object> typedResources))
+			if (!_resources.TryGetValue(type, out var typedResources))
 			{
 				typedResources = new Dictionary<string, object>();
 				_resources.Add(type, typedResources);
@@ -310,7 +310,7 @@ namespace Nez.UI
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public void Remove<T>(string name)
 		{
-			if (_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
+			if (_resources.TryGetValue(typeof(T), out var typedResources))
 				typedResources.Remove(name);
 		}
 
@@ -321,7 +321,7 @@ namespace Nez.UI
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public bool Has<T>(string name)
 		{
-			if (_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
+			if (_resources.TryGetValue(typeof(T), out var typedResources))
 				return typedResources.ContainsKey(name);
 
 			return false;
@@ -337,7 +337,7 @@ namespace Nez.UI
 			if (Has<T>("default"))
 				return Get<T>("default");
 
-			if (_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
+			if (_resources.TryGetValue(typeof(T), out var typedResources))
 				return (T)typedResources[typedResources.First().Key];
 
 			return default(T);
@@ -353,7 +353,7 @@ namespace Nez.UI
 			if (name == null)
 				return Get<T>();
 
-			if (!_resources.TryGetValue(typeof(T), out Dictionary<string, object> typedResources))
+			if (!_resources.TryGetValue(typeof(T), out var typedResources))
 				return default(T);
 
 			if (!typedResources.ContainsKey(name))
@@ -512,11 +512,11 @@ namespace Nez.UI
 		public IDrawable NewTintedDrawable(string name, Color tint)
 		{
 			var drawable = GetDrawable(name);
-			if (drawable is SpriteDrawable)
-				return (drawable as SpriteDrawable).NewTintedDrawable(tint);
+			if (drawable is SpriteDrawable spriteDrawable)
+				return spriteDrawable.NewTintedDrawable(tint);
 
-			if (drawable is NinePatchDrawable)
-				return (drawable as NinePatchDrawable).NewTintedDrawable(tint);
+			if (drawable is NinePatchDrawable patchDrawable)
+				return patchDrawable.NewTintedDrawable(tint);
 
 			throw new Exception("Unable to copy, unknown or unsupported drawable type: " + drawable);
 		}

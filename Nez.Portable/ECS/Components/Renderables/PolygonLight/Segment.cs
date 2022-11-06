@@ -25,9 +25,8 @@
 
 		public override bool Equals(object obj)
 		{
-			if (obj is Segment)
+			if (obj is Segment other)
 			{
-				var other = obj as Segment;
 				return p1.Equals(other.p1) && p2.Equals(other.p2);
 			}
 

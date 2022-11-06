@@ -166,35 +166,35 @@ namespace Nez.Systems
 				return true;
 			}
 
-			if (coroutine.Enumerator.Current is WaitForSeconds)
+			if (coroutine.Enumerator.Current is WaitForSeconds seconds)
 			{
-				coroutine.WaitTimer = (coroutine.Enumerator.Current as WaitForSeconds).waitTime;
+				coroutine.WaitTimer = seconds.waitTime;
 				return true;
 			}
 
 #if DEBUG
 
 			// deprecation warning for yielding an int/float
-			if (coroutine.Enumerator.Current is int)
+			if (coroutine.Enumerator.Current is int current)
 			{
 				Debug.Error(
 					"yield Coroutine.waitForSeconds instead of an int. Yielding an int will not work in a release build.");
-				coroutine.WaitTimer = (int) coroutine.Enumerator.Current;
+				coroutine.WaitTimer = current;
 				return true;
 			}
 
-			if (coroutine.Enumerator.Current is float)
+			if (coroutine.Enumerator.Current is float enumeratorCurrent)
 			{
 				Debug.Error(
 					"yield Coroutine.waitForSeconds instead of a float. Yielding a float will not work in a release build.");
-				coroutine.WaitTimer = (float) coroutine.Enumerator.Current;
+				coroutine.WaitTimer = enumeratorCurrent;
 				return true;
 			}
 #endif
 
-			if (coroutine.Enumerator.Current is CoroutineImpl)
+			if (coroutine.Enumerator.Current is CoroutineImpl impl)
 			{
-				coroutine.WaitForCoroutine = coroutine.Enumerator.Current as CoroutineImpl;
+				coroutine.WaitForCoroutine = impl;
 				return true;
 			}
 			else

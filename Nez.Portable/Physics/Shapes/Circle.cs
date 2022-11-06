@@ -65,42 +65,38 @@ namespace Nez.PhysicsShapes
 
 		public override bool Overlaps(Shape other)
 		{
-			CollisionResult result;
-
-			// Box is only optimized for unrotated
-			if (other is Box && (other as Box).IsUnrotated)
-				return Collisions.RectToCircle(ref other.bounds, position, Radius);
-
-			if (other is Circle)
-				return Collisions.CircleToCircle(position, Radius, other.position, (other as Circle).Radius);
-
-			if (other is Polygon)
-				return ShapeCollisions.CircleToPolygon(this, other as Polygon, out result);
-
-			throw new NotImplementedException(string.Format("overlaps of Circle to {0} are not supported", other));
+			switch (other)
+			{
+				// Box is only optimized for unrotated
+				case Box box when box.IsUnrotated:
+					return Collisions.RectToCircle(ref box.bounds, position, Radius);
+				case Circle circle:
+					return Collisions.CircleToCircle(position, Radius, circle.position, circle.Radius);
+				case Polygon polygon:
+					return ShapeCollisions.CircleToPolygon(this, polygon, out _);
+				default:
+					throw new NotImplementedException($"overlaps of Circle to {other} are not supported");
+			}
 		}
 
 
 		public override bool CollidesWithShape(Shape other, out CollisionResult result)
 		{
-			if (other is Box && (other as Box).IsUnrotated)
-				return ShapeCollisions.CircleToBox(this, other as Box, out result);
-
-			if (other is Circle)
-				return ShapeCollisions.CircleToCircle(this, other as Circle, out result);
-
-			if (other is Polygon)
-				return ShapeCollisions.CircleToPolygon(this, other as Polygon, out result);
-
-			throw new NotImplementedException(string.Format("Collisions of Circle to {0} are not supported", other));
+			switch (other)
+			{
+				case Box box when box.IsUnrotated:
+					return ShapeCollisions.CircleToBox(this, box, out result);
+				case Circle circle:
+					return ShapeCollisions.CircleToCircle(this, circle, out result);
+				case Polygon polygon:
+					return ShapeCollisions.CircleToPolygon(this, polygon, out result);
+				default:
+					throw new NotImplementedException($"Collisions of Circle to {other} are not supported");
+			}
 		}
 
 
-		public override bool CollidesWithLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, out RaycastHit hit)
-		{
-			hit = new RaycastHit();
-			return ShapeCollisions.LineToCircle(start, end, this, out hit);
-		}
+		public override bool CollidesWithLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, out RaycastHit hit) => ShapeCollisions.LineToCircle(start, end, this, out hit);
 
 
 		/// <summary>

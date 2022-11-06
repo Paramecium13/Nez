@@ -162,8 +162,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateRotation(float radians)
 		{
-			Matrix2D result;
-			CreateRotation(radians, out result);
+			CreateRotation(radians, out var result);
 			return result;
 		}
 
@@ -196,8 +195,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateScale(float scale)
 		{
-			Matrix2D result;
-			CreateScale(scale, scale, out result);
+			CreateScale(scale, scale, out var result);
 			return result;
 		}
 
@@ -223,8 +221,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateScale(float xScale, float yScale)
 		{
-			Matrix2D result;
-			CreateScale(xScale, yScale, out result);
+			CreateScale(xScale, yScale, out var result);
 			return result;
 		}
 
@@ -257,8 +254,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateScale(System.Numerics.Vector2 scale)
 		{
-			Matrix2D result;
-			CreateScale(ref scale, out result);
+			CreateScale(ref scale, out var result);
 			return result;
 		}
 
@@ -291,8 +287,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateTranslation(float xPosition, float yPosition)
 		{
-			Matrix2D result;
-			CreateTranslation(xPosition, yPosition, out result);
+			CreateTranslation(xPosition, yPosition, out var result);
 			return result;
 		}
 
@@ -324,8 +319,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D CreateTranslation(System.Numerics.Vector2 position)
 		{
-			Matrix2D result;
-			CreateTranslation(ref position, out result);
+			CreateTranslation(ref position, out var result);
 			return result;
 		}
 
@@ -850,8 +844,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Matrix2D Transpose(Matrix2D matrix)
 		{
-			Matrix2D ret;
-			Transpose(ref matrix, out ret);
+			Transpose(ref matrix, out var ret);
 			return ret;
 		}
 
@@ -919,8 +912,8 @@ namespace Nez
 		/// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
 		public override bool Equals(object obj)
 		{
-			if (obj is Matrix2D)
-				return Equals((Matrix2D) obj);
+			if (obj is Matrix2D matrix2D)
+				return Equals(matrix2D);
 
 			return false;
 		}

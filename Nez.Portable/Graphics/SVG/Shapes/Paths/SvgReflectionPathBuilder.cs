@@ -38,11 +38,10 @@ namespace Nez.Svg
 				{
 					path.StartFigure();
 				}
-				else if (segment is SvgCubicCurveSegment)
+				else if (segment is SvgCubicCurveSegment cubicSegment)
 				{
-					var cubicSegment = segment as SvgCubicCurveSegment;
-					path.AddBezier(ToDrawPoint(segment.Start), ToDrawPoint(cubicSegment.FirstCtrlPoint),
-						ToDrawPoint(cubicSegment.SecondCtrlPoint), ToDrawPoint(segment.End));
+					path.AddBezier(ToDrawPoint(cubicSegment.Start), ToDrawPoint(cubicSegment.FirstCtrlPoint),
+						ToDrawPoint(cubicSegment.SecondCtrlPoint), ToDrawPoint(cubicSegment.End));
 				}
 				else if (segment is SvgClosePathSegment)
 				{
@@ -64,11 +63,10 @@ namespace Nez.Svg
 				{
 					path.AddLine(ToDrawPoint(segment.Start), ToDrawPoint(segment.End));
 				}
-				else if (segment is SvgQuadraticCurveSegment)
+				else if (segment is SvgQuadraticCurveSegment quadSegment)
 				{
-					var quadSegment = segment as SvgQuadraticCurveSegment;
-					path.AddBezier(ToDrawPoint(segment.Start), ToDrawPoint(quadSegment.FirstCtrlPoint),
-						ToDrawPoint(quadSegment.SecondCtrlPoint), ToDrawPoint(segment.End));
+					path.AddBezier(ToDrawPoint(quadSegment.Start), ToDrawPoint(quadSegment.FirstCtrlPoint),
+						ToDrawPoint(quadSegment.SecondCtrlPoint), ToDrawPoint(quadSegment.End));
 				}
 				else
 				{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
+// ReSharper disable UnusedMember.Global
 
 
 namespace Nez
@@ -55,7 +56,7 @@ namespace Nez
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int FloorToInt(float f)
 		{
-			return (int)Math.Floor((double)f);
+			return (int)Math.Floor(f);
 		}
 
 		/// <summary>Returns the result of converting a float value from degrees to radians.</summary>
@@ -146,14 +147,14 @@ namespace Nez
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float Snap(float value, float increment)
+		public static float Snap(float value, float increment)
 		{
 			return Round(value / increment) * increment;
 		}
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float Snap(float value, float increment, float offset)
+		public static float Snap(float value, float increment, float offset)
 		{
 			return (Round((value - offset) / increment) * increment) + offset;
 		}
@@ -173,14 +174,14 @@ namespace Nez
 			{
 				if (t < from)
 					return 0.0f;
-				else if (t > to)
+				if (t > to)
 					return 1.0f;
 			}
 			else
 			{
 				if (t < to)
 					return 1.0f;
-				else if (t > from)
+				if (t > from)
 					return 0.0f;
 			}
 
@@ -297,12 +298,11 @@ namespace Nez
 		/// <param name="value">Value.</param>
 		/// <param name="threshold">Threshold.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float SignThreshold(float value, float threshold)
+		public static float SignThreshold(float value, float threshold)
 		{
 			if (Math.Abs(value) >= threshold)
 				return Math.Sign(value);
-			else
-				return 0;
+			return 0;
 		}
 
 
@@ -522,7 +522,7 @@ namespace Nez
 		/// <summary>
 		/// returns true if value is even
 		/// </summary>
-		/// <returns><c>true</c>, if even was ised, <c>false</c> otherwise.</returns>
+		/// <returns><c>true</c>, if even, <c>false</c> otherwise.</returns>
 		/// <param name="value">Value.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsEven(int value)
@@ -534,7 +534,7 @@ namespace Nez
 		/// <summary>
 		/// returns true if value is odd
 		/// </summary>
-		/// <returns><c>true</c>, if odd was ised, <c>false</c> otherwise.</returns>
+		/// <returns><c>true</c>, if odd, <c>false</c> otherwise.</returns>
 		/// <param name="value">Value.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsOdd(int value)
@@ -562,7 +562,7 @@ namespace Nez
 		/// Maps a value from some arbitrary range to the 0 to 1 range
 		/// </summary>
 		/// <param name="value">Value.</param>
-		/// <param name="min">Lminimum value.</param>
+		/// <param name="min">minimum value.</param>
 		/// <param name="max">maximum value</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static float Map01(float value, float min, float max)
@@ -575,7 +575,7 @@ namespace Nez
 		/// Maps a value from some arbitrary range to the 1 to 0 range. this is just the reverse of map01
 		/// </summary>
 		/// <param name="value">Value.</param>
-		/// <param name="min">Lminimum value.</param>
+		/// <param name="min">minimum value.</param>
 		/// <param name="max">maximum value</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static float Map10(float value, float min, float max)
@@ -585,7 +585,7 @@ namespace Nez
 
 
 		/// <summary>
-		/// mapps value (which is in the range leftMin - leftMax) to a value in the range rightMin - rightMax
+		/// maps value (which is in the range leftMin - leftMax) to a value in the range rightMin - rightMax
 		/// </summary>
 		/// <param name="value">Value.</param>
 		/// <param name="leftMin">Left minimum.</param>
@@ -611,12 +611,12 @@ namespace Nez
 			return Round(value / roundToNearest) * roundToNearest;
 		}
 
-        /// <summary>
-        /// Checks if the value passed falls under a certain threshold.
-        /// Useful for small, precise comparisons.
-        /// </summary>
-        /// <param name="value">The value to check.</param>
-        /// <param name="ep">The threshold to check the value with. <see cref="Epsilon"/> is used by default.</param>
+		/// <summary>
+		/// Checks if the value passed falls under a certain threshold.
+		/// Useful for small, precise comparisons.
+		/// </summary>
+		/// <param name="value">The value to check.</param>
+		/// <param name="ep">The threshold to check the value with. <see cref="Epsilon"/> is used by default.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool WithinEpsilon(float value, float ep = Epsilon)
 		{
@@ -727,14 +727,14 @@ namespace Nez
 		#region System.Numerics.Vector2
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public float AngleBetweenVectors(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
+		public static float AngleBetweenVectors(System.Numerics.Vector2 from, System.Numerics.Vector2 to)
 		{
 			return Atan2(to.Y - from.Y, to.X - from.X);
 		}
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public System.Numerics.Vector2 AngleToVector(float angleRadians, float length)
+		public static System.Numerics.Vector2 AngleToVector(float angleRadians, float length)
 		{
 			return new System.Numerics.Vector2(Cos(angleRadians) * length, Sin(angleRadians) * length);
 		}
@@ -744,7 +744,7 @@ namespace Nez
 		/// helper for moving a value around in a circle.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static public System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 position, float speed)
+		public static System.Numerics.Vector2 RotateAround(System.Numerics.Vector2 position, float speed)
 		{
 			var time = Time.TotalTime * speed;
 

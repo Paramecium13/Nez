@@ -7,19 +7,19 @@ namespace Nez
 	public class ComponentList
 	{
 		// global updateOrder sort for the IUpdatable list
-		static IUpdatableComparer compareUpdatableOrder = new IUpdatableComparer();
+		private static readonly IUpdatableComparer compareUpdatableOrder = new IUpdatableComparer();
 
-		Entity _entity;
+		private readonly Entity _entity;
 
 		/// <summary>
 		/// list of components added to the entity
 		/// </summary>
-		FastList<Component> _components = new FastList<Component>();
+		private readonly FastList<Component> _components = new FastList<Component>();
 
 		/// <summary>
 		/// list of all Components that want update called
 		/// </summary>
-		FastList<IUpdatable> _updatableComponents = new FastList<IUpdatable>();
+		private readonly FastList<IUpdatable> _updatableComponents = new FastList<IUpdatable>();
 
 		/// <summary>
 		/// The list of components that were added this frame. Used to group the components so we can process them simultaneously
@@ -29,14 +29,14 @@ namespace Nez
 		/// <summary>
 		/// The list of components that were marked for removal this frame. Used to group the components so we can process them simultaneously
 		/// </summary>
-		List<Component> _componentsToRemove = new List<Component>();
+		private readonly List<Component> _componentsToRemove = new List<Component>();
 
-		List<Component> _tempBufferList = new List<Component>();
+		private readonly List<Component> _tempBufferList = new List<Component>();
 
 		/// <summary>
 		/// flag used to determine if we need to sort our Components this frame
 		/// </summary>
-		bool _isComponentListUnsorted;
+		private bool _isComponentListUnsorted;
 
 		public ComponentList(Entity entity)
 		{
@@ -99,12 +99,12 @@ namespace Nez
 				var component = _components.Buffer[i];
 
 				// deal with renderLayer list if necessary
-				if (component is RenderableComponent)
-					_entity.Scene.RenderableComponents.Remove(component as RenderableComponent);
+				if (component is RenderableComponent renderableComponent)
+					_entity.Scene.RenderableComponents.Remove(renderableComponent);
 
 				// deal with IUpdatable
-				if (component is IUpdatable)
-					_updatableComponents.Remove(component as IUpdatable);
+				if (component is IUpdatable updatable)
+					_updatableComponents.Remove(updatable);
 
 				if (Core.entitySystemsEnabled)
 				{
@@ -119,11 +119,11 @@ namespace Nez
 			for (var i = 0; i < _components.Length; i++)
 			{
 				var component = _components.Buffer[i];
-				if (component is RenderableComponent)
-					_entity.Scene.RenderableComponents.Add(component as RenderableComponent);
+				if (component is RenderableComponent renderableComponent)
+					_entity.Scene.RenderableComponents.Add(renderableComponent);
 
-				if (component is IUpdatable)
-					_updatableComponents.Add(component as IUpdatable);
+				if (component is IUpdatable updatable)
+					_updatableComponents.Add(updatable);
 
 				if (Core.entitySystemsEnabled)
 				{
@@ -137,12 +137,12 @@ namespace Nez
 		/// <summary>
 		/// handles any Components that need to be removed or added
 		/// </summary>
-		void UpdateLists()
+		private void UpdateLists()
 		{
 			// handle removals
 			if (_componentsToRemove.Count > 0)
 			{
-				for (int i = 0; i < _componentsToRemove.Count; i++)
+				for (var i = 0; i < _componentsToRemove.Count; i++)
 				{
 					HandleRemove(_componentsToRemove[i]);
 					_components.Remove(_componentsToRemove[i]);
@@ -157,11 +157,11 @@ namespace Nez
 				for (int i = 0, count = _componentsToAdd.Count; i < count; i++)
 				{
 					var component = _componentsToAdd[i];
-					if (component is RenderableComponent)
-						_entity.Scene.RenderableComponents.Add(component as RenderableComponent);
+					if (component is RenderableComponent renderableComponent)
+						_entity.Scene.RenderableComponents.Add(renderableComponent);
 
-					if (component is IUpdatable)
-						_updatableComponents.Add(component as IUpdatable);
+					if (component is IUpdatable updatable)
+						_updatableComponents.Add(updatable);
 
 					if (Core.entitySystemsEnabled)
 					{
@@ -198,15 +198,15 @@ namespace Nez
 			}
 		}
 
-		void HandleRemove(Component component)
+		private void HandleRemove(Component component)
 		{
 			// deal with renderLayer list if necessary
-			if (component is RenderableComponent)
-				_entity.Scene.RenderableComponents.Remove(component as RenderableComponent);
+			if (component is RenderableComponent renderableComponent)
+				_entity.Scene.RenderableComponents.Remove(renderableComponent);
 
 			// deal with IUpdatable
-			if (component is IUpdatable)
-				_updatableComponents.Remove(component as IUpdatable);
+			if (component is IUpdatable updatable)
+				_updatableComponents.Remove(updatable);
 
 			if (Core.entitySystemsEnabled)
 			{
@@ -231,8 +231,8 @@ namespace Nez
 			for (var i = 0; i < _components.Length; i++)
 			{
 				var component = _components.Buffer[i];
-				if (component is T)
-					return component as T;
+				if (component is T component1)
+					return component1;
 			}
 
 			// we optionally check the pending components just in case addComponent and getComponent are called in the same frame
@@ -241,8 +241,8 @@ namespace Nez
 				for (var i = 0; i < _componentsToAdd.Count; i++)
 				{
 					var component = _componentsToAdd[i];
-					if (component is T)
-						return component as T;
+					if (component is T component1)
+						return component1;
 				}
 			}
 
@@ -260,16 +260,16 @@ namespace Nez
 			for (var i = 0; i < _components.Length; i++)
 			{
 				var component = _components.Buffer[i];
-				if (component is T)
-					components.Add(component as T);
+				if (component is T component1)
+					components.Add(component1);
 			}
 
 			// we also check the pending components just in case addComponent and getComponent are called in the same frame
 			for (var i = 0; i < _componentsToAdd.Count; i++)
 			{
 				var component = _componentsToAdd[i];
-				if (component is T)
-					components.Add(component as T);
+				if (component is T component1)
+					components.Add(component1);
 			}
 		}
 

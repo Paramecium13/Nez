@@ -109,9 +109,8 @@ namespace Nez.UI
 			{
 				var child = children[i];
 				float childMaxWidth, childMaxHeight;
-				if (child is ILayout)
+				if (child is ILayout layout)
 				{
-					var layout = (ILayout) child;
 					_prefWidth = Math.Max(_prefWidth, layout.PreferredWidth);
 					_prefHeight = Math.Max(_prefHeight, layout.PreferredHeight);
 					_minWidth = Math.Max(_minWidth, layout.MinWidth);
@@ -152,8 +151,8 @@ namespace Nez.UI
 			{
 				Element child = children[i];
 				child.SetBounds(0, 0, width, height);
-				if (child is ILayout)
-					((ILayout) child).Validate();
+				if (child is ILayout layout)
+					layout.Validate();
 			}
 		}
 	}

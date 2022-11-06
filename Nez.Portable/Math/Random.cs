@@ -130,12 +130,12 @@ namespace Nez
 
 
 		/// <summary>
-		/// returns true if the next random is less than percent. Percent should be between 0 and 1
+		/// returns true if the next random is less than chance. Chance should be between 0 and 1
 		/// </summary>
-		/// <param name="percent">Percent.</param>
-		public static bool Chance(float percent)
+		/// <param name="chance">chance.</param>
+		public static bool Chance(float chance)
 		{
-			return NextFloat() < percent;
+			return NextFloat() < chance;
 		}
 
 

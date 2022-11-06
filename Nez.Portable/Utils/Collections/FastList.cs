@@ -90,6 +90,22 @@ namespace Nez
 			}
 		}
 
+		/// <summary>
+		/// removes the item from the list
+		/// </summary>
+		/// <param name="item">Item.</param>
+		public void RemoveWithSwap(T item)
+		{
+			var comp = EqualityComparer<T>.Default;
+			for (var i = 0; i < Length; ++i)
+			{
+				if (comp.Equals(Buffer[i], item))
+				{
+					RemoveAtWithSwap(i);
+					return;
+				}
+			}
+		}
 
 		/// <summary>
 		/// removes the item at the given index from the list

@@ -102,6 +102,7 @@ namespace Nez.PhysicsShapes
 				_edgeNormals[i] = perp;
 			}
 
+			_areEdgeNormalsDirty = false;
 			return;
 		}
 
@@ -244,7 +245,7 @@ namespace Nez.PhysicsShapes
 
 		internal override void RecalculateBounds(Collider collider)
 		{
-			// if we dont have rotation or dont care about TRS we use localOffset as the center so we'll start with that
+			// if we don't have rotation or don't care about TRS we use localOffset as the center so we'll start with that
 			center = collider.LocalOffset;
 
 			if (collider.ShouldColliderScaleAndRotateWithTransform)
@@ -301,29 +302,27 @@ namespace Nez.PhysicsShapes
 
 		public override bool Overlaps(Shape other)
 		{
-			CollisionResult result;
 			switch (other)
 			{
 				case Polygon polygon:
-					return ShapeCollisions.PolygonToPolygon(this, polygon, out result);
-				case Circle circle when ShapeCollisions.CircleToPolygon(circle, this, out result):
-					result.InvertResult();
+					return ShapeCollisions.PolygonToPolygon(this, polygon, out _);
+				case Circle circle when ShapeCollisions.CircleToPolygon(circle, this, out _):
 					return true;
 				case Circle circle:
 					return false;
 				default:
-					throw new NotImplementedException(string.Format("overlaps of Polygon to {0} are not supported", other));
+					throw new NotImplementedException($"overlaps of Polygon to {other} are not supported");
 			}
 		}
 
 		public override bool CollidesWithShape(Shape other, out CollisionResult result)
 		{
-			if (other is Polygon)
-				return ShapeCollisions.PolygonToPolygon(this, other as Polygon, out result);
+			if (other is Polygon polygon)
+				return ShapeCollisions.PolygonToPolygon(this, polygon, out result);
 
-			if (other is Circle)
+			if (other is Circle circle)
 			{
-				if (ShapeCollisions.CircleToPolygon(other as Circle, this, out result))
+				if (ShapeCollisions.CircleToPolygon(circle, this, out result))
 				{
 					result.InvertResult();
 					return true;
@@ -332,7 +331,7 @@ namespace Nez.PhysicsShapes
 				return false;
 			}
 
-			throw new NotImplementedException(string.Format("overlaps of Polygon to {0} are not supported", other));
+			throw new NotImplementedException($"overlaps of Polygon to {other} are not supported");
 		}
 
 		public override bool CollidesWithLine(System.Numerics.Vector2 start, System.Numerics.Vector2 end, out RaycastHit hit)

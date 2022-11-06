@@ -160,8 +160,8 @@ namespace Nez.UI
 				_firstWidget.SetBounds(firstWidgetBounds.X, firstWidgetBounds.Y, firstWidgetBounds.Width,
 					firstWidgetBounds.Height);
 
-				if (_firstWidget is ILayout)
-					((ILayout)_firstWidget).Validate();
+				if (_firstWidget is ILayout layout)
+					layout.Validate();
 			}
 
 			if (_secondWidget != null)

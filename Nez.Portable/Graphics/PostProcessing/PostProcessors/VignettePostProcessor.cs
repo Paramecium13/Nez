@@ -65,4 +65,24 @@ namespace Nez
 			base.Unload();
 		}
 	}
+
+	public sealed class ShaderPostProcessor : PostProcessor
+	{
+		public ShaderPostProcessor(int executionOrder) : base(executionOrder)
+		{
+		}
+
+		public override void OnAddedToScene(Scene scene)
+		{
+			base.OnAddedToScene(scene);
+
+			Effect = scene.Content.LoadEffect<Effect>("Shader", EffectResource.GetFileResourceBytes("Content/effects/File.mgfxo"));
+		}
+
+		public override void Unload()
+		{
+			_scene.Content.UnloadEffect(Effect);
+			base.Unload();
+		}
+	}
 }

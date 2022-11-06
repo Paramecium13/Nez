@@ -74,11 +74,13 @@ namespace Nez.PhysicsShapes
 			// special, high-performance cases. otherwise we fall back to Polygon.
 			if (IsUnrotated)
 			{
-				if (other is Box && (other as Box).IsUnrotated)
-					return bounds.Intersects(ref (other as Box).bounds);
-
-				if (other is Circle)
-					return Collisions.RectToCircle(ref bounds, other.position, (other as Circle).Radius);
+				switch (other)
+				{
+					case Box box when box.IsUnrotated:
+						return bounds.Intersects(ref box.bounds);
+					case Circle circle:
+						return Collisions.RectToCircle(ref bounds, circle.position, circle.Radius);
+				}
 			}
 
 			// fallthrough to standard cases
@@ -89,8 +91,8 @@ namespace Nez.PhysicsShapes
 		public override bool CollidesWithShape(Shape other, out CollisionResult result)
 		{
 			// special, high-performance cases. otherwise we fall back to Polygon.
-			if (IsUnrotated && other is Box && (other as Box).IsUnrotated)
-				return ShapeCollisions.BoxToBox(this, other as Box, out result);
+			if (IsUnrotated && other is Box box && box.IsUnrotated)
+				return ShapeCollisions.BoxToBox(this, box, out result);
 
 			// TODO: get Minkowski working for circle to box
 			//if( other is Circle )
@@ -102,10 +104,7 @@ namespace Nez.PhysicsShapes
 
 		public override bool ContainsPoint(System.Numerics.Vector2 point)
 		{
-			if (IsUnrotated)
-				return bounds.Contains(point);
-
-			return base.ContainsPoint(point);
+			return IsUnrotated ? bounds.Contains(point) : base.ContainsPoint(point);
 		}
 
 

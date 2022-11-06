@@ -87,8 +87,8 @@ namespace Nez
 			for (var i = 0; i < _processors.Count; i++)
 			{
 				var processor = _processors[i];
-				if (processor is T)
-					return processor as T;
+				if (processor is T system)
+					return system;
 			}
 
 			return null;

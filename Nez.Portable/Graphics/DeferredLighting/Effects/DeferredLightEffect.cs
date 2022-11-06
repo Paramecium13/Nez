@@ -7,44 +7,44 @@ namespace Nez.DeferredLighting
 {
 	public class DeferredLightEffect : Effect
 	{
-		EffectPass clearGBufferPass;
-		EffectPass pointLightPass;
-		EffectPass spotLightPass;
-		EffectPass areaLightPass;
-		EffectPass directionalLightPass;
-		EffectPass finalCombinePass;
+		private readonly EffectPass clearGBufferPass;
+		private readonly EffectPass pointLightPass;
+		private readonly EffectPass spotLightPass;
+		private readonly EffectPass areaLightPass;
+		private readonly EffectPass directionalLightPass;
+		private readonly EffectPass finalCombinePass;
 
 		#region EffectParameter caches
 
 		// gBuffer
-		EffectParameter _clearColorParam;
+		private EffectParameter _clearColorParam;
 
 		// matrices
-		EffectParameter _objectToWorldParam;
-		EffectParameter _worldToViewParam;
-		EffectParameter _projectionParam;
-		EffectParameter _screenToWorldParam;
+		private EffectParameter _objectToWorldParam;
+		private EffectParameter _worldToViewParam;
+		private EffectParameter _projectionParam;
+		private EffectParameter _screenToWorldParam;
 
 		// common
-		EffectParameter _normalMapParam;
-		EffectParameter _lightPositionParam;
-		EffectParameter _colorParam;
-		EffectParameter _lightRadiusParam;
-		EffectParameter _lightIntensityParam;
+		private EffectParameter _normalMapParam;
+		private EffectParameter _lightPositionParam;
+		private EffectParameter _colorParam;
+		private EffectParameter _lightRadiusParam;
+		private EffectParameter _lightIntensityParam;
 
 		// spot
-		EffectParameter _lightDirectionParam;
-		EffectParameter _coneAngleParam;
+		private EffectParameter _lightDirectionParam;
+		private EffectParameter _coneAngleParam;
 
 		// directional
-		EffectParameter _specularIntensityParam;
-		EffectParameter _specularPowerParam;
-		EffectParameter _dirAreaLightDirectionParam; // shared with area light
+		private EffectParameter _specularIntensityParam;
+		private EffectParameter _specularPowerParam;
+		private EffectParameter _dirAreaLightDirectionParam; // shared with area light
 
 		// final combine
-		EffectParameter _ambientColorParam;
-		EffectParameter _colorMapParam;
-		EffectParameter _lightMapParam;
+		private EffectParameter _ambientColorParam;
+		private EffectParameter _colorMapParam;
+		private EffectParameter _lightMapParam;
 
 		#endregion
 
@@ -62,7 +62,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		void CacheEffectParameters()
+		private void CacheEffectParameters()
 		{
 			// gBuffer
 			_clearColorParam = Parameters["_clearColor"];
@@ -120,15 +120,22 @@ namespace Nez.DeferredLighting
 		/// <param name="light">Light.</param>
 		public void UpdateForLight(DeferredLight light)
 		{
-			// check SpotLight first because it is a subclass of PointLight!
-			if (light is SpotLight)
-				UpdateForLight(light as SpotLight);
-			else if (light is PointLight)
-				UpdateForLight(light as PointLight);
-			else if (light is AreaLight)
-				UpdateForLight(light as AreaLight);
-			else if (light is DirLight)
-				UpdateForLight(light as DirLight);
+			switch (light)
+			{
+				// check SpotLight first because it is a subclass of PointLight!
+				case SpotLight spotLight:
+					UpdateForLight(spotLight);
+					break;
+				case PointLight pointLight:
+					UpdateForLight(pointLight);
+					break;
+				case AreaLight areaLight:
+					UpdateForLight(areaLight);
+					break;
+				case DirLight dirLight:
+					UpdateForLight(dirLight);
+					break;
+			}
 		}
 
 

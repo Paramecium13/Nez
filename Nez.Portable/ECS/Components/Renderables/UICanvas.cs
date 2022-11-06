@@ -38,8 +38,8 @@ namespace Nez
 
 			foreach (var child in Stage.GetRoot().children)
 			{
-				if (child is Window)
-					(child as Window).KeepWithinStage();
+				if (child is Window window)
+					window.KeepWithinStage();
 			}
 		}
 

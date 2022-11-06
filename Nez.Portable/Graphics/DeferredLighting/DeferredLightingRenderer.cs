@@ -64,21 +64,21 @@ namespace Nez.DeferredLighting
 		public bool EnableDebugBufferRender = false;
 
 
-		int _lightLayer;
-		Color _ambientColor;
-		Color _clearColor;
-		Texture2D _nullNormalMapTexture;
+		private readonly int _lightLayer;
+		private Color _ambientColor;
+		private Color _clearColor;
+		private Texture2D _nullNormalMapTexture;
 
 		public RenderTexture DiffuseRT;
 		public RenderTexture NormalRT;
 		public RenderTexture LightRT;
 
-		DeferredLightEffect _lightEffect;
+		private readonly DeferredLightEffect _lightEffect;
 
 		// light volumes. quad for directional/area and polygon for others
-		QuadMesh _quadMesh;
-		PolygonMesh _polygonMesh;
-		PolygonMesh _quadPolygonMesh;
+		private readonly QuadMesh _quadMesh;
+		private readonly PolygonMesh _polygonMesh;
+		private readonly PolygonMesh _quadPolygonMesh;
 
 
 		public DeferredLightingRenderer(int renderOrder, int lightLayer, params int[] renderLayers) : base(renderOrder)
@@ -180,14 +180,14 @@ namespace Nez.DeferredLighting
 
 		#region Rendering
 
-		void ClearRenderTargets()
+		private void ClearRenderTargets()
 		{
 			Core.GraphicsDevice.SetRenderTargets(DiffuseRT.RenderTarget, NormalRT.RenderTarget);
 			_lightEffect.PrepareClearGBuffer();
 			_quadMesh.Render();
 		}
 
-		void RenderSprites(Scene scene)
+		private void RenderSprites(Scene scene)
 		{
 			BeginRender(scene.Camera);
 
@@ -208,7 +208,7 @@ namespace Nez.DeferredLighting
 			EndRender();
 		}
 
-		void RenderLights(Scene scene)
+		private void RenderLights(Scene scene)
 		{
 			// bind the normalMap and update the Effect with our camera
 			_lightEffect.SetNormalMap(NormalRT);
@@ -234,7 +234,7 @@ namespace Nez.DeferredLighting
 			}
 		}
 
-		void RenderFinalCombine(Scene scene)
+		private void RenderFinalCombine(Scene scene)
 		{
 			GraphicsDeviceExt.SetRenderTarget(Core.GraphicsDevice, scene.SceneRenderTarget);
 			Core.GraphicsDevice.BlendState = BlendState.Opaque;
@@ -245,7 +245,7 @@ namespace Nez.DeferredLighting
 			_quadMesh.Render();
 		}
 
-		void RenderAllBuffers(Scene scene)
+		private void RenderAllBuffers(Scene scene)
 		{
 			var tempRT = RenderTarget.GetTemporary(scene.SceneRenderTarget.Width, scene.SceneRenderTarget.Height);
 
@@ -275,38 +275,38 @@ namespace Nez.DeferredLighting
 
 		#region Light rendering
 
-		void RenderLight(DeferredLight light)
+		private void RenderLight(DeferredLight light)
 		{
 			// check SpotLight first because it is a subclass of PointLight!
-			if (light is SpotLight)
-				RenderLight(light as SpotLight);
-			else if (light is PointLight)
-				RenderLight(light as PointLight);
-			else if (light is AreaLight)
-				RenderLight(light as AreaLight);
-			else if (light is DirLight)
-				RenderLight(light as DirLight);
+			if (light is SpotLight spotLight)
+				RenderLight(spotLight);
+			else if (light is PointLight pointLight)
+				RenderLight(pointLight);
+			else if (light is AreaLight areaLight)
+				RenderLight(areaLight);
+			else if (light is DirLight dirLight)
+				RenderLight(dirLight);
 		}
 
-		void RenderLight(DirLight light)
+		private void RenderLight(DirLight light)
 		{
 			_lightEffect.UpdateForLight(light);
 			_quadMesh.Render();
 		}
 
-		void RenderLight(PointLight light)
+		private void RenderLight(PointLight light)
 		{
 			_lightEffect.UpdateForLight(light);
 			_polygonMesh.Render();
 		}
 
-		void RenderLight(SpotLight light)
+		private void RenderLight(SpotLight light)
 		{
 			_lightEffect.UpdateForLight(light);
 			_polygonMesh.Render();
 		}
 
-		void RenderLight(AreaLight light)
+		private void RenderLight(AreaLight light)
 		{
 			_lightEffect.UpdateForLight(light);
 			_quadPolygonMesh.Render();

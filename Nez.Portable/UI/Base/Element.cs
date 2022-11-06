@@ -747,8 +747,8 @@ namespace Nez.UI
 
 			Invalidate();
 
-			if (parent is ILayout)
-				((ILayout)parent).InvalidateHierarchy();
+			if (parent is ILayout layout)
+				layout.InvalidateHierarchy();
 		}
 
 		public void Validate()

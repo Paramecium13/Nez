@@ -909,14 +909,13 @@ namespace Nez.UI
 				if (element == this)
 					continue;
 
-				if (element is TextField)
+				if (element is TextField textField)
 				{
-					var textField = (TextField) element;
 					if (textField.IsDisabled() || !textField.focusTraversal)
 						continue;
 
-					var elementCoords = element.GetParent()
-						.LocalToStageCoordinates(new System.Numerics.Vector2(element.GetX(), element.GetY()));
+					var elementCoords = textField.GetParent()
+						.LocalToStageCoordinates(new System.Numerics.Vector2(textField.GetX(), textField.GetY()));
 					if ((elementCoords.Y < currentCoords.Y ||
 					     (elementCoords.Y == currentCoords.Y && elementCoords.X > currentCoords.X)) ^ up)
 					{
@@ -924,14 +923,14 @@ namespace Nez.UI
 						    || (elementCoords.Y > bestCoords.Y ||
 						        (elementCoords.Y == bestCoords.Y && elementCoords.X < bestCoords.X)) ^ up)
 						{
-							best = (TextField) element;
+							best = textField;
 							bestCoords = elementCoords;
 						}
 					}
 				}
-				else if (element is Group)
+				else if (element is Group group)
 				{
-					best = FindNextTextField(((Group) element).GetChildren(), best, bestCoords, currentCoords, up);
+					best = FindNextTextField(group.GetChildren(), best, bestCoords, currentCoords, up);
 				}
 			}
 

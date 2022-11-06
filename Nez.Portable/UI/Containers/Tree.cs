@@ -649,10 +649,10 @@ namespace Nez.UI.Containers
 		public Tree GetTree()
 		{
 			var parent = actor.GetParent();
-			if (!(parent is Tree))
+			if (!(parent is Tree tree))
 				return null;
 
-			return (Tree) parent;
+			return tree;
 		}
 
 		public Element GetActor()

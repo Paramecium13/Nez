@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Nez.UI
 {
@@ -31,25 +31,25 @@ namespace Nez.UI
 		/// </summary>
 		public Keys KeyboardActionKey = Keys.Enter;
 
-		Group root;
+		private readonly Group root;
 		public Camera Camera;
-		bool debugAll, debugUnderMouse, debugParentUnderMouse;
-		Table.TableDebug debugTableUnderMouse = Table.TableDebug.None;
+		private bool debugAll, debugUnderMouse, debugParentUnderMouse;
+		private Table.TableDebug debugTableUnderMouse = Table.TableDebug.None;
 
-		System.Numerics.Vector2 _lastMousePosition;
-		Element _mouseOverElement;
-		private Dictionary<int, Element> _touchOverElement = new Dictionary<int, Element>();
-		List<Element> _inputFocusListeners = new List<Element>();
+		private System.Numerics.Vector2 _lastMousePosition;
+		private Element _mouseOverElement;
+		private readonly Dictionary<int, Element> _touchOverElement = new Dictionary<int, Element>();
+		private readonly List<Element> _inputFocusListeners = new List<Element>();
 
-		static Keys[] _emptyKeys = new Keys[0];
-		IKeyboardListener _keyboardFocusElement;
-		Keys[] _lastPressedKeys = _emptyKeys;
-		ITimer _keyRepeatTimer;
-		float _keyRepeatTime = 0.2f;
-		Keys _repeatKey;
+		private static readonly Keys[] _emptyKeys = new Keys[0];
+		private IKeyboardListener _keyboardFocusElement;
+		private Keys[] _lastPressedKeys = _emptyKeys;
+		private ITimer _keyRepeatTimer;
+		private readonly float _keyRepeatTime = 0.2f;
+		private Keys _repeatKey;
 
-		bool _isGamepadFocusEnabled;
-		IGamepadFocusable _gamepadFocusElement;
+		private bool _isGamepadFocusEnabled;
+		private IGamepadFocusable _gamepadFocusElement;
 
 
 		public Stage()
@@ -84,7 +84,7 @@ namespace Nez.UI
 		}
 
 
-		void DrawDebug()
+		private void DrawDebug()
 		{
 			if (debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.TableDebug.None)
 			{
@@ -119,8 +119,8 @@ namespace Nez.UI
 					((Table) element).SetTableDebug(debugTableUnderMouse);
 				}
 
-				if (debugAll && element is Group)
-					((Group) element).DebugAll();
+				if (debugAll && element is Group group)
+					group.DebugAll();
 
 				DisableDebug(root, element);
 			}
@@ -137,16 +137,16 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="element">element.</param>
 		/// <param name="except">Except.</param>
-		void DisableDebug(Element element, Element except)
+		private void DisableDebug(Element element, Element except)
 		{
 			if (element == except)
 				return;
 
 			element.SetDebug(false);
 
-			if (element is Group)
+			if (element is Group group)
 			{
-				var children = ((Group) element).children;
+				var children = group.children;
 				for (int i = 0, n = children.Count; i < n; i++)
 					DisableDebug(children[i], except);
 			}
@@ -182,7 +182,7 @@ namespace Nez.UI
 		/// <summary>
 		/// Handle mouse input events.
 		/// </summary>
-		void UpdateInputMouse()
+		private void UpdateInputMouse()
 		{
 			// consolidate input checks so that we can add touch input easily later
 			var currentMousePosition = GetMousePosition();
@@ -204,7 +204,7 @@ namespace Nez.UI
 		/// <summary>
 		/// Handle all the touch input events.
 		/// </summary>
-		void UpdateInputTouch()
+		private void UpdateInputTouch()
 		{
 			foreach (var touch in Input.Touch.CurrentTouches)
 			{
@@ -213,15 +213,13 @@ namespace Nez.UI
 				var inputReleased = touch.State == Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Released ||
 				                    touch.State == Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Invalid;
 				var inputMoved = false;
-				Microsoft.Xna.Framework.Input.Touch.TouchLocation prevTouch;
-				if (touch.TryGetPreviousLocation(out prevTouch))
+				if (touch.TryGetPreviousLocation(out var prevTouch))
 				{
 					if (System.Numerics.Vector2.Distance(touch.Position.ToSimd(), prevTouch.Position.ToSimd()) >= float.Epsilon)
 						inputMoved = true;
 				}
 
-				Element lastOver;
-				_touchOverElement.TryGetValue(touch.Id, out lastOver);
+				_touchOverElement.TryGetValue(touch.Id, out var lastOver);
 
 				if (Entity != null && !IsFullScreen)
 					inputPos = Input.ScaledPosition(inputPos);
@@ -244,7 +242,7 @@ namespace Nez.UI
 		/// <param name="inputReleased">up this frame</param>
 		/// <param name="inputMoved">cursor in a different location</param>
 		/// <param name="lastOver">last element that the cursor was over, ref is saved here for next update</param>
-		void UpdateInputPoint(System.Numerics.Vector2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved,
+		private void UpdateInputPoint(System.Numerics.Vector2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved,
 		                      ref Element lastOver)
 		{
 			var over = Hit(inputPos);
@@ -275,17 +273,16 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
-		void UpdateInputDown(System.Numerics.Vector2 inputPos, Element over)
+		private void UpdateInputDown(System.Numerics.Vector2 inputPos, Element over)
 		{
 			// lose keyboard focus if we click outside of the keyboardFocusElement
 			if (_keyboardFocusElement != null && over != _keyboardFocusElement)
 				SetKeyboardFocus(null);
 
 			// if we are over an element and the left button was pressed we notify our listener
-			if (over is IInputListener)
+			if (over is IInputListener listener)
 			{
 				var elementLocal = over.StageToLocalCoordinates(inputPos);
-				var listener = over as IInputListener;
 
 				// add the listener to be notified for all onMouseDown and onMouseUp events
 				if (listener.OnMousePressed(elementLocal))
@@ -300,7 +297,7 @@ namespace Nez.UI
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
 		/// <param name="lastOver">element that was previously under the cursor</param>
-		void UpdateInputMoved(System.Numerics.Vector2 inputPos, Element over, Element lastOver)
+		private void UpdateInputMoved(System.Numerics.Vector2 inputPos, Element over, Element lastOver)
 		{
 			for (var i = _inputFocusListeners.Count - 1; i >= 0; i--)
 				((IInputListener) _inputFocusListeners[i]).OnMouseMoved(_inputFocusListeners[i]
@@ -318,7 +315,7 @@ namespace Nez.UI
 		/// Mouse or touch is being released this frame.
 		/// </summary>
 		/// <param name="inputPos">location under cursor</param>
-		void UpdateInputReleased(System.Numerics.Vector2 inputPos)
+		private void UpdateInputReleased(System.Numerics.Vector2 inputPos)
 		{
 			for (var i = _inputFocusListeners.Count - 1; i >= 0; i--)
 				((IInputListener) _inputFocusListeners[i]).OnMouseUp(_inputFocusListeners[i]
@@ -332,7 +329,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The mouse wheel.</returns>
 		/// <param name="mouseOverElement">Mouse over element.</param>
-		void HandleMouseWheel(Element mouseOverElement)
+		private void HandleMouseWheel(Element mouseOverElement)
 		{
 			// bail out if we have no mouse wheel motion
 			if (Input.MouseWheelDelta == 0)
@@ -353,7 +350,7 @@ namespace Nez.UI
 		}
 
 
-		void UpdateKeyboardState()
+		private void UpdateKeyboardState()
 		{
 			// dont process if we have no focused text element
 			if (_keyboardFocusElement == null)
@@ -409,7 +406,7 @@ namespace Nez.UI
 		}
 
 
-		void UpdateGamepadState()
+		private void UpdateGamepadState()
 		{
 			if (_gamepadFocusElement != null)
 			{
@@ -421,7 +418,6 @@ namespace Nez.UI
 					_gamepadFocusElement.OnActionButtonReleased();
 			}
 
-			IGamepadFocusable nextElement = null;
 			var direction = Direction.None;
 			if (Input.GamePads[0].DpadLeftPressed || Input.GamePads[0].IsLeftStickLeftPressed() ||
 			    (KeyboardEmulatesGamepad && Input.IsKeyPressed(Keys.Left)))
@@ -439,7 +435,7 @@ namespace Nez.UI
 			// make sure we have a valid direction
 			if (direction != Direction.None)
 			{
-				nextElement = FindNextGamepadFocusable(_gamepadFocusElement, direction);
+				var nextElement = FindNextGamepadFocusable(_gamepadFocusElement, direction);
 				if (nextElement == null)
 				{
 					// we have no next Element so if the current Element has explicit focuasable control send along the unhandled direction
@@ -469,7 +465,7 @@ namespace Nez.UI
 		/// <summary>
 		/// stops and nulls the keyRepeatTimer if it is running
 		/// </summary>
-		void ClearKeyRepeatTimer()
+		private void ClearKeyRepeatTimer()
 		{
 			if (_keyRepeatTimer != null)
 			{
@@ -709,16 +705,10 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to screen coordinates.</returns>
 		/// <param name="stageCoords">Stage coords.</param>
-		public System.Numerics.Vector2 StageToScreenCoordinates(System.Numerics.Vector2 stageCoords)
-		{
-			if (Camera == null)
-				return stageCoords;
-
-			return Camera.WorldToScreenPoint(stageCoords);
-		}
+		public System.Numerics.Vector2 StageToScreenCoordinates(System.Numerics.Vector2 stageCoords) => Camera?.WorldToScreenPoint(stageCoords) ?? stageCoords;
 
 
-		IGamepadFocusable FindNextGamepadFocusable(IGamepadFocusable relativeToFocusable, Direction direction)
+		private IGamepadFocusable FindNextGamepadFocusable(IGamepadFocusable relativeToFocusable, Direction direction)
 		{
 			// first, we check to see if the IGamepadFocusable has hard-wired control.
 			if (relativeToFocusable.ShouldUseExplicitFocusableControl)
@@ -810,7 +800,7 @@ namespace Nez.UI
 		}
 
 
-		void FindAllElementsOfType<T>(List<Element> elements, List<T> foundElements) where T : class
+		private void FindAllElementsOfType<T>(List<Element> elements, List<T> foundElements) where T : class
 		{
 			for (var i = 0; i < elements.Count; i++)
 			{

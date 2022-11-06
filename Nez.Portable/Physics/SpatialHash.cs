@@ -576,19 +576,20 @@ namespace Nez.Spatial
 			{
 				var potential = cell[i];
 
+				// only hit triggers if we are set to do so
+				if (potential.IsTrigger && !Physics.RaycastsHitTriggers)
+					continue;
+
+				// make sure the Collider is on the layerMask
+				if (!_layerMask.IsFlagSet(potential.PhysicsLayer))
+					continue;
+
 				// manage which colliders we already processed
 				if (_checkedColliders.Contains(potential))
 					continue;
 
 				_checkedColliders.Add(potential);
 
-				// only hit triggers if we are set to do so
-				if (potential.IsTrigger && !Physics.RaycastsHitTriggers)
-					continue;
-
-				// make sure the Collider is on the layerMask
-				if (!Flags.IsFlagSet(_layerMask, potential.PhysicsLayer))
-					continue;
 
 				// TODO: is rayIntersects performant enough? profile it. Collisions.rectToLine might be faster
 				// TODO: if the bounds check returned more data we wouldnt have to do any more for a BoxCollider check

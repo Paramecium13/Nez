@@ -120,9 +120,9 @@ namespace Nez.UI
 		{
 			get
 			{
-				if (_widget is ILayout)
+				if (_widget is ILayout layout)
 				{
-					var width = ((ILayout)_widget).PreferredWidth;
+					var width = layout.PreferredWidth;
 					if (_style.Background != null) width += _style.Background.LeftWidth + _style.Background.RightWidth;
 					if (_forceScrollY)
 					{
@@ -143,9 +143,9 @@ namespace Nez.UI
 		{
 			get
 			{
-				if (_widget is ILayout)
+				if (_widget is ILayout layout)
 				{
-					var height = ((ILayout)_widget).PreferredHeight;
+					var height = layout.PreferredHeight;
 					if (_style.Background != null)
 						height += _style.Background.TopHeight + _style.Background.BottomHeight;
 					if (_forceScrollX)
@@ -198,9 +198,8 @@ namespace Nez.UI
 
 			// Get widget's desired width.
 			float widgetWidth, widgetHeight;
-			if (_widget is ILayout)
+			if (_widget is ILayout layout)
 			{
-				var layout = _widget as ILayout;
 				widgetWidth = layout.PreferredWidth;
 				widgetHeight = layout.PreferredHeight;
 			}
@@ -358,8 +357,8 @@ namespace Nez.UI
 			}
 
 			_widget.SetSize(widgetWidth, widgetHeight);
-			if (_widget is ILayout)
-				((ILayout)_widget).Validate();
+			if (_widget is ILayout widget)
+				widget.Validate();
 		}
 
 		#endregion
@@ -1255,14 +1254,14 @@ namespace Nez.UI
 
 			_widget.SetPosition(eleX, eleY);
 
-			if (_widget is ICullable)
+			if (_widget is ICullable cullable)
 			{
 				var cull = new Rectangle(
 					(int)(-_widget.GetX() + _widgetAreaBounds.X),
 					(int)(-_widget.GetY() + _widgetAreaBounds.Y),
 					_widgetAreaBounds.Width,
 					_widgetAreaBounds.Height);
-				((ICullable)_widget).SetCullingArea(cull);
+				cullable.SetCullingArea(cull);
 			}
 
 			// draw the background

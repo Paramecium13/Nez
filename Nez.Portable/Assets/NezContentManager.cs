@@ -357,9 +357,8 @@ namespace Nez.Systems
 					var assetToRemove = LoadedAssets[assetName];
 					for (var i = 0; i < DisposableAssets.Count; i++)
 					{
-						// see if the asset is disposeable. If so, find and dispose of it.
-						var typedAsset = DisposableAssets[i] as T;
-						if (typedAsset != null && typedAsset == assetToRemove)
+						// see if the asset is disposable. If so, find and dispose of it.
+						if (DisposableAssets[i] is T typedAsset && typedAsset == assetToRemove)
 						{
 							typedAsset.Dispose();
 							DisposableAssets.RemoveAt(i);

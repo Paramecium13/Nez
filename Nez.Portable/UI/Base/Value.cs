@@ -23,7 +23,7 @@
 		/// </summary>
 		public class Fixed : Value
 		{
-			float value;
+			private readonly float value;
 
 			public Fixed(float value)
 			{
@@ -63,8 +63,8 @@
 		{
 			public override float Get(Element context)
 			{
-				if (context is ILayout)
-					return ((ILayout) context).MinHeight;
+				if (context is ILayout layout)
+					return layout.MinHeight;
 
 				return context?.height ?? 0;
 			}
@@ -80,8 +80,8 @@
 		{
 			public override float Get(Element context)
 			{
-				if (context is ILayout)
-					return ((ILayout) context).PreferredWidth;
+				if (context is ILayout layout)
+					return layout.PreferredWidth;
 
 				return context?.width ?? 0;
 			}
@@ -97,8 +97,8 @@
 		{
 			public override float Get(Element context)
 			{
-				if (context is ILayout)
-					return ((ILayout) context).PreferredHeight;
+				if (context is ILayout layout)
+					return layout.PreferredHeight;
 
 				return context?.height ?? 0;
 			}
@@ -114,8 +114,8 @@
 		{
 			public override float Get(Element context)
 			{
-				if (context is ILayout)
-					return ((ILayout) context).MaxWidth;
+				if (context is ILayout layout)
+					return layout.MaxWidth;
 
 				return context?.width ?? 0;
 			}
@@ -131,8 +131,8 @@
 		{
 			public override float Get(Element context)
 			{
-				if (context is ILayout)
-					return ((ILayout) context).MaxHeight;
+				if (context is ILayout layout)
+					return layout.MaxHeight;
 
 				return context?.height ?? 0;
 			}

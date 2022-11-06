@@ -38,14 +38,14 @@ namespace Nez.AI.BehaviorTrees
 		BehaviorTreeBuilder<T> SetChildOnParent(Behavior<T> child)
 		{
 			var parent = _parentNodeStack.Peek();
-			if (parent is Composite<T>)
+			if (parent is Composite<T> composite)
 			{
-				(parent as Composite<T>).AddChild(child);
+				composite.AddChild(child);
 			}
-			else if (parent is Decorator<T>)
+			else if (parent is Decorator<T> decorator)
 			{
 				// Decorators have just one child so end it automatically
-				(parent as Decorator<T>).Child = child;
+				decorator.Child = child;
 				EndDecorator();
 			}
 

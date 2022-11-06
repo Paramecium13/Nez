@@ -81,9 +81,9 @@ namespace Nez.UI
 			for (var i = 0; i < buttons.Count; i++)
 			{
 				var button = buttons[i];
-				if (button is TextButton && text == ((TextButton) button).GetText())
+				if (button is TextButton textButton && text == textButton.GetText())
 				{
-					button.IsChecked = true;
+					textButton.IsChecked = true;
 					return;
 				}
 			}

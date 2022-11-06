@@ -45,17 +45,17 @@ namespace Nez
 				_enabledCheckbox = new CheckBox(string.Empty, skin);
 				_enabledCheckbox.ProgrammaticChangeEvents = false;
 
-				if (Target is Component)
-					_enabledCheckbox.IsChecked = ((Component) Target).Enabled;
-				else if (Target is PostProcessor)
-					_enabledCheckbox.IsChecked = ((PostProcessor) Target).Enabled;
+				if (Target is Component component)
+					_enabledCheckbox.IsChecked = component.Enabled;
+				else if (Target is PostProcessor processor)
+					_enabledCheckbox.IsChecked = processor.Enabled;
 
 				_enabledCheckbox.OnChanged += newValue =>
 				{
-					if (Target is Component)
-						((Component) Target).Enabled = newValue;
-					else if (Target is PostProcessor)
-						((PostProcessor) Target).Enabled = newValue;
+					if (Target is Component target)
+						target.Enabled = newValue;
+					else if (Target is PostProcessor processor)
+						processor.Enabled = newValue;
 				};
 
 				table.Add(_enabledCheckbox).Right();

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
-
 namespace Nez
 {
 	public partial class Entity : IComparable<Entity>
 	{
-		static uint _idGenerator;
+		private static uint _idGenerator;
 
 		#region properties and fields
 
@@ -23,7 +22,7 @@ namespace Nez
 		public string Name;
 
 		/// <summary>
-		/// unique identifer for this Entity
+		/// unique identifier for this Entity
 		/// </summary>
 		public readonly uint Id;
 
@@ -47,7 +46,7 @@ namespace Nez
 		}
 
 		/// <summary>
-		/// specifies how often this entitys update method should be called. 1 means every frame, 2 is every other, etc
+		/// specifies how often this entity's update method should be called. 1 means every frame, 2 is every other, etc
 		/// </summary>
 		public uint UpdateInterval = 1;
 
@@ -78,12 +77,12 @@ namespace Nez
 		/// <summary>
 		/// flag indicating if destroy was called on this Entity
 		/// </summary>
-		internal bool _isDestroyed;
+		protected internal bool _isDestroyed;
 
 		internal BitSet componentBits;
 
-		int _tag = 0;
-		bool _enabled = true;
+		private int _tag = 0;
+		private bool _enabled = true;
 		internal int _updateOrder = 0;
 
 		#endregion
@@ -188,7 +187,6 @@ namespace Nez
 
 		#endregion
 
-
 		public Entity(string name)
 		{
 			Components = new ComponentList(this);
@@ -278,7 +276,7 @@ namespace Nez
 		/// <summary>
 		/// removes the Entity from the scene and destroys all children
 		/// </summary>
-		public void Destroy()
+		public virtual void Destroy()
 		{
 			_isDestroyed = true;
 			Scene.Entities.Remove(this);

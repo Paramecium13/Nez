@@ -202,8 +202,8 @@ namespace Nez.UI
 			}
 
 			_element.SetBounds(x, y, width, height);
-			if (_element is ILayout)
-				((ILayout) _element).Validate();
+			if (_element is ILayout layout)
+				layout.Validate();
 		}
 
 
@@ -266,10 +266,7 @@ namespace Nez.UI
 		/// <param name="size">Size.</param>
 		public Container SetSize(Value size)
 		{
-			if (size == null)
-				throw new Exception("size cannot be null.");
-
-			_minWidthValue = size;
+			_minWidthValue = size ?? throw new Exception("size cannot be null.");
 			_minHeightValue = size;
 			_prefWidthValue = size;
 			_prefHeightValue = size;
@@ -286,13 +283,8 @@ namespace Nez.UI
 		/// <param name="height">Height.</param>
 		public Container SetSize(Value width, Value height)
 		{
-			if (width == null)
-				throw new Exception("width cannot be null.");
-			if (height == null)
-				throw new Exception("height cannot be null.");
-
-			_minWidthValue = width;
-			_minHeightValue = height;
+			_minWidthValue = width ?? throw new Exception("width cannot be null.");
+			_minHeightValue = height ?? throw new Exception("height cannot be null.");
 			_prefWidthValue = width;
 			_prefHeightValue = height;
 			_maxWidthValue = width;
@@ -330,10 +322,7 @@ namespace Nez.UI
 		/// <param name="width">Width.</param>
 		public Container SetWidth(Value width)
 		{
-			if (width == null)
-				throw new Exception("width cannot be null.");
-
-			_minWidthValue = width;
+			_minWidthValue = width ?? throw new Exception("width cannot be null.");
 			_prefWidthValue = width;
 			_maxWidthValue = width;
 			return this;
@@ -357,10 +346,7 @@ namespace Nez.UI
 		/// <param name="height">Height.</param>
 		public Container SetHeight(Value height)
 		{
-			if (height == null)
-				throw new Exception("height cannot be null.");
-
-			_minHeightValue = height;
+			_minHeightValue = height ?? throw new Exception("height cannot be null.");
 			_prefHeightValue = height;
 			_maxHeightValue = height;
 			return this;
@@ -384,10 +370,7 @@ namespace Nez.UI
 		/// <param name="size">Size.</param>
 		public Container SetMinSize(Value size)
 		{
-			if (size == null)
-				throw new Exception("size cannot be null.");
-
-			_minWidthValue = size;
+			_minWidthValue = size ?? throw new Exception("size cannot be null.");
 			_minHeightValue = size;
 			return this;
 		}
@@ -400,33 +383,22 @@ namespace Nez.UI
 		/// <param name="height">Height.</param>
 		public Container SetMinSize(Value width, Value height)
 		{
-			if (width == null)
-				throw new Exception("width cannot be null.");
-			if (height == null)
-				throw new Exception("height cannot be null.");
-
-			_minWidthValue = width;
-			_minHeightValue = height;
+			_minWidthValue = width ?? throw new Exception("width cannot be null.");
+			_minHeightValue = height ?? throw new Exception("height cannot be null.");
 			return this;
 		}
 
 
 		public Container SetMinWidth(Value minWidth)
 		{
-			if (minWidth == null)
-				throw new Exception("minWidth cannot be null.");
-
-			_minWidthValue = minWidth;
+			_minWidthValue = minWidth ?? throw new Exception("minWidth cannot be null.");
 			return this;
 		}
 
 
 		public Container SetMinHeight(Value minHeight)
 		{
-			if (minHeight == null)
-				throw new Exception("minHeight cannot be null.");
-
-			_minHeightValue = minHeight;
+			_minHeightValue = minHeight ?? throw new Exception("minHeight cannot be null.");
 			return this;
 		}
 
@@ -474,10 +446,7 @@ namespace Nez.UI
 		/// <param name="size">Size.</param>
 		public Container PrefSize(Value size)
 		{
-			if (size == null)
-				throw new Exception("size cannot be null.");
-
-			_prefWidthValue = size;
+			_prefWidthValue = size ?? throw new Exception("size cannot be null.");
 			_prefHeightValue = size;
 			return this;
 		}
@@ -490,33 +459,22 @@ namespace Nez.UI
 		/// <param name="height">Height.</param>
 		public Container PrefSize(Value width, Value height)
 		{
-			if (width == null)
-				throw new Exception("width cannot be null.");
-			if (height == null)
-				throw new Exception("height cannot be null.");
-
-			_prefWidthValue = width;
-			_prefHeightValue = height;
+			_prefWidthValue = width ?? throw new Exception("width cannot be null.");
+			_prefHeightValue = height ?? throw new Exception("height cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPrefWidth(Value prefWidth)
 		{
-			if (prefWidth == null)
-				throw new Exception("prefWidth cannot be null.");
-
-			_prefWidthValue = prefWidth;
+			_prefWidthValue = prefWidth ?? throw new Exception("prefWidth cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPrefHeight(Value prefHeight)
 		{
-			if (prefHeight == null)
-				throw new Exception("prefHeight cannot be null.");
-
-			_prefHeightValue = prefHeight;
+			_prefHeightValue = prefHeight ?? throw new Exception("prefHeight cannot be null.");
 			return this;
 		}
 
@@ -564,10 +522,7 @@ namespace Nez.UI
 		/// <param name="size">Size.</param>
 		public Container SetMaxSize(Value size)
 		{
-			if (size == null)
-				throw new Exception("size cannot be null.");
-
-			_maxWidthValue = size;
+			_maxWidthValue = size ?? throw new Exception("size cannot be null.");
 			_maxHeightValue = size;
 			return this;
 		}
@@ -580,33 +535,22 @@ namespace Nez.UI
 		/// <param name="height">Height.</param>
 		public Container SetMaxSize(Value width, Value height)
 		{
-			if (width == null)
-				throw new Exception("width cannot be null.");
-			if (height == null)
-				throw new Exception("height cannot be null.");
-
-			_maxWidthValue = width;
-			_maxHeightValue = height;
+			_maxWidthValue = width ?? throw new Exception("width cannot be null.");
+			_maxHeightValue = height ?? throw new Exception("height cannot be null.");
 			return this;
 		}
 
 
 		public Container SetMaxWidth(Value maxWidth)
 		{
-			if (maxWidth == null)
-				throw new Exception("maxWidth cannot be null.");
-
-			_maxWidthValue = maxWidth;
+			_maxWidthValue = maxWidth ?? throw new Exception("maxWidth cannot be null.");
 			return this;
 		}
 
 
 		public Container SetMaxHeight(Value maxHeight)
 		{
-			if (maxHeight == null)
-				throw new Exception("maxHeight cannot be null.");
-
-			_maxHeightValue = maxHeight;
+			_maxHeightValue = maxHeight ?? throw new Exception("maxHeight cannot be null.");
 			return this;
 		}
 
@@ -654,10 +598,7 @@ namespace Nez.UI
 		/// <param name="pad">Pad.</param>
 		public Container SetPad(Value pad)
 		{
-			if (pad == null)
-				throw new Exception("pad cannot be null.");
-
-			_padTop = pad;
+			_padTop = pad ?? throw new Exception("pad cannot be null.");
 			_padLeft = pad;
 			_padBottom = pad;
 			_padRight = pad;
@@ -667,59 +608,38 @@ namespace Nez.UI
 
 		public Container SetPad(Value top, Value left, Value bottom, Value right)
 		{
-			if (top == null)
-				throw new Exception("top cannot be null.");
-			if (left == null)
-				throw new Exception("left cannot be null.");
-			if (bottom == null)
-				throw new Exception("bottom cannot be null.");
-			if (right == null)
-				throw new Exception("right cannot be null.");
-
-			_padTop = top;
-			_padLeft = left;
-			_padBottom = bottom;
-			_padRight = right;
+			_padTop = top ?? throw new Exception("top cannot be null.");
+			_padLeft = left ?? throw new Exception("left cannot be null.");
+			_padBottom = bottom ?? throw new Exception("bottom cannot be null.");
+			_padRight = right ?? throw new Exception("right cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPadTop(Value padTop)
 		{
-			if (padTop == null)
-				throw new Exception("padTop cannot be null.");
-
-			_padTop = padTop;
+			_padTop = padTop ?? throw new Exception("padTop cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPadLeft(Value padLeft)
 		{
-			if (padLeft == null)
-				throw new Exception("padLeft cannot be null.");
-
-			_padLeft = padLeft;
+			_padLeft = padLeft ?? throw new Exception("padLeft cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPadBottom(Value padBottom)
 		{
-			if (padBottom == null)
-				throw new Exception("padBottom cannot be null.");
-
-			_padBottom = padBottom;
+			_padBottom = padBottom ?? throw new Exception("padBottom cannot be null.");
 			return this;
 		}
 
 
 		public Container SetPadRight(Value padRight)
 		{
-			if (padRight == null)
-				throw new Exception("padRight cannot be null.");
-
-			_padRight = padRight;
+			_padRight = padRight ?? throw new Exception("padRight cannot be null.");
 			return this;
 		}
 

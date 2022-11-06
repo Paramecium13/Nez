@@ -23,10 +23,10 @@ namespace Nez.UI
 			Element
 		}
 
-		static public Color DebugTableColor = new Color(0, 0, 255, 255);
-		static public Color DebugCellColor = new Color(255, 0, 0, 255);
-		static public Color DebugElementColor = new Color(0, 255, 0, 255);
-		static float[] _columnWeightedWidth, _rowWeightedHeight;
+		public static Color DebugTableColor = new Color(0, 0, 255, 255);
+		public static Color DebugCellColor = new Color(255, 0, 0, 255);
+		public static Color DebugElementColor = new Color(0, 255, 0, 255);
+		private static float[] _columnWeightedWidth, _rowWeightedHeight;
 
 		public override float MinWidth
 		{
@@ -77,35 +77,35 @@ namespace Nez.UI
 		}
 
 
-		int _columns, _rows;
-		bool _implicitEndRow;
+		private int _columns, _rows;
+		private bool _implicitEndRow;
 
-		List<Cell> _cells = new List<Cell>(4);
-		Cell _cellDefaults;
-		List<Cell> _columnDefaults = new List<Cell>(2);
-		Cell _rowDefaults;
+		private readonly List<Cell> _cells = new List<Cell>(4);
+		private readonly Cell _cellDefaults;
+		private readonly List<Cell> _columnDefaults = new List<Cell>(2);
+		private Cell _rowDefaults;
 
-		bool _sizeInvalid = true;
-		float[] _columnMinWidth, _rowMinHeight;
-		float[] _columnPrefWidth, _rowPrefHeight;
-		float _tableMinWidth, _tableMinHeight;
-		float _tablePrefWidth, _tablePrefHeight;
-		float[] _columnWidth, _rowHeight;
-		float[] _expandWidth, _expandHeight;
+		private bool _sizeInvalid = true;
+		private float[] _columnMinWidth, _rowMinHeight;
+		private float[] _columnPrefWidth, _rowPrefHeight;
+		private float _tableMinWidth, _tableMinHeight;
+		private float _tablePrefWidth, _tablePrefHeight;
+		private float[] _columnWidth, _rowHeight;
+		private float[] _expandWidth, _expandHeight;
 
-		Value _padTop = BackgroundTop,
+		private Value _padTop = BackgroundTop,
 			_padLeft = BackgroundLeft,
 			_padBottom = BackgroundBottom,
 			_padRight = BackgroundRight;
 
-		int _align = AlignInternal.Center;
+		private int _align = AlignInternal.Center;
 
-		TableDebug _tableDebug = TableDebug.None;
-		List<DebugRectangleF> _debugRects;
+		private TableDebug _tableDebug = TableDebug.None;
+		private List<DebugRectangleF> _debugRects;
 
 		protected IDrawable _background;
 		public bool Clip;
-		bool _round = true;
+		private bool _round = true;
 
 
 		public Table()
@@ -117,7 +117,7 @@ namespace Nez.UI
 		}
 
 
-		Cell ObtainCell()
+		private Cell ObtainCell()
 		{
 			var cell = Pool<Cell>.Obtain();
 			cell.SetLayout(this);
@@ -401,7 +401,7 @@ namespace Nez.UI
 		}
 
 
-		void EndRow()
+		private void EndRow()
 		{
 			var rowColumns = 0;
 			for (var i = _cells.Count - 1; i >= 0; i--)
@@ -511,10 +511,7 @@ namespace Nez.UI
 		/// <param name="pad">Pad.</param>
 		public Table Pad(Value pad)
 		{
-			if (pad == null)
-				throw new Exception("pad cannot be null.");
-
-			_padTop = pad;
+			_padTop = pad ?? throw new Exception("pad cannot be null.");
 			_padLeft = pad;
 			_padBottom = pad;
 			_padRight = pad;
@@ -526,19 +523,10 @@ namespace Nez.UI
 
 		public Table Pad(Value top, Value left, Value bottom, Value right)
 		{
-			if (top == null)
-				throw new Exception("top cannot be null.");
-			if (left == null)
-				throw new Exception("left cannot be null.");
-			if (bottom == null)
-				throw new Exception("bottom cannot be null.");
-			if (right == null)
-				throw new Exception("right cannot be null.");
-
-			_padTop = top;
-			_padLeft = left;
-			_padBottom = bottom;
-			_padRight = right;
+			_padTop = top ?? throw new Exception("top cannot be null.");
+			_padLeft = left ?? throw new Exception("left cannot be null.");
+			_padBottom = bottom ?? throw new Exception("bottom cannot be null.");
+			_padRight = right ?? throw new Exception("right cannot be null.");
 			_sizeInvalid = true;
 
 			return this;
@@ -551,10 +539,7 @@ namespace Nez.UI
 		/// <param name="padTop">Pad top.</param>
 		public Table PadTop(Value padTop)
 		{
-			if (padTop == null)
-				throw new Exception("padTop cannot be null.");
-
-			_padTop = padTop;
+			_padTop = padTop ?? throw new Exception("padTop cannot be null.");
 			_sizeInvalid = true;
 			return this;
 		}
@@ -566,10 +551,7 @@ namespace Nez.UI
 		/// <param name="padLeft">Pad left.</param>
 		public Table PadLeft(Value padLeft)
 		{
-			if (padLeft == null)
-				throw new Exception("padLeft cannot be null.");
-
-			_padLeft = padLeft;
+			_padLeft = padLeft ?? throw new Exception("padLeft cannot be null.");
 			_sizeInvalid = true;
 
 			return this;
@@ -582,10 +564,7 @@ namespace Nez.UI
 		/// <param name="padBottom">Pad bottom.</param>
 		public Table PadBottom(Value padBottom)
 		{
-			if (padBottom == null)
-				throw new Exception("padBottom cannot be null.");
-
-			_padBottom = padBottom;
+			_padBottom = padBottom ?? throw new Exception("padBottom cannot be null.");
 			_sizeInvalid = true;
 			return this;
 		}
@@ -597,10 +576,7 @@ namespace Nez.UI
 		/// <param name="padRight">Pad right.</param>
 		public Table PadRight(Value padRight)
 		{
-			if (padRight == null)
-				throw new Exception("padRight cannot be null.");
-
-			_padRight = padRight;
+			_padRight = padRight ?? throw new Exception("padRight cannot be null.");
 			_sizeInvalid = true;
 			return this;
 		}
@@ -997,7 +973,7 @@ namespace Nez.UI
 		#endregion
 
 
-		float[] EnsureSize(float[] array, int size)
+		private float[] EnsureSize(float[] array, int size)
 		{
 			if (array == null || array.Length < size)
 				return new float[size];
@@ -1045,8 +1021,8 @@ namespace Nez.UI
 			for (int i = 0, n = children.Count; i < n; i++)
 			{
 				var child = children[i];
-				if (child is ILayout)
-					((ILayout) child).Validate();
+				if (child is ILayout layout)
+					layout.Validate();
 			}
 		}
 
@@ -1059,7 +1035,7 @@ namespace Nez.UI
 		/// <param name="layoutY">Layout y.</param>
 		/// <param name="layoutWidth">Layout width.</param>
 		/// <param name="layoutHeight">Layout height.</param>
-		void Layout(float layoutX, float layoutY, float layoutWidth, float layoutHeight)
+		private void Layout(float layoutX, float layoutY, float layoutWidth, float layoutHeight)
 		{
 			if (_sizeInvalid)
 				ComputeSize();
@@ -1307,7 +1283,7 @@ namespace Nez.UI
 		}
 
 
-		void ComputeSize()
+		private void ComputeSize()
 		{
 			_sizeInvalid = false;
 
@@ -1535,7 +1511,7 @@ namespace Nez.UI
 		}
 
 
-		void ComputeDebugRects(float x, float y, float layoutX, float layoutY, float layoutWidth, float layoutHeight,
+		private void ComputeDebugRects(float x, float y, float layoutX, float layoutY, float layoutWidth, float layoutHeight,
 		                       float tableWidth, float tableHeight, float hpadding, float vpadding)
 		{
 			if (_debugRects != null)
@@ -1584,7 +1560,7 @@ namespace Nez.UI
 		}
 
 
-		void AddDebugRect(float x, float y, float w, float h, Color color)
+		private void AddDebugRect(float x, float y, float w, float h, Color color)
 		{
 			if (_debugRects == null)
 				_debugRects = new List<DebugRectangleF>();
@@ -1598,7 +1574,7 @@ namespace Nez.UI
 
 		#region Value types
 
-		static public Value BackgroundTop = new BackgroundTopValue();
+		public static Value BackgroundTop = new BackgroundTopValue();
 
 		/// <summary>
 		/// Value that is the top padding of the table's background
@@ -1613,7 +1589,7 @@ namespace Nez.UI
 		}
 
 
-		static public Value BackgroundLeft = new BackgroundLeftValue();
+		public static Value BackgroundLeft = new BackgroundLeftValue();
 
 		/// <summary>
 		/// Value that is the left padding of the table's background
@@ -1628,7 +1604,7 @@ namespace Nez.UI
 		}
 
 
-		static public Value BackgroundBottom = new BackgroundBottomValue();
+		public static Value BackgroundBottom = new BackgroundBottomValue();
 
 		/// <summary>
 		/// Value that is the bottom padding of the table's background
@@ -1643,7 +1619,7 @@ namespace Nez.UI
 		}
 
 
-		static public Value BackgroundRight = new BackgroundRightValue();
+		public static Value BackgroundRight = new BackgroundRightValue();
 
 		/// <summary>
 		/// Value that is the right padding of the table's background

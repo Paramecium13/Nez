@@ -13,14 +13,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetParent(this Entity self, Entity entity)
 		{
 			self.Transform.SetParent(entity.Transform);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetPosition(this Entity self, System.Numerics.Vector2 position)
@@ -29,14 +27,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetPosition(this Entity self, float x, float y)
 		{
 			self.Transform.SetPosition(x, y);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetLocalPosition(this Entity self, System.Numerics.Vector2 localPosition)
@@ -45,14 +41,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetRotation(this Entity self, float radians)
 		{
 			self.Transform.SetRotation(radians);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetRotationDegrees(this Entity self, float degrees)
@@ -61,14 +55,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetLocalRotation(this Entity self, float radians)
 		{
 			self.Transform.SetLocalRotation(radians);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetLocalRotationDegrees(this Entity self, float degrees)
@@ -77,14 +69,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetScale(this Entity self, System.Numerics.Vector2 scale)
 		{
 			self.Transform.SetScale(scale);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetScale(this Entity self, float scale)
@@ -93,14 +83,12 @@ namespace Nez
 			return self;
 		}
 
-
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetLocalScale(this Entity self, System.Numerics.Vector2 scale)
 		{
 			self.Transform.SetLocalScale(scale);
 			return self;
 		}
-
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Entity SetLocalScale(this Entity self, float scale)

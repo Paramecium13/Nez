@@ -66,9 +66,8 @@ namespace Nez.UI
 			for (var i = 0; i < children.Count; i++)
 			{
 				var child = children[i];
-				if (child is ILayout)
+				if (child is ILayout layout)
 				{
-					var layout = (ILayout) child;
 					_prefWidth += layout.PreferredWidth;
 					_prefHeight = Math.Max(_prefHeight, layout.PreferredHeight);
 				}
@@ -100,9 +99,9 @@ namespace Nez.UI
 				float width, height;
 				ILayout layout = null;
 
-				if (child is ILayout)
+				if (child is ILayout child1)
 				{
-					layout = (ILayout) child;
+					layout = child1;
 					if (_fill > 0)
 						height = groupHeight * _fill;
 					else
@@ -140,8 +139,7 @@ namespace Nez.UI
 				if (!_reverse)
 					x += (width + _spacing);
 
-				if (layout != null)
-					layout.Validate();
+				layout?.Validate();
 			}
 		}
 

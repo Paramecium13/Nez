@@ -74,9 +74,9 @@ namespace Nez.Shadows
 					AddLineOccluder(poly.Points[firstIndex] + poly.position, poly.Points[i] + poly.position);
 				}
 			}
-			else if (collider is CircleCollider)
+			else if (collider is CircleCollider circleCollider)
 			{
-				AddCircleOccluder(collider.AbsolutePosition, (collider as CircleCollider).Radius);
+				AddCircleOccluder(circleCollider.AbsolutePosition, circleCollider.Radius);
 			}
 		}
 

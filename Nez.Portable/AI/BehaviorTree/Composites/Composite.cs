@@ -150,8 +150,8 @@ namespace Nez.AI.BehaviorTrees
 		/// <param name="node">Node.</param>
 		TaskStatus UpdateConditionalNode(T context, Behavior<T> node)
 		{
-			if (node is ConditionalDecorator<T>)
-				return (node as ConditionalDecorator<T>).ExecuteConditional(context, true);
+			if (node is ConditionalDecorator<T> decorator)
+				return decorator.ExecuteConditional(context, true);
 			else
 				return node.Update(context);
 		}
