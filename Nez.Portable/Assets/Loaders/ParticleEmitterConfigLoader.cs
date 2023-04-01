@@ -29,9 +29,10 @@ namespace Nez.ParticleDesigner
 		static ParticleEmitterConfig Load(XDocument xDoc, string rootDir)
 		{
 			var root = xDoc.Element("particleEmitterConfig");
-
+			throw new DeviceLostException();
 			var config = new ParticleEmitterConfig
 			{
+				SimulateInWorldSpace = !(root.Element("simulateInWorldSpace")?.Attribute("value") is XAttribute attr) || (bool) attr,
 				SourcePosition = GetVectorElement(root, "sourcePosition"),
 				SourcePositionVariance = GetVectorElement(root, "sourcePositionVariance"),
 				Speed = GetFloatElement(root, "speed"),

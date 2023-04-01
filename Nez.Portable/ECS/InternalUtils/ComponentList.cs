@@ -274,6 +274,29 @@ namespace Nez
 		}
 
 		/// <summary>
+		/// Gets all the enabled components of type T without a List allocation
+		/// </summary>
+		/// <param name="components">Components.</param>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public void GetEnabledComponents<T>(List<T> components) where T : class
+		{
+			for (var i = 0; i < _components.Length; i++)
+			{
+				var component = _components.Buffer[i];
+				if (component.Enabled && component is T component1)
+					components.Add(component1);
+			}
+
+			// we also check the pending components just in case addComponent and getComponent are called in the same frame
+			for (var i = 0; i < _componentsToAdd.Count; i++)
+			{
+				var component = _componentsToAdd[i];
+				if (component.Enabled && component is T component1)
+					components.Add(component1);
+			}
+		}
+		/// <summary>
 		/// Gets all the components of type T. The returned List can be put back in the pool via ListPool.free.
 		/// </summary>
 		/// <returns>The components.</returns>

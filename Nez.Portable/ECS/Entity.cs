@@ -469,6 +469,13 @@ namespace Nez
 		public void GetComponents<T>(List<T> componentList) where T : class => Components.GetComponents(componentList);
 
 		/// <summary>
+		/// Gets all the enabled components of type T without a List allocation
+		/// </summary>
+		/// <param name="componentList">Component list.</param>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		public void GetEnabledComponents<T>(List<T> componentList) where T : class => Components.GetEnabledComponents(componentList);
+
+		/// <summary>
 		/// Gets all the components of type T. The returned List can be put back in the pool via ListPool.free.
 		/// </summary>
 		/// <returns>The component.</returns>
